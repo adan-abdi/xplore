@@ -4,7 +4,7 @@ xplorE Application is a Super-App built with flutter that intends to separately 
 
 The base modules include:
 
-    - Onboarding: 
+    - Onboarding: (FirebaseAuth)
         - Cut across platforms `Android`, `iOS` and Web
         - Manages User Identity and Authentication
         - Should include app security management like `biometric-login`, `PIN` and OTPs
@@ -16,7 +16,7 @@ The base modules include:
         - Should manage defaut user + business + employee agents + admin/superuser
 
 
-    - Dashboard:
+    - Dashboard: (FireStoreDB)
         - Should contain business dashboards
         - Allow for business account details (Location, PaymentProfile)
         - Allow for inventory uploading
@@ -24,7 +24,7 @@ The base modules include:
         - Allow businesses to upload microApp Programmes following our code-guidelines [Secondary BusinessType]
         - Allow business to register agents (agents to manage: orders/delivery, inventory)
 
-    - Core: which in V1 includes [Catalogue Module]:
+    - Core: which in V1 includes [Catalogue Module]: (FireStoreDB)
         - Should allow for grid view of supported businesses and actions(pay, order-fulfilemt(delivery), verify-payment, scan etc)
         - Should showcase grid of business products + detail views
         - Should showcase promoted bussineses-carousel-cards with adStories
@@ -34,7 +34,7 @@ The base modules include:
         - Drawer to manage roles + accountProfile(Profile) + Logout
         - Feed
 
-    - Payment:
+    - Payment: (mPesa, FlutterWave & FireStoreDB)
         - mPesa Powered default primary payment 
         - FlutterWave secondary payment (card, bank, etc)
         - Post Payment verification with verify-payment-QR-module
@@ -42,5 +42,8 @@ The base modules include:
 
 The secondary modules include:
 
-    - Delivery Module
-    - ChatModule / Comms (Video, Call)
+    - Delivery Module (GoogleMaps + FireStoreDB)
+    - ChatModule / Comms (Video, Call) (VideoChatSaaS - Agora/Twillio)
+
+
+v1 Release Date: August 21st 2022

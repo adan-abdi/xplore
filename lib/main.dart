@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:xplore_origin/domain/core/value_objects/app_strings.dart';
-import 'package:xplore_origin/presentation/core/xplore.dart';
+import 'package:xplore_origin/core/domain/core/value_objects/app_strings.dart';
+import 'package:xplore_origin/core/presentation/core/xplore.dart';
 
 void main() {
   runApp(MyApp());

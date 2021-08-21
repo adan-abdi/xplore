@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xplore_origin/application/core/themes/app_themes.dart';
+import 'package:xplore_origin/core/application/core/themes/app_themes.dart';
 
 class XploreAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
