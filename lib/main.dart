@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/presentation/core/xplore.dart';
+import 'package:xplore_origin/domain/core/value_objects/app_strings.dart';
+import 'package:xplore_origin/presentation/core/xplore.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,11 +10,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: XploreOriginStrings.packageName,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: XploreApp(),
+      home: XploreAppRoot(),
     );
   }
 }
