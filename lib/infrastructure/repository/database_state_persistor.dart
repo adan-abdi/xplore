@@ -7,12 +7,12 @@ import 'package:xplore/infrastructure/repository/database_base.dart';
 import 'package:xplore/infrastructure/repository/database_mobile.dart';
 import 'package:xplore/infrastructure/repository/initialize_db.dart';
 
-/// [BeWellStateDatabase] is the middleware that interacts with the database on behalf
+/// [XploreStateDatabase] is the middleware that interacts with the database on behalf
 /// of the application. From the apps perspective, it doesn't care which database
 /// its saving its state on. HCStateDatabase therefore offers different implementations
 /// for its method.
-class BeWellStateDatabase implements PersistorPrinterDecorator<AppState> {
-  BeWellStateDatabase({
+class XploreStateDatabase implements PersistorPrinterDecorator<AppState> {
+  XploreStateDatabase({
     Duration throttle = const Duration(seconds: 2),
     Duration saveDuration = Duration.zero,
     required this.dataBaseName,
@@ -88,15 +88,16 @@ class BeWellStateDatabase implements PersistorPrinterDecorator<AppState> {
       AppState newState, XploreDatabaseBase<dynamic> database) async {
     // save KYC state
     await database.saveState(
-        data: newState.onboardingState!.toJson(), table: Tables.onboardingState);
+        data: newState.onboardingState!.toJson(),
+        table: Tables.onboardingState);
   }
 
   @visibleForTesting
   Future<AppState> retrieveState(XploreDatabaseBase<dynamic> database) async {
     return const AppState().copyWith(
       // retrieve Onboarding State
-      onboardingState:
-          OnboardingState.fromJson(await database.retrieveState(Tables.onboardingState)),
+      onboardingState: OnboardingState.fromJson(
+          await database.retrieveState(Tables.onboardingState)),
 
       wait: Wait(),
     );
