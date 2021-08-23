@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:xplore_origin/application/core/themes/app_themes.dart';
+import 'package:xplore/application/core/themes/app_themes.dart';
+import 'package:xplore/domain/core/value_objects/app_magic_numbers.dart';
 
 class XploreAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -17,10 +18,11 @@ class XploreAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      toolbarHeight: XploreOriginNumbers.number80,
       title: Text(
         title,
-        style: XploreThemes()
-            .textThemes(color: titletColor ?? XploreThemes.white),
+        style:
+            XploreThemes().textThemes(color: titletColor ?? XploreThemes.white),
       ),
       backgroundColor: appbarColor,
       centerTitle: isTitleCenter,

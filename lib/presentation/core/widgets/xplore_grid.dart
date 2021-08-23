@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:xplore_origin/application/core/themes/app_themes.dart';
-import 'package:xplore_origin/domain/core/value_objects/app_magic_numbers.dart';
+import 'package:xplore/application/core/themes/app_themes.dart';
+import 'package:xplore/domain/core/value_objects/app_magic_numbers.dart';
 
 class XploreGrid extends StatelessWidget {
   const XploreGrid({Key? key}) : super(key: key);
@@ -26,8 +26,7 @@ class XploreGrid extends StatelessWidget {
                 child: Center(
                   child: Text(
                     'module',
-                    style: XploreThemes()
-                        .textThemes(color: XploreThemes.black),
+                    style: XploreThemes().textThemes(color: XploreThemes.black),
                   ),
                 ),
               ),
