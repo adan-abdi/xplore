@@ -2,6 +2,8 @@
 
 xplorE Application is a Super-App built with flutter that intends to separately delevelop various modules that cut across different businesses while allowing the said bussinesses to upload micro-apps that perform their specific domain services.
 
+## Project Initial Scope
+
 The base modules include:
 
     - Onboarding: (FirebaseAuth)
@@ -13,7 +15,7 @@ The base modules include:
             - Email & Password & PIN or [Biometrics]
             - Phone + OTP + PIN &/or [Biometrics]
         - Should also have Google+, Facebook, Twitter, Instagram
-        - Should manage defaut user + business + employee agents + admin/superuser
+        - Should manage defaut user + business + business agents + admin/superuser
 
 
     - Dashboard: (FireStoreDB)
@@ -47,3 +49,38 @@ The secondary modules include:
 
 
 v1 Release Date: August 21st 2022
+
+
+### Project Roadmap (Checklists/Milestones)
+
+#### Milestone 1: Application Setup (Project Init)
+- [x] Add xplore app icons
+- [x] Customize application Launch theme: `Android` and `iOS`
+- [x] Setup and dry run application on `Android`, `iOS` and `Web`
+- [ ] Setup application local state persistence
+- [ ] Setup `async_redux` state management
+- [ ] Setup Firebase Project: Firebase-Auth and FirestoreDB, GCP
+
+#### Milestone 2: Onboarding Module 
+
+- [ ] Create walkthrough pages
+- [ ] Signin, Signup UI
+- [ ] Email/Password Signing with Firebase Auth
+- [ ] Firestore Setup with user collection
+- [ ] Add Social SignIn (Phone, Google, Facebook)
+- [ ] Add `forgot-password`, `password-reset` and `change-password` flows
+- [ ] Add RBAC for `business-account`, `default-user`, `business-agents` and `xplore-admin`
+- [ ] Add Security flows (PINs, OTPs and biometric logins)
+
+#### Milestone 3: Automated Testing and QA: Onboarding Module
+
+- [ ] Unit tests for the onboarding module
+- [ ] Widget Tests for onboarding module
+- [ ] Intergration Testing for onboarding module across all platforms
+- [ ] Setup github actions CI/CD pipeline for testing and building and publishing to store and firebase app distribution
+- [ ] CloseUp Onboarding Module to be used as a standalone flutter package: Prep for customization and OpenSourcing
+
+
+#### Milestone 4: Dashboard/Core?
+
+TBD!

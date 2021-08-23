@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:xplore_origin/core/domain/core/value_objects/app_strings.dart';
-import 'package:xplore_origin/core/presentation/core/xplore.dart';
+import 'package:xplore_origin/application/core/themes/app_themes.dart';
+import 'package:xplore_origin/domain/core/value_objects/app_strings.dart';
+import 'package:xplore_origin/presentation/core/xplore.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: XploreOriginStrings.packageName,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: XploreThemes.primaryColor,
+        accentColor: XploreThemes.accentColor
       ),
       home: XploreAppRoot(),
     );
