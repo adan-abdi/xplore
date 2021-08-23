@@ -24,9 +24,7 @@ abstract class XploreDatabaseBase<T> {
 }
 
 /// [Tables] definitions
-enum Tables {
-  onboardingState
-}
+enum Tables { onboardingState }
 
 /// [TablesEx] extends [Tables] enum to get the values as
 /// strings

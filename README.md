@@ -57,9 +57,9 @@ v1 Release Date: August 21st 2022
 - [x] Add xplore app icons
 - [x] Customize application Launch theme: `Android` and `iOS`
 - [x] Setup and dry run application on `Android`, `iOS` and `Web`
-- [ ] Setup application local state persistence
-- [ ] Setup `async_redux` state management
-- [ ] Setup Firebase Project: Firebase-Auth and FirestoreDB, GCP
+- [x] Setup application local state persistence
+- [x] Setup `async_redux` state management
+- [x] Setup Firebase Project: Firebase-Auth and FirestoreDB, GCP
 
 #### Milestone 2: Onboarding Module 
 
