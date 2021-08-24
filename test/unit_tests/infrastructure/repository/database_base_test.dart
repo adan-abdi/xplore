@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:xplore/infrastructure/repository/database_base.dart';
-import 'package:xplore/infrastructure/repository/migrations.dart';
+import 'package:xplore/infrastructure/database_base.dart';
+import 'package:xplore/infrastructure/migrations.dart';
 
 void main() {
   group('XploreDatabaseBase', () {
     test('Tables enum returns correct values', () {
-      expect(Tables.onboardingState.name, 'onboardingState');
+      expect(Tables.userState.name, 'userState');
     });
 
     test('migrations', () {

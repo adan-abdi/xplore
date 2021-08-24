@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:sqflite/sqflite.dart';
-import 'package:xplore/infrastructure/repository/database_base.dart';
-import 'package:xplore/infrastructure/repository/initialize_db.dart';
-import 'package:xplore/infrastructure/repository/sqlite.dart';
+import 'package:xplore/infrastructure/database_base.dart';
+import 'package:xplore/infrastructure/initialize_db.dart';
+import 'package:xplore/infrastructure/sqlite.dart';
 
 /// [XploreDatabaseMobile] is the main entry for interacting with the database for healthcloud mobile
 /// It uses sqlite which is a common RDMS. Unlike other key:value storage, sqlite offers
@@ -41,7 +41,7 @@ class XploreDatabaseMobile<T extends DatabaseExecutor>
 
   @override
   Future<bool> isDatabaseEmpty() async {
-    final int t1 = await countTableRecords(Tables.onboardingState);
+    final int t1 = await countTableRecords(Tables.userState);
 
     final int counts = t1;
     if (counts > 0) {

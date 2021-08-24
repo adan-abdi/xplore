@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:xplore/infrastructure/repository/initialize_db.dart';
-import 'package:xplore/presentation/core/xplore.dart';
+import 'package:xplore/infrastructure/initialize_db.dart';
 
 /// For a little bit more context on the concept of `Mocking`, take a look at
 /// [this stack overflow question](https://stackoverflow.com/a/40244095/6322723)
@@ -81,10 +80,6 @@ class TestNavigatorObserver extends NavigatorObserver {
     onPush?.call(route, previousRoute);
   }
 }
-
-final Route<dynamic> testRoute = MaterialPageRoute<dynamic>(
-  builder: (_) => XploreAppRoot(),
-);
 
 /// Please refer to:
 ///

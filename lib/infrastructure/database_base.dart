@@ -24,15 +24,15 @@ abstract class XploreDatabaseBase<T> {
 }
 
 /// [Tables] definitions
-enum Tables { onboardingState }
+enum Tables { userState }
 
 /// [TablesEx] extends [Tables] enum to get the values as
 /// strings
 extension TablesEx on Tables {
   String get name {
     switch (this) {
-      case Tables.onboardingState:
-        return 'onboardingState';
+      case Tables.userState:
+        return 'userState';
     }
   }
 }

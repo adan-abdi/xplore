@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
-import 'package:xplore/domain/core/value_objects/app_widget_keys.dart';
+import 'package:xplore/domain/value_objects/app_widget_keys.dart';
 import 'package:xplore/presentation/routes/route_generator.dart';
 
 /// [buildTestWidget] is a widget wrapper used for testing

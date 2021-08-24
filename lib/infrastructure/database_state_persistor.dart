@@ -2,10 +2,10 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
-import 'package:xplore/application/redux/states/onboarding_state.dart';
-import 'package:xplore/infrastructure/repository/database_base.dart';
-import 'package:xplore/infrastructure/repository/database_mobile.dart';
-import 'package:xplore/infrastructure/repository/initialize_db.dart';
+import 'package:xplore/application/redux/states/user_state.dart';
+import 'package:xplore/infrastructure/database_base.dart';
+import 'package:xplore/infrastructure/database_mobile.dart';
+import 'package:xplore/infrastructure/initialize_db.dart';
 
 /// [XploreStateDatabase] is the middleware that interacts with the database on behalf
 /// of the application. From the apps perspective, it doesn't care which database
@@ -43,7 +43,7 @@ class XploreStateDatabase implements PersistorPrinterDecorator<AppState> {
     await Future<dynamic>.delayed(saveDuration!);
 
     if (lastPersistedState == null ||
-        lastPersistedState.onboardingState != newState.onboardingState) {
+        lastPersistedState.userState != newState.userState) {
       await persistState(
         newState,
         XploreDatabaseMobile<Database>(
@@ -88,16 +88,15 @@ class XploreStateDatabase implements PersistorPrinterDecorator<AppState> {
       AppState newState, XploreDatabaseBase<dynamic> database) async {
     // save KYC state
     await database.saveState(
-        data: newState.onboardingState!.toJson(),
-        table: Tables.onboardingState);
+        data: newState.userState!.toJson(), table: Tables.userState);
   }
 
   @visibleForTesting
   Future<AppState> retrieveState(XploreDatabaseBase<dynamic> database) async {
     return const AppState().copyWith(
       // retrieve Onboarding State
-      onboardingState: OnboardingState.fromJson(
-          await database.retrieveState(Tables.onboardingState)),
+      userState:
+          UserState.fromJson(await database.retrieveState(Tables.userState)),
 
       wait: Wait(),
     );
