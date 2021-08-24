@@ -6,5 +6,5 @@ class XploreStrings {
 
   static const String eventText = 'Event';
   static const String firebaseConnectSuccess =
-      'Application successfully connects to Firebase';
+      'Success: Firebase Connection Active';
 }

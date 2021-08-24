@@ -20,9 +20,10 @@ UserState _$UserStateFromJson(Map<String, dynamic> json) {
 class _$UserStateTearOff {
   const _$UserStateTearOff();
 
-  _UserState call({UserState? userState}) {
+  _UserState call({bool? isSignedIn, bool? hasDoneTour}) {
     return _UserState(
-      userState: userState,
+      isSignedIn: isSignedIn,
+      hasDoneTour: hasDoneTour,
     );
   }
 
@@ -36,7 +37,8 @@ const $UserState = _$UserStateTearOff();
 
 /// @nodoc
 mixin _$UserState {
-  UserState? get userState => throw _privateConstructorUsedError;
+  bool? get isSignedIn => throw _privateConstructorUsedError;
+  bool? get hasDoneTour => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,9 +50,7 @@ mixin _$UserState {
 abstract class $UserStateCopyWith<$Res> {
   factory $UserStateCopyWith(UserState value, $Res Function(UserState) then) =
       _$UserStateCopyWithImpl<$Res>;
-  $Res call({UserState? userState});
-
-  $UserStateCopyWith<$Res>? get userState;
+  $Res call({bool? isSignedIn, bool? hasDoneTour});
 }
 
 /// @nodoc
@@ -63,25 +63,19 @@ class _$UserStateCopyWithImpl<$Res> implements $UserStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? userState = freezed,
+    Object? isSignedIn = freezed,
+    Object? hasDoneTour = freezed,
   }) {
     return _then(_value.copyWith(
-      userState: userState == freezed
-          ? _value.userState
-          : userState // ignore: cast_nullable_to_non_nullable
-              as UserState?,
+      isSignedIn: isSignedIn == freezed
+          ? _value.isSignedIn
+          : isSignedIn // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      hasDoneTour: hasDoneTour == freezed
+          ? _value.hasDoneTour
+          : hasDoneTour // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
-  }
-
-  @override
-  $UserStateCopyWith<$Res>? get userState {
-    if (_value.userState == null) {
-      return null;
-    }
-
-    return $UserStateCopyWith<$Res>(_value.userState!, (value) {
-      return _then(_value.copyWith(userState: value));
-    });
   }
 }
 
@@ -91,10 +85,7 @@ abstract class _$UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
           _UserState value, $Res Function(_UserState) then) =
       __$UserStateCopyWithImpl<$Res>;
   @override
-  $Res call({UserState? userState});
-
-  @override
-  $UserStateCopyWith<$Res>? get userState;
+  $Res call({bool? isSignedIn, bool? hasDoneTour});
 }
 
 /// @nodoc
@@ -108,13 +99,18 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? userState = freezed,
+    Object? isSignedIn = freezed,
+    Object? hasDoneTour = freezed,
   }) {
     return _then(_UserState(
-      userState: userState == freezed
-          ? _value.userState
-          : userState // ignore: cast_nullable_to_non_nullable
-              as UserState?,
+      isSignedIn: isSignedIn == freezed
+          ? _value.isSignedIn
+          : isSignedIn // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      hasDoneTour: hasDoneTour == freezed
+          ? _value.hasDoneTour
+          : hasDoneTour // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -122,31 +118,38 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_UserState implements _UserState {
-  _$_UserState({this.userState});
+  _$_UserState({this.isSignedIn, this.hasDoneTour});
 
   factory _$_UserState.fromJson(Map<String, dynamic> json) =>
       _$_$_UserStateFromJson(json);
 
   @override
-  final UserState? userState;
+  final bool? isSignedIn;
+  @override
+  final bool? hasDoneTour;
 
   @override
   String toString() {
-    return 'UserState(userState: $userState)';
+    return 'UserState(isSignedIn: $isSignedIn, hasDoneTour: $hasDoneTour)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _UserState &&
-            (identical(other.userState, userState) ||
+            (identical(other.isSignedIn, isSignedIn) ||
                 const DeepCollectionEquality()
-                    .equals(other.userState, userState)));
+                    .equals(other.isSignedIn, isSignedIn)) &&
+            (identical(other.hasDoneTour, hasDoneTour) ||
+                const DeepCollectionEquality()
+                    .equals(other.hasDoneTour, hasDoneTour)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(userState);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(isSignedIn) ^
+      const DeepCollectionEquality().hash(hasDoneTour);
 
   @JsonKey(ignore: true)
   @override
@@ -160,13 +163,15 @@ class _$_UserState implements _UserState {
 }
 
 abstract class _UserState implements UserState {
-  factory _UserState({UserState? userState}) = _$_UserState;
+  factory _UserState({bool? isSignedIn, bool? hasDoneTour}) = _$_UserState;
 
   factory _UserState.fromJson(Map<String, dynamic> json) =
       _$_UserState.fromJson;
 
   @override
-  UserState? get userState => throw _privateConstructorUsedError;
+  bool? get isSignedIn => throw _privateConstructorUsedError;
+  @override
+  bool? get hasDoneTour => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$UserStateCopyWith<_UserState> get copyWith =>

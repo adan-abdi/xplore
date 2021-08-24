@@ -10,6 +10,7 @@ environment:
 dependencies:
   async_redux: ^12.0.0
   cloud_firestore: ^2.5.0
+  concentric_transition: ^1.0.1+1
   cupertino_icons: ^1.0.2
   debug_logger: ^0.0.23
   equatable: ^2.0.3
@@ -22,6 +23,7 @@ dependencies:
   freezed_annotation: ^0.14.2
   json_annotation: ^4.0.1
   json_serializable: ^4.1.3
+  lottie: ^1.1.0
   rxdart: ^0.27.1
   sqflite: ^2.0.0+3
 
@@ -38,3 +40,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/
+

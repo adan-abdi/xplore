@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:xplore/domain/value_objects/app_enums.dart';
 import 'package:xplore/domain/value_objects/app_event_strings.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
+import 'package:xplore/presentation/routes/routes.dart';
 
 /// Utility method for sending initial event to [FirebaseAnalytics]
 Future<void> sendInitialAnalyticsEvent({
@@ -33,29 +34,29 @@ Future<String> getInitialRoute({
   required BuildContext context,
   required Store store,
 }) async {
-  final AuthStatus tokenStatus = getAuthStatus(
+  final AuthStatus tokenStatus = await getAuthStatus(
     store: store,
     context: context,
   );
 
   switch (tokenStatus) {
     case AuthStatus.okay:
-      return 'homepage';
+      return homePageRoute;
     case AuthStatus.requiresLogin:
-      return 'loginPage';
+      return loginPageRoute;
     case AuthStatus.init:
-      return 'onboarding';
+      return landingPageRoute;
     default:
-      return 'onboarding';
+      return landingPageRoute;
   }
 }
 
-AuthStatus getAuthStatus({
+Future<AuthStatus> getAuthStatus({
   required BuildContext context,
   required Store store,
-}) {
-  final bool? hasDoneTour = store.state.userState!.hasDoneTour;
-  final bool? signedIn = store.state.userState!.isSigned;
+}) async {
+  final bool hasDoneTour = store.state.userState!.hasDoneTour ?? false;
+  final bool signedIn = store.state.userState!.isSignedIn ?? false;
 
   if (hasDoneTour == true) {
     if (signedIn == true) {
