@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:xplore/infrastructure/repository/database_base.dart';
-import 'package:xplore/infrastructure/repository/database_mobile.dart';
-import 'package:xplore/infrastructure/repository/initialize_db.dart';
+import 'package:xplore/infrastructure/database_base.dart';
+import 'package:xplore/infrastructure/database_mobile.dart';
+import 'package:xplore/infrastructure/initialize_db.dart';
 
 import '../../../mocks/mocks.dart';
 
@@ -62,7 +62,7 @@ void main() {
     when(mockDb.rawQuery('SELECT COUNT(*) FROM onboardingState'))
         .thenAnswer((_) async => returnVal(1));
 
-    expect(await db.countTableRecords(Tables.onboardingState), 1);
+    expect(await db.countTableRecords(Tables.userState), 1);
   });
 
   group('isDatabaseEmpty', () {

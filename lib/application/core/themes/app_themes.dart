@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/domain/core/value_objects/app_magic_numbers.dart';
+import 'package:xplore/domain/value_objects/app_magic_numbers.dart';
 
 /// This class holds common themes
 class XploreThemes {
