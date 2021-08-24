@@ -7,10 +7,13 @@ class XploreThemes {
   TextStyle textThemes({
     required Color color,
     double? fontSize,
+    FontWeight? fontWeight
   }) {
     TextStyle textTheme = TextStyle(
-        color: color,
-        fontSize: fontSize ?? XploreOriginNumbers.defaultFontSize);
+      color: color,
+      fontSize: fontSize ?? XploreOriginNumbers.defaultFontSize,
+      fontWeight: fontWeight ?? FontWeight.normal
+    );
 
     return textTheme;
   }
@@ -23,4 +26,5 @@ class XploreThemes {
 
   static const Color white = Colors.white;
   static const Color black = Colors.black;
+  static const Color grey = Color(0xff828282);
 }
