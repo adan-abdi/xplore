@@ -7,7 +7,9 @@ import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/core/themes/app_themes.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/domain/value_objects/app_widget_keys.dart';
+import 'package:xplore/presentation/core/widgets/xplore_loader.dart';
 import 'package:xplore/presentation/routes/route_generator.dart';
+import 'package:xplore/presentation/routes/routes.dart';
 
 /// This Class determines the initial app route, depending on the user's onboarding state
 class XploreAppRoot extends StatefulWidget {
@@ -64,7 +66,11 @@ class _XploreAppRootState extends State<XploreAppRoot>
                 primaryColor: XploreThemes.primaryColor,
                 accentColor: XploreThemes.accentColor),
             home: Scaffold(
-              body: Container(),
+              body: Container(
+                child: Center(
+                  child: XploreLoader(),
+                ),
+              ),
             ),
           );
         }
@@ -78,7 +84,7 @@ class _XploreAppRootState extends State<XploreAppRoot>
           navigatorObservers: <NavigatorObserver>[
             FirebaseAnalyticsObserver(analytics: analytics),
           ],
-          initialRoute: appInitialRoute.valueOrNull,
+          initialRoute: appInitialRoute.valueOrNull ?? landingPageRoute,
           onGenerateRoute: AppRouterGenerator.generateRoute,
         );
       },
