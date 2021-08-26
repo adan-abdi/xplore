@@ -40,12 +40,12 @@ Future<String> getInitialRoute({
   );
 
   switch (tokenStatus) {
-    case AuthStatus.okay:
-      return homePageRoute;
+    case AuthStatus.init:
+      return onboardingPageRoute;
     case AuthStatus.requiresLogin:
       return loginPageRoute;
-    case AuthStatus.init:
-      return landingPageRoute;
+    case AuthStatus.okay:
+      return homePageRoute;
     default:
       return landingPageRoute;
   }

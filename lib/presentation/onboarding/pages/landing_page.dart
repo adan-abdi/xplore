@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:xplore/application/core/themes/app_themes.dart';
+import 'package:xplore/domain/value_objects/app_spaces.dart';
+import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/onboarding/widgets/circles.dart';
+import 'package:xplore/presentation/onboarding/widgets/landing_actions.dart';
 import 'package:xplore/presentation/onboarding/widgets/terms_and_conditions.dart';
 
 /// [LandingPage] for XploreApp.
@@ -34,32 +38,34 @@ class LandingPage extends StatelessWidget {
                           spacing: 30,
                           runSpacing: 40,
                           children: <Widget>[
-                            // smallVerticalSizedBox,
+                            hSize10SizedBox,
                             Column(
                               children: <Widget>[
                                 Column(
                                   children: <Widget>[
                                     Text(
-                                      "landingPageTitle",
+                                      XploreStrings.landingPageTitle,
                                       textAlign: TextAlign.center,
-                                      // style:
-                                      //     TextThemes.heavySize24Text().copyWith(
-                                      //   color: Theme.of(context).primaryColor,
-                                      // ),
+                                      style: XploreThemes().textThemes(
+                                        color: XploreThemes.white,
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                    // mediumVerticalSizedBox,
+                                    hSize20SizedBox,
                                     Text(
-                                      "landingPageSubtitle",
+                                      XploreStrings.landingPageSubtitle,
                                       textAlign: TextAlign.center,
-                                      // style:
-                                      //     TextThemes.boldSize18Text().copyWith(
-                                      //   color: greyTextColor,
-                                      // ),
+                                      style: XploreThemes().textThemes(
+                                        color: XploreThemes.grey,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ],
                                 ),
-                                // veryLargeVerticalSizedBox,
-                                // LandingActions(),
+                                hSize50SizedBox,
+                                LandingActions(),
                               ],
                             )
                           ],
@@ -71,7 +77,6 @@ class LandingPage extends StatelessWidget {
               ),
             ),
             Positioned(
-              // key: AppWidgetKeys.termsAndConditionsKey,
               left: 0,
               bottom: 0,
               right: 0,
@@ -80,11 +85,6 @@ class LandingPage extends StatelessWidget {
                 child: termsAndConditions(context),
               ),
             ),
-            // Positioned(
-            //   top: 40,
-            //   left: 20,
-            //   child: BewellLogo(),
-            // ),
           ],
         ),
       ),

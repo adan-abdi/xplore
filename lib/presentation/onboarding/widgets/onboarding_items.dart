@@ -6,7 +6,7 @@ final List<PageData> pages = [
     icon: Icons.format_size,
     title: "Choose your\ninterests",
     textColor: Colors.white,
-    bgColor: Color(0xFFFDBFDD),
+    bgColor: Colors.red,
   ),
   PageData(
     icon: Icons.hdr_weak,

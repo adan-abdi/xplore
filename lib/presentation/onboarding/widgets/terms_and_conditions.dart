@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:xplore/domain/value_objects/app_strings.dart';
+import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
 
 Widget termsAndConditions(BuildContext context,
     [TextAlign align = TextAlign.center]) {
@@ -9,22 +11,23 @@ Widget termsAndConditions(BuildContext context,
       text: TextSpan(
         children: <TextSpan>[
           TextSpan(
-            text: "landingTerms",
+            text: XploreStrings.landingTerms,
             style: Theme.of(context)
                 .textTheme
                 .caption!
                 .copyWith(color: Colors.grey),
           ),
           TextSpan(
-            text: "landingTAndC",
+            text: XploreStrings.landingTAndC,
             style: Theme.of(context).textTheme.caption!.copyWith(
                   color: Theme.of(context).primaryColor,
                   fontStyle: FontStyle.normal,
                 ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                ///  todo: add terms and conditions link here
-                // triggerNavigationEvent(context: context, route: webViewRoute);
+                ScaffoldMessenger.of(context).showSnackBar(snackbar(
+                  content: XploreStrings.comingSoonText,
+                ));
               },
           ),
         ],
