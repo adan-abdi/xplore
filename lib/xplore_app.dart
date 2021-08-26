@@ -21,15 +21,8 @@ class _XploreAppState extends State<XploreApp> {
   Widget build(BuildContext context) {
     sendInitialAnalyticsEvent(analytics: analytics);
 
-    return StoreProvider<AppState>(
+    return XploreAppRoot(
       store: widget.store,
-      child: StoreConnector<AppState, AppState>(
-          converter: (Store<AppState> store) => store.state,
-          builder: (BuildContext context, AppState state) {
-            return XploreAppRoot(
-              store: widget.store,
-            );
-          }),
     );
   }
 }

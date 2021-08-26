@@ -10,11 +10,11 @@ class AppRouterGenerator {
     // final dynamic args = settings?.arguments;
 
     switch (settings?.name) {
-      case landingPageRoute:
-        return MaterialPageRoute<LandingPage>(builder: (_) => LandingPage());
-
       case onboardingPageRoute:
         return MaterialPageRoute<Onboarding>(builder: (_) => Onboarding());
+
+      case landingPageRoute:
+        return MaterialPageRoute<LandingPage>(builder: (_) => LandingPage());
 
       case loginPageRoute:
         return MaterialPageRoute<Scaffold>(

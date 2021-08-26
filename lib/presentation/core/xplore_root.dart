@@ -7,6 +7,7 @@ import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/core/themes/app_themes.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/domain/value_objects/app_widget_keys.dart';
+import 'package:xplore/presentation/core/widgets/xplore_app_wrapper.dart';
 import 'package:xplore/presentation/core/widgets/xplore_loader.dart';
 import 'package:xplore/presentation/routes/route_generator.dart';
 import 'package:xplore/presentation/routes/routes.dart';
@@ -56,38 +57,49 @@ class _XploreAppRootState extends State<XploreAppRoot>
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<String>(
-      stream: appInitialRoute.stream,
-      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-        if (snapshot.data == null) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-                primaryColor: XploreThemes.primaryColor,
-                accentColor: XploreThemes.accentColor),
-            home: Scaffold(
-              body: Container(
-                child: Center(
-                  child: XploreLoader(),
+    return XploreWrapper(
+      store: widget.store,
+      child: StreamBuilder<String>(
+        stream: appInitialRoute.stream,
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          if (snapshot.data == null) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                  primaryColor: XploreThemes.primaryColor,
+                  accentColor: XploreThemes.accentColor),
+              home: Scaffold(
+                body: Container(
+                  child: Center(
+                    child: XploreLoader(),
+                  ),
                 ),
               ),
-            ),
-          );
-        }
+            );
+          }
 
-        return MaterialApp(
-          theme: ThemeData(
-              primaryColor: XploreThemes.primaryColor,
-              accentColor: XploreThemes.accentColor),
-          debugShowCheckedModeBanner: false,
-          navigatorKey: globalAppNavigatorKey,
-          navigatorObservers: <NavigatorObserver>[
-            FirebaseAnalyticsObserver(analytics: analytics),
-          ],
-          initialRoute: appInitialRoute.valueOrNull ?? landingPageRoute,
-          onGenerateRoute: AppRouterGenerator.generateRoute,
-        );
-      },
+          return StoreProvider<AppState>(
+            store: widget.store,
+            child: StoreConnector<AppState, AppState>(
+                converter: (Store<AppState> store) => store.state,
+                builder: (BuildContext context, AppState state) {
+                  return MaterialApp(
+                    theme: ThemeData(
+                        primaryColor: XploreThemes.primaryColor,
+                        accentColor: XploreThemes.accentColor),
+                    debugShowCheckedModeBanner: false,
+                    navigatorKey: globalAppNavigatorKey,
+                    navigatorObservers: <NavigatorObserver>[
+                      FirebaseAnalyticsObserver(analytics: analytics),
+                    ],
+                    initialRoute:
+                        appInitialRoute.valueOrNull ?? landingPageRoute,
+                    onGenerateRoute: AppRouterGenerator.generateRoute,
+                  );
+                }),
+          );
+        },
+      ),
     );
   }
 }

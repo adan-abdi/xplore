@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/presentation/onboarding/widgets/onboarding_page.dart';
 
 class PageCard extends StatelessWidget {
@@ -12,13 +13,19 @@ class PageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       margin: EdgeInsets.symmetric(
         horizontal: 30.0,
       ),
       child: Column(
         children: <Widget>[
-          _buildPicture(context),
-          SizedBox(height: 30),
+          hHalf(context),
+          Icon(
+            page.icon,
+            size: 120,
+            color: page.textColor,
+          ),
+          hSize30SizedBox,
           _buildText(context),
         ],
       ),
@@ -30,61 +37,6 @@ class PageCard extends StatelessWidget {
       page.title!,
       style: Theme.of(context).textTheme.headline6,
       textAlign: TextAlign.center,
-    );
-  }
-
-  Widget _buildPicture(
-    BuildContext context, {
-    double size = 190,
-    double iconSize = 170,
-  }) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(60.0)),
-        color: page.bgColor
-            .withGreen(page.bgColor.green + 20)
-            .withRed(page.bgColor.red - 100)
-            .withAlpha(90),
-      ),
-      margin: EdgeInsets.only(
-        top: 140,
-      ),
-      child: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          Positioned.fill(
-            child: RotatedBox(
-              quarterTurns: 2,
-              child: Icon(
-                page.icon,
-                size: iconSize + 20,
-                color: page.bgColor
-                    .withBlue(page.bgColor.blue - 10)
-                    .withGreen(220),
-              ),
-            ),
-            right: -5,
-            bottom: -5,
-          ),
-          Positioned.fill(
-            child: RotatedBox(
-              quarterTurns: 5,
-              child: Icon(
-                page.icon,
-                size: iconSize + 20,
-                color: page.bgColor.withGreen(66).withRed(77),
-              ),
-            ),
-          ),
-          Icon(
-            page.icon,
-            size: iconSize,
-            color: page.bgColor.withRed(111).withGreen(220),
-          ),
-        ],
-      ),
     );
   }
 }

@@ -6,8 +6,6 @@ import 'package:xplore/presentation/onboarding/widgets/circles.dart';
 import 'package:xplore/presentation/onboarding/widgets/landing_actions.dart';
 import 'package:xplore/presentation/onboarding/widgets/terms_and_conditions.dart';
 
-/// [LandingPage] for XploreApp.
-///
 class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -44,7 +42,7 @@ class LandingPage extends StatelessWidget {
                                 Column(
                                   children: <Widget>[
                                     Text(
-                                      XploreStrings.landingPageTitle,
+                                      landingPageTitle,
                                       textAlign: TextAlign.center,
                                       style: XploreThemes().textThemes(
                                         color: XploreThemes.white,
@@ -54,7 +52,7 @@ class LandingPage extends StatelessWidget {
                                     ),
                                     hSize20SizedBox,
                                     Text(
-                                      XploreStrings.landingPageSubtitle,
+                                      landingPageSubtitle,
                                       textAlign: TextAlign.center,
                                       style: XploreThemes().textThemes(
                                         color: XploreThemes.grey,

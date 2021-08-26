@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 /// [snackbar]
 SnackBar snackbar({
-  required dynamic
-      content, // [content] must be either of type [Widget] or [String]
+  required dynamic content,
   int durationSeconds = 10,
   String? label,
   Function? callback,
