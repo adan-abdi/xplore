@@ -11,14 +11,14 @@ Widget termsAndConditions(BuildContext context,
       text: TextSpan(
         children: <TextSpan>[
           TextSpan(
-            text: XploreStrings.landingTerms,
+            text: landingTerms,
             style: Theme.of(context)
                 .textTheme
                 .caption!
                 .copyWith(color: Colors.grey),
           ),
           TextSpan(
-            text: XploreStrings.landingTAndC,
+            text: landingTAndC,
             style: Theme.of(context).textTheme.caption!.copyWith(
                   color: Theme.of(context).primaryColor,
                   fontStyle: FontStyle.normal,
@@ -26,7 +26,7 @@ Widget termsAndConditions(BuildContext context,
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 ScaffoldMessenger.of(context).showSnackBar(snackbar(
-                  content: XploreStrings.comingSoonText,
+                  content: comingSoonText,
                 ));
               },
           ),

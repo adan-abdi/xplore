@@ -4,16 +4,12 @@ import 'package:xplore/domain/value_objects/app_magic_numbers.dart';
 /// This class holds common themes
 class XploreThemes {
   /// Returns a TextStyle
-  TextStyle textThemes({
-    required Color color,
-    double? fontSize,
-    FontWeight? fontWeight
-  }) {
+  TextStyle textThemes(
+      {required Color color, double? fontSize, FontWeight? fontWeight}) {
     TextStyle textTheme = TextStyle(
-      color: color,
-      fontSize: fontSize ?? XploreOriginNumbers.defaultFontSize,
-      fontWeight: fontWeight ?? FontWeight.normal
-    );
+        color: color,
+        fontSize: fontSize ?? XploreOriginNumbers.defaultFontSize,
+        fontWeight: fontWeight ?? FontWeight.normal);
 
     return textTheme;
   }

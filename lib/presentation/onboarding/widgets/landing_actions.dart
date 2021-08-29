@@ -22,10 +22,10 @@ class LandingActions extends StatelessWidget {
             ),
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(snackbar(
-                content: XploreStrings.comingSoonText,
+                content: comingSoonText,
               ));
             },
-            child: const Text(XploreStrings.siginText),
+            child: const Text(siginText),
           ),
         ),
         Container(
@@ -39,10 +39,10 @@ class LandingActions extends StatelessWidget {
             ),
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(snackbar(
-                content: XploreStrings.comingSoonText,
+                content: comingSoonText,
               ));
             },
-            child: const Text(XploreStrings.signupText),
+            child: const Text(signupText),
           ),
         ),
       ],
