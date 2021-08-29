@@ -14,8 +14,6 @@ class _PhoneLoginState extends State<PhoneLogin> {
   final TextEditingController _phoneNumberInputController =
       TextEditingController();
   final TextEditingController _pinInputController = TextEditingController();
-  // late String _phoneNumber;
-  // late String _pinCode;
 
   @override
   void initState() {
@@ -49,14 +47,13 @@ class _PhoneLoginState extends State<PhoneLogin> {
                 // PIN
               ),
               hSize30SizedBox,
+              // todo: remember me checkbox
               ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
                       Theme.of(context).primaryColor),
                 ),
-                onPressed: () {
-
-                },
+                onPressed: () {},
                 child: const Text(siginText),
               ),
             ],

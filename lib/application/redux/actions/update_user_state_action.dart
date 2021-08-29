@@ -5,6 +5,7 @@ import 'package:xplore/application/redux/states/user_state.dart';
 class UpdateUserStateAction extends ReduxAction<AppState> {
   bool? isSignedIn;
   bool? hasDoneTour;
+  bool? areTermsAccepted;
   String? phoneNumber;
   String? pinCode;
   String? confirmPinCode;
@@ -18,6 +19,7 @@ class UpdateUserStateAction extends ReduxAction<AppState> {
   UpdateUserStateAction({
     this.isSignedIn,
     this.hasDoneTour,
+    this.areTermsAccepted,
     this.phoneNumber,
     this.pinCode,
     this.confirmPinCode,
@@ -34,6 +36,8 @@ class UpdateUserStateAction extends ReduxAction<AppState> {
     final UserState? newUserState = store.state.userState?.copyWith.call(
       isSignedIn: this.isSignedIn ?? state.userState?.isSignedIn,
       hasDoneTour: this.hasDoneTour ?? state.userState?.hasDoneTour,
+      areTermsAccepted:
+          this.areTermsAccepted ?? state.userState?.areTermsAccepted,
       phoneNumber: this.phoneNumber ?? state.userState?.phoneNumber,
       pinCode: this.pinCode ?? state.userState?.pinCode,
       confirmPinCode: this.confirmPinCode ?? state.userState?.confirmPinCode,

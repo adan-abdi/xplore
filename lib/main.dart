@@ -22,8 +22,8 @@ Future<void> main() async {
 
   final AppState initialState = await stateDB.readState();
 
-  // initialize a fresh database if [initialState] is `null`,
-  // and populate the database with the default values for each state
+  // Initialize a fresh database if [initialState] is `null`,
+  // and populate the database with the default values for each state object
   if (initialState == AppState.initial()) {
     await stateDB.saveInitialState(initialState);
   }
@@ -34,22 +34,19 @@ Future<void> main() async {
     defaultDistinct: true,
   );
 
-  /// Configures which error widget to show
-  /// depending on weather the app is running in debug or release mode.
-  ///
-  /// Shows an error image (spaceman) with a prompt to call tech-support
-  /// in release mode
+  // Configures which error widget to show in prod
+  // Shows an error image with a prompt to call tech-support
   ErrorWidget.builder = (FlutterErrorDetails details) {
     bool inDebug = false;
     assert(() {
       inDebug = true;
       return true;
     }());
-    // In debug mode, use the normal error widget which shows
+
     if (inDebug) {
       return ErrorWidget(details.exception);
     }
-    // In release builds, show error image
+
     return const UnrecoverableErrorWidget();
   };
 

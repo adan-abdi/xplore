@@ -103,3 +103,5 @@ class _XploreAppRootState extends State<XploreAppRoot>
     );
   }
 }
+
+/// Store app initial route in state in CoreState

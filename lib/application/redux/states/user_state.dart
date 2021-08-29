@@ -8,6 +8,8 @@ class UserState with _$UserState {
   factory UserState({
     bool? isSignedIn,
     bool? hasDoneTour,
+    bool? areTermsAccepted,
+    String? otpCode,
     String? phoneNumber,
     String? pinCode,
     String? initialPinCode,
@@ -26,7 +28,9 @@ class UserState with _$UserState {
   factory UserState.initial() => UserState(
         hasDoneTour: false,
         isSignedIn: false,
+        areTermsAccepted: false,
         phoneNumber: 'UNKNOWN',
+        otpCode: 'UNKNOWN',
         pinCode: 'UNKNOWN',
         confirmPinCode: 'UNKNOWN',
         doPinsMatch: false,

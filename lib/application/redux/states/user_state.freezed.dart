@@ -23,6 +23,8 @@ class _$UserStateTearOff {
   _UserState call(
       {bool? isSignedIn,
       bool? hasDoneTour,
+      bool? areTermsAccepted,
+      String? otpCode,
       String? phoneNumber,
       String? pinCode,
       String? initialPinCode,
@@ -36,6 +38,8 @@ class _$UserStateTearOff {
     return _UserState(
       isSignedIn: isSignedIn,
       hasDoneTour: hasDoneTour,
+      areTermsAccepted: areTermsAccepted,
+      otpCode: otpCode,
       phoneNumber: phoneNumber,
       pinCode: pinCode,
       initialPinCode: initialPinCode,
@@ -61,6 +65,8 @@ const $UserState = _$UserStateTearOff();
 mixin _$UserState {
   bool? get isSignedIn => throw _privateConstructorUsedError;
   bool? get hasDoneTour => throw _privateConstructorUsedError;
+  bool? get areTermsAccepted => throw _privateConstructorUsedError;
+  String? get otpCode => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get pinCode => throw _privateConstructorUsedError;
   String? get initialPinCode => throw _privateConstructorUsedError;
@@ -85,6 +91,8 @@ abstract class $UserStateCopyWith<$Res> {
   $Res call(
       {bool? isSignedIn,
       bool? hasDoneTour,
+      bool? areTermsAccepted,
+      String? otpCode,
       String? phoneNumber,
       String? pinCode,
       String? initialPinCode,
@@ -109,6 +117,8 @@ class _$UserStateCopyWithImpl<$Res> implements $UserStateCopyWith<$Res> {
   $Res call({
     Object? isSignedIn = freezed,
     Object? hasDoneTour = freezed,
+    Object? areTermsAccepted = freezed,
+    Object? otpCode = freezed,
     Object? phoneNumber = freezed,
     Object? pinCode = freezed,
     Object? initialPinCode = freezed,
@@ -129,6 +139,14 @@ class _$UserStateCopyWithImpl<$Res> implements $UserStateCopyWith<$Res> {
           ? _value.hasDoneTour
           : hasDoneTour // ignore: cast_nullable_to_non_nullable
               as bool?,
+      areTermsAccepted: areTermsAccepted == freezed
+          ? _value.areTermsAccepted
+          : areTermsAccepted // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      otpCode: otpCode == freezed
+          ? _value.otpCode
+          : otpCode // ignore: cast_nullable_to_non_nullable
+              as String?,
       phoneNumber: phoneNumber == freezed
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
@@ -182,6 +200,8 @@ abstract class _$UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
   $Res call(
       {bool? isSignedIn,
       bool? hasDoneTour,
+      bool? areTermsAccepted,
+      String? otpCode,
       String? phoneNumber,
       String? pinCode,
       String? initialPinCode,
@@ -207,6 +227,8 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
   $Res call({
     Object? isSignedIn = freezed,
     Object? hasDoneTour = freezed,
+    Object? areTermsAccepted = freezed,
+    Object? otpCode = freezed,
     Object? phoneNumber = freezed,
     Object? pinCode = freezed,
     Object? initialPinCode = freezed,
@@ -227,6 +249,14 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
           ? _value.hasDoneTour
           : hasDoneTour // ignore: cast_nullable_to_non_nullable
               as bool?,
+      areTermsAccepted: areTermsAccepted == freezed
+          ? _value.areTermsAccepted
+          : areTermsAccepted // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      otpCode: otpCode == freezed
+          ? _value.otpCode
+          : otpCode // ignore: cast_nullable_to_non_nullable
+              as String?,
       phoneNumber: phoneNumber == freezed
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
@@ -277,6 +307,8 @@ class _$_UserState implements _UserState {
   _$_UserState(
       {this.isSignedIn,
       this.hasDoneTour,
+      this.areTermsAccepted,
+      this.otpCode,
       this.phoneNumber,
       this.pinCode,
       this.initialPinCode,
@@ -295,6 +327,10 @@ class _$_UserState implements _UserState {
   final bool? isSignedIn;
   @override
   final bool? hasDoneTour;
+  @override
+  final bool? areTermsAccepted;
+  @override
+  final String? otpCode;
   @override
   final String? phoneNumber;
   @override
@@ -318,7 +354,7 @@ class _$_UserState implements _UserState {
 
   @override
   String toString() {
-    return 'UserState(isSignedIn: $isSignedIn, hasDoneTour: $hasDoneTour, phoneNumber: $phoneNumber, pinCode: $pinCode, initialPinCode: $initialPinCode, confirmPinCode: $confirmPinCode, doPinsMatch: $doPinsMatch, firstName: $firstName, lastName: $lastName, displayName: $displayName, displayInitials: $displayInitials, email: $email)';
+    return 'UserState(isSignedIn: $isSignedIn, hasDoneTour: $hasDoneTour, areTermsAccepted: $areTermsAccepted, otpCode: $otpCode, phoneNumber: $phoneNumber, pinCode: $pinCode, initialPinCode: $initialPinCode, confirmPinCode: $confirmPinCode, doPinsMatch: $doPinsMatch, firstName: $firstName, lastName: $lastName, displayName: $displayName, displayInitials: $displayInitials, email: $email)';
   }
 
   @override
@@ -331,6 +367,12 @@ class _$_UserState implements _UserState {
             (identical(other.hasDoneTour, hasDoneTour) ||
                 const DeepCollectionEquality()
                     .equals(other.hasDoneTour, hasDoneTour)) &&
+            (identical(other.areTermsAccepted, areTermsAccepted) ||
+                const DeepCollectionEquality()
+                    .equals(other.areTermsAccepted, areTermsAccepted)) &&
+            (identical(other.otpCode, otpCode) ||
+                const DeepCollectionEquality()
+                    .equals(other.otpCode, otpCode)) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 const DeepCollectionEquality()
                     .equals(other.phoneNumber, phoneNumber)) &&
@@ -367,6 +409,8 @@ class _$_UserState implements _UserState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isSignedIn) ^
       const DeepCollectionEquality().hash(hasDoneTour) ^
+      const DeepCollectionEquality().hash(areTermsAccepted) ^
+      const DeepCollectionEquality().hash(otpCode) ^
       const DeepCollectionEquality().hash(phoneNumber) ^
       const DeepCollectionEquality().hash(pinCode) ^
       const DeepCollectionEquality().hash(initialPinCode) ^
@@ -393,6 +437,8 @@ abstract class _UserState implements UserState {
   factory _UserState(
       {bool? isSignedIn,
       bool? hasDoneTour,
+      bool? areTermsAccepted,
+      String? otpCode,
       String? phoneNumber,
       String? pinCode,
       String? initialPinCode,
@@ -411,6 +457,10 @@ abstract class _UserState implements UserState {
   bool? get isSignedIn => throw _privateConstructorUsedError;
   @override
   bool? get hasDoneTour => throw _privateConstructorUsedError;
+  @override
+  bool? get areTermsAccepted => throw _privateConstructorUsedError;
+  @override
+  String? get otpCode => throw _privateConstructorUsedError;
   @override
   String? get phoneNumber => throw _privateConstructorUsedError;
   @override

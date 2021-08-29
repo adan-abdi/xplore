@@ -1,86 +1,46 @@
 # xplorE
 
-xplorE Application is a Super-App built with flutter that intends to separately delevelop various modules that cut across different businesses while allowing the said bussinesses to upload micro-apps that perform their specific domain services.
+xplorE Application is a Super-App built with flutter that intends to separately develop various modules that cut across different businesses while allowing the said businesses to upload micro-apps that perform their specific domain services.
 
 ## Project Initial Scope
 
-The base modules include:
+Project Version 1 Scope:
 
-    - Onboarding: (FirebaseAuth)
-        - Cut across platforms `Android`, `iOS` and Web
-        - Manages User Identity and Authentication
-        - Should include app security management like `biometric-login`, `PIN` and OTPs
-        - Should have social logins including at least: 
-            - Anonymous
-            - Email & Password & PIN or [Biometrics]
-            - Phone + OTP + PIN &/or [Biometrics]
-        - Should also have Google+, Facebook, Twitter, Instagram
-        - Should manage defaut user + business + business agents + admin/superuser
+    - [ ] Onboarding: (FirebaseAuth (Phone + OTP + PIN Auth))
+        - [ ] Cut across platforms `Android`, `iOS` and Web
+        - [ ] Manages User Identity and Authentication
+        - [ ] Phone + OTP + PIN &/or [Biometrics] + PIN
+        - [ ] RBAC: Should manage default user + business + business agents + admin/superuser
 
 
-    - Dashboard: (FireStoreDB)
-        - Should contain business dashboards
-        - Allow for business account details (Location, PaymentProfile)
-        - Allow for inventory uploading
-        - Allow for managing orders and tracking deliveries with delivery module [Primary BusinessType]
-        - Allow businesses to upload microApp Programmes following our code-guidelines [Secondary BusinessType]
-        - Allow business to register agents (agents to manage: orders/delivery, inventory)
+    - [ ] Dashboard: (FireStoreDB)
+        - [ ] Allow businesses to see their dashboard with the following: 
+            - [ ] Allow businesses to create and upload Inventory
+            - [ ] Allow businesses to create categories for these inventory if needed
+            - [ ] Allow businesses to create orders
+            - [ ] Allow businesses to  mark orders as fulfilled, verify payment and(or) reject/ignore orders
+            - [ ] Allow businesses to see a simplified data visualization on their dashboard homepage of hottest product, most profitable products, items low on, items with more demand than supply, minimal customer metrics
+            - [ ] Payment profile (Version 2: allow businesses to add payment info (mPesa))
 
-    - Core: which in V1 includes [Catalogue Module]: (FireStoreDB)
-        - Should allow for grid view of supported businesses and actions(pay, order-fulfilemt(delivery), verify-payment, scan etc)
-        - Should showcase grid of business products + detail views
-        - Should showcase promoted bussineses-carousel-cards with adStories
-        - Should showcase quick actions/businesses/most-used-modules
-        - Should engage users with available businesses xplore/Explore
-        - Should have global search
-        - Drawer to manage roles + accountProfile(Profile) + Logout
-        - Feed
+    - Core(Homepage): which in V1 includes [Catalogue Module]: (FireStoreDB)
+        - [ ] Should allow for grid view of supported businesses and actions(pay, order-fulfillment(delivery), verify-payment, scan etc)
+        - [ ] Should showcase grid of business products + detail views
+        - [ ] Should showcase promoted business-carousel-cards with adStories
+        - [ ] Should showcase quick actions/businesses/most-used-modules
+        - [ ] Should engage users with available businesses xplore/Explore (Like a feed of ads)
+        - [ ] Should have global search
+        - [ ] Drawer to manage roles + accountProfile(Profile) + Logout + Logout SideDarkDrawer
 
-    - Payment: (mPesa, FlutterWave & FireStoreDB)
-        - mPesa Powered default primary payment 
-        - FlutterWave secondary payment (card, bank, etc)
-        - Post Payment verification with verify-payment-QR-module
-        - Scan QR Checkout
+    - [ ] Payment: (mPesa, FlutterWave & FireStoreDB) -  Version 2 (miniml in v1)
+        - [ ] mPesa Powered default primary payment 
+        - [ ] FlutterWave secondary payment (card, bank, etc)
+        - [ ] Post Payment verification with verify-payment-QR-module
+        - [ ] Scan QR Checkout
 
 The secondary modules include:
 
     - Delivery Module (GoogleMaps + FireStoreDB)
-    - ChatModule / Comms (Video, Call) (VideoChatSaaS - Agora/Twillio)
+    - ChatModule / Communications (Video, Call) (VideoChatSaaS - Agora/Twillio)
 
 
-v1 Release Date: August 21st 2022
 
-
-### Project Roadmap (Checklists/Milestones)
-
-#### Milestone 1: Application Setup (Project Init)
-- [x] Add xplore app icons
-- [x] Customize application Launch theme: `Android` and `iOS`
-- [x] Setup and dry run application on `Android`, `iOS` and `Web`
-- [x] Setup application local state persistence
-- [x] Setup `async_redux` state management
-- [x] Setup Firebase Project: Firebase-Auth and FirestoreDB, GCP
-
-#### Milestone 2: Onboarding Module 
-
-- [ ] Create walkthrough pages
-- [ ] Signin, Signup UI
-- [ ] Email/Password Signing with Firebase Auth
-- [ ] Firestore Setup with user collection
-- [ ] Add Social SignIn (Phone, Google, Facebook)
-- [ ] Add `forgot-password`, `password-reset` and `change-password` flows
-- [ ] Add RBAC for `business-account`, `default-user`, `business-agents` and `xplore-admin`
-- [ ] Add Security flows (PINs, OTPs and biometric logins)
-
-#### Milestone 3: Automated Testing and QA: Onboarding Module
-
-- [ ] Unit tests for the onboarding module
-- [ ] Widget Tests for onboarding module
-- [ ] Intergration Testing for onboarding module across all platforms
-- [ ] Setup github actions CI/CD pipeline for testing and building and publishing to store and firebase app distribution
-- [ ] CloseUp Onboarding Module to be used as a standalone flutter package: Prep for customization and OpenSourcing
-
-
-#### Milestone 4: Dashboard/Core?
-
-TBD!

@@ -12,6 +12,8 @@ const String landingPageSubtitle =
 const String landingTerms = 'Read our ';
 const String landingTAndC = 'terms & conditions';
 const String comingSoonText = 'Coming soon';
+const String termsAcceptPrompt =
+    'You need to agree with out terms of service and privacy policy to continue using this app';
 const String siginText = 'Sign In';
 const String signupText = 'Create Account';
 const String getStartedText = 'Get Started';

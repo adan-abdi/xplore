@@ -11,6 +11,8 @@ _$_UserState _$_$_UserStateFromJson(Map<String, dynamic> json) {
   return _$_UserState(
     isSignedIn: json['isSignedIn'] as bool?,
     hasDoneTour: json['hasDoneTour'] as bool?,
+    areTermsAccepted: json['areTermsAccepted'] as bool?,
+    otpCode: json['otpCode'] as String?,
     phoneNumber: json['phoneNumber'] as String?,
     pinCode: json['pinCode'] as String?,
     initialPinCode: json['initialPinCode'] as String?,
@@ -29,6 +31,8 @@ Map<String, dynamic> _$_$_UserStateToJson(_$_UserState instance) =>
     <String, dynamic>{
       'isSignedIn': instance.isSignedIn,
       'hasDoneTour': instance.hasDoneTour,
+      'areTermsAccepted': instance.areTermsAccepted,
+      'otpCode': instance.otpCode,
       'phoneNumber': instance.phoneNumber,
       'pinCode': instance.pinCode,
       'initialPinCode': instance.initialPinCode,
