@@ -3,14 +3,14 @@ import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 
-class PhoneLogin extends StatefulWidget {
-  const PhoneLogin({Key? key}) : super(key: key);
+class PhoneSignup extends StatefulWidget {
+  const PhoneSignup({Key? key}) : super(key: key);
 
   @override
-  _PhoneLoginState createState() => _PhoneLoginState();
+  _PhoneSignupState createState() => _PhoneSignupState();
 }
 
-class _PhoneLoginState extends State<PhoneLogin> {
+class _PhoneSignupState extends State<PhoneSignup> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _phoneNumberInputController =
       TextEditingController();

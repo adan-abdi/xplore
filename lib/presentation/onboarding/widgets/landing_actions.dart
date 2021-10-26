@@ -1,6 +1,9 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
+import 'package:xplore/presentation/routes/routes.dart';
 
 /// - [LandingActions] which provides navigation buttons to user that lead to:
 ///   - 1 => phoneSignupRoute - Prompts user to signup/register
@@ -21,9 +24,13 @@ class LandingActions extends StatelessWidget {
                   Theme.of(context).primaryColor),
             ),
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(snackbar(
-                content: comingSoonText,
-              ));
+              // ScaffoldMessenger.of(context).showSnackBar(snackbar(
+              //   content: comingSoonText,
+              // ));
+              StoreProvider.dispatch<AppState>(
+                    context,
+                    NavigateAction.pushNamed(siginPageRoute),
+                  );
             },
             child: const Text(siginText),
           ),
@@ -38,9 +45,13 @@ class LandingActions extends StatelessWidget {
                   Theme.of(context).primaryColor),
             ),
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(snackbar(
-                content: comingSoonText,
-              ));
+              // ScaffoldMessenger.of(context).showSnackBar(snackbar(
+              //   content: comingSoonText,
+              // ));
+              StoreProvider.dispatch<AppState>(
+                    context,
+                    NavigateAction.pushNamed(sigupPageRoute),
+                  );
             },
             child: const Text(signupText),
           ),

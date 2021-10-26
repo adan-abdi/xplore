@@ -1,6 +1,9 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
+import 'package:xplore/presentation/routes/routes.dart';
 
 class PhoneLogin extends StatefulWidget {
   const PhoneLogin({Key? key}) : super(key: key);
@@ -55,7 +58,10 @@ class _PhoneLoginState extends State<PhoneLogin> {
                       Theme.of(context).primaryColor),
                 ),
                 onPressed: () {
-
+                  StoreProvider.dispatch<AppState>(
+                    context,
+                    NavigateAction.pushNamed(dashPageRoute),
+                  );
                 },
                 child: const Text(siginText),
               ),
