@@ -21,11 +21,41 @@ class _AddProductsState extends State<AddProducts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        leading: IconButton(onPressed: () {Navigator.of(context).pop();}, icon: Icon(Icons.arrow_back)),
-        title: Text("Add Product"),
+        backgroundColor: Colors.deepOrange,
+        elevation: 0,
+        leading: Padding(
+          padding: EdgeInsets.all(8),
+          child: Container(
+            height: 30,
+            width: MediaQuery.of(context).size.width * 0.8,
+            // padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            color: Colors.white,
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.deepOrange,
+              ),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ),
+        ),
+        title: Container(
+            height: 39,
+            width: MediaQuery.of(context).size.width * 0.7,
+            color: Colors.white,
+            child: Center(
+              child: Text(
+                'Add Product',
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 24,
+                    color: Colors.deepOrange),
+              ),
+            )),
       ),
-
       body: SingleChildScrollView( 
         reverse: true, // this is new 
         scrollDirection: Axis.vertical,
@@ -39,19 +69,19 @@ class _AddProductsState extends State<AddProducts> {
                     SizedBox(height: 20,),
                     TextField(
                       controller: _name,
-                      cursorColor: Colors.grey,
+                      cursorColor: Colors.deepOrange,
                       decoration: InputDecoration(
                         labelText: 'Product Name',
                         contentPadding: EdgeInsets.all(5.0),
                         fillColor: Colors.white,
                         filled: true,
                         focusedBorder:OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                          borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                           borderRadius: BorderRadius.zero,
                         ),
                         border: new OutlineInputBorder(
                           borderSide: new BorderSide(
-                            color: Colors.grey,
+                            color: Colors.deepOrange,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.zero,
@@ -62,19 +92,19 @@ class _AddProductsState extends State<AddProducts> {
                     SizedBox(height: 20,),
                     TextField(
                       controller: _units,
-                      cursorColor: Colors.grey,
+                      cursorColor: Colors.deepOrange,
                       decoration: InputDecoration(
                         labelText: 'Product Unit',
                         contentPadding: EdgeInsets.all(5.0),
                         fillColor: Colors.white,
                         filled: true,
                         focusedBorder:OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                          borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                           borderRadius: BorderRadius.zero,
                         ),
                         border: new OutlineInputBorder(
                           borderSide: new BorderSide(
-                            color: Colors.grey,
+                            color: Colors.deepOrange,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.zero,
@@ -86,7 +116,7 @@ class _AddProductsState extends State<AddProducts> {
                     TextField(
                       controller: _bp,
                       keyboardType: TextInputType.number,
-                      cursorColor: Colors.grey,
+                      cursorColor: Colors.deepOrange,
                       decoration: InputDecoration(
                         labelText: 'Buying Price',
                         contentPadding: EdgeInsets.all(5.0),
@@ -98,7 +128,7 @@ class _AddProductsState extends State<AddProducts> {
                         ),
                         border: new OutlineInputBorder(
                           borderSide: new BorderSide(
-                            color: Colors.grey,
+                            color: Colors.deepOrange,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.zero,
@@ -109,7 +139,7 @@ class _AddProductsState extends State<AddProducts> {
                     SizedBox(height: 20,),
                     TextField(
                       controller: _sp,
-                      cursorColor: Colors.grey,
+                      cursorColor: Colors.deepOrange,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         labelText: 'Selling Price',
@@ -122,7 +152,7 @@ class _AddProductsState extends State<AddProducts> {
                         ),
                         border: new OutlineInputBorder(
                           borderSide: new BorderSide(
-                            color: Colors.grey,
+                            color: Colors.deepOrange,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.zero,
@@ -133,7 +163,7 @@ class _AddProductsState extends State<AddProducts> {
                     SizedBox(height: 20,),
                     TextField(
                       controller: _qty,
-                      cursorColor: Colors.grey,
+                      cursorColor: Colors.deepOrange,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         labelText: 'Quantity',
@@ -146,7 +176,7 @@ class _AddProductsState extends State<AddProducts> {
                         ),
                         border: new OutlineInputBorder(
                           borderSide: new BorderSide(
-                            color: Colors.grey,
+                            color: Colors.deepOrange,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.zero,
@@ -157,9 +187,12 @@ class _AddProductsState extends State<AddProducts> {
                     SizedBox(height: 20,),
                     TextField(
                       controller: _cat,
-                      cursorColor: Colors.grey,
+                      cursorColor: Colors.deepOrange,
                       decoration: InputDecoration(
                         labelText: 'Category',
+                        labelStyle: TextStyle(
+                          color: Colors.deepOrange,
+                        ),
                         contentPadding: EdgeInsets.all(5.0),
                         fillColor: Colors.white,
                         filled: true,
@@ -167,9 +200,9 @@ class _AddProductsState extends State<AddProducts> {
                           borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                           borderRadius: BorderRadius.zero,
                         ),
-                        border: new OutlineInputBorder(
+                        enabledBorder: new OutlineInputBorder(
                           borderSide: new BorderSide(
-                            color: Colors.grey,
+                            color: Colors.deepOrange,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.zero,
@@ -179,6 +212,9 @@ class _AddProductsState extends State<AddProducts> {
                     ),
                     SizedBox(height: 40,),
                     ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrange),
+                      ),
                       onPressed: (){
                         Database.addProduct(
                           name: _name.text,
