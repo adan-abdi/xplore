@@ -67,7 +67,7 @@ class _XploreAppRootState extends State<XploreAppRoot>
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
                   primaryColor: XploreThemes.primaryColor,
-                  accentColor: XploreThemes.accentColor),
+                  colorScheme: ColorScheme.fromSwatch().copyWith(secondary: XploreThemes.accentColor)),
               home: Scaffold(
                 body: Container(
                   child: Center(
@@ -86,7 +86,7 @@ class _XploreAppRootState extends State<XploreAppRoot>
                   return MaterialApp(
                     theme: ThemeData(
                         primaryColor: XploreThemes.primaryColor,
-                        accentColor: XploreThemes.accentColor),
+                        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: XploreThemes.accentColor)),
                     debugShowCheckedModeBanner: false,
                     navigatorKey: globalAppNavigatorKey,
                     navigatorObservers: <NavigatorObserver>[

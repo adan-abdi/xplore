@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:xplore/presentation/core/widgets/unrecoverable_error_widget.dart';
 import 'package:xplore/presentation/core/xplore_root.dart';
 import 'package:xplore/presentation/dashboard/pages/Base.dart';
+import 'package:xplore/presentation/dashboard/pages/Profile.dart';
 import 'package:xplore/presentation/onboarding/pages/landing_page.dart';
 import 'package:xplore/presentation/onboarding/pages/onboarding.dart';
+import 'package:xplore/presentation/onboarding/pages/otp.dart';
 import 'package:xplore/presentation/onboarding/pages/phone_login.dart';
 import 'package:xplore/presentation/onboarding/pages/phone_signup.dart';
 import 'package:xplore/presentation/routes/routes.dart';
@@ -24,6 +26,10 @@ class AppRouterGenerator {
         return MaterialPageRoute<PhoneSignup>(builder: (_) => PhoneSignup());
       case dashPageRoute:
         return MaterialPageRoute<Base>(builder: (_) => Base());
+      case profRoute:
+        return MaterialPageRoute<Profile>(builder: (_) => Profile());
+      case otpRoute:
+        return MaterialPageRoute<Profile>(builder: (_) => VerificationScreen(mobile: '',));
       case loginPageRoute:
         return MaterialPageRoute<Scaffold>(
             builder: (_) => Scaffold(

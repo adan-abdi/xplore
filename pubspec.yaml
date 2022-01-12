@@ -26,6 +26,9 @@ dependencies:
   lottie: ^1.1.0
   rxdart: ^0.27.1
   sqflite: ^2.0.0+3
+  intl_phone_number_input: ^0.7.0+2
+  connectivity: ^3.0.6
+
 
 
 dev_dependencies:

@@ -6,3 +6,5 @@ const String homePageRoute = '/homePage';
 const String siginPageRoute = '/siginPage';
 const String sigupPageRoute = '/sigupPage';
 const String dashPageRoute = '/dashPage';
+const String profRoute = '/profile';
+const String otpRoute = '/otp';

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:xplore/presentation/dashboard/pages/Profile.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget{
   const CustomAppBar({Key? key}) : super(key: key);
@@ -39,7 +40,12 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget{
           child: Container(
             padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
             color: Colors.deepOrange,
-            child: Icon(Icons.account_circle),
+            child: IconButton(
+              icon:  Icon(Icons.account_circle),
+              onPressed: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Profile()));
+              },
+            ),
           ),
         ),
       ],
