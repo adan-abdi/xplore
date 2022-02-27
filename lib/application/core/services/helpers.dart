@@ -1,7 +1,7 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:debug_logger/debug_logger.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:xplore/application/redux/actions/phone_login_action.dart';
 import 'package:xplore/application/redux/actions/update_user_state_action.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
@@ -11,7 +11,8 @@ import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
 import 'package:xplore/presentation/routes/routes.dart';
 
-/// Utility method for sending initial event to [FirebaseAnalytics]
+final Logger logger = Logger();
+
 Future<void> sendInitialAnalyticsEvent({
   required FirebaseAnalytics analytics,
 }) async {
@@ -30,17 +31,15 @@ Future<void> sendInitialAnalyticsEvent({
     screenName: rootPage,
   );
 
-  DebugLogger.warning(firebaseConnectSuccess);
+  logger.w(firebaseConnectSuccess);
 }
 
 /// Gets initial route based on the userState status
 Future<String> getInitialRoute({
-  required BuildContext context,
   required Store store,
 }) async {
   final AuthStatus tokenStatus = await getAuthStatus(
-    store: store,
-    context: context,
+    currentStore: store,
   );
 
   switch (tokenStatus) {
@@ -56,11 +55,10 @@ Future<String> getInitialRoute({
 }
 
 Future<AuthStatus> getAuthStatus({
-  required BuildContext context,
-  required Store store,
+  required Store currentStore,
 }) async {
-  final bool hasDoneTour = store.state.userState!.hasDoneTour ?? false;
-  final bool signedIn = store.state.userState!.isSignedIn ?? false;
+  final bool hasDoneTour = currentStore.state.userState!.hasDoneTour ??= false;
+  final bool signedIn = currentStore.state.userState!.isSignedIn ??= false;
 
   if (hasDoneTour == true) {
     if (signedIn == true) {

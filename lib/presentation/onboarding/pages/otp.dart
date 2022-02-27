@@ -1,5 +1,4 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:connectivity/connectivity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +6,10 @@ import 'package:flutter/services.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
 import 'package:xplore/presentation/routes/routes.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 class VerificationScreen extends StatefulWidget {
-  String mobile;
+  final String? mobile;
   VerificationScreen({required this.mobile});
   @override
   _VerificationScreenPageState createState() => _VerificationScreenPageState();
@@ -46,9 +46,16 @@ class _VerificationScreenPageState extends State<VerificationScreen> {
   static Future<bool> checkInternet() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
+      //SaveOffSessionAnalytic
       return false;
     } else {
-      return true;
+      if (connectivityResult == ConnectivityResult.mobile) {
+        return true;
+        //LogAnalytic (ConnectivityResult.wifi)
+      } else {
+        return true;
+        //LogAnalytic
+      }
     }
   }
 
@@ -92,7 +99,7 @@ class _VerificationScreenPageState extends State<VerificationScreen> {
     if (kIsWeb) {
       await _auth
           .signInWithPhoneNumber(
-        widget.mobile,
+        widget.mobile ?? '',
       )
           .then((value) {
         _verificationId = value.verificationId;
@@ -103,7 +110,7 @@ class _VerificationScreenPageState extends State<VerificationScreen> {
     } else {
       await _auth
           .verifyPhoneNumber(
-              phoneNumber: widget.mobile,
+              phoneNumber: widget.mobile ?? '',
               timeout: const Duration(seconds: 15),
               verificationCompleted: verificationCompleted,
               verificationFailed: verificationFailed,
@@ -385,7 +392,7 @@ class _VerificationScreenPageState extends State<VerificationScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  widget.mobile,
+                                  widget.mobile ?? '',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Colors.deepOrange,
