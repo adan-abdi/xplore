@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xplore/application/core/themes/colors.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
+import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/onboarding/widgets/landing_action.dart';
 import 'package:xplore/presentation/onboarding/widgets/landing_vector.dart';
 import 'package:xplore/presentation/onboarding/widgets/landing_title.dart';
@@ -26,10 +27,14 @@ class LandingPage extends StatelessWidget {
                   Column(
                     children: <Widget>[
                       LandingPageTitle(),
-                      hSize50SizedBox,
+                      vSize50SizedBox,
                       LandingVector(),
-                      hSize50SizedBox,
-                      LandingAction(),
+                      vSize50SizedBox,
+                      ActionButton(
+                        widgetText: getStartedText,
+                        textColor: XploreColors.white,
+                        isActive: true,
+                      ),
                     ],
                   )
                 ],

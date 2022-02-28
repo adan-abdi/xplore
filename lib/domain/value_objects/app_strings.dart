@@ -15,5 +15,6 @@ const String comingSoonText = 'Coming soon';
 const String siginText = 'Sign In';
 const String signupText = 'Create Account';
 const String getStartedText = 'Get Started';
+const String nextText = 'Next';
 const String verifyPhoneBtnText = 'Verify';
 const String okText = 'Close';

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:xplore/presentation/onboarding/widgets/circles.dart';
 import 'package:xplore/presentation/onboarding/widgets/xplore_appbar.dart';
 
-class OnbaordingScaffold extends StatelessWidget {
+class ProfileScaffold extends StatelessWidget {
   final Widget childWidgets;
   final Widget trailingWidget;
   final bool canPop;
   final Color circleColor;
   final XploreAppbar? appbar;
 
-  const OnbaordingScaffold({
+  const ProfileScaffold({
     Key? key,
     required this.childWidgets,
     this.trailingWidget = const SizedBox.shrink(),
@@ -27,13 +27,7 @@ class OnbaordingScaffold extends StatelessWidget {
         body: Stack(
           children: <Widget>[
             ...circles(context, circleColor),
-            Positioned(
-              top: 70,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: childWidgets,
-            ),
+            childWidgets,
             Positioned(
               left: 0,
               bottom: 0,

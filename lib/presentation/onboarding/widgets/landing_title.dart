@@ -14,7 +14,7 @@ class LandingPageTitle extends StatelessWidget {
             text: TextSpan(
               text: 'Fast \n',
               style: TextStyle(
-                  color: XploreColors.black,
+                  color: XploreColors.deepBlue,
                   fontSize: 55,
                   fontWeight: FontWeight.bold),
               children: const <TextSpan>[
@@ -28,7 +28,7 @@ class LandingPageTitle extends StatelessWidget {
                 TextSpan(
                   text: 'Digital.',
                   style: TextStyle(
-                    color: XploreColors.black,
+                    color: XploreColors.deepBlue,
                     fontSize: 55,
                     fontWeight: FontWeight.bold,
                   ),
@@ -36,7 +36,7 @@ class LandingPageTitle extends StatelessWidget {
               ],
             ),
           ),
-          hSize30SizedBox,
+          vSize30SizedBox,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
