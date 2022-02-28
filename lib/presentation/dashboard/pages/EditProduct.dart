@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/infrastructure/Database.dart';
+import 'package:xplore/infrastructure/database.dart';
 
 class EditProducts extends StatefulWidget {
   final String name;

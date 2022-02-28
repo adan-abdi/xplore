@@ -5,11 +5,11 @@ import 'package:logger/logger.dart';
 import 'package:xplore/application/redux/actions/phone_login_action.dart';
 import 'package:xplore/application/redux/actions/update_user_state_action.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
+import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_enums.dart';
 import 'package:xplore/domain/value_objects/app_event_strings.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
-import 'package:xplore/presentation/routes/routes.dart';
 
 final Logger logger = Logger();
 

@@ -1,4 +1,4 @@
-package com.xplore.origin
+package com.xplore.mobile
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -11,8 +11,6 @@ import 'package:xplore/infrastructure/database_state_persistor.dart';
 import 'package:xplore/presentation/core/widgets/unrecoverable_error_widget.dart';
 import 'package:xplore/xplore_app.dart';
 
-
-//App code runs in its own error zone.
 void main() async {
   await runZonedGuarded<Future<void>>(() async {
     WidgetsFlutterBinding.ensureInitialized();

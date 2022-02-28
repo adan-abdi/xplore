@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
+import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
-import 'package:xplore/presentation/routes/routes.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 class VerificationScreen extends StatefulWidget {

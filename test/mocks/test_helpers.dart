@@ -1,10 +1,8 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
-import 'package:xplore/domain/value_objects/app_widget_keys.dart';
-import 'package:xplore/presentation/routes/route_generator.dart';
+import 'package:xplore/domain/routes/route_generator.dart';
+import 'package:xplore/domain/value_objects/app_global_constants.dart';
 
 /// [buildTestWidget] is a widget wrapper used for testing
 /// It wraps the widget with a `StoreProvider`, `AppWrapperBase`, `MaterialApp` and a `Scaffold`

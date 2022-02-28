@@ -3,12 +3,12 @@ import 'package:concentric_transition/concentric_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:xplore/application/redux/actions/update_user_state_action.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
+import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
 import 'package:xplore/presentation/onboarding/widgets/onboarding_card.dart';
 import 'package:xplore/presentation/onboarding/widgets/onboarding_items.dart';
 import 'package:xplore/presentation/onboarding/widgets/onboarding_page.dart';
-import 'package:xplore/presentation/routes/routes.dart';
 
 class Onboarding extends StatelessWidget {
   List<Color> get colors => pages.map((p) => p.bgColor).toList();

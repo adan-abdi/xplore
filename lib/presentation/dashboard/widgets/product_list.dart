@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:xplore/infrastructure/Database.dart';
+import 'package:xplore/infrastructure/database.dart';
 import 'package:xplore/presentation/dashboard/pages/Base.dart';
 import 'package:xplore/presentation/dashboard/pages/EditProduct.dart';
 

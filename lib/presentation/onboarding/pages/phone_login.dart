@@ -5,7 +5,7 @@ import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 
-import 'otp.dart';
+import 'otp_verification_page.dart';
 
 class PhoneLogin extends StatefulWidget {
   const PhoneLogin({Key? key}) : super(key: key);
@@ -18,7 +18,6 @@ class _PhoneLoginState extends State<PhoneLogin> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _phoneNumberInputController =
       TextEditingController();
-  final TextEditingController _pinInputController = TextEditingController();
   // late String _phoneNumber;
   // late String _pinCode;
 
@@ -26,7 +25,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
   // late String verificationId;
   // String errorMessage = '';
 
-  String initialCountry = 'KE';
+  String initialCountryCode = 'KE';
   PhoneNumber number = PhoneNumber(isoCode: 'KE');
 
   String phone = "";

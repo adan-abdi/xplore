@@ -1,8 +1,8 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
+import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
-import 'package:xplore/presentation/routes/routes.dart';
 
 class LandingActions extends StatelessWidget {
   @override

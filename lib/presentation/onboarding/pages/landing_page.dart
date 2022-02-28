@@ -9,8 +9,6 @@ import 'package:xplore/presentation/onboarding/widgets/terms_and_conditions.dart
 class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const double dimension = 0;
-
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -18,10 +16,10 @@ class LandingPage extends StatelessWidget {
           children: <Widget>[
             ...circles(context),
             Positioned(
-              top: dimension,
-              left: dimension,
-              right: dimension,
-              bottom: dimension,
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
               child: Center(
                 child: SingleChildScrollView(
                   child: Padding(
