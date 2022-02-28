@@ -8,7 +8,7 @@ class XploreThemes {
       {required Color color, double? fontSize, FontWeight? fontWeight}) {
     TextStyle textTheme = TextStyle(
         color: color,
-        fontSize: fontSize ?? XploreOriginNumbers.defaultFontSize,
+        fontSize: fontSize ?? defaultFontSize,
         fontWeight: fontWeight ?? FontWeight.normal);
 
     return textTheme;

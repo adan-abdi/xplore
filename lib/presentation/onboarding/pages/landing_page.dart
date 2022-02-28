@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/application/core/themes/app_themes.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
-import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/onboarding/widgets/circles.dart';
 import 'package:xplore/presentation/onboarding/widgets/landing_actions.dart';
+import 'package:xplore/presentation/onboarding/widgets/landing_vector.dart';
+import 'package:xplore/presentation/onboarding/widgets/landing_page_title.dart';
 import 'package:xplore/presentation/onboarding/widgets/terms_and_conditions.dart';
 
 class LandingPage extends StatelessWidget {
@@ -16,59 +16,33 @@ class LandingPage extends StatelessWidget {
           children: <Widget>[
             ...circles(context),
             Positioned(
-              top: 0,
+              top: 70,
               left: 0,
               right: 0,
               bottom: 0,
               child: Center(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      runAlignment: WrapAlignment.center,
+                      spacing: 30,
+                      runSpacing: 40,
                       children: <Widget>[
-                        Wrap(
-                          alignment: WrapAlignment.center,
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          runAlignment: WrapAlignment.center,
-                          spacing: 30,
-                          runSpacing: 40,
+                        Column(
                           children: <Widget>[
-                            hSize10SizedBox,
-                            Column(
-                              children: <Widget>[
-                                Column(
-                                  children: <Widget>[
-                                    Text(
-                                      landingPageTitle,
-                                      textAlign: TextAlign.center,
-                                      style: XploreThemes().textThemes(
-                                        color: XploreThemes.white,
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    hSize20SizedBox,
-                                    Text(
-                                      landingPageSubtitle,
-                                      textAlign: TextAlign.center,
-                                      style: XploreThemes().textThemes(
-                                        color: XploreThemes.grey,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                hSize50SizedBox,
-                                LandingActions(),
-                              ],
-                            )
+                            LandingPageTitle(),
+                            hSize50SizedBox,
+                            LandingVector(),
+                            hSize50SizedBox,
+                            LandingAction(),
                           ],
-                        ),
+                        )
                       ],
                     ),
-                  ),
+                  ],
                 ),
               ),
             ),

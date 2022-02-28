@@ -4,49 +4,28 @@ import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 
-class LandingActions extends StatelessWidget {
+class LandingAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      runSpacing: 20,
-      spacing: 20,
-      children: <Widget>[
-        SizedBox(
-          width: double.infinity,
-          height: 50,
-          child: ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(
-                  Theme.of(context).primaryColor),
-            ),
-            onPressed: () {
-              StoreProvider.dispatch<AppState>(
-                    context,
-                    NavigateAction.pushNamed(siginPageRoute),
-                  );
-            },
-            child: const Text(siginText),
+    return SizedBox(
+      width: double.infinity,
+      height: 50,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor:
+                MaterialStateProperty.all<Color>(Colors.deepOrange),
           ),
+          onPressed: () {
+            StoreProvider.dispatch<AppState>(
+              context,
+              NavigateAction.pushNamed(phoneLoginPageRoute),
+            );
+          },
+          child: const Text(getStartedText),
         ),
-        Container(
-          margin: const EdgeInsets.only(bottom: 30),
-          width: double.infinity,
-          height: 50,
-          child: ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(
-                  Theme.of(context).primaryColor),
-            ),
-            onPressed: () {
-              StoreProvider.dispatch<AppState>(
-                    context,
-                    NavigateAction.pushNamed(sigupPageRoute),
-                  );
-            },
-            child: const Text(signupText),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

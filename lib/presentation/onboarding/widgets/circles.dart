@@ -17,22 +17,5 @@ List<Widget> circles(BuildContext context) {
         ),
       ),
     ),
-    Positioned(
-      top: circleOffscreenSize - 120,
-      left: circleOffscreenSize + 100,
-      child: Opacity(
-        opacity: 0.8,
-        child: Container(
-          width: circleSize,
-          height: circleSize,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: AssetImage(onboardingBackgroundImage),
-            ),
-          ),
-        ),
-      ),
-    ),
   ];
 }

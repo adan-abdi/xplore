@@ -18,7 +18,7 @@ class XploreAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      toolbarHeight: XploreOriginNumbers.number80,
+      toolbarHeight: number80,
       title: Text(
         title,
         style:

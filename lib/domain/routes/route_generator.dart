@@ -19,7 +19,7 @@ class AppRouterGenerator {
 
       case landingPageRoute:
         return MaterialPageRoute<LandingPage>(builder: (_) => LandingPage());
-      case siginPageRoute:
+      case phoneLoginPageRoute:
         return MaterialPageRoute<PhoneLogin>(builder: (_) => PhoneLogin());
       case dashPageRoute:
         return MaterialPageRoute<Base>(builder: (_) => Base());
