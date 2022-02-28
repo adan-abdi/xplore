@@ -1,11 +1,12 @@
-import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:xplore/application/redux/states/app_state.dart';
+import 'package:xplore/application/core/themes/colors.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
-import 'package:xplore/domain/value_objects/app_strings.dart';
-
-import 'otp_verification_page.dart';
+import 'package:xplore/presentation/onboarding/widgets/login_badge.dart';
+import 'package:xplore/presentation/onboarding/widgets/login_keyboard.dart';
+import 'package:xplore/presentation/onboarding/widgets/login_phone_field.dart';
+import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
+import 'package:xplore/presentation/onboarding/widgets/onboarding_scaffold.dart';
 
 class PhoneLogin extends StatefulWidget {
   const PhoneLogin({Key? key}) : super(key: key);
@@ -16,22 +17,13 @@ class PhoneLogin extends StatefulWidget {
 
 class _PhoneLoginState extends State<PhoneLogin> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _phoneNumberInputController =
-      TextEditingController();
-  // late String _phoneNumber;
-  // late String _pinCode;
-
-  // late String smsOTP;
-  // late String verificationId;
-  // String errorMessage = '';
+  final TextEditingController phoneNumberController = TextEditingController();
 
   String initialCountryCode = 'KE';
   PhoneNumber number = PhoneNumber(isoCode: 'KE');
 
   String phone = "";
   String isoCode = "";
-
-  var num;
 
   @override
   void initState() {
@@ -40,84 +32,41 @@ class _PhoneLoginState extends State<PhoneLogin> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.all(20),
-        child: Center(
-          child: Form(
+    return OnbaordingScaffold(
+      childWidgets: Column(
+        children: <Widget>[
+          hSize40SizedBox,
+          LandingBadge(),
+          hSize40SizedBox,
+          LoginTitle(),
+          hSize40SizedBox,
+          Form(
             key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                'Enter your phone number to Log In.',
-                style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18,
-                    color: Colors.deepOrange),
-              ),
-                hSize50SizedBox,
-                InternationalPhoneNumberInput(
-                  onInputChanged: (PhoneNumber number) {
-                    setState(() {
-                      phone = number.phoneNumber!;
-                      isoCode = number.isoCode!;
-                      num = phone;
-                    });
-                  },
-                  onInputValidated: (bool value) {
-                    print(value);
-                  },
-                  selectorConfig: SelectorConfig(
-                    selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                  ),
-                  ignoreBlank: false,
-                  autoValidateMode: AutovalidateMode.disabled,
-                  selectorTextStyle: TextStyle(color: Colors.black),
-                  initialValue: number,
-                  textFieldController: _phoneNumberInputController,
-                  formatInput: false,
-                  keyboardType: TextInputType.numberWithOptions(
-                      signed: true, decimal: true),
-                  inputBorder: OutlineInputBorder(),
-                  onSaved: (PhoneNumber number) {
-                    // setState(() {
-                    //   phone = number.phoneNumber!;
-                    //   isoCode = number.isoCode!;
-                    //   num = isoCode + phone;
-                    // });
-                  },
-                ),
-                // hSize30SizedBox,
-                // TextFormField(
-                //   controller: _pinInputController,
-                //   onChanged: (String val) {
-                //     // _pinCode = val;
-                //   },
-                //   // PIN
-                // ),
-                hSize30SizedBox,
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        Theme.of(context).primaryColor),
-                  ),
-                  onPressed: () {
-                    StoreProvider.dispatch<AppState>(
-                      context,
-                      NavigateAction.push(MaterialPageRoute(
-                          builder: (BuildContext context) => VerificationScreen(
-                                mobile: num.substring(2),
-                              ))),
-                    );
-                  },
-                  child: const Text(siginText),
-                ),
-              ],
+            child: PhoneLoginField(
+              number: number,
+              onInputChanged: () {},
+              onInputValidated: () {},
+              onSaved: () {},
+              phoneNumberController: phoneNumberController,
             ),
           ),
+          // hSize50SizedBox,
+        ],
+      ),
+      trailingWidget: LoginKeyboard(
+        onKeyTap: (String v) {},
+        rightKey: Icon(
+          Icons.check_circle,
+          color: XploreColors.orange,
+          size: 30,
+        ),
+        leftKey: Icon(
+          Icons.backspace,
+          color: XploreColors.orange,
+          size: 30,
         ),
       ),
+      circleColor: XploreColors.lightOrange,
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xplore/application/core/themes/colors.dart';
+import 'package:xplore/domain/value_objects/app_magic_numbers.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 
 class LandingPageTitle extends StatelessWidget {
@@ -20,7 +21,7 @@ class LandingPageTitle extends StatelessWidget {
                 TextSpan(
                     text: '   & ',
                     style: TextStyle(
-                      color: XploreColors.orange,
+                      color: XploreColors.white,
                       fontSize: 48,
                       fontWeight: FontWeight.normal,
                     )),
@@ -41,8 +42,8 @@ class LandingPageTitle extends StatelessWidget {
             child: Text(
               'Keep your store in order , Easy to use  point of sale',
               style: TextStyle(
-                color: XploreColors.orange,
-                fontSize: 16,
+                color: XploreColors.white,
+                fontSize: defaultFontSize,
                 fontWeight: FontWeight.normal,
               ),
               textAlign: TextAlign.center,
