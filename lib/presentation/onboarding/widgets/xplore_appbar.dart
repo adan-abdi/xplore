@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xplore/application/core/themes/app_themes.dart';
 import 'package:xplore/application/core/themes/colors.dart';
+import 'package:xplore/domain/value_objects/app_global_constants.dart';
 
 class XploreAppbar extends StatelessWidget implements PreferredSizeWidget {
   final Icon? leadingIcon;
@@ -22,7 +23,7 @@ class XploreAppbar extends StatelessWidget implements PreferredSizeWidget {
       : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(56.0);
+  Size get preferredSize => const Size.fromHeight(xploreAppbarHeight);
 
   @override
   Widget build(BuildContext context) {

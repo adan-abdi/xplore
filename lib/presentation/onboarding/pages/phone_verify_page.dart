@@ -12,14 +12,14 @@ import 'package:xplore/presentation/onboarding/widgets/login_keyboard.dart';
 import 'package:xplore/presentation/onboarding/widgets/login_phone_field.dart';
 import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
 
-class PhoneLogin extends StatefulWidget {
-  const PhoneLogin({Key? key}) : super(key: key);
+class PhoneVerifyPage extends StatefulWidget {
+  const PhoneVerifyPage({Key? key}) : super(key: key);
 
   @override
-  _PhoneLoginState createState() => _PhoneLoginState();
+  _PhoneVerifyPageState createState() => _PhoneVerifyPageState();
 }
 
-class _PhoneLoginState extends State<PhoneLogin> {
+class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController phoneNumberController = TextEditingController();
 
@@ -57,9 +57,9 @@ class _PhoneLoginState extends State<PhoneLogin> {
       widgets: [
         ...titles(
           context: context,
-          extraHeading: 'We will send you a confirmation code to verify you.',
-          subtitle: 'mobile number',
-          title: 'Enter your \n',
+          title: 'Enter code sent \n',
+          subtitle: 'to your number.',
+          extraHeading: 'We sent it to +(254)-723-073-552.',
         ),
         vSize20SizedBox,
         Form(

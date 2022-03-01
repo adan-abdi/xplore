@@ -24,7 +24,7 @@ class XploreApp extends StatefulWidget {
 class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
   FirebaseApp xploreFirebaseApp = Firebase.app();
 
-  final appInitialRoute = BehaviorSubject<String>.seeded(landingPageRoute);
+  final appInitialRoute = BehaviorSubject<String>.seeded(phoneLoginPageRoute);
 
   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 

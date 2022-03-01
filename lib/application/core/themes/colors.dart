@@ -8,6 +8,7 @@ class XploreColors {
   static const Color orange = Colors.deepOrange;
   static const Color lightOrange = Colors.orange;
   static const Color grey = Colors.grey;
+  static const Color green = Colors.green;
 
   //
   final Color orangeAccent = Colors.deepOrange.shade100;

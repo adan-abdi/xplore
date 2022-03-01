@@ -8,18 +8,19 @@ List<Widget> titles({
   required String title,
   required String subtitle,
   required String extraHeading,
+  double? titleFontSize,
+  double? headingFontSize,
 }) {
   return <Widget>[
-    Positioned(
-      left: 0,
-      right: 0,
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: RichText(
         textAlign: TextAlign.start,
         text: TextSpan(
           text: title,
           style: TextStyle(
             color: XploreColors.deepBlue,
-            fontSize: 30,
+            fontSize: titleFontSize ?? 36,
             fontWeight: FontWeight.normal,
           ),
           children: <TextSpan>[
@@ -27,7 +28,7 @@ List<Widget> titles({
                 text: subtitle,
                 style: TextStyle(
                   color: XploreColors.black,
-                  fontSize: 30,
+                  fontSize: titleFontSize ?? 36,
                   fontWeight: FontWeight.normal,
                 )),
           ],
@@ -41,7 +42,7 @@ List<Widget> titles({
         extraHeading,
         style: TextStyle(
           color: XploreColors.deepBlue,
-          fontSize: defaultFontSize,
+          fontSize: headingFontSize ?? defaultFontSize,
           fontWeight: FontWeight.normal,
         ),
         textAlign: TextAlign.start,
@@ -49,20 +50,3 @@ List<Widget> titles({
     ),
   ];
 }
-
-// class LoginTitle extends StatelessWidget {
-//   final String? title;
-//   final String? subtitle;
-//   final String? extraHeading;
-
-//   const LoginTitle({Key? key, this.title, this.subtitle, this.extraHeading})
-//       : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.start,
-//       children: [],
-//     );
-//   }
-// }

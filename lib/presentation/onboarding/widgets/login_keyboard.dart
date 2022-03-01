@@ -3,15 +3,17 @@ import 'package:numeric_keyboard/numeric_keyboard.dart';
 import 'package:xplore/application/core/themes/colors.dart';
 
 class LoginKeyboard extends StatelessWidget {
+  final Function()? onLeftKeyTap;
   final Function(String) onKeyTap;
-  final Icon rightKey;
-  final Icon leftKey;
+  final Icon? rightKey;
+  final Icon? leftKey;
 
   const LoginKeyboard({
     Key? key,
     required this.onKeyTap,
     required this.rightKey,
-    required this.leftKey,
+    this.leftKey,
+    this.onLeftKeyTap,
   }) : super(key: key);
 
   @override
@@ -23,6 +25,7 @@ class LoginKeyboard extends StatelessWidget {
         onKeyboardTap: onKeyTap,
         rightIcon: rightKey,
         leftIcon: leftKey,
+        rightButtonFn: onLeftKeyTap,
       ),
     );
   }
