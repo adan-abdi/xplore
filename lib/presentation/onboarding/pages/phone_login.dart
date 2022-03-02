@@ -76,12 +76,16 @@ class _PhoneLoginState extends State<PhoneLogin> {
         ActionButton(
           widgetText: nextText,
           isActive: true,
-          actionCallback: () {},
+          nextRoute: otpPageRoute,
         ),
         vSize30SizedBox,
         Container(
           child: LoginKeyboard(
-            onKeyTap: (String v) {},
+            onKeyTap: (String v) {
+              setState(() {
+                v = phoneNumberController.text;
+              });
+            },
             rightKey: Icon(
               Icons.backspace,
               color: XploreColors.orange,

@@ -34,12 +34,7 @@ class LandingPage extends StatelessWidget {
                       ActionButton(
                         widgetText: getStartedText,
                         isActive: true,
-                        actionCallback: () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            phoneLoginPageRoute,
-                          );
-                        },
+                        nextRoute: phoneLoginPageRoute,
                       ),
                     ],
                   )

@@ -4,9 +4,8 @@ import 'package:xplore/presentation/core/widgets/unrecoverable_error_widget.dart
 import 'package:xplore/presentation/dashboard/pages/Base.dart';
 import 'package:xplore/presentation/dashboard/pages/Profile.dart';
 import 'package:xplore/presentation/onboarding/pages/landing_page.dart';
-import 'package:xplore/presentation/onboarding/pages/onboarding.dart';
-import 'package:xplore/presentation/onboarding/pages/otp_verification_page.dart';
 import 'package:xplore/presentation/onboarding/pages/phone_login.dart';
+import 'package:xplore/presentation/onboarding/pages/phone_verify_page.dart';
 import 'package:xplore/xplore_app.dart';
 
 class AppRouterGenerator {
@@ -14,9 +13,6 @@ class AppRouterGenerator {
     // final dynamic args = settings?.arguments;
 
     switch (settings?.name) {
-      case onboardingPageRoute:
-        return MaterialPageRoute<Onboarding>(builder: (_) => Onboarding());
-
       case landingPageRoute:
         return MaterialPageRoute<LandingPage>(builder: (_) => LandingPage());
       case phoneLoginPageRoute:
@@ -27,7 +23,7 @@ class AppRouterGenerator {
         return MaterialPageRoute<Profile>(builder: (_) => Profile());
       case otpPageRoute:
         return MaterialPageRoute<Profile>(
-            builder: (_) => VerificationScreen(
+            builder: (_) => PhoneVerifyPage(
                   mobile: '',
                 ));
       case loginPageRoute:

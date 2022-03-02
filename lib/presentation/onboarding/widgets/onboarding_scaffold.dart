@@ -12,9 +12,9 @@ class OnbaordingScaffold extends StatelessWidget {
   const OnbaordingScaffold({
     Key? key,
     required this.childWidgets,
+    required this.circleColor,
     this.trailingWidget = const SizedBox.shrink(),
     this.canPop = true,
-    required this.circleColor,
     this.appbar,
   }) : super(key: key);
 

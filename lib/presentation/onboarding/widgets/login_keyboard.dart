@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:numeric_keyboard/numeric_keyboard.dart';
 import 'package:xplore/application/core/themes/colors.dart';
+import 'package:xplore/presentation/core/pages/xplore_numeric_keyboard.dart';
 
 class LoginKeyboard extends StatelessWidget {
   final Function()? onLeftKeyTap;
@@ -20,7 +20,7 @@ class LoginKeyboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      child: NumericKeyboard(
+      child: XploreNumericKeyboard(
         textColor: XploreColors.black,
         onKeyboardTap: onKeyTap,
         rightIcon: rightKey,
