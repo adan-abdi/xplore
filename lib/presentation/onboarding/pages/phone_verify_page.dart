@@ -1,19 +1,20 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/core/themes/colors.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
+import 'package:xplore/application/singletons/button_status.dart';
 import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
+import 'package:xplore/presentation/onboarding/widgets/input/keyboard.dart';
 import 'package:xplore/presentation/onboarding/widgets/keyboard_scaffold.dart';
-import 'package:xplore/presentation/onboarding/widgets/landing_action.dart';
-import 'package:xplore/presentation/onboarding/widgets/login_keyboard.dart';
+import 'package:xplore/presentation/onboarding/widgets/action_button.dart';
 import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
 
 class PhoneVerifyPage extends StatefulWidget {
@@ -37,6 +38,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
   FocusNode controller4fn = new FocusNode();
   FocusNode controller5fn = new FocusNode();
   FocusNode controller6fn = new FocusNode();
+  ButtonStatusStore otpBtnStore = ButtonStatusStore();
 
   static const double dist = 3.0;
   TextEditingController currController = new TextEditingController();
@@ -57,22 +59,6 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
     super.initState();
     currController = controller1;
     _verifyPhoneNumber();
-  }
-
-  static Future<bool> checkInternet() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
-      //SaveOffSessionAnalytic
-      return false;
-    } else {
-      if (connectivityResult == ConnectivityResult.mobile) {
-        return true;
-        //LogAnalytic (ConnectivityResult.wifi)
-      } else {
-        return true;
-        //LogAnalytic
-      }
-    }
   }
 
   void _signInWithPhoneNumber(String otp) async {
@@ -134,7 +120,12 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
   }
 
   verifyOtp(String otpText) async {
+    // if (otpText != null) {
+    // setState(() {
+    //   otpBtnStore.colorStream.add(ButtonStatus.active.color);
+    // });
     _signInWithPhoneNumber(otpText);
+    // }
   }
 
   @override
@@ -351,22 +342,29 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
         vSize40SizedBox,
         ActionButton(
           widgetText: nextText,
-          isActive: true,
           nextRoute: otpPageRoute,
+          colorStream: ButtonStatusStore().colorStream,
+          statusStream: ButtonStatusStore().statusStream,
+          onTapcallback: () {
+            _onButtonClick;
+          },
         ),
         vSize30SizedBox,
         Container(
           child: LoginKeyboard(
-            onKeyTap: (String v) {},
+            onKeyTap: (String text) {
+              setState(() {
+                insertText(text, currController);
+              });
+            },
             rightKey: Icon(
               Icons.backspace,
               color: XploreColors.orange,
             ),
-            onLeftKeyTap: () {
-              StoreProvider.dispatch<AppState>(
-                context,
-                NavigateAction.pushNamed(otpPageRoute),
-              );
+            onRightKeyTap: () {
+              setState(() {
+                removeText(currController);
+              });
             },
           ),
         ),
@@ -395,7 +393,8 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
       print("codeSent");
       print(verificationId);
       ScaffoldMessenger.of(context).showSnackBar(snackbar(
-        content: "Please check your phone for the verification code.",
+        content:
+            "Please check your phone for the verification code ${verificationId}.",
       ));
       _verificationId = verificationId;
     };

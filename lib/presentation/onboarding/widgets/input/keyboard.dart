@@ -4,6 +4,7 @@ import 'package:xplore/presentation/core/pages/xplore_numeric_keyboard.dart';
 
 class LoginKeyboard extends StatelessWidget {
   final Function()? onLeftKeyTap;
+  final Function()? onRightKeyTap;
   final Function(String) onKeyTap;
   final Icon? rightKey;
   final Icon? leftKey;
@@ -12,6 +13,7 @@ class LoginKeyboard extends StatelessWidget {
     Key? key,
     required this.onKeyTap,
     required this.rightKey,
+    required this.onRightKeyTap,
     this.leftKey,
     this.onLeftKeyTap,
   }) : super(key: key);

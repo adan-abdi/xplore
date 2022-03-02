@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -161,3 +162,87 @@ SnackBarAction dismissSnackBar(String text, Color color, BuildContext context) {
     },
   );
 }
+
+Color evaluateButtonStatus(ButtonStatus status) {
+  return status.color;
+}
+
+void insertText(String text, TextEditingController c) {
+  final text = c.text;
+  final textSelection = c.selection;
+  final newText = text.replaceRange(
+    textSelection.start,
+    textSelection.end,
+    text,
+  );
+  final myTextLength = text.length;
+  c.text = newText;
+  c.selection = textSelection.copyWith(
+    baseOffset: textSelection.start + myTextLength,
+    extentOffset: textSelection.start + myTextLength,
+  );
+}
+
+void removeText(TextEditingController c) {
+  final _text = c.text;
+  final _textSelection = c.selection;
+  final _selectionLength = _textSelection.end - _textSelection.start;
+
+  // There is a selection.
+  if (_selectionLength > 0) {
+    final newText = _text.replaceRange(
+      _textSelection.start,
+      _textSelection.end,
+      '',
+    );
+    c.text = newText;
+    c.selection = _textSelection.copyWith(
+      baseOffset: _textSelection.start,
+      extentOffset: _textSelection.start,
+    );
+    return;
+  }
+
+  // The cursor is at the beginning.
+  if (_textSelection.start == 0) {
+    return;
+  }
+
+  bool isUtf16Surrogate(int value) {
+    return value & 0xF800 == 0xD800;
+  }
+
+  // Delete the previous character
+  final previousCodeUnit = _text.codeUnitAt(_textSelection.start - 1);
+  final offset = isUtf16Surrogate(previousCodeUnit) ? 2 : 1;
+  final newStart = _textSelection.start - offset;
+  final newEnd = _textSelection.start;
+  final newText = _text.replaceRange(
+    newStart,
+    newEnd,
+    '',
+  );
+  c.text = newText;
+  c.selection = _textSelection.copyWith(
+    baseOffset: newStart,
+    extentOffset: newStart,
+  );
+}
+
+Future<bool> checkInternet() async {
+  var connectivityResult = await (Connectivity().checkConnectivity());
+  if (connectivityResult == ConnectivityResult.none) {
+    //SaveOffSessionAnalytic
+    return false;
+  } else {
+    if (connectivityResult == ConnectivityResult.mobile) {
+      return true;
+      //LogAnalytic (ConnectivityResult.wifi)
+    } else {
+      return true;
+      //LogAnalytic
+    }
+  }
+}
+
+

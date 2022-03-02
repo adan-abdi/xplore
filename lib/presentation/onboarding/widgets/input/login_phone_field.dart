@@ -27,23 +27,14 @@ class PhoneLoginField extends StatelessWidget {
       ),
       child: Container(
         alignment: Alignment.center,
-        child: InternationalPhoneNumberInput(
-          hintText: '+(254)-700-000-000',
-          autoFocus: true,
-          inputBorder: InputBorder.none,
-          onInputChanged: (PhoneNumber number) => onInputChanged,
-          onInputValidated: (bool value) => onInputValidated,
-          selectorConfig: SelectorConfig(
-            selectorType: PhoneInputSelectorType.DIALOG,
-          ),
-          ignoreBlank: false,
-          autoValidateMode: AutovalidateMode.disabled,
-          selectorTextStyle: TextStyle(color: Colors.black),
-          initialValue: number,
-          textFieldController: phoneNumberController,
-          formatInput: false,
+        child: TextField(
+          controller: phoneNumberController,
           keyboardType: TextInputType.none,
-          onSaved: (PhoneNumber number) => onSaved,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: '+(254) 700 000 000',
+          ),
+          readOnly: true,
         ),
       ),
     );

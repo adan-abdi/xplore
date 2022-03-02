@@ -1,15 +1,17 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/core/themes/colors.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
+import 'package:xplore/application/singletons/button_status.dart';
 import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
+import 'package:xplore/presentation/onboarding/widgets/input/keyboard.dart';
 import 'package:xplore/presentation/onboarding/widgets/keyboard_scaffold.dart';
-import 'package:xplore/presentation/onboarding/widgets/landing_action.dart';
-import 'package:xplore/presentation/onboarding/widgets/login_keyboard.dart';
-import 'package:xplore/presentation/onboarding/widgets/login_phone_field.dart';
+import 'package:xplore/presentation/onboarding/widgets/action_button.dart';
+import 'package:xplore/presentation/onboarding/widgets/input/login_phone_field.dart';
 import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
 
 class PhoneLogin extends StatefulWidget {
@@ -20,8 +22,8 @@ class PhoneLogin extends StatefulWidget {
 }
 
 class _PhoneLoginState extends State<PhoneLogin> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController phoneNumberController = TextEditingController();
+  late GlobalKey<FormState>? _formKey = GlobalKey<FormState>();
+  late TextEditingController phoneNumberController;
 
   String initialCountryCode = 'KE';
   PhoneNumber number = PhoneNumber(isoCode: 'KE');
@@ -32,6 +34,8 @@ class _PhoneLoginState extends State<PhoneLogin> {
   @override
   void initState() {
     super.initState();
+    phoneNumberController = TextEditingController();
+    _formKey = GlobalKey<FormState>();
   }
 
   @override
@@ -75,26 +79,31 @@ class _PhoneLoginState extends State<PhoneLogin> {
         vSize40SizedBox,
         ActionButton(
           widgetText: nextText,
-          isActive: true,
           nextRoute: otpPageRoute,
+          statusStream: ButtonStatusStore().statusStream,
+          colorStream: ButtonStatusStore().colorStream,
+          onTapcallback: () {
+            setState(() {
+              
+            });
+          },
         ),
         vSize30SizedBox,
         Container(
           child: LoginKeyboard(
-            onKeyTap: (String v) {
+            onKeyTap: (String text) {
               setState(() {
-                v = phoneNumberController.text;
+                insertText(text, phoneNumberController);
               });
             },
             rightKey: Icon(
               Icons.backspace,
               color: XploreColors.orange,
             ),
-            onLeftKeyTap: () {
-              StoreProvider.dispatch<AppState>(
-                context,
-                NavigateAction.pushNamed(otpPageRoute),
-              );
+            onRightKeyTap: () {
+              setState(() {
+                removeText(phoneNumberController);
+              });
             },
           ),
         ),
