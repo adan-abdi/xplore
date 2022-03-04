@@ -8,7 +8,7 @@ import 'package:xplore/application/singletons/button_status.dart';
 import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
-import 'package:xplore/presentation/onboarding/widgets/input/keyboard.dart';
+import 'package:xplore/presentation/core/pages/xplore_numeric_keyboard.dart';
 import 'package:xplore/presentation/onboarding/widgets/keyboard_scaffold.dart';
 import 'package:xplore/presentation/onboarding/widgets/action_button.dart';
 import 'package:xplore/presentation/onboarding/widgets/input/login_phone_field.dart';
@@ -24,6 +24,7 @@ class PhoneLogin extends StatefulWidget {
 class _PhoneLoginState extends State<PhoneLogin> {
   late GlobalKey<FormState>? _formKey = GlobalKey<FormState>();
   late TextEditingController phoneNumberController;
+  final ButtonStatusStore actionButtonState = ButtonStatusStore();
 
   String initialCountryCode = 'KE';
   PhoneNumber number = PhoneNumber(isoCode: 'KE');
@@ -36,6 +37,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
     super.initState();
     phoneNumberController = TextEditingController();
     _formKey = GlobalKey<FormState>();
+    phoneNumberController.text = '+254';
   }
 
   @override
@@ -69,10 +71,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
         Form(
           key: _formKey,
           child: PhoneLoginField(
-            number: number,
-            onInputChanged: () {},
-            onInputValidated: () {},
-            onSaved: () {},
+            btnStore: actionButtonState,
             phoneNumberController: phoneNumberController,
           ),
         ),
@@ -80,29 +79,30 @@ class _PhoneLoginState extends State<PhoneLogin> {
         ActionButton(
           widgetText: nextText,
           nextRoute: otpPageRoute,
-          statusStream: ButtonStatusStore().statusStream,
-          colorStream: ButtonStatusStore().colorStream,
+          statusStream: actionButtonState.statusStream,
+          colorStream: actionButtonState.colorStream,
           onTapcallback: () {
             setState(() {
-              
+              // _formKey!.currentState!.save();
             });
           },
         ),
         vSize30SizedBox,
         Container(
-          child: LoginKeyboard(
-            onKeyTap: (String text) {
+          width: double.infinity,
+          child: XploreNumericKeyboard(
+            onKeyboardTap: (String text) {
               setState(() {
                 insertText(text, phoneNumberController);
               });
             },
-            rightKey: Icon(
+            rightIcon: Icon(
               Icons.backspace,
               color: XploreColors.orange,
             ),
-            onRightKeyTap: () {
+            rightButtonFn: () {
               setState(() {
-                removeText(phoneNumberController);
+                backspace(phoneNumberController);
               });
             },
           ),

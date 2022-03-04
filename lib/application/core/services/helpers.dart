@@ -6,6 +6,7 @@ import 'package:logger/logger.dart';
 import 'package:xplore/application/redux/actions/phone_login_action.dart';
 import 'package:xplore/application/redux/actions/update_user_state_action.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
+import 'package:xplore/application/singletons/button_status.dart';
 import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_enums.dart';
 import 'package:xplore/domain/value_objects/app_event_strings.dart';
@@ -167,66 +168,66 @@ Color evaluateButtonStatus(ButtonStatus status) {
   return status.color;
 }
 
-void insertText(String text, TextEditingController c) {
-  final text = c.text;
-  final textSelection = c.selection;
+void insertText(String myText, TextEditingController controller) {
+  final text = controller.text;
+  final textSelection = controller.selection;
   final newText = text.replaceRange(
     textSelection.start,
     textSelection.end,
-    text,
+    myText,
   );
-  final myTextLength = text.length;
-  c.text = newText;
-  c.selection = textSelection.copyWith(
+  final myTextLength = myText.length;
+  controller.text = newText;
+  controller.selection = textSelection.copyWith(
     baseOffset: textSelection.start + myTextLength,
     extentOffset: textSelection.start + myTextLength,
   );
 }
 
-void removeText(TextEditingController c) {
-  final _text = c.text;
-  final _textSelection = c.selection;
-  final _selectionLength = _textSelection.end - _textSelection.start;
+void backspace(TextEditingController controller) {
+  final text = controller.text;
+  final textSelection = controller.selection;
+  final selectionLength = textSelection.end - textSelection.start;
 
   // There is a selection.
-  if (_selectionLength > 0) {
-    final newText = _text.replaceRange(
-      _textSelection.start,
-      _textSelection.end,
+  if (selectionLength > 0) {
+    final newText = text.replaceRange(
+      textSelection.start,
+      textSelection.end,
       '',
     );
-    c.text = newText;
-    c.selection = _textSelection.copyWith(
-      baseOffset: _textSelection.start,
-      extentOffset: _textSelection.start,
+    controller.text = newText;
+    controller.selection = textSelection.copyWith(
+      baseOffset: textSelection.start,
+      extentOffset: textSelection.start,
     );
     return;
   }
 
   // The cursor is at the beginning.
-  if (_textSelection.start == 0) {
+  if (textSelection.start == 0) {
     return;
   }
 
-  bool isUtf16Surrogate(int value) {
-    return value & 0xF800 == 0xD800;
-  }
-
   // Delete the previous character
-  final previousCodeUnit = _text.codeUnitAt(_textSelection.start - 1);
+  final previousCodeUnit = text.codeUnitAt(textSelection.start - 1);
   final offset = isUtf16Surrogate(previousCodeUnit) ? 2 : 1;
-  final newStart = _textSelection.start - offset;
-  final newEnd = _textSelection.start;
-  final newText = _text.replaceRange(
+  final newStart = textSelection.start - offset;
+  final newEnd = textSelection.start;
+  final newText = text.replaceRange(
     newStart,
     newEnd,
     '',
   );
-  c.text = newText;
-  c.selection = _textSelection.copyWith(
+  controller.text = newText;
+  controller.selection = textSelection.copyWith(
     baseOffset: newStart,
     extentOffset: newStart,
   );
+}
+
+bool isUtf16Surrogate(int value) {
+  return value & 0xF800 == 0xD800;
 }
 
 Future<bool> checkInternet() async {
@@ -245,4 +246,15 @@ Future<bool> checkInternet() async {
   }
 }
 
+void validatePhone({
+  String? v = '',
+  required TextEditingController controller,
+}) {
+  final bool nullCheck = v!.isNotEmpty;
+  final bool lengthCheck = (controller.text.length == 13);
 
+  if (nullCheck && lengthCheck) {
+    ButtonStatusStore().colorStream.add(ButtonStatus.neutral.color);
+    ButtonStatusStore().statusStream.add(true);
+  }
+}
