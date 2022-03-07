@@ -81,11 +81,6 @@ class _PhoneLoginState extends State<PhoneLogin> {
           nextRoute: otpPageRoute,
           statusStream: actionButtonState.statusStream,
           colorStream: actionButtonState.colorStream,
-          onTapcallback: () {
-            setState(() {
-              // _formKey!.currentState!.save();
-            });
-          },
         ),
         vSize30SizedBox,
         Container(

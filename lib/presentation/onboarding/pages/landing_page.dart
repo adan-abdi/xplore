@@ -15,9 +15,8 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async => false,
-        child: OnbaordingScaffold(
+        child: OnboardingScaffold(
           childWidgets: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Wrap(
                 alignment: WrapAlignment.center,
@@ -44,7 +43,7 @@ class LandingPage extends StatelessWidget {
               ),
             ],
           ),
-          trailingWidget: termsAndConditions(context),
+          trailingWidget: [termsAndConditions(context)],
           circleColor: XploreColors.orange,
         ));
   }

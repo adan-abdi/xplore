@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:xplore/presentation/onboarding/widgets/circles.dart';
 import 'package:xplore/presentation/onboarding/widgets/xplore_appbar.dart';
 
-class OnbaordingScaffold extends StatelessWidget {
+class OnboardingScaffold extends StatelessWidget {
   final Widget childWidgets;
-  final Widget trailingWidget;
+  final List<Widget> trailingWidget;
   final bool canPop;
   final Color circleColor;
   final XploreAppbar? appbar;
 
-  const OnbaordingScaffold({
+  const OnboardingScaffold({
     Key? key,
     required this.childWidgets,
     required this.circleColor,
-    this.trailingWidget = const SizedBox.shrink(),
+    this.trailingWidget = const [SizedBox.shrink()],
     this.canPop = true,
     this.appbar,
   }) : super(key: key);
@@ -38,8 +38,18 @@ class OnbaordingScaffold extends StatelessWidget {
               left: 0,
               bottom: 0,
               right: 0,
-              child: Container(
-                child: trailingWidget,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Wrap(
+                    alignment: WrapAlignment.center,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    runAlignment: WrapAlignment.center,
+                    spacing: 30,
+                    runSpacing: 40,
+                    children: trailingWidget,
+                  ),
+                ],
               ),
             ),
           ],

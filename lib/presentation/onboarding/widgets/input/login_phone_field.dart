@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/core/themes/colors.dart';
 import 'package:xplore/application/singletons/button_status.dart';
 
@@ -36,12 +35,6 @@ class _PhoneLoginFieldState extends State<PhoneLoginField> {
           showCursor: true,
           autofocus: true,
           style: TextStyle(fontSize: 28),
-          onChanged: (String v) {
-            validatePhone(
-              v: v,
-              controller: widget.phoneNumberController,
-            );
-          },
         ),
       ),
     );

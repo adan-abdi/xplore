@@ -342,12 +342,9 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
         vSize40SizedBox,
         ActionButton(
           widgetText: nextText,
-          nextRoute: otpPageRoute,
+          nextRoute: dashPageRoute,
           colorStream: ButtonStatusStore().colorStream,
           statusStream: ButtonStatusStore().statusStream,
-          onTapcallback: () {
-            _onButtonClick;
-          },
         ),
         vSize30SizedBox,
         Container(
