@@ -109,7 +109,7 @@ class PhoneLoginAction extends ReduxAction<AppState> {
           SnackBar(
             content: Text(error.message.toString()),
             duration: const Duration(seconds: kShortSnackBarDuration),
-            action: dismissSnackBar('Close', white, context),
+            action: dismissSnackBar('Close', XploreColors.white, context),
           ),
         );
       return error;

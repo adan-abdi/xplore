@@ -19,10 +19,10 @@ class XploreGrid extends StatelessWidget {
           return GestureDetector(
             onTap: () {},
             child: Container(
-              width: XploreOriginNumbers.xploreRootCardSize,
-              height: XploreOriginNumbers.xploreRootCardSize,
+              width: xploreRootCardSize,
+              height: xploreRootCardSize,
               child: Card(
-                elevation: XploreOriginNumbers.size5,
+                elevation: size5,
                 child: Center(
                   child: Text(
                     'module',

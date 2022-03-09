@@ -1,4 +1,4 @@
-import 'package:debug_logger/debug_logger.dart';
+import 'package:logger/logger.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:xplore/infrastructure/migrations.dart';
@@ -24,11 +24,12 @@ Future<void> onUpgradeCallback(
 }
 
 Future<void> migrate(Database db, int oldVersion, int newVersion) async {
+  final logger = Logger();
   for (int i = oldVersion; i <= newVersion - 2; i++) {
     try {
       await db.execute(migrations[i]);
     } catch (e) {
-      DebugLogger.error('Error executing migration ${migrations[i]}');
+      logger.e('Error executing migration ${migrations[i]}');
     }
   }
 }

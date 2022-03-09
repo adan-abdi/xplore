@@ -2,7 +2,9 @@ import 'package:sqflite/sqflite.dart';
 import 'package:xplore/infrastructure/sqlite.dart';
 
 class InitializeDB<T extends DatabaseExecutor> extends InitializeDBHelper<T> {
-  InitializeDB({required String dbName}) : super(dbName: dbName);
+  InitializeDB({
+    required String dbName,
+  }) : super(dbName: dbName);
 }
 
 abstract class InitializeDBHelper<T extends DatabaseExecutor> {

@@ -78,8 +78,8 @@ class XploreStateDatabase implements PersistorPrinterDecorator<AppState> {
 
   /// initialize the database
   Future<void> init() async {
-    await XploreDatabaseMobile<Database>(
-            initializeDB: InitializeDB<Database>(dbName: this.dataBaseName))
+    await XploreDatabaseMobile(
+            initializeDB: InitializeDB(dbName: this.dataBaseName))
         .database;
   }
 

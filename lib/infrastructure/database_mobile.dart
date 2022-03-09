@@ -1,20 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:sqflite/sqflite.dart';
 import 'package:xplore/infrastructure/database_base.dart';
 import 'package:xplore/infrastructure/initialize_db.dart';
 import 'package:xplore/infrastructure/sqlite.dart';
 
-/// [XploreDatabaseMobile] is the main entry for interacting with the database for healthcloud mobile
-/// It uses sqlite which is a common RDMS. Unlike other key:value storage, sqlite offers
-/// high flexibility when storing structured data.
-/// The idea is to store, sessions, permissions(highly structured) and anything else
-/// that required persistence.
-/// When a new state has been added, it needs to be serialized so that it may be saved in the database
-/// The command to serialize is [flutter pub run build_runner build --delete-conflicting-outputs]
-/// Ref : https://flutter.dev/docs/development/data-and-backend/json
-///     : https://pub.dev/packages/built_value
+
 class XploreDatabaseMobile<T extends DatabaseExecutor>
     implements XploreDatabaseBase<T> {
   XploreDatabaseMobile({this.initializeDB});
@@ -59,7 +50,6 @@ class XploreDatabaseMobile<T extends DatabaseExecutor>
     return _state;
   }
 
-  /// [retrieveState] get the current states.
   @override
   Future<Map<String, dynamic>> retrieveState(Tables table) async {
     final Map<String, dynamic> _state = await retrieveWorker(table);
@@ -78,9 +68,9 @@ class XploreDatabaseMobile<T extends DatabaseExecutor>
     final String _tableName = table.name;
 
     final T _db = await this.database;
-    final String dataAsString = jsonEncode(data);
+    final String _dataAsString = jsonEncode(data);
     await _db.rawInsert('INSERT INTO $_tableName($_tableName) VALUES(?)',
-        <dynamic>[dataAsString]);
+        <dynamic>[_dataAsString]);
     return;
   }
 }

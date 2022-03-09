@@ -25,7 +25,7 @@ class PageCard extends StatelessWidget {
             size: 120,
             color: page.textColor,
           ),
-          hSize30SizedBox,
+          vSize30SizedBox,
           _buildText(context),
         ],
       ),

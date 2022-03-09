@@ -1,61 +1,64 @@
+import 'dart:async';
 import 'package:async_redux/async_redux.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
-import 'package:xplore/domain/value_objects/app_widget_keys.dart';
-import 'package:xplore/infrastructure/database_base.dart';
+import 'package:xplore/domain/value_objects/app_global_constants.dart';
 import 'package:xplore/infrastructure/database_state_persistor.dart';
 import 'package:xplore/presentation/core/widgets/unrecoverable_error_widget.dart';
 import 'package:xplore/xplore_app.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+void main() async {
+  await runZonedGuarded<Future<void>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+    await Firebase.initializeApp();
 
-  NavigateAction.setNavigatorKey(globalAppNavigatorKey);
+    NavigateAction.setNavigatorKey(globalAppNavigatorKey);
 
-  final XploreStateDatabase stateDB =
-      XploreStateDatabase(dataBaseName: DatabaseName);
+    final XploreStateDatabase stateDB =
+        XploreStateDatabase(dataBaseName: xploreDBName);
 
-  await stateDB.init();
+    await stateDB.init();
 
-  final AppState initialState = await stateDB.readState();
+    final AppState initialState = await stateDB.readState();
 
-  // initialize a fresh database if [initialState] is `null`,
-  // and populate the database with the default values for each state
-  if (initialState == AppState.initial()) {
-    await stateDB.saveInitialState(initialState);
-  }
-
-  final Store<AppState> store = Store<AppState>(
-    initialState: initialState,
-    persistor: PersistorPrinterDecorator<AppState>(stateDB),
-    defaultDistinct: true,
-  );
-
-  /// Configures which error widget to show
-  /// depending on weather the app is running in debug or release mode.
-  ///
-  /// Shows an error image (spaceman) with a prompt to call tech-support
-  /// in release mode
-  ErrorWidget.builder = (FlutterErrorDetails details) {
-    bool inDebug = false;
-    assert(() {
-      inDebug = true;
-      return true;
-    }());
-    // In debug mode, use the normal error widget which shows
-    if (inDebug) {
-      return ErrorWidget(details.exception);
+    if (initialState == AppState.initial()) {
+      await stateDB.saveInitialState(initialState);
     }
-    // In release builds, show error image
-    return const UnrecoverableErrorWidget();
-  };
 
-  runApp(
-    XploreApp(
-      store: store,
-    ),
-  );
+    final Store<AppState> store = Store<AppState>(
+      initialState: initialState,
+      persistor: PersistorPrinterDecorator<AppState>(stateDB),
+      defaultDistinct: true,
+    );
+
+    ErrorWidget.builder = (FlutterErrorDetails details) {
+      if (!kReleaseMode) {
+        return ErrorWidget(details.exception);
+      } else {
+        return UnrecoverableErrorWidget();
+      }
+    };
+
+    FlutterError.onError = (FlutterErrorDetails detail) {
+      FirebaseCrashlytics.instance.recordFlutterError(detail);
+    };
+
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+    runApp(
+      XploreApp(
+        store: store,
+      ),
+    );
+  }, (Object exception, StackTrace stackTrace) {
+    if (!kReleaseMode) {
+      print("$exception -=- $stackTrace");
+    }
+    FirebaseCrashlytics.instance.recordError(exception, stackTrace);
+  });
 }

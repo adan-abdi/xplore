@@ -1,11 +1,11 @@
 import 'package:flutter/services.dart';
-import 'package:flutter_test/flutter_test.dart';
+// import 'package:flutter_test/flutter_test.dart';
 import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
 
 typedef Callback = Function(MethodCall call);
 
 dynamic setupFirebaseAuthMocks([Callback? customHandlers]) {
-  TestWidgetsFlutterBinding.ensureInitialized();
+  // TestWidgetsFlutterBinding.ensureInitialized();
 
   MethodChannelFirebase.channel
       .setMockMethodCallHandler((MethodCall call) async {

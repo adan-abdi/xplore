@@ -1,11 +1,18 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:xplore/application/core/services/helpers.dart';
+import 'package:xplore/application/core/themes/colors.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
+import 'package:xplore/application/singletons/button_status.dart';
+import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
-
-import 'otp.dart';
+import 'package:xplore/presentation/core/pages/xplore_numeric_keyboard.dart';
+import 'package:xplore/presentation/onboarding/widgets/keyboard_scaffold.dart';
+import 'package:xplore/presentation/onboarding/widgets/action_button.dart';
+import 'package:xplore/presentation/onboarding/widgets/input/login_phone_field.dart';
+import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
 
 class PhoneLogin extends StatefulWidget {
   const PhoneLogin({Key? key}) : super(key: key);
@@ -15,110 +22,87 @@ class PhoneLogin extends StatefulWidget {
 }
 
 class _PhoneLoginState extends State<PhoneLogin> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _phoneNumberInputController =
-      TextEditingController();
-  final TextEditingController _pinInputController = TextEditingController();
-  // late String _phoneNumber;
-  // late String _pinCode;
+  late GlobalKey<FormState>? _formKey = GlobalKey<FormState>();
+  late TextEditingController phoneNumberController;
+  final ButtonStatusStore actionButtonState = ButtonStatusStore();
 
-  // late String smsOTP;
-  // late String verificationId;
-  // String errorMessage = '';
-
-  String initialCountry = 'KE';
+  String initialCountryCode = 'KE';
   PhoneNumber number = PhoneNumber(isoCode: 'KE');
 
   String phone = "";
   String isoCode = "";
 
-  var num;
-
   @override
   void initState() {
     super.initState();
+    phoneNumberController = TextEditingController();
+    _formKey = GlobalKey<FormState>();
+    phoneNumberController.text = '+254';
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.all(20),
-        child: Center(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                'Enter your phone number to Log In.',
-                style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18,
-                    color: Colors.deepOrange),
-              ),
-                hSize50SizedBox,
-                InternationalPhoneNumberInput(
-                  onInputChanged: (PhoneNumber number) {
-                    setState(() {
-                      phone = number.phoneNumber!;
-                      isoCode = number.isoCode!;
-                      num = phone;
-                    });
-                  },
-                  onInputValidated: (bool value) {
-                    print(value);
-                  },
-                  selectorConfig: SelectorConfig(
-                    selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                  ),
-                  ignoreBlank: false,
-                  autoValidateMode: AutovalidateMode.disabled,
-                  selectorTextStyle: TextStyle(color: Colors.black),
-                  initialValue: number,
-                  textFieldController: _phoneNumberInputController,
-                  formatInput: false,
-                  keyboardType: TextInputType.numberWithOptions(
-                      signed: true, decimal: true),
-                  inputBorder: OutlineInputBorder(),
-                  onSaved: (PhoneNumber number) {
-                    // setState(() {
-                    //   phone = number.phoneNumber!;
-                    //   isoCode = number.isoCode!;
-                    //   num = isoCode + phone;
-                    // });
-                  },
-                ),
-                // hSize30SizedBox,
-                // TextFormField(
-                //   controller: _pinInputController,
-                //   onChanged: (String val) {
-                //     // _pinCode = val;
-                //   },
-                //   // PIN
-                // ),
-                hSize30SizedBox,
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        Theme.of(context).primaryColor),
-                  ),
-                  onPressed: () {
-                    StoreProvider.dispatch<AppState>(
-                      context,
-                      NavigateAction.push(MaterialPageRoute(
-                          builder: (BuildContext context) => VerificationScreen(
-                                mobile: num.substring(2),
-                              ))),
-                    );
-                  },
-                  child: const Text(siginText),
-                ),
-              ],
-            ),
+    return KeyboardScaffold(
+      onLeadingTap: () {
+        StoreProvider.dispatch<AppState>(
+          context,
+          NavigateAction.pop(),
+        );
+      },
+      actions: [
+        InkWell(
+          key: ValueKey('XploreAppbar_action1'),
+          onTap: () {},
+          child: Icon(
+            Icons.admin_panel_settings,
+            color: XploreColors.orange,
           ),
         ),
-      ),
+        hSize30SizedBox
+      ],
+      widgets: [
+        ...titles(
+          context: context,
+          extraHeading: 'We will send you a confirmation code to verify you.',
+          subtitle: 'mobile number',
+          title: 'Enter your \n',
+        ),
+        vSize20SizedBox,
+        Form(
+          key: _formKey,
+          child: PhoneLoginField(
+            btnStore: actionButtonState,
+            phoneNumberController: phoneNumberController,
+          ),
+        ),
+        vSize40SizedBox,
+        ActionButton(
+          widgetText: nextText,
+          nextRoute: otpPageRoute,
+          statusStream: actionButtonState.statusStream,
+          colorStream: actionButtonState.colorStream,
+        ),
+        vSize30SizedBox,
+        Container(
+          width: double.infinity,
+          child: XploreNumericKeyboard(
+            onKeyboardTap: (String text) {
+              setState(() {
+                insertText(text, phoneNumberController);
+              });
+            },
+            rightIcon: Icon(
+              Icons.backspace,
+              color: XploreColors.orange,
+            ),
+            rightButtonFn: () {
+              setState(() {
+                backspace(phoneNumberController);
+              });
+            },
+          ),
+        ),
+      ],
     );
   }
 }

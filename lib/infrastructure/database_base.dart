@@ -1,4 +1,3 @@
-const String DatabaseName = 'xp.store.db';
 
 /// [XploreDatabaseBase] defines an interface to be fulfilled so that a storage component
 /// may work, for each exclusive platform. (Mobile and Web)
