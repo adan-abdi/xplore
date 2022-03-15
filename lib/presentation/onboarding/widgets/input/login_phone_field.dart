@@ -33,6 +33,7 @@ class _PhoneLoginFieldState extends State<PhoneLoginField> {
           ),
           readOnly: true,
           showCursor: true,
+          cursorColor: XploreColors.orange,
           autofocus: true,
           style: TextStyle(fontSize: 28),
         ),
