@@ -37,7 +37,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
     super.initState();
     phoneNumberController = TextEditingController();
     _formKey = GlobalKey<FormState>();
-    phoneNumberController.text = '+254';
+    phoneNumberController.text = '';
   }
 
   @override

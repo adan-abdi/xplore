@@ -1,8 +1,9 @@
+import 'dart:async';
+
 import 'package:async_redux/async_redux.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/core/themes/colors.dart';
@@ -16,6 +17,7 @@ import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
 import 'package:xplore/presentation/onboarding/widgets/keyboard_scaffold.dart';
 import 'package:xplore/presentation/onboarding/widgets/action_button.dart';
 import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 class PhoneVerifyPage extends StatefulWidget {
   final String? mobile;
@@ -26,26 +28,14 @@ class PhoneVerifyPage extends StatefulWidget {
 }
 
 class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
-  TextEditingController controller1 = new TextEditingController();
-  TextEditingController controller2 = new TextEditingController();
-  TextEditingController controller3 = new TextEditingController();
-  TextEditingController controller4 = new TextEditingController();
-  TextEditingController controller5 = new TextEditingController();
-  TextEditingController controller6 = new TextEditingController();
-  FocusNode controller1fn = new FocusNode();
-  FocusNode controller2fn = new FocusNode();
-  FocusNode controller3fn = new FocusNode();
-  FocusNode controller4fn = new FocusNode();
-  FocusNode controller5fn = new FocusNode();
-  FocusNode controller6fn = new FocusNode();
+  TextEditingController otpPinCodeFieldController = new TextEditingController();
+  StreamController errorAnimationController = StreamController();
+  FocusNode otpPinCodeFocusNode = new FocusNode();
   ButtonStatusStore otpBtnStore = ButtonStatusStore();
 
-  static const double dist = 3.0;
-  TextEditingController currController = new TextEditingController();
   String otp = "";
   bool isLoading = false;
   late String _verificationId;
-  bool autovalidate = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   String initialCountryCode = 'KE';
@@ -57,7 +47,6 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
   @override
   void initState() {
     super.initState();
-    currController = controller1;
     _verifyPhoneNumber();
   }
 
@@ -111,12 +100,6 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
   @override
   void dispose() {
     super.dispose();
-    controller1.dispose();
-    controller2.dispose();
-    controller3.dispose();
-    controller4.dispose();
-    controller5.dispose();
-    controller6.dispose();
   }
 
   verifyOtp(String otpText) async {
@@ -130,155 +113,6 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> widgetList = [
-      Padding(
-        padding: const EdgeInsets.only(right: dist, left: dist),
-        child: Container(
-          alignment: Alignment.center,
-          child: TextFormField(
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-            ],
-            textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.none,
-            enabled: true,
-            controller: controller1,
-            autofocus: true,
-            focusNode: controller1fn,
-            onChanged: (ct) {
-              if (ct.length > 0) {
-                _fieldFocusChange(context, controller1fn, controller2fn);
-              }
-            },
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 24, color: Colors.deepOrange),
-          ),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(right: dist, left: dist),
-        child: new Container(
-          alignment: Alignment.center,
-          child: new TextField(
-            textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.none,
-            onChanged: (ct) {
-              if (ct.length > 0) {
-                _fieldFocusChange(context, controller2fn, controller3fn);
-              } else if (ct.length == 0) {
-                _fieldFocusChange(context, controller2fn, controller1fn);
-              }
-            },
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-            ],
-            controller: controller2,
-            focusNode: controller2fn,
-            enabled: true,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 24, color: Colors.deepOrange),
-          ),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(right: dist, left: dist),
-        child: new Container(
-          alignment: Alignment.center,
-          child: new TextField(
-            onChanged: (ct) {
-              if (ct.length > 0) {
-                _fieldFocusChange(context, controller3fn, controller4fn);
-              } else if (ct.length == 0) {
-                _fieldFocusChange(context, controller3fn, controller2fn);
-              }
-            },
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-            ],
-            keyboardType: TextInputType.none,
-            textInputAction: TextInputAction.next,
-            controller: controller3,
-            focusNode: controller3fn,
-            textAlign: TextAlign.center,
-            enabled: true,
-            style: TextStyle(fontSize: 24, color: Colors.deepOrange),
-          ),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(right: dist, left: dist),
-        child: new Container(
-          alignment: Alignment.center,
-          child: new TextField(
-            onChanged: (ct) {
-              if (ct.length > 0) {
-                _fieldFocusChange(context, controller4fn, controller5fn);
-              } else if (ct.length == 0) {
-                _fieldFocusChange(context, controller4fn, controller3fn);
-              }
-            },
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-            ],
-            textAlign: TextAlign.center,
-            keyboardType: TextInputType.none,
-            textInputAction: TextInputAction.next,
-            controller: controller4,
-            focusNode: controller4fn,
-            enabled: true,
-            style: TextStyle(fontSize: 24, color: Colors.deepOrange),
-          ),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(right: dist, left: dist),
-        child: new Container(
-          alignment: Alignment.center,
-          child: new TextField(
-            onChanged: (ct) {
-              if (ct.length > 0) {
-                _fieldFocusChange(context, controller5fn, controller6fn);
-              } else if (ct.length == 0) {
-                _fieldFocusChange(context, controller5fn, controller4fn);
-              }
-            },
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-            ],
-            keyboardType: TextInputType.none,
-            textInputAction: TextInputAction.next,
-            controller: controller5,
-            focusNode: controller5fn,
-            textAlign: TextAlign.center,
-            enabled: true,
-            style: TextStyle(fontSize: 24, color: Colors.deepOrange),
-          ),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(right: dist, left: dist),
-        child: new Container(
-          alignment: Alignment.center,
-          child: new TextField(
-            onChanged: (ct) {
-              if (ct.length == 0) {
-                _fieldFocusChange(context, controller6fn, controller5fn);
-              }
-            },
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-            ],
-            textAlign: TextAlign.center,
-            keyboardType: TextInputType.none,
-            textInputAction: TextInputAction.done,
-            controller: controller6,
-            focusNode: controller6fn,
-            enabled: true,
-            style: TextStyle(fontSize: 24, color: Colors.deepOrange),
-          ),
-        ),
-      ),
-    ];
     return KeyboardScaffold(
       onLeadingTap: () {
         StoreProvider.dispatch<AppState>(
@@ -323,23 +157,52 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(horizontal: 30),
             width: MediaQuery.of(context).size.width * 0.60,
-            child: GridView.count(
-              crossAxisCount: 6,
-              mainAxisSpacing: 10.0,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              childAspectRatio: 1,
-              scrollDirection: Axis.vertical,
-              children: List<Container>.generate(
-                6,
-                (int index) => Container(
-                  child: widgetList[index],
-                ),
+            child: PinCodeTextField(
+              autoFocus: true,
+              focusNode: otpPinCodeFocusNode,
+              useHapticFeedback: true,
+              hapticFeedbackTypes: HapticFeedbackTypes.vibrate,
+              length: 6,
+              obscureText: false,
+              animationType: AnimationType.fade,
+              pinTheme: PinTheme(
+                shape: PinCodeFieldShape.circle,
+                borderRadius: BorderRadius.circular(10),
+                fieldHeight: 50,
+                fieldWidth: 40,
+                activeFillColor: Colors.white,
+                inactiveColor: XploreColors.white,
+                selectedFillColor: XploreColors.white,
+                errorBorderColor: XploreColors.red,
+                selectedColor: XploreColors.orange
               ),
+              cursorColor: XploreColors.orange,
+              keyboardType: TextInputType.none,
+              animationDuration: Duration(milliseconds: 300),
+              backgroundColor: XploreColors.white,
+              enableActiveFill: true,
+              // errorAnimationController: errorAnimationController,
+              controller: otpPinCodeFieldController,
+              onCompleted: (v) {
+                print("Completed");
+              },
+              onChanged: (value) {
+                print(value);
+                setState(() {
+                  // currentText = value;
+                });
+              },
+              beforeTextPaste: (text) {
+                print("Allowing to paste $text");
+                //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                return true;
+              },
+              appContext: context,
             ),
           ),
         ),
-        vSize40SizedBox,
+        vSize20SizedBox,
         ActionButton(
           widgetText: nextText,
           nextRoute: dashPageRoute,
@@ -351,7 +214,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
           child: XploreNumericKeyboard(
             onKeyboardTap: (String text) {
               setState(() {
-                insertText(text, currController);
+                insertText(text, otpPinCodeFieldController);
               });
             },
             rightIcon: Icon(
@@ -360,7 +223,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
             ),
             rightButtonFn: () {
               setState(() {
-                backspace(currController);
+                backspace(otpPinCodeFieldController);
               });
             },
           ),
@@ -441,57 +304,12 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
   }
 
   _onButtonClick() {
-    if (currController.text.trim() == "" ||
-        controller1.text.trim() == "" ||
-        controller2.text.trim() == "" ||
-        controller3.text.trim() == "" ||
-        controller4.text.trim() == "" ||
-        controller5.text.trim() == "" ||
-        controller6.text.trim() == "") {
+    if (otpPinCodeFieldController.text.trim() == "") {
       ScaffoldMessenger.of(context).showSnackBar(snackbar(
         content: "Please enter valid verification code.",
       ));
     } else {
-      verifyOtp(controller1.text.trim() +
-          controller2.text.trim() +
-          controller3.text.trim() +
-          controller4.text.trim() +
-          controller5.text.trim() +
-          controller6.text.trim());
-    }
-  }
-
-  _fieldFocusChange(
-      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
-    currentFocus.unfocus();
-    FocusScope.of(context).requestFocus(nextFocus);
-  }
-
-  void deleteText() {
-    if (currController.text.length == 0) {
-    } else {
-      currController.text = "";
-      currController = controller3;
-      return;
-    }
-
-    if (currController == controller1) {
-      controller1.text = "";
-    } else if (currController == controller2) {
-      controller1.text = "";
-      currController = controller1;
-    } else if (currController == controller3) {
-      controller2.text = "";
-      currController = controller2;
-    } else if (currController == controller4) {
-      controller3.text = "";
-      currController = controller3;
-    } else if (currController == controller5) {
-      controller4.text = "";
-      currController = controller4;
-    } else if (currController == controller6) {
-      controller5.text = "";
-      currController = controller5;
+      verifyOtp(otpPinCodeFieldController.text.trim());
     }
   }
 
