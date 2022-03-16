@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:xplore/application/core/themes/app_themes.dart';
 import 'package:xplore/domain/value_objects/app_asset_strings.dart';
 

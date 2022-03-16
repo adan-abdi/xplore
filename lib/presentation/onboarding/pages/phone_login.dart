@@ -1,6 +1,11 @@
-import 'package:async_redux/async_redux.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:async_redux/async_redux.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+
+// Project imports:
 import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/core/themes/colors.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
@@ -9,9 +14,9 @@ import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/core/pages/xplore_numeric_keyboard.dart';
-import 'package:xplore/presentation/onboarding/widgets/keyboard_scaffold.dart';
 import 'package:xplore/presentation/onboarding/widgets/action_button.dart';
 import 'package:xplore/presentation/onboarding/widgets/input/login_phone_field.dart';
+import 'package:xplore/presentation/onboarding/widgets/keyboard_scaffold.dart';
 import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
 
 class PhoneLogin extends StatefulWidget {

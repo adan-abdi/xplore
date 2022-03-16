@@ -1,8 +1,13 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:async_redux/async_redux.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+
+// Project imports:
 import 'package:xplore/application/redux/actions/phone_login_action.dart';
 import 'package:xplore/application/redux/actions/update_user_state_action.dart';
 import 'package:xplore/application/redux/states/app_state.dart';

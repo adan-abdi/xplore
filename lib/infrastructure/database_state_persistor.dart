@@ -1,6 +1,11 @@
-import 'package:async_redux/async_redux.dart';
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Package imports:
+import 'package:async_redux/async_redux.dart';
 import 'package:sqflite/sqflite.dart';
+
+// Project imports:
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/application/redux/states/user_state.dart';
 import 'package:xplore/infrastructure/database_base.dart';

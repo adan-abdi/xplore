@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/presentation/onboarding/widgets/onboarding_page.dart';
 

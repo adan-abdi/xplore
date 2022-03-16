@@ -1,6 +1,9 @@
+// Package imports:
 import 'package:logger/logger.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+
+// Project imports:
 import 'package:xplore/infrastructure/migrations.dart';
 
 Future<T> initDatabase<T extends DatabaseExecutor>(String dbName) async {

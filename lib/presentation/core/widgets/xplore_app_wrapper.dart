@@ -1,5 +1,8 @@
-import 'package:async_redux/async_redux.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:async_redux/async_redux.dart';
 
 class XploreWrapper extends InheritedWidget {
   const XploreWrapper({

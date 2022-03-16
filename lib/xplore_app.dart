@@ -1,9 +1,14 @@
+// Flutter imports:
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:async_redux/async_redux.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+
+// Project imports:
 import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/domain/routes/route_generator.dart';

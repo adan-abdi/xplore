@@ -1,8 +1,15 @@
+// Dart imports:
 import 'dart:io' as io;
 import 'dart:io';
-import 'package:firebase_analytics/firebase_analytics.dart';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:sqflite/sqflite.dart';
+
+// Project imports:
 import 'package:xplore/infrastructure/initialize_db.dart';
 
 /// For a little bit more context on the concept of `Mocking`, take a look at

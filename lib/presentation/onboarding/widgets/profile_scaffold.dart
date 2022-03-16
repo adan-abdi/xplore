@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:xplore/presentation/onboarding/widgets/circles.dart';
 import 'package:xplore/presentation/onboarding/widgets/xplore_appbar.dart';
 

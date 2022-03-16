@@ -1,5 +1,8 @@
+// Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:xplore/application/core/themes/colors.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
