@@ -1,8 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:xplore/presentation/dashboard/widgets/custom_bar.dart';
 import 'package:xplore/presentation/dashboard/widgets/product_list.dart';
 import 'package:xplore/presentation/dashboard/widgets/transaction_list.dart';
-
 import 'AddProducts.dart';
 
 class Base extends StatefulWidget {

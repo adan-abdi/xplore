@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:lottie/lottie.dart';
+
+// Project imports:
 import 'package:xplore/domain/value_objects/app_asset_strings.dart';
 
 class XploreLoader extends StatelessWidget {

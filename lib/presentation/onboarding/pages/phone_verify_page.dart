@@ -1,10 +1,17 @@
+// Dart imports:
 import 'dart:async';
 
-import 'package:async_redux/async_redux.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:async_redux/async_redux.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+
+// Project imports:
 import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/core/themes/colors.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
@@ -14,10 +21,9 @@ import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/core/pages/xplore_numeric_keyboard.dart';
 import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
-import 'package:xplore/presentation/onboarding/widgets/keyboard_scaffold.dart';
 import 'package:xplore/presentation/onboarding/widgets/action_button.dart';
+import 'package:xplore/presentation/onboarding/widgets/keyboard_scaffold.dart';
 import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 
 class PhoneVerifyPage extends StatefulWidget {
   final String? mobile;

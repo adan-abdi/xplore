@@ -1,3 +1,4 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 class PAppBar extends StatelessWidget with PreferredSizeWidget {

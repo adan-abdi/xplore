@@ -1,10 +1,17 @@
+// Dart imports:
 import 'dart:async';
-import 'package:async_redux/async_redux.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
+import 'package:async_redux/async_redux.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
+// Project imports:
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/domain/value_objects/app_global_constants.dart';
 import 'package:xplore/infrastructure/database_state_persistor.dart';
