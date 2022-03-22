@@ -34,14 +34,11 @@ class _BaseState extends State<Base> {
   String cdefault = 'complete';
 
   newDefault(value) {
-    setState((
-      sdefault = value
-    ));
+    setState((sdefault = value));
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     sdefault = 'pending';
   }
@@ -49,7 +46,7 @@ class _BaseState extends State<Base> {
   @override
   Widget build(BuildContext context) {
     // Tabs created to display text on each screen
-    
+
     final tabs = [
       Container(
           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -161,7 +158,9 @@ class _BaseState extends State<Base> {
             ),
             Expanded(
               flex: 1,
-              child: sdefault.toString() == 'pending' ? TransactionList(tstatus: sdefault.toString()) : TransactionList(tstatus: cdefault.toString()),
+              child: sdefault.toString() == 'pending'
+                  ? TransactionList(tstatus: sdefault.toString())
+                  : TransactionList(tstatus: cdefault.toString()),
             )
           ])),
       //Container(color: Colors.deepOrange,),

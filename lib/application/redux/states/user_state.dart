@@ -8,12 +8,10 @@ part 'user_state.g.dart';
 class UserState with _$UserState {
   factory UserState({
     bool? isSignedIn,
-    bool? hasDoneTour,
     String? phoneNumber,
+    String? initialPhoneNumber,
     String? pinCode,
     String? initialPinCode,
-    String? confirmPinCode,
-    bool? doPinsMatch,
     String? firstName,
     String? lastName,
     String? displayName,
@@ -25,12 +23,11 @@ class UserState with _$UserState {
       _$UserStateFromJson(json);
 
   factory UserState.initial() => UserState(
-        hasDoneTour: false,
         isSignedIn: false,
         phoneNumber: 'UNKNOWN',
+        initialPhoneNumber: 'UNKNOWN',
         pinCode: 'UNKNOWN',
-        confirmPinCode: 'UNKNOWN',
-        doPinsMatch: false,
+        initialPinCode: 'UNKNOWN',
         firstName: 'UNKNOWN',
         lastName: 'UNKNOWN',
         displayName: 'UNKNOWN',

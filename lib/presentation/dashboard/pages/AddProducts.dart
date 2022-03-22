@@ -5,15 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:xplore/infrastructure/database.dart';
 
 class AddProducts extends StatefulWidget {
-  const AddProducts({ Key? key }) : super(key: key);
+  const AddProducts({Key? key}) : super(key: key);
 
   @override
   _AddProductsState createState() => _AddProductsState();
 }
 
 class _AddProductsState extends State<AddProducts> {
-
-
   TextEditingController _name = TextEditingController();
   TextEditingController _bp = TextEditingController();
   TextEditingController _sp = TextEditingController();
@@ -59,183 +57,204 @@ class _AddProductsState extends State<AddProducts> {
               ),
             )),
       ),
-      body: SingleChildScrollView( 
-        reverse: true, // this is new 
+      body: SingleChildScrollView(
+        reverse: true, // this is new
         scrollDirection: Axis.vertical,
         physics: BouncingScrollPhysics(),
         child: Container(
           padding: EdgeInsets.all(20),
           child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(height: 20,),
-                    TextField(
-                      controller: _name,
-                      cursorColor: Colors.deepOrange,
-                      decoration: InputDecoration(
-                        labelText: 'Product Name',
-                        contentPadding: EdgeInsets.all(5.0),
-                        fillColor: Colors.white,
-                        filled: true,
-                        focusedBorder:OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        border: new OutlineInputBorder(
-                          borderSide: new BorderSide(
-                            color: Colors.deepOrange,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        hintText: "Product Name",
-                      ),
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                TextField(
+                  controller: _name,
+                  cursorColor: Colors.deepOrange,
+                  decoration: InputDecoration(
+                    labelText: 'Product Name',
+                    contentPadding: EdgeInsets.all(5.0),
+                    fillColor: Colors.white,
+                    filled: true,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
+                      borderRadius: BorderRadius.zero,
                     ),
-                    SizedBox(height: 20,),
-                    TextField(
-                      controller: _units,
-                      cursorColor: Colors.deepOrange,
-                      decoration: InputDecoration(
-                        labelText: 'Product Unit',
-                        contentPadding: EdgeInsets.all(5.0),
-                        fillColor: Colors.white,
-                        filled: true,
-                        focusedBorder:OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        border: new OutlineInputBorder(
-                          borderSide: new BorderSide(
-                            color: Colors.deepOrange,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        hintText: "e.g Kg, g",
+                    border: new OutlineInputBorder(
+                      borderSide: new BorderSide(
+                        color: Colors.deepOrange,
+                        width: 1.0,
                       ),
+                      borderRadius: BorderRadius.zero,
                     ),
-                    SizedBox(height: 20,),
-                    TextField(
-                      controller: _bp,
-                      keyboardType: TextInputType.number,
-                      cursorColor: Colors.deepOrange,
-                      decoration: InputDecoration(
-                        labelText: 'Buying Price',
-                        contentPadding: EdgeInsets.all(5.0),
-                        fillColor: Colors.white,
-                        filled: true,
-                        focusedBorder:OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        border: new OutlineInputBorder(
-                          borderSide: new BorderSide(
-                            color: Colors.deepOrange,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        hintText: "Buying Price",
+                    hintText: "Product Name",
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextField(
+                  controller: _units,
+                  cursorColor: Colors.deepOrange,
+                  decoration: InputDecoration(
+                    labelText: 'Product Unit',
+                    contentPadding: EdgeInsets.all(5.0),
+                    fillColor: Colors.white,
+                    filled: true,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
+                      borderRadius: BorderRadius.zero,
+                    ),
+                    border: new OutlineInputBorder(
+                      borderSide: new BorderSide(
+                        color: Colors.deepOrange,
+                        width: 1.0,
                       ),
+                      borderRadius: BorderRadius.zero,
                     ),
-                    SizedBox(height: 20,),
-                    TextField(
-                      controller: _sp,
-                      cursorColor: Colors.deepOrange,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: 'Selling Price',
-                        contentPadding: EdgeInsets.all(5.0),
-                        fillColor: Colors.white,
-                        filled: true,
-                        focusedBorder:OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        border: new OutlineInputBorder(
-                          borderSide: new BorderSide(
-                            color: Colors.deepOrange,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        hintText: "Selling Price",
+                    hintText: "e.g Kg, g",
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextField(
+                  controller: _bp,
+                  keyboardType: TextInputType.number,
+                  cursorColor: Colors.deepOrange,
+                  decoration: InputDecoration(
+                    labelText: 'Buying Price',
+                    contentPadding: EdgeInsets.all(5.0),
+                    fillColor: Colors.white,
+                    filled: true,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
+                      borderRadius: BorderRadius.zero,
+                    ),
+                    border: new OutlineInputBorder(
+                      borderSide: new BorderSide(
+                        color: Colors.deepOrange,
+                        width: 1.0,
                       ),
+                      borderRadius: BorderRadius.zero,
                     ),
-                    SizedBox(height: 20,),
-                    TextField(
-                      controller: _qty,
-                      cursorColor: Colors.deepOrange,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: 'Quantity',
-                        contentPadding: EdgeInsets.all(5.0),
-                        fillColor: Colors.white,
-                        filled: true,
-                        focusedBorder:OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        border: new OutlineInputBorder(
-                          borderSide: new BorderSide(
-                            color: Colors.deepOrange,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        hintText: "Quantity in Stock",
+                    hintText: "Buying Price",
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextField(
+                  controller: _sp,
+                  cursorColor: Colors.deepOrange,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: 'Selling Price',
+                    contentPadding: EdgeInsets.all(5.0),
+                    fillColor: Colors.white,
+                    filled: true,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
+                      borderRadius: BorderRadius.zero,
+                    ),
+                    border: new OutlineInputBorder(
+                      borderSide: new BorderSide(
+                        color: Colors.deepOrange,
+                        width: 1.0,
                       ),
+                      borderRadius: BorderRadius.zero,
                     ),
-                    SizedBox(height: 20,),
-                    TextField(
-                      controller: _cat,
-                      cursorColor: Colors.deepOrange,
-                      decoration: InputDecoration(
-                        labelText: 'Category',
-                        labelStyle: TextStyle(
-                          color: Colors.deepOrange,
-                        ),
-                        contentPadding: EdgeInsets.all(5.0),
-                        fillColor: Colors.white,
-                        filled: true,
-                        focusedBorder:OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        enabledBorder: new OutlineInputBorder(
-                          borderSide: new BorderSide(
-                            color: Colors.deepOrange,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        hintText: "Product Category",
+                    hintText: "Selling Price",
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextField(
+                  controller: _qty,
+                  cursorColor: Colors.deepOrange,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: 'Quantity',
+                    contentPadding: EdgeInsets.all(5.0),
+                    fillColor: Colors.white,
+                    filled: true,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
+                      borderRadius: BorderRadius.zero,
+                    ),
+                    border: new OutlineInputBorder(
+                      borderSide: new BorderSide(
+                        color: Colors.deepOrange,
+                        width: 1.0,
                       ),
+                      borderRadius: BorderRadius.zero,
                     ),
-                    SizedBox(height: 40,),
-                    ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrange),
+                    hintText: "Quantity in Stock",
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextField(
+                  controller: _cat,
+                  cursorColor: Colors.deepOrange,
+                  decoration: InputDecoration(
+                    labelText: 'Category',
+                    labelStyle: TextStyle(
+                      color: Colors.deepOrange,
+                    ),
+                    contentPadding: EdgeInsets.all(5.0),
+                    fillColor: Colors.white,
+                    filled: true,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
+                      borderRadius: BorderRadius.zero,
+                    ),
+                    enabledBorder: new OutlineInputBorder(
+                      borderSide: new BorderSide(
+                        color: Colors.deepOrange,
+                        width: 1.0,
                       ),
-                      onPressed: (){
-                        Database.addProduct(
-                          name: _name.text,
-                          bp: _bp.text,
-                          sp: _sp.text,
-                          units: _units.text,
-                          quantity: _qty.text,
-                          category: _cat.text,
-                          image: 'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg'
-                        ).whenComplete(() => Navigator.of(context).pop());
-                      },
-                      child: Text('Add Product') 
+                      borderRadius: BorderRadius.zero,
                     ),
-                    Padding( // this is new
-                padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)
-            ),
-                  ]
-          ),
+                    hintText: "Product Category",
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.deepOrange),
+                    ),
+                    onPressed: () {
+                      Database.addProduct(
+                              name: _name.text,
+                              bp: _bp.text,
+                              sp: _sp.text,
+                              units: _units.text,
+                              quantity: _qty.text,
+                              category: _cat.text,
+                              image:
+                                  'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg')
+                          .whenComplete(() => Navigator.of(context).pop());
+                    },
+                    child: Text('Add Product')),
+                Padding(
+                    // this is new
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom)),
+              ]),
         ),
       ),
     );

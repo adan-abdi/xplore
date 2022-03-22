@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:xplore/presentation/dashboard/pages/Profile.dart';
 
-class CustomAppBar extends StatelessWidget with PreferredSizeWidget{
+class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   const CustomAppBar({Key? key}) : super(key: key);
 
   @override
@@ -34,8 +34,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget{
                 fontSize: 24,
               ),
             ),
-          )
-      ),
+          )),
       actions: <Widget>[
         Padding(
           padding: EdgeInsets.all(8.0),
@@ -43,9 +42,10 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget{
             padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
             color: Colors.deepOrange,
             child: IconButton(
-              icon:  Icon(Icons.account_circle),
-              onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Profile()));
+              icon: Icon(Icons.account_circle),
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Profile()));
               },
             ),
           ),
@@ -53,7 +53,9 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget{
       ],
       flexibleSpace: Column(
         children: [
-          SizedBox(height: 100,),
+          SizedBox(
+            height: 100,
+          ),
           Container(
             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: TextField(
@@ -62,8 +64,9 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget{
                 contentPadding: EdgeInsets.all(20.0),
                 fillColor: Colors.white,
                 filled: true,
-                focusedBorder:OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      const BorderSide(color: Colors.deepOrange, width: 2.0),
                   borderRadius: BorderRadius.zero,
                 ),
                 border: new OutlineInputBorder(
@@ -73,7 +76,10 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget{
                   ),
                   borderRadius: BorderRadius.zero,
                 ),
-                prefixIcon: Icon(Icons.search, color: Colors.deepOrange,),
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Colors.deepOrange,
+                ),
                 hintText: "Search",
               ),
             ),

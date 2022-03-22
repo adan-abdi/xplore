@@ -53,7 +53,7 @@ class PTop extends StatelessWidget {
                                 'Edit Profile',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 20,                            
+                                  fontSize: 20,
                                   color: Colors.deepOrange,
                                 ),
                               ),

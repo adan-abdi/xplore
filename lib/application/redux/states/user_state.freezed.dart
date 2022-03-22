@@ -1,5 +1,7 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'user_state.dart';
 
@@ -22,12 +24,10 @@ class _$UserStateTearOff {
 
   _UserState call(
       {bool? isSignedIn,
-      bool? hasDoneTour,
       String? phoneNumber,
+      String? initialPhoneNumber,
       String? pinCode,
       String? initialPinCode,
-      String? confirmPinCode,
-      bool? doPinsMatch,
       String? firstName,
       String? lastName,
       String? displayName,
@@ -35,12 +35,10 @@ class _$UserStateTearOff {
       String? email}) {
     return _UserState(
       isSignedIn: isSignedIn,
-      hasDoneTour: hasDoneTour,
       phoneNumber: phoneNumber,
+      initialPhoneNumber: initialPhoneNumber,
       pinCode: pinCode,
       initialPinCode: initialPinCode,
-      confirmPinCode: confirmPinCode,
-      doPinsMatch: doPinsMatch,
       firstName: firstName,
       lastName: lastName,
       displayName: displayName,
@@ -49,7 +47,7 @@ class _$UserStateTearOff {
     );
   }
 
-  UserState fromJson(Map<String, Object> json) {
+  UserState fromJson(Map<String, Object?> json) {
     return UserState.fromJson(json);
   }
 }
@@ -60,12 +58,10 @@ const $UserState = _$UserStateTearOff();
 /// @nodoc
 mixin _$UserState {
   bool? get isSignedIn => throw _privateConstructorUsedError;
-  bool? get hasDoneTour => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
+  String? get initialPhoneNumber => throw _privateConstructorUsedError;
   String? get pinCode => throw _privateConstructorUsedError;
   String? get initialPinCode => throw _privateConstructorUsedError;
-  String? get confirmPinCode => throw _privateConstructorUsedError;
-  bool? get doPinsMatch => throw _privateConstructorUsedError;
   String? get firstName => throw _privateConstructorUsedError;
   String? get lastName => throw _privateConstructorUsedError;
   String? get displayName => throw _privateConstructorUsedError;
@@ -84,12 +80,10 @@ abstract class $UserStateCopyWith<$Res> {
       _$UserStateCopyWithImpl<$Res>;
   $Res call(
       {bool? isSignedIn,
-      bool? hasDoneTour,
       String? phoneNumber,
+      String? initialPhoneNumber,
       String? pinCode,
       String? initialPinCode,
-      String? confirmPinCode,
-      bool? doPinsMatch,
       String? firstName,
       String? lastName,
       String? displayName,
@@ -108,12 +102,10 @@ class _$UserStateCopyWithImpl<$Res> implements $UserStateCopyWith<$Res> {
   @override
   $Res call({
     Object? isSignedIn = freezed,
-    Object? hasDoneTour = freezed,
     Object? phoneNumber = freezed,
+    Object? initialPhoneNumber = freezed,
     Object? pinCode = freezed,
     Object? initialPinCode = freezed,
-    Object? confirmPinCode = freezed,
-    Object? doPinsMatch = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? displayName = freezed,
@@ -125,13 +117,13 @@ class _$UserStateCopyWithImpl<$Res> implements $UserStateCopyWith<$Res> {
           ? _value.isSignedIn
           : isSignedIn // ignore: cast_nullable_to_non_nullable
               as bool?,
-      hasDoneTour: hasDoneTour == freezed
-          ? _value.hasDoneTour
-          : hasDoneTour // ignore: cast_nullable_to_non_nullable
-              as bool?,
       phoneNumber: phoneNumber == freezed
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      initialPhoneNumber: initialPhoneNumber == freezed
+          ? _value.initialPhoneNumber
+          : initialPhoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
       pinCode: pinCode == freezed
           ? _value.pinCode
@@ -141,14 +133,6 @@ class _$UserStateCopyWithImpl<$Res> implements $UserStateCopyWith<$Res> {
           ? _value.initialPinCode
           : initialPinCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      confirmPinCode: confirmPinCode == freezed
-          ? _value.confirmPinCode
-          : confirmPinCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      doPinsMatch: doPinsMatch == freezed
-          ? _value.doPinsMatch
-          : doPinsMatch // ignore: cast_nullable_to_non_nullable
-              as bool?,
       firstName: firstName == freezed
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
@@ -181,12 +165,10 @@ abstract class _$UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
   @override
   $Res call(
       {bool? isSignedIn,
-      bool? hasDoneTour,
       String? phoneNumber,
+      String? initialPhoneNumber,
       String? pinCode,
       String? initialPinCode,
-      String? confirmPinCode,
-      bool? doPinsMatch,
       String? firstName,
       String? lastName,
       String? displayName,
@@ -206,12 +188,10 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isSignedIn = freezed,
-    Object? hasDoneTour = freezed,
     Object? phoneNumber = freezed,
+    Object? initialPhoneNumber = freezed,
     Object? pinCode = freezed,
     Object? initialPinCode = freezed,
-    Object? confirmPinCode = freezed,
-    Object? doPinsMatch = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? displayName = freezed,
@@ -223,13 +203,13 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
           ? _value.isSignedIn
           : isSignedIn // ignore: cast_nullable_to_non_nullable
               as bool?,
-      hasDoneTour: hasDoneTour == freezed
-          ? _value.hasDoneTour
-          : hasDoneTour // ignore: cast_nullable_to_non_nullable
-              as bool?,
       phoneNumber: phoneNumber == freezed
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      initialPhoneNumber: initialPhoneNumber == freezed
+          ? _value.initialPhoneNumber
+          : initialPhoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
       pinCode: pinCode == freezed
           ? _value.pinCode
@@ -239,14 +219,6 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
           ? _value.initialPinCode
           : initialPinCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      confirmPinCode: confirmPinCode == freezed
-          ? _value.confirmPinCode
-          : confirmPinCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      doPinsMatch: doPinsMatch == freezed
-          ? _value.doPinsMatch
-          : doPinsMatch // ignore: cast_nullable_to_non_nullable
-              as bool?,
       firstName: firstName == freezed
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
@@ -276,12 +248,10 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
 class _$_UserState implements _UserState {
   _$_UserState(
       {this.isSignedIn,
-      this.hasDoneTour,
       this.phoneNumber,
+      this.initialPhoneNumber,
       this.pinCode,
       this.initialPinCode,
-      this.confirmPinCode,
-      this.doPinsMatch,
       this.firstName,
       this.lastName,
       this.displayName,
@@ -289,22 +259,18 @@ class _$_UserState implements _UserState {
       this.email});
 
   factory _$_UserState.fromJson(Map<String, dynamic> json) =>
-      _$_$_UserStateFromJson(json);
+      _$$_UserStateFromJson(json);
 
   @override
   final bool? isSignedIn;
   @override
-  final bool? hasDoneTour;
-  @override
   final String? phoneNumber;
+  @override
+  final String? initialPhoneNumber;
   @override
   final String? pinCode;
   @override
   final String? initialPinCode;
-  @override
-  final String? confirmPinCode;
-  @override
-  final bool? doPinsMatch;
   @override
   final String? firstName;
   @override
@@ -318,65 +284,45 @@ class _$_UserState implements _UserState {
 
   @override
   String toString() {
-    return 'UserState(isSignedIn: $isSignedIn, hasDoneTour: $hasDoneTour, phoneNumber: $phoneNumber, pinCode: $pinCode, initialPinCode: $initialPinCode, confirmPinCode: $confirmPinCode, doPinsMatch: $doPinsMatch, firstName: $firstName, lastName: $lastName, displayName: $displayName, displayInitials: $displayInitials, email: $email)';
+    return 'UserState(isSignedIn: $isSignedIn, phoneNumber: $phoneNumber, initialPhoneNumber: $initialPhoneNumber, pinCode: $pinCode, initialPinCode: $initialPinCode, firstName: $firstName, lastName: $lastName, displayName: $displayName, displayInitials: $displayInitials, email: $email)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _UserState &&
-            (identical(other.isSignedIn, isSignedIn) ||
-                const DeepCollectionEquality()
-                    .equals(other.isSignedIn, isSignedIn)) &&
-            (identical(other.hasDoneTour, hasDoneTour) ||
-                const DeepCollectionEquality()
-                    .equals(other.hasDoneTour, hasDoneTour)) &&
-            (identical(other.phoneNumber, phoneNumber) ||
-                const DeepCollectionEquality()
-                    .equals(other.phoneNumber, phoneNumber)) &&
-            (identical(other.pinCode, pinCode) ||
-                const DeepCollectionEquality()
-                    .equals(other.pinCode, pinCode)) &&
-            (identical(other.initialPinCode, initialPinCode) ||
-                const DeepCollectionEquality()
-                    .equals(other.initialPinCode, initialPinCode)) &&
-            (identical(other.confirmPinCode, confirmPinCode) ||
-                const DeepCollectionEquality()
-                    .equals(other.confirmPinCode, confirmPinCode)) &&
-            (identical(other.doPinsMatch, doPinsMatch) ||
-                const DeepCollectionEquality()
-                    .equals(other.doPinsMatch, doPinsMatch)) &&
-            (identical(other.firstName, firstName) ||
-                const DeepCollectionEquality()
-                    .equals(other.firstName, firstName)) &&
-            (identical(other.lastName, lastName) ||
-                const DeepCollectionEquality()
-                    .equals(other.lastName, lastName)) &&
-            (identical(other.displayName, displayName) ||
-                const DeepCollectionEquality()
-                    .equals(other.displayName, displayName)) &&
-            (identical(other.displayInitials, displayInitials) ||
-                const DeepCollectionEquality()
-                    .equals(other.displayInitials, displayInitials)) &&
-            (identical(other.email, email) ||
-                const DeepCollectionEquality().equals(other.email, email)));
+        (other.runtimeType == runtimeType &&
+            other is _UserState &&
+            const DeepCollectionEquality()
+                .equals(other.isSignedIn, isSignedIn) &&
+            const DeepCollectionEquality()
+                .equals(other.phoneNumber, phoneNumber) &&
+            const DeepCollectionEquality()
+                .equals(other.initialPhoneNumber, initialPhoneNumber) &&
+            const DeepCollectionEquality().equals(other.pinCode, pinCode) &&
+            const DeepCollectionEquality()
+                .equals(other.initialPinCode, initialPinCode) &&
+            const DeepCollectionEquality().equals(other.firstName, firstName) &&
+            const DeepCollectionEquality().equals(other.lastName, lastName) &&
+            const DeepCollectionEquality()
+                .equals(other.displayName, displayName) &&
+            const DeepCollectionEquality()
+                .equals(other.displayInitials, displayInitials) &&
+            const DeepCollectionEquality().equals(other.email, email));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(isSignedIn) ^
-      const DeepCollectionEquality().hash(hasDoneTour) ^
-      const DeepCollectionEquality().hash(phoneNumber) ^
-      const DeepCollectionEquality().hash(pinCode) ^
-      const DeepCollectionEquality().hash(initialPinCode) ^
-      const DeepCollectionEquality().hash(confirmPinCode) ^
-      const DeepCollectionEquality().hash(doPinsMatch) ^
-      const DeepCollectionEquality().hash(firstName) ^
-      const DeepCollectionEquality().hash(lastName) ^
-      const DeepCollectionEquality().hash(displayName) ^
-      const DeepCollectionEquality().hash(displayInitials) ^
-      const DeepCollectionEquality().hash(email);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(isSignedIn),
+      const DeepCollectionEquality().hash(phoneNumber),
+      const DeepCollectionEquality().hash(initialPhoneNumber),
+      const DeepCollectionEquality().hash(pinCode),
+      const DeepCollectionEquality().hash(initialPinCode),
+      const DeepCollectionEquality().hash(firstName),
+      const DeepCollectionEquality().hash(lastName),
+      const DeepCollectionEquality().hash(displayName),
+      const DeepCollectionEquality().hash(displayInitials),
+      const DeepCollectionEquality().hash(email));
 
   @JsonKey(ignore: true)
   @override
@@ -385,19 +331,17 @@ class _$_UserState implements _UserState {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_UserStateToJson(this);
+    return _$$_UserStateToJson(this);
   }
 }
 
 abstract class _UserState implements UserState {
   factory _UserState(
       {bool? isSignedIn,
-      bool? hasDoneTour,
       String? phoneNumber,
+      String? initialPhoneNumber,
       String? pinCode,
       String? initialPinCode,
-      String? confirmPinCode,
-      bool? doPinsMatch,
       String? firstName,
       String? lastName,
       String? displayName,
@@ -408,29 +352,25 @@ abstract class _UserState implements UserState {
       _$_UserState.fromJson;
 
   @override
-  bool? get isSignedIn => throw _privateConstructorUsedError;
+  bool? get isSignedIn;
   @override
-  bool? get hasDoneTour => throw _privateConstructorUsedError;
+  String? get phoneNumber;
   @override
-  String? get phoneNumber => throw _privateConstructorUsedError;
+  String? get initialPhoneNumber;
   @override
-  String? get pinCode => throw _privateConstructorUsedError;
+  String? get pinCode;
   @override
-  String? get initialPinCode => throw _privateConstructorUsedError;
+  String? get initialPinCode;
   @override
-  String? get confirmPinCode => throw _privateConstructorUsedError;
+  String? get firstName;
   @override
-  bool? get doPinsMatch => throw _privateConstructorUsedError;
+  String? get lastName;
   @override
-  String? get firstName => throw _privateConstructorUsedError;
+  String? get displayName;
   @override
-  String? get lastName => throw _privateConstructorUsedError;
+  String? get displayInitials;
   @override
-  String? get displayName => throw _privateConstructorUsedError;
-  @override
-  String? get displayInitials => throw _privateConstructorUsedError;
-  @override
-  String? get email => throw _privateConstructorUsedError;
+  String? get email;
   @override
   @JsonKey(ignore: true)
   _$UserStateCopyWith<_UserState> get copyWith =>
