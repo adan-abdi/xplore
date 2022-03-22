@@ -16,7 +16,9 @@ class ButtonStatusStore {
   //Initial
   final colorStream = BehaviorSubject<Color>.seeded(ButtonStatus.init.color);
   final statusStream = BehaviorSubject<bool>.seeded(false);
-  //Initial
+  //Landing page
+  final landingColorStream = BehaviorSubject<Color>.seeded(ButtonStatus.active.color);
+  final landingStatusStream = BehaviorSubject<bool>.seeded(true);
 
   static final ButtonStatusStore _singleton = ButtonStatusStore._internal();
 }

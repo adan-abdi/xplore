@@ -13,7 +13,7 @@ import 'package:xplore/application/singletons/button_status.dart';
 class ActionButton extends StatefulWidget {
   final String widgetText;
   final String nextRoute;
-  final Function? onTapcallback;
+  final Function? onCallback;
   final BehaviorSubject<Color>? colorStream;
   final BehaviorSubject<bool>? statusStream;
 
@@ -23,7 +23,7 @@ class ActionButton extends StatefulWidget {
     required this.nextRoute,
     required this.statusStream,
     required this.colorStream,
-    this.onTapcallback,
+    this.onCallback,
   }) : super(key: key);
 
   @override
@@ -37,7 +37,7 @@ class _ActionButtonState extends State<ActionButton> {
       width: double.infinity,
       height: 50,
       child: StreamBuilder(
-          stream: widget.colorStream ?? ButtonStatusStore().colorStream.stream,
+          stream: widget.colorStream ?? ButtonStatusStore().landingColorStream.stream,
           builder: (BuildContext context, AsyncSnapshot<Color> colorStream) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -61,12 +61,12 @@ class _ActionButtonState extends State<ActionButton> {
                   },
                 ),
                 onPressed: () {
-                  (widget.onTapcallback == null)
+                  (widget.onCallback == null)
                       ? StoreProvider.dispatch<AppState>(
                           context,
                           NavigateAction.pushNamed(widget.nextRoute),
                         )
-                      : widget.onTapcallback;
+                      : widget.onCallback;
                 },
               ),
             );
