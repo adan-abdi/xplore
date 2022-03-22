@@ -7,7 +7,7 @@ import 'package:xplore/application/singletons/button_status.dart';
 import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
-import 'package:xplore/presentation/onboarding/widgets/action_button.dart';
+import 'package:xplore/presentation/onboarding/widgets/buttons/action_button.dart';
 import 'package:xplore/presentation/onboarding/widgets/landing_title.dart';
 import 'package:xplore/presentation/onboarding/widgets/landing_vector.dart';
 import 'package:xplore/presentation/onboarding/widgets/onboarding_scaffold.dart';

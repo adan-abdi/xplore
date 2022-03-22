@@ -11,6 +11,7 @@ import 'package:rxdart/rxdart.dart';
 // Project imports:
 import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
+import 'package:xplore/domain/core/lifecycle_event_handler.dart';
 import 'package:xplore/domain/routes/route_generator.dart';
 import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_global_constants.dart';
@@ -49,7 +50,13 @@ class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance!.addObserver(
+      LifecycleEventHandler(
+        onResume: () => Future.value(),
+        onSuspend: () => Future.value(),
+        onChangeBrightness: () => Future.value(),
+      ),
+    );
   }
 
   @override

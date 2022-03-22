@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 // Project imports:
 import 'package:xplore/application/redux/states/app_state.dart';
@@ -20,7 +21,10 @@ import 'package:xplore/xplore_app.dart';
 
 void main() async {
   await runZonedGuarded<Future<void>>(() async {
-    WidgetsFlutterBinding.ensureInitialized();
+    WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+    FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+    // WidgetsFlutterBinding.ensureInitialized();
 
     await Firebase.initializeApp();
 
@@ -62,6 +66,8 @@ void main() async {
         store: store,
       ),
     );
+
+    FlutterNativeSplash.remove();
   }, (Object exception, StackTrace stackTrace) {
     if (!kReleaseMode) {
       print("$exception -=- $stackTrace");
