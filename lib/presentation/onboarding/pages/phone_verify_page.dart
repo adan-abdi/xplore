@@ -21,8 +21,8 @@ import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/core/pages/xplore_numeric_keyboard.dart';
 import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
-import 'package:xplore/presentation/onboarding/widgets/action_button.dart';
-import 'package:xplore/presentation/onboarding/widgets/keyboard_scaffold.dart';
+import 'package:xplore/presentation/onboarding/widgets/buttons/action_button.dart';
+import 'package:xplore/presentation/onboarding/widgets/layout/keyboard_scaffold.dart';
 import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
 
 class PhoneVerifyPage extends StatefulWidget {

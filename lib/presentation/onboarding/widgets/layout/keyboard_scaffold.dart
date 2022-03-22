@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:xplore/application/core/themes/colors.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
-import 'package:xplore/presentation/onboarding/widgets/circles.dart';
+import 'package:xplore/presentation/onboarding/widgets/layout/circles.dart';
 import 'package:xplore/presentation/onboarding/widgets/xplore_appbar.dart';
 
 class KeyboardScaffold extends StatefulWidget {
