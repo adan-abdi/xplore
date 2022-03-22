@@ -8,8 +8,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:logger/logger.dart';
 
 // Project imports:
-import 'package:xplore/application/redux/actions/phone_login_action.dart';
-import 'package:xplore/application/redux/actions/update_user_state_action.dart';
+import 'package:xplore/application/redux/actions/verify_phone_action.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/application/singletons/button_status.dart';
 import 'package:xplore/domain/routes/routes.dart';
@@ -90,14 +89,14 @@ Future<void> signUp({
     formKey.currentState!.save();
 
     if (pin == confirmPin) {
-      StoreProvider.dispatch<AppState>(
-        context,
-        UpdateUserStateAction(doPinsMatch: true),
-      );
+      // StoreProvider.dispatch<AppState>(
+      //   context,
+      //   UpdateUserStateAction(doPinsMatch: true),
+      // );
 
       await StoreProvider.dispatch<AppState>(
         context,
-        PhoneLoginAction(
+        VerifyPhoneAction(
           context: context,
           phoneNumber: phoneNumber,
           pinCode: confirmPin,
@@ -130,14 +129,14 @@ Future<void> signIn({
     formKey.currentState!.save();
 
     if (pin == confirmPin) {
-      StoreProvider.dispatch<AppState>(
-        context,
-        UpdateUserStateAction(doPinsMatch: true),
-      );
+      // StoreProvider.dispatch<AppState>(
+      //   context,
+      //   UpdateUserStateAction(doPinsMatch: true),
+      // );
 
       await StoreProvider.dispatch<AppState>(
         context,
-        PhoneLoginAction(
+        VerifyPhoneAction(
           context: context,
           phoneNumber: phoneNumber,
           pinCode: confirmPin,

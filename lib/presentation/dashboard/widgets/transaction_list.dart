@@ -167,8 +167,7 @@ class _TransactionListState extends State<TransactionList> {
                             },
                             child: status == widget.tstatus
                                 ? _transactions(name, qty, image)
-                                : Container()
-                                );
+                                : Container());
                       }),
                 )
               ],

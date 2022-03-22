@@ -11,32 +11,29 @@ import 'package:firebase_auth/firebase_auth.dart';
 // Project imports:
 import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/core/themes/colors.dart';
+import 'package:xplore/application/redux/actions/enter_otp_action.dart';
 import 'package:xplore/application/redux/actions/update_user_state_action.dart';
 import 'package:xplore/application/redux/misc/flags.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/domain/value_objects/app_constants.dart';
 import 'package:xplore/domain/value_objects/app_error_strings.dart';
-import 'package:xplore/domain/value_objects/app_exceptions_strings.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
 
-class PhoneLoginAction extends ReduxAction<AppState> {
-  PhoneLoginAction({
+class VerifyPhoneAction extends ReduxAction<AppState> {
+  VerifyPhoneAction({
     required this.context,
     required this.phoneNumber,
-    required this.pinCode,
+    this.pinCode,
   });
 
   final BuildContext context;
   final String phoneNumber;
-  final String pinCode;
+  final String? pinCode;
 
   @override
   void before() {
     dispatch(WaitAction<AppState>.add(phoneLoginStateFlag));
-    if (store.state.userState!.doPinsMatch == false) {
-      throw UserException(pinsDoNotMatchText);
-    }
     super.before();
   }
 
@@ -48,17 +45,15 @@ class PhoneLoginAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
+    FirebaseAuth firebaseAuthInstance = FirebaseAuth.instance;
 
-    /// Starts a phone number verification process for the given phone number.
-    await auth.verifyPhoneNumber(
+    await firebaseAuthInstance.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       verificationCompleted: (PhoneAuthCredential credential) async {
         // ANDROID ONLY!
-        await auth.signInWithCredential(credential);
+        await firebaseAuthInstance.signInWithCredential(credential);
       },
       verificationFailed: (FirebaseAuthException e) {
-        // Handle errors
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
           ..showSnackBar(
@@ -69,18 +64,13 @@ class PhoneLoginAction extends ReduxAction<AppState> {
           );
       },
       codeSent: (String verificationId, int? resendToken) async {
-        /// todo: Launch UIAction to collect sent pin code
-        /// Should have a timer where we can forceResendCode using(resendToken)
-        /// and a save button to
-        ///
-        String smsCode = 'xxx'; // return value of save button;
-        ///
-        // Create a PhoneAuthCredential with the code
-        PhoneAuthCredential credential = PhoneAuthProvider.credential(
-            verificationId: verificationId, smsCode: smsCode);
-
-        // Sign the user in (or link) with the credential
-        await auth.signInWithCredential(credential);
+        store.dispatch(
+          EnterOtpAction(
+            context: context,
+            resendToken: resendToken,
+            verificationId: verificationId,
+          ),
+        );
       },
       codeAutoRetrievalTimeout: (String verificationId) {
         ScaffoldMessenger.of(context)
@@ -92,14 +82,13 @@ class PhoneLoginAction extends ReduxAction<AppState> {
             ),
           );
       },
-      timeout: const Duration(seconds: 60),
+      timeout: thirtySeconds,
     );
 
     dispatch(
       UpdateUserStateAction(
-        isSignedIn: true,
+        isSignedIn: false,
         phoneNumber: phoneNumber,
-        pinCode: pinCode,
       ),
     );
 
@@ -113,7 +102,7 @@ class PhoneLoginAction extends ReduxAction<AppState> {
         ..hideCurrentSnackBar()
         ..showSnackBar(
           SnackBar(
-            content: Text(error.message.toString()),
+            content: Text('Incorrect phone  number format try again please.'),
             duration: const Duration(seconds: kShortSnackBarDuration),
             action: dismissSnackBar('Close', XploreColors.white, context),
           ),

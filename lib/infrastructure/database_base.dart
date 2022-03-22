@@ -1,4 +1,3 @@
-
 /// [XploreDatabaseBase] defines an interface to be fulfilled so that a storage component
 /// may work, for each exclusive platform. (Mobile and Web)
 abstract class XploreDatabaseBase<T> {

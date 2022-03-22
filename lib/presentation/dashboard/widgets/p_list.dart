@@ -22,7 +22,7 @@ class PList extends StatelessWidget {
                   color: Colors.deepOrange,
                 ),
               ),
-              onTap: (){},
+              onTap: () {},
             ),
           ),
           Container(
@@ -36,7 +36,7 @@ class PList extends StatelessWidget {
                   color: Colors.deepOrange,
                 ),
               ),
-              onTap: (){},
+              onTap: () {},
             ),
           ),
           Container(
@@ -50,7 +50,7 @@ class PList extends StatelessWidget {
                   color: Colors.deepOrange,
                 ),
               ),
-              onTap: (){},
+              onTap: () {},
             ),
           ),
           Container(
@@ -59,37 +59,26 @@ class PList extends StatelessWidget {
             child: ListTile(
               leading: Icon(Icons.account_box),
               title: Text(
-                  "Business Information",
-                  style: TextStyle(
+                "Business Information",
+                style: TextStyle(
                   color: Colors.deepOrange,
                 ),
               ),
-              onTap: (){},
+              onTap: () {},
             ),
           ),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           Text(
             "Others",
             style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.deepOrange
-            ),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.deepOrange),
           ),
-          SizedBox(height: 10,),
-          Container(
-            height: 50,
-            padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
-            child: ListTile(
-              leading: Icon(Icons.account_box),
-              title: Text(
-                  "Business Information",
-                  style: TextStyle(
-                  color: Colors.deepOrange,
-                ),
-              ),
-              onTap: (){},
-            ),
+          SizedBox(
+            height: 10,
           ),
           Container(
             height: 50,
@@ -97,12 +86,26 @@ class PList extends StatelessWidget {
             child: ListTile(
               leading: Icon(Icons.account_box),
               title: Text(
-                  "Business Information",
-                  style: TextStyle(
+                "Business Information",
+                style: TextStyle(
                   color: Colors.deepOrange,
                 ),
               ),
-              onTap: (){},
+              onTap: () {},
+            ),
+          ),
+          Container(
+            height: 50,
+            padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
+            child: ListTile(
+              leading: Icon(Icons.account_box),
+              title: Text(
+                "Business Information",
+                style: TextStyle(
+                  color: Colors.deepOrange,
+                ),
+              ),
+              onTap: () {},
             ),
           ),
         ],

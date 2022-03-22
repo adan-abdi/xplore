@@ -7,11 +7,10 @@ import 'package:xplore/application/redux/states/user_state.dart';
 
 class UpdateUserStateAction extends ReduxAction<AppState> {
   bool? isSignedIn;
-  bool? hasDoneTour;
   String? phoneNumber;
+  String? initialPhoneNumber;
   String? pinCode;
-  String? confirmPinCode;
-  bool? doPinsMatch;
+  String? initialPinCode;
   String? firstName;
   String? lastName;
   String? displayName;
@@ -20,11 +19,8 @@ class UpdateUserStateAction extends ReduxAction<AppState> {
 
   UpdateUserStateAction({
     this.isSignedIn,
-    this.hasDoneTour,
     this.phoneNumber,
     this.pinCode,
-    this.confirmPinCode,
-    this.doPinsMatch,
     this.firstName,
     this.lastName,
     this.displayName,
@@ -36,11 +32,8 @@ class UpdateUserStateAction extends ReduxAction<AppState> {
   AppState reduce() {
     final UserState? newUserState = store.state.userState?.copyWith.call(
       isSignedIn: this.isSignedIn ?? state.userState?.isSignedIn,
-      hasDoneTour: this.hasDoneTour ?? state.userState?.hasDoneTour,
       phoneNumber: this.phoneNumber ?? state.userState?.phoneNumber,
       pinCode: this.pinCode ?? state.userState?.pinCode,
-      confirmPinCode: this.confirmPinCode ?? state.userState?.confirmPinCode,
-      doPinsMatch: this.doPinsMatch ?? state.userState?.doPinsMatch,
       firstName: this.firstName ?? state.userState?.firstName,
       lastName: this.lastName ?? state.userState?.lastName,
       displayName: this.displayName ?? state.userState?.displayName,

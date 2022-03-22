@@ -49,8 +49,7 @@ class Database {
     required String docId,
     required String image,
   }) async {
-    DocumentReference documentReferencer =
-        _docRefInventory.doc(docId);
+    DocumentReference documentReferencer = _docRefInventory.doc(docId);
 
     Map<String, dynamic> data = <String, dynamic>{
       "name": name,
@@ -68,7 +67,6 @@ class Database {
         .catchError((e) => print(e));
   }
 
-
   static Future<void> checkoutItem({
     required String name,
     required String bp,
@@ -81,13 +79,9 @@ class Database {
     required String image,
     required String status,
   }) async {
-    DocumentReference documentReferencer =
-        _docRefInventory.doc(docId);
+    DocumentReference documentReferencer = _docRefInventory.doc(docId);
 
-    DocumentReference orderReferencer =
-        _docRefOrder.doc(docId);
-
-    
+    DocumentReference orderReferencer = _docRefOrder.doc(docId);
 
     Map<String, dynamic> data = <String, dynamic>{
       "name": name,
@@ -109,7 +103,6 @@ class Database {
     var now = DateTime.now();
     final format = DateFormat('yyyy-MM-dd HH:mm');
     var date = format.format(now);
-
 
     Map<String, dynamic> item = <String, dynamic>{
       "name": name,
@@ -135,7 +128,6 @@ class Database {
 
     return notesItemCollection.snapshots();
   }
-
 
   static Stream<QuerySnapshot> readTransactions() {
     CollectionReference notesItemCollection = _docRefOrder;

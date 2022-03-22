@@ -52,7 +52,7 @@ class _ProfileState extends State<Profile> {
             )),
       ),
       body: Container(
-        height: MediaQuery.of(context).size.height ,
+        height: MediaQuery.of(context).size.height,
         // scrollDirection: Axis.vertical,
         // padding: EdgeInsets.all(8),
         child: Column(

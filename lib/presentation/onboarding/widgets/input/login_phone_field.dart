@@ -8,16 +8,26 @@ import 'package:xplore/application/singletons/button_status.dart';
 class PhoneLoginField extends StatefulWidget {
   final TextEditingController phoneNumberController;
   final ButtonStatusStore btnStore;
+  final Function(String)? onChanged;
 
-  const PhoneLoginField(
-      {Key? key, required this.phoneNumberController, required this.btnStore})
-      : super(key: key);
+  const PhoneLoginField({
+    Key? key,
+    required this.phoneNumberController,
+    required this.btnStore,
+    required this.onChanged,
+  }) : super(key: key);
 
   @override
   State<PhoneLoginField> createState() => _PhoneLoginFieldState();
 }
 
 class _PhoneLoginFieldState extends State<PhoneLoginField> {
+  @override
+  void initState() {
+    super.initState();
+    widget.phoneNumberController.text = '+254';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,12 +43,14 @@ class _PhoneLoginFieldState extends State<PhoneLoginField> {
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: '+(254) 700 000 000',
+            hintStyle: TextStyle(color: XploreColors.deepBlue.withOpacity(.6)),
           ),
           readOnly: true,
           showCursor: true,
           cursorColor: XploreColors.orange,
           autofocus: true,
           style: TextStyle(fontSize: 28),
+          onChanged: widget.onChanged!,
         ),
       ),
     );

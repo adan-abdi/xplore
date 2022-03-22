@@ -91,8 +91,8 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -117,8 +117,8 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -144,8 +144,8 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -171,8 +171,8 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -197,8 +197,8 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -247,15 +247,16 @@ class _EditProductsState extends State<EditProducts> {
                     ElevatedButton(
                         onPressed: () {
                           Database.updateItem(
-                            name: _name.text,
-                            bp: _bp.text,
-                            sp: _sp.text,
-                            units: _units.text,
-                            quantity: _qty.text,
-                            category: _cat.text,
-                            docId: widget.docId,
-                            image: 'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg'
-                          ).whenComplete(() => Navigator.of(context).pop());
+                                  name: _name.text,
+                                  bp: _bp.text,
+                                  sp: _sp.text,
+                                  units: _units.text,
+                                  quantity: _qty.text,
+                                  category: _cat.text,
+                                  docId: widget.docId,
+                                  image:
+                                      'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg')
+                              .whenComplete(() => Navigator.of(context).pop());
                         },
                         child: Text('Save Product')),
                   ],

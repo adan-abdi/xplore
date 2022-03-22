@@ -41,8 +41,7 @@ class ProductList extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('$name',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text('$name', style: TextStyle(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 6.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,23 +59,22 @@ class ProductList extends StatelessWidget {
                     height: 6,
                   ),
                   InkWell(
-                    child:Container(
-                    height: 25,
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    color: Colors.deepOrange,
-                    child: Center(
-                      child: Text(
-                        'Order',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 20,
-                          color:Colors.white
+                    child: Container(
+                      height: 25,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      color: Colors.deepOrange,
+                      child: Center(
+                        child: Text(
+                          'Order',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              color: Colors.white),
                         ),
                       ),
                     ),
-              ),
                     onTap: () {
-                      int rem = int.parse(quantity) -1;
+                      int rem = int.parse(quantity) - 1;
                       Database.checkoutItem(
                               name: name,
                               bp: bp,
@@ -85,7 +83,8 @@ class ProductList extends StatelessWidget {
                               quantity: '1',
                               category: category,
                               rem: rem.toString(),
-                              image: 'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg',
+                              image:
+                                  'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg',
                               status: 'pending',
                               docId: docId)
                           .whenComplete(() => Navigator.of(context)

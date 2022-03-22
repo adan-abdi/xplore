@@ -25,10 +25,7 @@ class AppRouterGenerator {
       case profRoute:
         return MaterialPageRoute<Profile>(builder: (_) => Profile());
       case otpPageRoute:
-        return MaterialPageRoute<Profile>(
-            builder: (_) => PhoneVerifyPage(
-                  mobile: '',
-                ));
+        return MaterialPageRoute<Profile>(builder: (_) => PhoneVerifyPage());
       case loginPageRoute:
         return MaterialPageRoute<Scaffold>(
             builder: (_) => Scaffold(
