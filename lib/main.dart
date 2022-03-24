@@ -24,7 +24,7 @@ void main() async {
     WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
     FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-    // WidgetsFlutterBinding.ensureInitialized();
+    WidgetsFlutterBinding.ensureInitialized();
 
     await Firebase.initializeApp();
 
@@ -67,7 +67,6 @@ void main() async {
       ),
     );
 
-    FlutterNativeSplash.remove();
   }, (Object exception, StackTrace stackTrace) {
     if (!kReleaseMode) {
       print("$exception -=- $stackTrace");
