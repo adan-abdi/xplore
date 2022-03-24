@@ -12,7 +12,7 @@ class InitialRouteStore {
   InitialRouteStore._internal();
 
   //Route
-  final initialRoute = BehaviorSubject<String>.seeded(landingPageRoute);
+  final initialRoute = BehaviorSubject<String>.seeded('');
 
   static final InitialRouteStore _singleton = InitialRouteStore._internal();
 }

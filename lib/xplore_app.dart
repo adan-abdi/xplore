@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 // Project imports:
 import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
+import 'package:xplore/application/redux/states/user_state.dart';
 import 'package:xplore/application/singletons/initial_route.dart';
 import 'package:xplore/domain/core/lifecycle_event_handler.dart';
 import 'package:xplore/domain/routes/route_generator.dart';
@@ -37,15 +39,16 @@ class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
   void didChangeDependencies() {
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       Future<dynamic>.delayed(Duration.zero, () async {
-        final bool shouldSignIn =
-            widget.store.state.userState!.isSignedIn ?? false;
-        if (!shouldSignIn) {
+        final UserState? userState = widget.store.state.userState;
+        if (!(userState?.isSignedIn ?? false) && (userState?.uid != null)) {
           appInitialRoute.initialRoute.add(
             await getInitialRoute(state: widget.store.state),
           );
-        } else {
-          appInitialRoute.initialRoute.add(dashPageRoute);
-        }
+        } 
+        // else {
+        //   appInitialRoute.initialRoute.add(dashPageRoute);
+        // }
+        FlutterNativeSplash.remove();
       });
     });
 
@@ -79,7 +82,7 @@ class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
           home: StreamBuilder<String>(
             stream: appInitialRoute.initialRoute.stream,
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-              if (snapshot.data == null) {
+              if (snapshot.data == null || snapshot.data!.isEmpty) {
                 return Scaffold(
                   body: Container(
                     child: Center(
