@@ -44,3 +44,16 @@ extension ButtonStatusEx on ButtonStatus {
     }
   }
 }
+
+enum UserStatus { hasDoneTour, signedIn }
+
+extension UserStatusEx on UserStatus {
+  bool get status {
+    switch (this) {
+      case UserStatus.hasDoneTour:
+        return true;
+      case UserStatus.signedIn:
+        return true;
+    }
+  }
+}

@@ -7,11 +7,13 @@ part 'user_state.g.dart';
 @freezed
 class UserState with _$UserState {
   factory UserState({
+    String? uid,
     bool? isSignedIn,
+    bool? hasDoneTour,
     String? phoneNumber,
     String? initialPhoneNumber,
     String? pinCode,
-    String? initialPinCode,
+    String? pinCodeVerificationID,
     String? firstName,
     String? lastName,
     String? displayName,
@@ -23,11 +25,13 @@ class UserState with _$UserState {
       _$UserStateFromJson(json);
 
   factory UserState.initial() => UserState(
+        uid: null,
         isSignedIn: false,
+        hasDoneTour: false,
         phoneNumber: 'UNKNOWN',
         initialPhoneNumber: 'UNKNOWN',
         pinCode: 'UNKNOWN',
-        initialPinCode: 'UNKNOWN',
+        pinCodeVerificationID: 'UNKNOWN',
         firstName: 'UNKNOWN',
         lastName: 'UNKNOWN',
         displayName: 'UNKNOWN',

@@ -42,29 +42,29 @@ Future<void> sendInitialAnalyticsEvent({
 
 /// Gets initial route based on the userState status
 Future<String> getInitialRoute({
-  required Store store,
+  required AppState state,
 }) async {
   final AuthStatus tokenStatus = await getAuthStatus(
-    currentStore: store,
+    currentStore: state,
   );
 
   switch (tokenStatus) {
     case AuthStatus.init:
-      return onboardingPageRoute;
+      return landingPageRoute;
     case AuthStatus.requiresLogin:
       return loginPageRoute;
     case AuthStatus.okay:
-      return homePageRoute;
+      return dashPageRoute;
     default:
       return landingPageRoute;
   }
 }
 
 Future<AuthStatus> getAuthStatus({
-  required Store currentStore,
+  required AppState currentStore,
 }) async {
-  final bool hasDoneTour = currentStore.state.userState!.hasDoneTour ??= false;
-  final bool signedIn = currentStore.state.userState!.isSignedIn ??= false;
+  final bool hasDoneTour = currentStore.userState?.hasDoneTour ?? false;
+  final bool signedIn = currentStore.userState?.isSignedIn ?? false;
 
   if (hasDoneTour == true) {
     if (signedIn == true) {

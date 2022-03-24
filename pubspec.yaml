@@ -23,7 +23,6 @@ dependencies:
   flutter_native_splash: ^2.1.1
   freezed: ^1.1.1
   freezed_annotation: ^1.1.0
-  import_sorter: ^4.6.0
   json_annotation: ^4.4.0
   json_serializable: ^6.1.4
   logger: ^1.1.0
@@ -44,6 +43,7 @@ dev_dependencies:
   # integration_test:
   #   sdk: flutter
   lint: 
+  import_sorter: ^4.6.0
   # mockito: 
   # mocktail_image_network: 
   # test: 

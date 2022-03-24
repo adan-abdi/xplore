@@ -14,8 +14,10 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 // Project imports:
 import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/core/themes/colors.dart';
+import 'package:xplore/application/redux/actions/update_user_state_action.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/application/singletons/button_status.dart';
+import 'package:xplore/application/singletons/initial_route.dart';
 import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_enums.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
@@ -28,12 +30,10 @@ import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
 
 class PhoneVerifyPage extends StatefulWidget {
   final String? mobile;
-  final Store<AppState>? store;
 
   const PhoneVerifyPage({
     Key? key,
     this.mobile,
-    this.store,
   }) : super(key: key);
 
   @override
@@ -45,10 +45,10 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
   StreamController errorAnimationController = StreamController();
   FocusNode otpPinCodeFocusNode = new FocusNode();
   ButtonStatusStore otpBtnStore = ButtonStatusStore();
+  var _verificationId = '';
 
   String otp = "";
   bool isLoading = false;
-  late String _verificationId;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   String initialCountryCode = 'KE';
@@ -57,6 +57,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
   String phone = "";
   String isoCode = "";
   bool isOtpValid = false;
+  InitialRouteStore appInitialRoute = InitialRouteStore();
 
   @override
   void initState() {
@@ -64,12 +65,14 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
     _verifyPhoneNumber();
   }
 
-  void _signInWithPhoneNumber(String otp) async {
+  void _signInWithPhoneNumber(String otp, BuildContext ctx) async {
+    final state = StoreProvider.state<AppState>(ctx)!;
     _showProgressDialog(true);
     if (await checkInternet()) {
       try {
         final AuthCredential credential = PhoneAuthProvider.credential(
-          verificationId: _verificationId,
+          verificationId:
+              state.userState!.pinCodeVerificationID ?? _verificationId,
           smsCode: otp,
         );
         final User? user = (await _auth.signInWithCredential(credential)).user;
@@ -78,7 +81,18 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
 
         _showProgressDialog(false);
         if (user != null) {
-          print(user);
+          StoreProvider.dispatch(
+              context,
+              UpdateUserStateAction(
+                isSignedIn: true,
+                phoneNumber: user.phoneNumber,
+                uid: user.uid,
+              ));
+
+          appInitialRoute.initialRoute.add(
+            await getInitialRoute(state: state),
+          );
+
           StoreProvider.dispatch<AppState>(
             context,
             NavigateAction.pushNamed(dashPageRoute),
@@ -116,11 +130,12 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
     super.dispose();
   }
 
-  verifyOtp(String otpText) async {
+  verifyOtp(String otpText, BuildContext ctx) async {
     setState(() {
       otpBtnStore.colorStream.add(ButtonStatus.active.color);
+      otpBtnStore.statusStream.add(true);
     });
-    _signInWithPhoneNumber(otpText);
+    _signInWithPhoneNumber(otpText, ctx);
   }
 
   @override
@@ -219,10 +234,10 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
               ActionButton(
                 widgetText: nextText,
                 nextRoute: dashPageRoute,
-                colorStream: ButtonStatusStore().colorStream,
-                statusStream: ButtonStatusStore().statusStream,
+                colorStream: otpBtnStore.colorStream,
+                statusStream: otpBtnStore.statusStream,
                 onTapCallback: () {
-                  verifyOtp(otpPinCodeFieldController.text);
+                  verifyOtp(otpPinCodeFieldController.text, context);
                 },
               ),
               vSize30SizedBox,

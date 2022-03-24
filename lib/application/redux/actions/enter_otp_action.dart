@@ -44,7 +44,7 @@ class EnterOtpAction extends ReduxAction<AppState> {
     dispatch(
       UpdateUserStateAction(
         isSignedIn: false,
-        pinCode: verificationId,
+        pinCodeVerificationID: verificationId,
       ),
     );
 

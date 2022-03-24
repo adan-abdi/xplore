@@ -41,18 +41,15 @@ class OnboardingScaffold extends StatelessWidget {
               left: 0,
               bottom: 0,
               right: 0,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Wrap(
-                    alignment: WrapAlignment.center,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    runAlignment: WrapAlignment.center,
-                    spacing: 30,
-                    runSpacing: 40,
-                    children: trailingWidget,
-                  ),
-                ],
+              child: SingleChildScrollView(
+                child: Wrap(
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  runAlignment: WrapAlignment.center,
+                  spacing: 30,
+                  runSpacing: 40,
+                  children: trailingWidget,
+                ),
               ),
             ),
           ],
