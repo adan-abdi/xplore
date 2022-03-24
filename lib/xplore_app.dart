@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:rxdart/rxdart.dart';
 
 // Project imports:
 import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
+import 'package:xplore/application/singletons/initial_route.dart';
 import 'package:xplore/domain/core/lifecycle_event_handler.dart';
 import 'package:xplore/domain/routes/route_generator.dart';
 import 'package:xplore/domain/routes/routes.dart';
@@ -29,8 +29,7 @@ class XploreApp extends StatefulWidget {
 
 class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
   FirebaseApp xploreFirebaseApp = Firebase.app();
-
-  final appInitialRoute = BehaviorSubject<String>.seeded(landingPageRoute);
+  InitialRouteStore appInitialRoute = InitialRouteStore();
 
   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 
@@ -38,9 +37,15 @@ class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
   void didChangeDependencies() {
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       Future<dynamic>.delayed(Duration.zero, () async {
-        appInitialRoute.add(
-          await getInitialRoute(store: widget.store),
-        );
+        final bool shouldSignIn =
+            widget.store.state.userState!.isSignedIn ?? false;
+        if (!shouldSignIn) {
+          appInitialRoute.initialRoute.add(
+            await getInitialRoute(state: widget.store.state),
+          );
+        } else {
+          appInitialRoute.initialRoute.add(dashPageRoute);
+        }
       });
     });
 
@@ -72,7 +77,7 @@ class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
         child: MaterialApp(
           debugShowCheckedModeBanner: !kReleaseMode,
           home: StreamBuilder<String>(
-            stream: appInitialRoute.stream,
+            stream: appInitialRoute.initialRoute.stream,
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
               if (snapshot.data == null) {
                 return Scaffold(
@@ -96,7 +101,8 @@ class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
                           FirebaseAnalyticsObserver(analytics: _analytics),
                         ],
                         initialRoute:
-                            appInitialRoute.valueOrNull ?? landingPageRoute,
+                            appInitialRoute.initialRoute.valueOrNull ??
+                                landingPageRoute,
                         onGenerateRoute: AppRouterGenerator.generateRoute,
                       );
                     }),

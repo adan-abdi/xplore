@@ -49,7 +49,7 @@ class _BaseState extends State<Base> {
 
     final tabs = [
       Container(
-          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+          padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
           //color: Colors.green,
           height: MediaQuery.of(context).size.height * 0.7,
           child: Column(children: <Widget>[

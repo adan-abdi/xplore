@@ -54,21 +54,6 @@ class _KeyboardScaffoldState extends State<KeyboardScaffold> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: widget.widgets,
           ),
-          // Positioned(
-          //   left: 0,
-          //   bottom: 10,
-          //   right: 0,
-          //   child: Container(
-          //     child: LoginKeyboard(
-          //       onKeyTap: (String v) {},
-          //       rightKey: Icon(
-          //         Icons.backspace,
-          //         color: XploreColors.orange,
-          //         size: 30,
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

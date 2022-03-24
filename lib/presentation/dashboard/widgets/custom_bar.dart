@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:xplore/domain/value_objects/app_spaces.dart';
 
 // Project imports:
 import 'package:xplore/presentation/dashboard/pages/Profile.dart';
@@ -53,11 +54,9 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       ],
       flexibleSpace: Column(
         children: [
-          SizedBox(
-            height: 100,
-          ),
+          vSize90SizedBox,
           Container(
-            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            margin: EdgeInsets.symmetric(horizontal: 10),
             child: TextField(
               cursorColor: Colors.grey,
               decoration: InputDecoration(
@@ -67,7 +66,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                 focusedBorder: OutlineInputBorder(
                   borderSide:
                       const BorderSide(color: Colors.deepOrange, width: 2.0),
-                  borderRadius: BorderRadius.zero,
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 border: new OutlineInputBorder(
                   borderSide: new BorderSide(

@@ -23,22 +23,26 @@ class _$UserStateTearOff {
   const _$UserStateTearOff();
 
   _UserState call(
-      {bool? isSignedIn,
+      {String? uid,
+      bool? isSignedIn,
+      bool? hasDoneTour,
       String? phoneNumber,
       String? initialPhoneNumber,
       String? pinCode,
-      String? initialPinCode,
+      String? pinCodeVerificationID,
       String? firstName,
       String? lastName,
       String? displayName,
       String? displayInitials,
       String? email}) {
     return _UserState(
+      uid: uid,
       isSignedIn: isSignedIn,
+      hasDoneTour: hasDoneTour,
       phoneNumber: phoneNumber,
       initialPhoneNumber: initialPhoneNumber,
       pinCode: pinCode,
-      initialPinCode: initialPinCode,
+      pinCodeVerificationID: pinCodeVerificationID,
       firstName: firstName,
       lastName: lastName,
       displayName: displayName,
@@ -57,11 +61,13 @@ const $UserState = _$UserStateTearOff();
 
 /// @nodoc
 mixin _$UserState {
+  String? get uid => throw _privateConstructorUsedError;
   bool? get isSignedIn => throw _privateConstructorUsedError;
+  bool? get hasDoneTour => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get initialPhoneNumber => throw _privateConstructorUsedError;
   String? get pinCode => throw _privateConstructorUsedError;
-  String? get initialPinCode => throw _privateConstructorUsedError;
+  String? get pinCodeVerificationID => throw _privateConstructorUsedError;
   String? get firstName => throw _privateConstructorUsedError;
   String? get lastName => throw _privateConstructorUsedError;
   String? get displayName => throw _privateConstructorUsedError;
@@ -79,11 +85,13 @@ abstract class $UserStateCopyWith<$Res> {
   factory $UserStateCopyWith(UserState value, $Res Function(UserState) then) =
       _$UserStateCopyWithImpl<$Res>;
   $Res call(
-      {bool? isSignedIn,
+      {String? uid,
+      bool? isSignedIn,
+      bool? hasDoneTour,
       String? phoneNumber,
       String? initialPhoneNumber,
       String? pinCode,
-      String? initialPinCode,
+      String? pinCodeVerificationID,
       String? firstName,
       String? lastName,
       String? displayName,
@@ -101,11 +109,13 @@ class _$UserStateCopyWithImpl<$Res> implements $UserStateCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? uid = freezed,
     Object? isSignedIn = freezed,
+    Object? hasDoneTour = freezed,
     Object? phoneNumber = freezed,
     Object? initialPhoneNumber = freezed,
     Object? pinCode = freezed,
-    Object? initialPinCode = freezed,
+    Object? pinCodeVerificationID = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? displayName = freezed,
@@ -113,9 +123,17 @@ class _$UserStateCopyWithImpl<$Res> implements $UserStateCopyWith<$Res> {
     Object? email = freezed,
   }) {
     return _then(_value.copyWith(
+      uid: uid == freezed
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String?,
       isSignedIn: isSignedIn == freezed
           ? _value.isSignedIn
           : isSignedIn // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      hasDoneTour: hasDoneTour == freezed
+          ? _value.hasDoneTour
+          : hasDoneTour // ignore: cast_nullable_to_non_nullable
               as bool?,
       phoneNumber: phoneNumber == freezed
           ? _value.phoneNumber
@@ -129,9 +147,9 @@ class _$UserStateCopyWithImpl<$Res> implements $UserStateCopyWith<$Res> {
           ? _value.pinCode
           : pinCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      initialPinCode: initialPinCode == freezed
-          ? _value.initialPinCode
-          : initialPinCode // ignore: cast_nullable_to_non_nullable
+      pinCodeVerificationID: pinCodeVerificationID == freezed
+          ? _value.pinCodeVerificationID
+          : pinCodeVerificationID // ignore: cast_nullable_to_non_nullable
               as String?,
       firstName: firstName == freezed
           ? _value.firstName
@@ -164,11 +182,13 @@ abstract class _$UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
       __$UserStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {bool? isSignedIn,
+      {String? uid,
+      bool? isSignedIn,
+      bool? hasDoneTour,
       String? phoneNumber,
       String? initialPhoneNumber,
       String? pinCode,
-      String? initialPinCode,
+      String? pinCodeVerificationID,
       String? firstName,
       String? lastName,
       String? displayName,
@@ -187,11 +207,13 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? uid = freezed,
     Object? isSignedIn = freezed,
+    Object? hasDoneTour = freezed,
     Object? phoneNumber = freezed,
     Object? initialPhoneNumber = freezed,
     Object? pinCode = freezed,
-    Object? initialPinCode = freezed,
+    Object? pinCodeVerificationID = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? displayName = freezed,
@@ -199,9 +221,17 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
     Object? email = freezed,
   }) {
     return _then(_UserState(
+      uid: uid == freezed
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String?,
       isSignedIn: isSignedIn == freezed
           ? _value.isSignedIn
           : isSignedIn // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      hasDoneTour: hasDoneTour == freezed
+          ? _value.hasDoneTour
+          : hasDoneTour // ignore: cast_nullable_to_non_nullable
               as bool?,
       phoneNumber: phoneNumber == freezed
           ? _value.phoneNumber
@@ -215,9 +245,9 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
           ? _value.pinCode
           : pinCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      initialPinCode: initialPinCode == freezed
-          ? _value.initialPinCode
-          : initialPinCode // ignore: cast_nullable_to_non_nullable
+      pinCodeVerificationID: pinCodeVerificationID == freezed
+          ? _value.pinCodeVerificationID
+          : pinCodeVerificationID // ignore: cast_nullable_to_non_nullable
               as String?,
       firstName: firstName == freezed
           ? _value.firstName
@@ -247,11 +277,13 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserState implements _UserState {
   _$_UserState(
-      {this.isSignedIn,
+      {this.uid,
+      this.isSignedIn,
+      this.hasDoneTour,
       this.phoneNumber,
       this.initialPhoneNumber,
       this.pinCode,
-      this.initialPinCode,
+      this.pinCodeVerificationID,
       this.firstName,
       this.lastName,
       this.displayName,
@@ -262,7 +294,11 @@ class _$_UserState implements _UserState {
       _$$_UserStateFromJson(json);
 
   @override
+  final String? uid;
+  @override
   final bool? isSignedIn;
+  @override
+  final bool? hasDoneTour;
   @override
   final String? phoneNumber;
   @override
@@ -270,7 +306,7 @@ class _$_UserState implements _UserState {
   @override
   final String? pinCode;
   @override
-  final String? initialPinCode;
+  final String? pinCodeVerificationID;
   @override
   final String? firstName;
   @override
@@ -284,7 +320,7 @@ class _$_UserState implements _UserState {
 
   @override
   String toString() {
-    return 'UserState(isSignedIn: $isSignedIn, phoneNumber: $phoneNumber, initialPhoneNumber: $initialPhoneNumber, pinCode: $pinCode, initialPinCode: $initialPinCode, firstName: $firstName, lastName: $lastName, displayName: $displayName, displayInitials: $displayInitials, email: $email)';
+    return 'UserState(uid: $uid, isSignedIn: $isSignedIn, hasDoneTour: $hasDoneTour, phoneNumber: $phoneNumber, initialPhoneNumber: $initialPhoneNumber, pinCode: $pinCode, pinCodeVerificationID: $pinCodeVerificationID, firstName: $firstName, lastName: $lastName, displayName: $displayName, displayInitials: $displayInitials, email: $email)';
   }
 
   @override
@@ -292,15 +328,18 @@ class _$_UserState implements _UserState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _UserState &&
+            const DeepCollectionEquality().equals(other.uid, uid) &&
             const DeepCollectionEquality()
                 .equals(other.isSignedIn, isSignedIn) &&
+            const DeepCollectionEquality()
+                .equals(other.hasDoneTour, hasDoneTour) &&
             const DeepCollectionEquality()
                 .equals(other.phoneNumber, phoneNumber) &&
             const DeepCollectionEquality()
                 .equals(other.initialPhoneNumber, initialPhoneNumber) &&
             const DeepCollectionEquality().equals(other.pinCode, pinCode) &&
             const DeepCollectionEquality()
-                .equals(other.initialPinCode, initialPinCode) &&
+                .equals(other.pinCodeVerificationID, pinCodeVerificationID) &&
             const DeepCollectionEquality().equals(other.firstName, firstName) &&
             const DeepCollectionEquality().equals(other.lastName, lastName) &&
             const DeepCollectionEquality()
@@ -313,11 +352,13 @@ class _$_UserState implements _UserState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(uid),
       const DeepCollectionEquality().hash(isSignedIn),
+      const DeepCollectionEquality().hash(hasDoneTour),
       const DeepCollectionEquality().hash(phoneNumber),
       const DeepCollectionEquality().hash(initialPhoneNumber),
       const DeepCollectionEquality().hash(pinCode),
-      const DeepCollectionEquality().hash(initialPinCode),
+      const DeepCollectionEquality().hash(pinCodeVerificationID),
       const DeepCollectionEquality().hash(firstName),
       const DeepCollectionEquality().hash(lastName),
       const DeepCollectionEquality().hash(displayName),
@@ -337,11 +378,13 @@ class _$_UserState implements _UserState {
 
 abstract class _UserState implements UserState {
   factory _UserState(
-      {bool? isSignedIn,
+      {String? uid,
+      bool? isSignedIn,
+      bool? hasDoneTour,
       String? phoneNumber,
       String? initialPhoneNumber,
       String? pinCode,
-      String? initialPinCode,
+      String? pinCodeVerificationID,
       String? firstName,
       String? lastName,
       String? displayName,
@@ -352,7 +395,11 @@ abstract class _UserState implements UserState {
       _$_UserState.fromJson;
 
   @override
+  String? get uid;
+  @override
   bool? get isSignedIn;
+  @override
+  bool? get hasDoneTour;
   @override
   String? get phoneNumber;
   @override
@@ -360,7 +407,7 @@ abstract class _UserState implements UserState {
   @override
   String? get pinCode;
   @override
-  String? get initialPinCode;
+  String? get pinCodeVerificationID;
   @override
   String? get firstName;
   @override

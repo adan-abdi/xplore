@@ -7,11 +7,13 @@ part of 'user_state.dart';
 // **************************************************************************
 
 _$_UserState _$$_UserStateFromJson(Map<String, dynamic> json) => _$_UserState(
+      uid: json['uid'] as String?,
       isSignedIn: json['isSignedIn'] as bool?,
+      hasDoneTour: json['hasDoneTour'] as bool?,
       phoneNumber: json['phoneNumber'] as String?,
       initialPhoneNumber: json['initialPhoneNumber'] as String?,
       pinCode: json['pinCode'] as String?,
-      initialPinCode: json['initialPinCode'] as String?,
+      pinCodeVerificationID: json['pinCodeVerificationID'] as String?,
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
       displayName: json['displayName'] as String?,
@@ -21,11 +23,13 @@ _$_UserState _$$_UserStateFromJson(Map<String, dynamic> json) => _$_UserState(
 
 Map<String, dynamic> _$$_UserStateToJson(_$_UserState instance) =>
     <String, dynamic>{
+      'uid': instance.uid,
       'isSignedIn': instance.isSignedIn,
+      'hasDoneTour': instance.hasDoneTour,
       'phoneNumber': instance.phoneNumber,
       'initialPhoneNumber': instance.initialPhoneNumber,
       'pinCode': instance.pinCode,
-      'initialPinCode': instance.initialPinCode,
+      'pinCodeVerificationID': instance.pinCodeVerificationID,
       'firstName': instance.firstName,
       'lastName': instance.lastName,
       'displayName': instance.displayName,
