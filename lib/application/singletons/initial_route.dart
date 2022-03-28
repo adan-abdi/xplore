@@ -1,9 +1,6 @@
 // Package imports:
 import 'package:rxdart/rxdart.dart';
 
-// Project imports:
-import 'package:xplore/domain/routes/routes.dart';
-
 class InitialRouteStore {
   factory InitialRouteStore() {
     return _singleton;

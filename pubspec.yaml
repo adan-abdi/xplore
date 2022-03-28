@@ -24,7 +24,7 @@ dependencies:
   freezed: ^1.1.1
   freezed_annotation: ^1.1.0
   json_annotation: ^4.4.0
-  json_serializable: ^6.1.4
+  json_serializable: ^6.1.5
   logger: ^1.1.0
   lottie: ^1.2.2
   pin_code_fields: ^7.3.0

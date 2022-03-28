@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:xplore/application/core/themes/colors.dart';
 
 // Project imports:
 import 'package:xplore/domain/value_objects/app_spaces.dart';
@@ -15,27 +16,23 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       elevation: 0,
       leading: Padding(
         padding: EdgeInsets.all(8.0),
-        child: Container(
-          height: 30,
-          width: MediaQuery.of(context).size.width * 0.8,
-          //padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-          color: Colors.deepOrange,
-          child: Icon(Icons.menu),
+        child: Card(
+          elevation: 5,
+          child: Container(
+            height: 30,
+            width: MediaQuery.of(context).size.width * 0.8,
+            color: XploreColors.white,
+            child: Icon(Icons.menu),
+          ),
         ),
       ),
-      title: Container(
-          height: 39,
-          width: MediaQuery.of(context).size.width * 0.7,
-          color: Colors.deepOrange,
-          child: Center(
-            child: Text(
-              'Merchant Name',
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 24,
-              ),
-            ),
-          )),
+      title: Text(
+        'Merchant Name',
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: 24,
+        ),
+      ),
       actions: <Widget>[
         Padding(
           padding: EdgeInsets.all(8.0),
@@ -54,7 +51,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       ],
       flexibleSpace: Column(
         children: [
-          vSize90SizedBox,
+          vSize70SizedBox,
           Container(
             margin: EdgeInsets.symmetric(horizontal: 10),
             child: TextField(
