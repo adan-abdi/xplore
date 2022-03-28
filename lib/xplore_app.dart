@@ -45,9 +45,9 @@ class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
             await getInitialRoute(state: widget.store.state),
           );
         } 
-        // else {
-        //   appInitialRoute.initialRoute.add(dashPageRoute);
-        // }
+        else {
+          appInitialRoute.initialRoute.add(dashPageRoute);
+        }
         FlutterNativeSplash.remove();
       });
     });
