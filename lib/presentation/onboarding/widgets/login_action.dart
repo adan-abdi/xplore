@@ -25,7 +25,7 @@ class LoginAction extends StatelessWidget {
           onPressed: () {
             StoreProvider.dispatch<AppState>(
               context,
-              NavigateAction.pushNamed(phoneLoginPageRoute),
+              NavigateAction.pushNamed(loginPageRoute),
             );
           },
           child: const Text(verifyPhoneBtnText),

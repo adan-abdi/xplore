@@ -19,6 +19,36 @@
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:8080",
             "webRoot": "${workspaceFolder}"
-        }
+        },
+        {
+            "name": "Integration Tests: Launch App",
+            "request": "launch",
+            "type": "dart",
+            "program": "src/app/lib/main.dart",
+            "args": [
+                "--observatory-port 8888",
+                "--disable-service-auth-codes" //For local testing only
+            ],
+            "flutterMode": "debug",
+        },
+        {
+            "name": "Integration Tests: Launch Driver",
+            "request": "launch",
+            "type": "dart",
+            "program": "src/app/test_driver/integration_test.dart",
+            "env": {
+                "VM_SERVICE_URL": "http://127.0.0.1:8888"
+            },
+            "codeLens": {
+                "for": [
+                    "run-test",
+                    "run-test-file",
+                    "debug-test",
+                    "debug-test-file"
+                ],
+                "path": "src/app/integration_test/",
+                "title": "${debugType} (Test)"
+            },
+        },
     ]
 }

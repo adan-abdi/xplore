@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:xplore/presentation/onboarding/widgets/layout/circles.dart';
-import 'package:xplore/presentation/onboarding/widgets/xplore_appbar.dart';
 
 class OnboardingScaffold extends StatelessWidget {
   final Widget childWidgets;
   final List<Widget> trailingWidget;
   final bool canPop;
   final Color circleColor;
-  final XploreAppbar? appbar;
 
   const OnboardingScaffold({
     Key? key,
@@ -18,7 +16,6 @@ class OnboardingScaffold extends StatelessWidget {
     required this.circleColor,
     this.trailingWidget = const [SizedBox.shrink()],
     this.canPop = true,
-    this.appbar,
   }) : super(key: key);
 
   @override
@@ -26,7 +23,6 @@ class OnboardingScaffold extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => canPop,
       child: Scaffold(
-        appBar: appbar,
         body: Stack(
           children: <Widget>[
             ...circles(context, circleColor),

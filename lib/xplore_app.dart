@@ -39,15 +39,9 @@ class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
   void didChangeDependencies() {
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       Future<dynamic>.delayed(Duration.zero, () async {
-        final UserState? userState = widget.store.state.userState;
-        if (!(userState?.isSignedIn ?? false) && (userState?.uid != null)) {
-          appInitialRoute.initialRoute.add(
-            await getInitialRoute(state: widget.store.state),
-          );
-        } 
-        else {
-          appInitialRoute.initialRoute.add(dashPageRoute);
-        }
+        appInitialRoute.initialRoute.add(
+          await getInitialRoute(state: widget.store.state),
+        );
         FlutterNativeSplash.remove();
       });
     });

@@ -18,7 +18,7 @@ class AppRouterGenerator {
     switch (settings?.name) {
       case landingPageRoute:
         return MaterialPageRoute<LandingPage>(builder: (_) => LandingPage());
-      case phoneLoginPageRoute:
+      case loginPageRoute:
         return MaterialPageRoute<PhoneLogin>(builder: (_) => PhoneLogin());
       case dashPageRoute:
         return MaterialPageRoute<Base>(builder: (_) => Base());
@@ -26,27 +26,6 @@ class AppRouterGenerator {
         return MaterialPageRoute<Profile>(builder: (_) => Profile());
       case otpPageRoute:
         return MaterialPageRoute<Profile>(builder: (_) => PhoneVerifyPage());
-      case loginPageRoute:
-        return MaterialPageRoute<Scaffold>(
-            builder: (_) => Scaffold(
-                  body: Container(
-                    child: Center(
-                      child: const Text(
-                          'This is the **LoginPage**, it it not yet done'),
-                    ),
-                  ),
-                ));
-
-      case homePageRoute:
-        return MaterialPageRoute<Scaffold>(
-            builder: (_) => Scaffold(
-                  body: Container(
-                    child: Center(
-                      child: const Text(
-                          'This is the **Homepage**, it it not yet done'),
-                    ),
-                  ),
-                ));
 
       default:
         return _errorRoute();

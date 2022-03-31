@@ -52,23 +52,9 @@ class _PhoneLoginState extends State<PhoneLogin> {
   @override
   Widget build(BuildContext context) {
     return KeyboardScaffold(
-      onLeadingTap: () {
-        StoreProvider.dispatch<AppState>(
-          context,
-          NavigateAction.pop(),
-        );
-      },
-      actions: [
-        InkWell(
-          key: ValueKey('XploreAppbar_action1'),
-          onTap: () {},
-          child: Icon(
-            Icons.admin_panel_settings,
-            color: XploreColors.orange,
-          ),
-        ),
-        hSize30SizedBox
-      ],
+      onLeadingTap: () {},
+      trailingActionIcon: Icons.admin_panel_settings,
+      isSecondary: false,
       widgets: [
         ...titles(
           context: context,
@@ -108,10 +94,14 @@ class _PhoneLoginState extends State<PhoneLogin> {
               actionButtonState.phoneLoginStatusStream.add(true);
 
               StoreProvider.dispatch<AppState>(
-                context,
-                VerifyPhoneAction(
-                    phoneNumber: phoneNumberController.text, context: context),
-              );
+                  context, NavigateAction.pushNamed(otpPageRoute));
+
+              // TODO: Restore change after fix for https://github.com/Abdi-Adan/xplore/issues/39
+              // StoreProvider.dispatch<AppState>(
+              //   context,
+              //   VerifyPhoneAction(
+              //       phoneNumber: phoneNumberController.text, context: context),
+              // );
             }
           },
         ),
@@ -132,6 +122,17 @@ class _PhoneLoginState extends State<PhoneLogin> {
               setState(() {
                 backspace(phoneNumberController);
               });
+            },
+            leftIcon: Icon(
+              Icons.add,
+              color: XploreColors.orange,
+            ),
+            leftButtonFn: () {
+              if (phoneNumberController.text.length < 1) {
+                setState(() {
+                  insertText('+', phoneNumberController);
+                });
+              }
             },
           ),
         ),

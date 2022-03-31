@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:xplore/application/core/themes/colors.dart';
-import 'package:xplore/domain/value_objects/app_spaces.dart';
+import 'package:xplore/presentation/dashboard/widgets/custom_bar.dart';
 import 'package:xplore/presentation/onboarding/widgets/layout/circles.dart';
-import 'package:xplore/presentation/onboarding/widgets/xplore_appbar.dart';
 
 class KeyboardScaffold extends StatefulWidget {
+  final IconData? trailingActionIcon;
   final Function? onLeadingTap;
-  final List<Widget>? actions;
   final List<Widget> widgets;
+  final bool isSecondary;
 
   const KeyboardScaffold({
     Key? key,
     this.onLeadingTap,
-    this.actions,
     required this.widgets,
+    this.isSecondary = false, this.trailingActionIcon = Icons.settings,
   }) : super(key: key);
 
   @override
@@ -32,20 +32,17 @@ class _KeyboardScaffoldState extends State<KeyboardScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: XploreAppbar(
-        onLeadingtap: () => widget.onLeadingTap,
-        actions: widget.actions ??
-            [
-              InkWell(
-                key: ValueKey('XploreAppbar_action1'),
-                onTap: () {},
-                child: Icon(
-                  Icons.admin_panel_settings,
-                  color: XploreColors.orange,
-                ),
-              ),
-              hSize30SizedBox
-            ],
+      appBar: XploreAppBar(
+        isActive: false,
+        isSecondary: widget.isSecondary,
+        shouldExpand: false,
+        leadingIconTapFn: widget.isSecondary
+            ? () {
+                Navigator.pop(context);
+              }
+            : () {},
+        trailingActionIcon: widget.trailingActionIcon,
+        actionsWithElevation: false,
       ),
       body: Stack(
         children: <Widget>[
