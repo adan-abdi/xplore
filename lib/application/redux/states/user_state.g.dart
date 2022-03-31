@@ -9,6 +9,9 @@ part of 'user_state.dart';
 _$_UserState _$$_UserStateFromJson(Map<String, dynamic> json) => _$_UserState(
       uid: json['uid'] as String?,
       isSignedIn: json['isSignedIn'] as bool?,
+      isLastSessionActive: json['isLastSessionActive'] == null
+          ? null
+          : DateTime.parse(json['isLastSessionActive'] as String),
       hasDoneTour: json['hasDoneTour'] as bool?,
       phoneNumber: json['phoneNumber'] as String?,
       initialPhoneNumber: json['initialPhoneNumber'] as String?,
@@ -25,6 +28,7 @@ Map<String, dynamic> _$$_UserStateToJson(_$_UserState instance) =>
     <String, dynamic>{
       'uid': instance.uid,
       'isSignedIn': instance.isSignedIn,
+      'isLastSessionActive': instance.isLastSessionActive?.toIso8601String(),
       'hasDoneTour': instance.hasDoneTour,
       'phoneNumber': instance.phoneNumber,
       'initialPhoneNumber': instance.initialPhoneNumber,

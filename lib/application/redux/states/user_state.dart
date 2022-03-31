@@ -9,6 +9,7 @@ class UserState with _$UserState {
   factory UserState({
     String? uid,
     bool? isSignedIn,
+    DateTime? isLastSessionActive,
     bool? hasDoneTour,
     String? phoneNumber,
     String? initialPhoneNumber,
@@ -27,6 +28,7 @@ class UserState with _$UserState {
   factory UserState.initial() => UserState(
         uid: null,
         isSignedIn: false,
+        isLastSessionActive: null,
         hasDoneTour: false,
         phoneNumber: 'UNKNOWN',
         initialPhoneNumber: 'UNKNOWN',

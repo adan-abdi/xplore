@@ -170,7 +170,13 @@ class _BaseState extends State<Base> {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
-      appBar: CustomAppBar(),
+      appBar: XploreAppBar(
+        leadingActionIcon: Icons.menu,
+        leadingIconTapFn: () {},
+        appBarTitle: 'Merchant Name',
+        trailingActionIcon: Icons.person,
+        trailingActionTapFn: () {},
+      ),
       body: tabs[currentIndex],
       bottomNavigationBar: BottomAppBar(
         elevation: 0,

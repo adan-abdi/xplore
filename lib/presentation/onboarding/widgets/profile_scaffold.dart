@@ -1,16 +1,16 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:xplore/presentation/dashboard/widgets/custom_bar.dart';
 
 // Project imports:
 import 'package:xplore/presentation/onboarding/widgets/layout/circles.dart';
-import 'package:xplore/presentation/onboarding/widgets/xplore_appbar.dart';
 
 class ProfileScaffold extends StatelessWidget {
   final Widget childWidgets;
   final Widget trailingWidget;
   final bool canPop;
   final Color circleColor;
-  final XploreAppbar? appbar;
+  final XploreAppBar? appbar;
 
   const ProfileScaffold({
     Key? key,

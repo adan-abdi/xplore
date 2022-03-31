@@ -20,3 +20,19 @@ Widget hSize20SizedBox = const SizedBox(width: 20);
 Widget hSize30SizedBox = const SizedBox(width: 30);
 Widget hSize40SizedBox = const SizedBox(width: 40);
 Widget hSize50SizedBox = const SizedBox(width: 50);
+
+// Utils for calculating responsive height
+double rHeight(BuildContext context, double magicNum) {
+  double screenHeight = MediaQuery.of(context).size.height;
+  return (screenHeight / magicToRNum(screenHeight, magicNum));
+}
+
+double rWidth(BuildContext context, double magicNum) {
+  double screenWidth = MediaQuery.of(context).size.width;
+  return magicToRNum(screenWidth, magicNum);
+}
+
+double magicToRNum(double span, double magicNum) {
+  double rNum = span / magicNum;
+  return rNum;
+}

@@ -50,7 +50,7 @@ Future<String> getInitialRoute({
 
   switch (tokenStatus) {
     case AuthStatus.init:
-      return landingPageRoute;
+      return loginPageRoute; //TODO restore change
     case AuthStatus.requiresLogin:
       return loginPageRoute;
     case AuthStatus.okay:
@@ -65,9 +65,11 @@ Future<AuthStatus> getAuthStatus({
 }) async {
   final bool hasDoneTour = currentStore.userState?.hasDoneTour ?? false;
   final bool signedIn = currentStore.userState?.isSignedIn ?? false;
+  final bool isUIDPresent = (currentStore.userState?.uid != null);
+  //TODO: Add condition for 12hr Session Expiration
 
   if (hasDoneTour == true) {
-    if (signedIn == true) {
+    if (signedIn == true && isUIDPresent) {
       return AuthStatus.okay;
     } else {
       return AuthStatus.requiresLogin;
@@ -262,3 +264,10 @@ void validatePhone({
     ButtonStatusStore().statusStream.add(true);
   }
 }
+
+// bool getSessionRefreshStatus(UserState? userState){
+//   DateTime? _isLastSessionActive = userState!.isLastSessionActive ?? null;
+//   int _hourDiff = DateTime.now().compareTo(_isLastSessionActive?.hour );
+//   int _lastActiveHour = _isLastSessionActive?.hour ?? 12;
+//   if(_isLastSessionActive == null || )
+// }

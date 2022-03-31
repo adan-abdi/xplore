@@ -135,7 +135,12 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
       otpBtnStore.colorStream.add(ButtonStatus.active.color);
       otpBtnStore.statusStream.add(true);
     });
-    _signInWithPhoneNumber(otpText, ctx);
+
+    StoreProvider.dispatch<AppState>(
+        context, NavigateAction.pushNamed(dashPageRoute));
+
+    // TODO: Restore change after fix for https://github.com/Abdi-Adan/xplore/issues/39
+    // _signInWithPhoneNumber(otpText, ctx);
   }
 
   @override
@@ -144,23 +149,8 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
         converter: (Store<AppState> store) => store.state,
         builder: (BuildContext context, AppState state) {
           return KeyboardScaffold(
-            onLeadingTap: () {
-              StoreProvider.dispatch<AppState>(
-                context,
-                NavigateAction.pop(),
-              );
-            },
-            actions: [
-              InkWell(
-                key: ValueKey('XploreAppbar_action1'),
-                onTap: () {},
-                child: Icon(
-                  Icons.textsms,
-                  color: XploreColors.orange,
-                ),
-              ),
-              hSize30SizedBox
-            ],
+            isSecondary: true,
+            trailingActionIcon: Icons.textsms,
             widgets: [
               ...titles(
                 context: context,

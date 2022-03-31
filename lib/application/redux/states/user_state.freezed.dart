@@ -25,6 +25,7 @@ class _$UserStateTearOff {
   _UserState call(
       {String? uid,
       bool? isSignedIn,
+      DateTime? isLastSessionActive,
       bool? hasDoneTour,
       String? phoneNumber,
       String? initialPhoneNumber,
@@ -38,6 +39,7 @@ class _$UserStateTearOff {
     return _UserState(
       uid: uid,
       isSignedIn: isSignedIn,
+      isLastSessionActive: isLastSessionActive,
       hasDoneTour: hasDoneTour,
       phoneNumber: phoneNumber,
       initialPhoneNumber: initialPhoneNumber,
@@ -63,6 +65,7 @@ const $UserState = _$UserStateTearOff();
 mixin _$UserState {
   String? get uid => throw _privateConstructorUsedError;
   bool? get isSignedIn => throw _privateConstructorUsedError;
+  DateTime? get isLastSessionActive => throw _privateConstructorUsedError;
   bool? get hasDoneTour => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get initialPhoneNumber => throw _privateConstructorUsedError;
@@ -87,6 +90,7 @@ abstract class $UserStateCopyWith<$Res> {
   $Res call(
       {String? uid,
       bool? isSignedIn,
+      DateTime? isLastSessionActive,
       bool? hasDoneTour,
       String? phoneNumber,
       String? initialPhoneNumber,
@@ -111,6 +115,7 @@ class _$UserStateCopyWithImpl<$Res> implements $UserStateCopyWith<$Res> {
   $Res call({
     Object? uid = freezed,
     Object? isSignedIn = freezed,
+    Object? isLastSessionActive = freezed,
     Object? hasDoneTour = freezed,
     Object? phoneNumber = freezed,
     Object? initialPhoneNumber = freezed,
@@ -131,6 +136,10 @@ class _$UserStateCopyWithImpl<$Res> implements $UserStateCopyWith<$Res> {
           ? _value.isSignedIn
           : isSignedIn // ignore: cast_nullable_to_non_nullable
               as bool?,
+      isLastSessionActive: isLastSessionActive == freezed
+          ? _value.isLastSessionActive
+          : isLastSessionActive // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       hasDoneTour: hasDoneTour == freezed
           ? _value.hasDoneTour
           : hasDoneTour // ignore: cast_nullable_to_non_nullable
@@ -184,6 +193,7 @@ abstract class _$UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
   $Res call(
       {String? uid,
       bool? isSignedIn,
+      DateTime? isLastSessionActive,
       bool? hasDoneTour,
       String? phoneNumber,
       String? initialPhoneNumber,
@@ -209,6 +219,7 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
   $Res call({
     Object? uid = freezed,
     Object? isSignedIn = freezed,
+    Object? isLastSessionActive = freezed,
     Object? hasDoneTour = freezed,
     Object? phoneNumber = freezed,
     Object? initialPhoneNumber = freezed,
@@ -229,6 +240,10 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
           ? _value.isSignedIn
           : isSignedIn // ignore: cast_nullable_to_non_nullable
               as bool?,
+      isLastSessionActive: isLastSessionActive == freezed
+          ? _value.isLastSessionActive
+          : isLastSessionActive // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       hasDoneTour: hasDoneTour == freezed
           ? _value.hasDoneTour
           : hasDoneTour // ignore: cast_nullable_to_non_nullable
@@ -279,6 +294,7 @@ class _$_UserState implements _UserState {
   _$_UserState(
       {this.uid,
       this.isSignedIn,
+      this.isLastSessionActive,
       this.hasDoneTour,
       this.phoneNumber,
       this.initialPhoneNumber,
@@ -297,6 +313,8 @@ class _$_UserState implements _UserState {
   final String? uid;
   @override
   final bool? isSignedIn;
+  @override
+  final DateTime? isLastSessionActive;
   @override
   final bool? hasDoneTour;
   @override
@@ -320,7 +338,7 @@ class _$_UserState implements _UserState {
 
   @override
   String toString() {
-    return 'UserState(uid: $uid, isSignedIn: $isSignedIn, hasDoneTour: $hasDoneTour, phoneNumber: $phoneNumber, initialPhoneNumber: $initialPhoneNumber, pinCode: $pinCode, pinCodeVerificationID: $pinCodeVerificationID, firstName: $firstName, lastName: $lastName, displayName: $displayName, displayInitials: $displayInitials, email: $email)';
+    return 'UserState(uid: $uid, isSignedIn: $isSignedIn, isLastSessionActive: $isLastSessionActive, hasDoneTour: $hasDoneTour, phoneNumber: $phoneNumber, initialPhoneNumber: $initialPhoneNumber, pinCode: $pinCode, pinCodeVerificationID: $pinCodeVerificationID, firstName: $firstName, lastName: $lastName, displayName: $displayName, displayInitials: $displayInitials, email: $email)';
   }
 
   @override
@@ -331,6 +349,8 @@ class _$_UserState implements _UserState {
             const DeepCollectionEquality().equals(other.uid, uid) &&
             const DeepCollectionEquality()
                 .equals(other.isSignedIn, isSignedIn) &&
+            const DeepCollectionEquality()
+                .equals(other.isLastSessionActive, isLastSessionActive) &&
             const DeepCollectionEquality()
                 .equals(other.hasDoneTour, hasDoneTour) &&
             const DeepCollectionEquality()
@@ -354,6 +374,7 @@ class _$_UserState implements _UserState {
       runtimeType,
       const DeepCollectionEquality().hash(uid),
       const DeepCollectionEquality().hash(isSignedIn),
+      const DeepCollectionEquality().hash(isLastSessionActive),
       const DeepCollectionEquality().hash(hasDoneTour),
       const DeepCollectionEquality().hash(phoneNumber),
       const DeepCollectionEquality().hash(initialPhoneNumber),
@@ -380,6 +401,7 @@ abstract class _UserState implements UserState {
   factory _UserState(
       {String? uid,
       bool? isSignedIn,
+      DateTime? isLastSessionActive,
       bool? hasDoneTour,
       String? phoneNumber,
       String? initialPhoneNumber,
@@ -398,6 +420,8 @@ abstract class _UserState implements UserState {
   String? get uid;
   @override
   bool? get isSignedIn;
+  @override
+  DateTime? get isLastSessionActive;
   @override
   bool? get hasDoneTour;
   @override
