@@ -47,6 +47,4 @@ app.*.map.json
 
 ./coverage
 .gradle
-
-
 .lycore
