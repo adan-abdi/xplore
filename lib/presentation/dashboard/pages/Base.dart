@@ -16,6 +16,7 @@ class Base extends StatefulWidget {
 
 class _BaseState extends State<Base> {
   int currentIndex = 0;
+
   setBottomBarIndex(index) {
     setState(() {
       currentIndex = index;
@@ -33,8 +34,10 @@ class _BaseState extends State<Base> {
   late String sdefault;
   String cdefault = 'complete';
 
-  newDefault(value) {
-    setState((sdefault = value));
+  void newDefault(value) {
+    setState(() {
+      sdefault = value;
+    });
   }
 
   @override
@@ -49,10 +52,38 @@ class _BaseState extends State<Base> {
 
     final tabs = [
       Container(
-          padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
+          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
           //color: Colors.green,
           height: MediaQuery.of(context).size.height * 0.7,
           child: Column(children: <Widget>[
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: TextField(
+                cursorColor: Colors.grey,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(20.0),
+                  fillColor: Colors.white,
+                  filled: true,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.deepOrange, width: 2.0),
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  border: new OutlineInputBorder(
+                    borderSide: new BorderSide(
+                      color: Colors.deepOrange,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.deepOrange,
+                  ),
+                  hintText: "Search",
+                ),
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,6 +139,34 @@ class _BaseState extends State<Base> {
           //color: Colors.green,
           height: MediaQuery.of(context).size.height * 0.7,
           child: Column(children: <Widget>[
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: TextField(
+                cursorColor: Colors.grey,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(20.0),
+                  fillColor: Colors.white,
+                  filled: true,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.deepOrange, width: 2.0),
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  border: new OutlineInputBorder(
+                    borderSide: new BorderSide(
+                      color: Colors.deepOrange,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.deepOrange,
+                  ),
+                  hintText: "Search",
+                ),
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -163,8 +222,6 @@ class _BaseState extends State<Base> {
                   : TransactionList(tstatus: cdefault.toString()),
             )
           ])),
-      //Container(color: Colors.deepOrange,),
-      //Container(color: Colors.blue,),
     ];
 
     return Scaffold(

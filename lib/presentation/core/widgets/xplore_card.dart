@@ -1,6 +1,8 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:xplore/application/core/themes/colors.dart';
-import 'package:xplore/domain/value_objects/app_spaces.dart';
 
 class XploreIconCard extends StatelessWidget {
   final IconData icon;
@@ -12,7 +14,8 @@ class XploreIconCard extends StatelessWidget {
     Key? key,
     required this.icon,
     required this.iconOnPress,
-    this.iconColor, this.withElevation = true,
+    this.iconColor,
+    this.withElevation = true,
   }) : super(key: key);
 
   @override

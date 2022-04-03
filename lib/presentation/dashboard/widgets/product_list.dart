@@ -107,7 +107,9 @@ class ProductList extends StatelessWidget {
         stream: Database.readProducts(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return Text('Something went wrong');
+            return Container(
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: Center(child: Text('Something went wrong')));
           } else if (snapshot.hasData || snapshot.data != null) {
             return GridView.builder(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 0),

@@ -8,7 +8,6 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 // Project imports:
 import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/core/themes/colors.dart';
-import 'package:xplore/application/redux/actions/verify_phone_action.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/application/singletons/button_status.dart';
 import 'package:xplore/domain/routes/routes.dart';
@@ -16,6 +15,7 @@ import 'package:xplore/domain/value_objects/app_enums.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/core/pages/xplore_numeric_keyboard.dart';
+import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
 import 'package:xplore/presentation/onboarding/widgets/buttons/action_button.dart';
 import 'package:xplore/presentation/onboarding/widgets/input/login_phone_field.dart';
 import 'package:xplore/presentation/onboarding/widgets/layout/keyboard_scaffold.dart';
@@ -52,7 +52,6 @@ class _PhoneLoginState extends State<PhoneLogin> {
   @override
   Widget build(BuildContext context) {
     return KeyboardScaffold(
-      onLeadingTap: () {},
       trailingActionIcon: Icons.admin_panel_settings,
       isSecondary: false,
       widgets: [
@@ -102,6 +101,15 @@ class _PhoneLoginState extends State<PhoneLogin> {
               //   VerifyPhoneAction(
               //       phoneNumber: phoneNumberController.text, context: context),
               // );
+            } else {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  snackbar(
+                    content: invalidPhoneNumberPrompt,
+                    label: okText,
+                  ),
+                );
             }
           },
         ),

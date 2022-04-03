@@ -9,6 +9,7 @@ SnackBar snackbar({
   Function? callback,
 }) {
   return SnackBar(
+    padding: const EdgeInsets.all(10.0),
     content: content.runtimeType == String
         ? Text(content as String)
         : content as Widget,

@@ -122,7 +122,9 @@ class _TransactionListState extends State<TransactionList> {
         stream: Database.readTransactions(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return Text('Something went wrong');
+            return Container(
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: Center(child: Text('Something went wrong')));
           } else if (snapshot.hasData || snapshot.data != null) {
             return Column(
               children: <Widget>[

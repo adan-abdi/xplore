@@ -66,7 +66,6 @@ void main() async {
         store: store,
       ),
     );
-
   }, (Object exception, StackTrace stackTrace) {
     if (!kReleaseMode) {
       print("$exception -=- $stackTrace");
