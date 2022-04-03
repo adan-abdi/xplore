@@ -18,3 +18,4 @@ const String getStartedText = 'Get Started';
 const String nextText = 'Next';
 const String verifyPhoneBtnText = 'Verify';
 const String okText = 'Close';
+const String invalidPhoneNumberPrompt = 'Please enter a valid phone number';

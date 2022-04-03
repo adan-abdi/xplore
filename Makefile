@@ -6,6 +6,6 @@ generate:
 	
 .PHONY: formatSort
 sort:
-	flutter format lib/
-	flutter format test/
+	flutter format lib/ && \
+	flutter format test/ && \
 	flutter pub run import_sorter:main

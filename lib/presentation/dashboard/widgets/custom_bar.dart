@@ -1,10 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:xplore/application/core/themes/colors.dart';
-import 'package:xplore/domain/value_objects/app_global_constants.dart';
 
 // Project imports:
-import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/presentation/core/widgets/xplore_card.dart';
 
 class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
