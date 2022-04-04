@@ -1,8 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:xplore/presentation/dashboard/widgets/custom_bar.dart';
 
 // Project imports:
+import 'package:xplore/presentation/dashboard/widgets/custom_bar.dart';
 import 'package:xplore/presentation/onboarding/widgets/layout/circles.dart';
 
 class ProfileScaffold extends StatelessWidget {
@@ -26,7 +26,7 @@ class ProfileScaffold extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => canPop,
       child: Scaffold(
-        appBar: appbar,
+        // appBar: appbar,
         body: Stack(
           children: <Widget>[
             ...circles(context, circleColor),
