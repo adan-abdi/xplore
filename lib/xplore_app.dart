@@ -71,7 +71,7 @@ class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
     return XploreWrapper(
         store: widget.store,
         child: MaterialApp(
-          debugShowCheckedModeBanner: !kReleaseMode,
+          debugShowCheckedModeBanner: false,
           home: StreamBuilder<String>(
             stream: appInitialRoute.initialRoute.stream,
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {

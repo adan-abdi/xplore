@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:xplore/application/core/themes/colors.dart';
 
 // Project imports:
 import 'package:xplore/presentation/dashboard/widgets/custom_bar.dart';
@@ -227,12 +228,11 @@ class _BaseState extends State<Base> {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
-      appBar: XploreAppBar(
-        leadingActionIcon: Icons.menu,
-        leadingIconTapFn: () {},
-        appBarTitle: 'Merchant Name',
-        trailingActionIcon: Icons.person,
-        trailingActionTapFn: () {},
+      appBar: AppBar(
+        title: const Text('Merchant name'),
+        backgroundColor: XploreColors.deepBlue,
+        automaticallyImplyLeading: true,
+        bottom: XploreAppBar(),
       ),
       body: tabs[currentIndex],
       bottomNavigationBar: BottomAppBar(

@@ -21,8 +21,7 @@ class XploreIconCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // width: rWidth(context, 8),
-      // height: rWidth(context, 8),
+      margin: EdgeInsets.symmetric(horizontal: 10),
       alignment: Alignment.center,
       child: GestureDetector(
         onTap: () => iconOnPress(),
@@ -31,7 +30,7 @@ class XploreIconCard extends StatelessWidget {
           semanticContainer: false,
           elevation: withElevation ? 5 : 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderRadius: BorderRadius.all(Radius.circular(3.0)),
           ),
           child: Icon(
             icon,

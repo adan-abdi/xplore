@@ -50,13 +50,13 @@ Future<String> getInitialRoute({
 
   switch (tokenStatus) {
     case AuthStatus.init:
-      return landingPageRoute;
+      return dashPageRoute;
     case AuthStatus.requiresLogin:
-      return landingPageRoute;
+      return dashPageRoute;
     case AuthStatus.okay:
       return dashPageRoute;
     default:
-      return landingPageRoute;
+      return dashPageRoute;
   }
 }
 
