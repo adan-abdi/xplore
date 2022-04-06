@@ -27,6 +27,7 @@ dependencies:
   json_serializable: ^6.1.5
   logger: ^1.1.0
   lottie: ^1.2.2
+  persistent_bottom_nav_bar: ^4.0.2
   pin_code_fields: ^7.3.0
   rxdart: ^0.27.3
   sqflite: ^2.0.2

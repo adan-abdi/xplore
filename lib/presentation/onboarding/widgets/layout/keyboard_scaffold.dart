@@ -30,7 +30,7 @@ class _KeyboardScaffoldState extends State<KeyboardScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: XploreAppBar(
         backgroundColor: XploreColors.white,
         elevation: 0,
         leading: widget.isSecondary
