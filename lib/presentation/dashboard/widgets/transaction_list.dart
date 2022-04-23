@@ -138,10 +138,10 @@ class _TransactionListState extends State<TransactionList> {
                         //var productInfo = snapshot.data!.docs[index].data()!;
                         String docID = snapshot.data!.docs[index].id;
                         String name = snapshot.data!.docs[index]["name"];
-                        String price = snapshot.data!.docs[index]["price"];
-                        String total = snapshot.data!.docs[index]["total"];
-                        String date = snapshot.data!.docs[index]["date"];
-                        String units = snapshot.data!.docs[index]["units"];
+                        // String price = snapshot.data!.docs[index]["price"];
+                        // String total = snapshot.data!.docs[index]["total"];
+                        // String date = snapshot.data!.docs[index]["date"];
+                        // String units = snapshot.data!.docs[index]["units"];
                         String qty = snapshot.data!.docs[index]["quantity"];
                         String image = snapshot.data!.docs[index]["image"];
                         String status = snapshot.data!.docs[index]["status"];

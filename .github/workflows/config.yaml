@@ -1,4 +1,4 @@
-name: Xplore CI/CD Workflow
+name: CI Workflow
 
 on: [push]
 
@@ -21,7 +21,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: "stable"
-          flutter-version: "2.0.3"
+          flutter-version: "2.10.3"
 
       - name: Install flutter dependencies
         run: |
@@ -31,13 +31,3 @@ jobs:
       - name: Analyze and Test
         run: |
           flutter analyze
-          sudo apt-get -qq update
-          sudo apt-get install -qqy lcov python3-pip 
-          pip3 install -Uqqq lxml && pip3 install -Uqqq beautifulsoup4
-          flutter test --coverage test/ 
-          lcov --remove coverage/lcov.info 'lib/**/*.g.dart' -o coverage/lcov.info
-          lcov --remove coverage/lcov.info 'lib/**/*.freezed.dart' -o coverage/lcov.info
-          lcov --remove coverage/lcov.info 'lib/**/*.gr.dart' -o coverage/lcov.info
-          lcov --remove coverage/lcov.info 'lib/**/sqlite.dart' -o coverage/lcov.info
-          genhtml -q -o coverage coverage/lcov.info
-          python3 check_coverage.py
