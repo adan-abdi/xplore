@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:xplore/application/core/themes/colors.dart';
 import 'package:xplore/presentation/onboarding/widgets/layout/circles.dart';
+import 'package:xplore/presentation/onboarding/widgets/xplore_appbar.dart';
 
 class KeyboardScaffold extends StatefulWidget {
   final IconData? trailingActionIcon;
@@ -30,23 +31,7 @@ class _KeyboardScaffoldState extends State<KeyboardScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: XploreAppBar(
-        backgroundColor: XploreColors.white,
-        elevation: 0,
-        leading: widget.isSecondary
-            ? Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: XploreColors.deepBlue,
-                  ),
-                ),
-              )
-            : SizedBox.shrink(),
+      appBar: XploreSmallAppbar(
         actions: [
           IconButton(
             onPressed: () {},

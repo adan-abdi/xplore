@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:xplore/presentation/dashboard/widgets/custom_bar.dart';
 import 'package:xplore/presentation/onboarding/widgets/layout/circles.dart';
 
 class ProfileScaffold extends StatelessWidget {
@@ -10,7 +9,6 @@ class ProfileScaffold extends StatelessWidget {
   final Widget trailingWidget;
   final bool canPop;
   final Color circleColor;
-  final XploreAppBar? appbar;
 
   const ProfileScaffold({
     Key? key,
@@ -18,7 +16,6 @@ class ProfileScaffold extends StatelessWidget {
     this.trailingWidget = const SizedBox.shrink(),
     this.canPop = true,
     required this.circleColor,
-    this.appbar,
   }) : super(key: key);
 
   @override

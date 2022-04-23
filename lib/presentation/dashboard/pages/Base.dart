@@ -1,9 +1,9 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:xplore/application/core/themes/colors.dart';
 
 // Project imports:
-import 'package:xplore/presentation/dashboard/widgets/custom_bar.dart';
+import 'package:xplore/application/core/themes/colors.dart';
+import 'package:xplore/presentation/core/widgets/xplore_appbar.dart';
 import 'package:xplore/presentation/dashboard/widgets/product_list.dart';
 import 'package:xplore/presentation/dashboard/widgets/transaction_list.dart';
 import 'AddProducts.dart';
