@@ -6,7 +6,7 @@ import 'package:xplore/application/core/themes/app_themes.dart';
 import 'package:xplore/application/core/themes/colors.dart';
 import 'package:xplore/domain/value_objects/app_global_constants.dart';
 
-class XploreAppbar extends StatelessWidget implements PreferredSizeWidget {
+class XploreSmallAppbar extends StatelessWidget implements PreferredSizeWidget {
   final Icon? leadingIcon;
   final String? title;
   final Color? appbarColor;
@@ -15,7 +15,7 @@ class XploreAppbar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final Function? onLeadingtap;
 
-  const XploreAppbar(
+  const XploreSmallAppbar(
       {Key? key,
       this.leadingIcon,
       this.title,
