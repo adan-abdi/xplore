@@ -66,7 +66,7 @@ Future<AuthStatus> getAuthStatus({
   final bool hasDoneTour = currentStore.userState?.hasDoneTour ?? false;
   final bool signedIn = currentStore.userState?.isSignedIn ?? false;
   final bool isUIDPresent = (currentStore.userState?.uid != null);
-  //TODO: Add condition for 12hr Session Expiration
+  //todo: Add condition for 12hr Session Expiration
 
   if (hasDoneTour == true) {
     if (signedIn == true && isUIDPresent) {

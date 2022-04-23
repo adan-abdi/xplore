@@ -95,7 +95,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
               StoreProvider.dispatch<AppState>(
                   context, NavigateAction.pushNamed(otpPageRoute));
 
-              // TODO: Restore change after fix for https://github.com/Abdi-Adan/xplore/issues/39
+              // todo: Restore change after fix for https://github.com/Abdi-Adan/xplore/issues/39
               // StoreProvider.dispatch<AppState>(
               //   context,
               //   VerifyPhoneAction(

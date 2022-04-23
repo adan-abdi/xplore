@@ -5,7 +5,7 @@ publish_to: "none"
 version: 1.0.0
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.14.0 <3.0.0'
 
 dependencies:
   async_redux: ^13.3.1
@@ -43,6 +43,7 @@ dev_dependencies:
   #   sdk: flutter
   # integration_test:
   #   sdk: flutter
+  flutter_lints: ^1.0.4
   lint: 
   import_sorter: ^4.6.0
   # mockito: 
