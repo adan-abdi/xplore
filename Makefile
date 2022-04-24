@@ -9,3 +9,7 @@ sort:
 	flutter format lib/ && \
 	flutter format test/ && \
 	flutter pub run import_sorter:main
+
+.PHONY: buildReleaseArtefacts
+release:
+	flutter build apk && flutter build appbundle

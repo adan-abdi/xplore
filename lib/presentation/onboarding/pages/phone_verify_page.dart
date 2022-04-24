@@ -14,7 +14,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 // Project imports:
 import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/core/themes/colors.dart';
-// import 'package:xplore/application/redux/actions/update_user_state_action.dart';
+import 'package:xplore/application/redux/actions/update_user_state_action.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/application/singletons/button_status.dart';
 import 'package:xplore/application/singletons/initial_route.dart';
@@ -27,6 +27,8 @@ import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
 import 'package:xplore/presentation/onboarding/widgets/buttons/action_button.dart';
 import 'package:xplore/presentation/onboarding/widgets/layout/keyboard_scaffold.dart';
 import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
+
+// import 'package:xplore/application/redux/actions/update_user_state_action.dart';
 
 class PhoneVerifyPage extends StatefulWidget {
   final String? mobile;
@@ -45,7 +47,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
   StreamController errorAnimationController = StreamController();
   FocusNode otpPinCodeFocusNode = new FocusNode();
   ButtonStatusStore otpBtnStore = ButtonStatusStore();
-  // var _verificationId = '';
+  var _verificationId = '';
 
   String otp = "";
   bool isLoading = false;
@@ -65,65 +67,65 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
     _verifyPhoneNumber();
   }
 
-  // void _signInWithPhoneNumber(String otp, BuildContext ctx) async {
-  //   final state = StoreProvider.state<AppState>(ctx)!;
-  //   _showProgressDialog(true);
-  //   if (await checkInternet()) {
-  //     try {
-  //       final AuthCredential credential = PhoneAuthProvider.credential(
-  //         verificationId:
-  //             state.userState!.pinCodeVerificationID ?? _verificationId,
-  //         smsCode: otp,
-  //       );
-  //       final User? user = (await _auth.signInWithCredential(credential)).user;
-  //       final User? currentUser = _auth.currentUser;
-  //       assert(user!.uid == currentUser!.uid);
+  void _signInWithPhoneNumber(String otp, BuildContext ctx) async {
+    final state = StoreProvider.state<AppState>(ctx)!;
+    _showProgressDialog(true);
+    if (await checkInternet()) {
+      try {
+        final AuthCredential credential = PhoneAuthProvider.credential(
+          verificationId:
+              state.userState!.pinCodeVerificationID ?? _verificationId,
+          smsCode: otp,
+        );
+        final User? user = (await _auth.signInWithCredential(credential)).user;
+        final User? currentUser = _auth.currentUser;
+        assert(user!.uid == currentUser!.uid);
 
-  //       _showProgressDialog(false);
-  //       if (user != null) {
-  //         StoreProvider.dispatch(
-  //             context,
-  //             UpdateUserStateAction(
-  //               isSignedIn: true,
-  //               phoneNumber: user.phoneNumber,
-  //               uid: user.uid,
-  //             ));
+        _showProgressDialog(false);
+        if (user != null) {
+          StoreProvider.dispatch(
+              context,
+              UpdateUserStateAction(
+                isSignedIn: true,
+                phoneNumber: user.phoneNumber,
+                uid: user.uid,
+              ));
 
-  //         appInitialRoute.initialRoute.add(
-  //           await getInitialRoute(state: state),
-  //         );
+          appInitialRoute.initialRoute.add(
+            await getInitialRoute(state: state),
+          );
 
-  //         StoreProvider.dispatch<AppState>(
-  //           context,
-  //           NavigateAction.pushNamed(dashPageRoute),
-  //         );
-  //       } else {
-  //         ScaffoldMessenger.of(context).showSnackBar(snackbar(
-  //           content: "Sign In Failed",
-  //         ));
-  //       }
-  //     } catch (e) {
-  //       print(e);
+          StoreProvider.dispatch<AppState>(
+            context,
+            NavigateAction.pushNamed(dashPageRoute),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(snackbar(
+            content: "Sign In Failed",
+          ));
+        }
+      } catch (e) {
+        print(e);
 
-  //       ScaffoldMessenger.of(context).showSnackBar(snackbar(
-  //         content: e.toString(),
-  //       ));
-  //       _showProgressDialog(false);
-  //     }
-  //   } else {
-  //     _showProgressDialog(false);
-  //     ScaffoldMessenger.of(context).showSnackBar(snackbar(
-  //       content: "No Internet Connection!",
-  //     ));
-  //   }
-  // }
+        ScaffoldMessenger.of(context).showSnackBar(snackbar(
+          content: e.toString(),
+        ));
+        _showProgressDialog(false);
+      }
+    } else {
+      _showProgressDialog(false);
+      ScaffoldMessenger.of(context).showSnackBar(snackbar(
+        content: "No Internet Connection!",
+      ));
+    }
+  }
 
-  // _showProgressDialog(bool isloadingstate) {
-  //   if (mounted)
-  //     setState(() {
-  //       isLoading = isloadingstate;
-  //     });
-  // }
+  _showProgressDialog(bool isloadingstate) {
+    if (mounted)
+      setState(() {
+        isLoading = isloadingstate;
+      });
+  }
 
   @override
   void dispose() {
@@ -139,8 +141,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
     StoreProvider.dispatch<AppState>(
         context, NavigateAction.pushNamed(dashPageRoute));
 
-    // todo: Restore change after fix for https://github.com/Abdi-Adan/xplore/issues/39
-    // _signInWithPhoneNumber(otpText, ctx);
+    _signInWithPhoneNumber(otpText, ctx);
   }
 
   @override
@@ -156,7 +157,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                 context: context,
                 title: 'Enter code sent \n',
                 subtitle: 'to your number.',
-                extraHeading: 'We sent it to +(254)-723-073-552.',
+                extraHeading: 'We sent it to +(254) 700 000 000.',
               ),
               vSize20SizedBox,
               Padding(
