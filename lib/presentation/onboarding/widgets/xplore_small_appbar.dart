@@ -13,7 +13,7 @@ class XploreSmallAppbar extends StatelessWidget implements PreferredSizeWidget {
   final Color? titleColor;
   final bool isTitleCenter = true;
   final List<Widget>? actions;
-  final Function? onLeadingtap;
+  final Function? onLeadingTap;
 
   const XploreSmallAppbar(
       {Key? key,
@@ -22,7 +22,7 @@ class XploreSmallAppbar extends StatelessWidget implements PreferredSizeWidget {
       this.appbarColor,
       this.titleColor,
       this.actions,
-      this.onLeadingtap})
+      this.onLeadingTap})
       : super(key: key);
 
   @override
@@ -38,7 +38,7 @@ class XploreSmallAppbar extends StatelessWidget implements PreferredSizeWidget {
               Icons.keyboard_backspace,
               color: XploreColors.black,
             ),
-        onTap: () => onLeadingtap,
+        onTap: () => onLeadingTap,
       ),
       title: Text(
         title ?? '',

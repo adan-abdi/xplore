@@ -8,6 +8,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 // Project imports:
 import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/core/themes/colors.dart';
+import 'package:xplore/application/redux/actions/verify_phone_action.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/application/singletons/button_status.dart';
 import 'package:xplore/domain/routes/routes.dart';
@@ -95,12 +96,11 @@ class _PhoneLoginState extends State<PhoneLogin> {
               StoreProvider.dispatch<AppState>(
                   context, NavigateAction.pushNamed(otpPageRoute));
 
-              // todo: Restore change after fix for https://github.com/Abdi-Adan/xplore/issues/39
-              // StoreProvider.dispatch<AppState>(
-              //   context,
-              //   VerifyPhoneAction(
-              //       phoneNumber: phoneNumberController.text, context: context),
-              // );
+              StoreProvider.dispatch<AppState>(
+                context,
+                VerifyPhoneAction(
+                    phoneNumber: phoneNumberController.text, context: context),
+              );
             } else {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
