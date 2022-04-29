@@ -18,21 +18,21 @@ class LandingPageTitle extends StatelessWidget {
               text: 'Fast \n',
               style: TextStyle(
                   color: XploreColors.deepBlue,
-                  fontSize: 55,
+                  fontSize: 48,
                   fontWeight: FontWeight.bold),
               children: const <TextSpan>[
                 TextSpan(
                     text: '   & ',
                     style: TextStyle(
                       color: XploreColors.white,
-                      fontSize: 48,
+                      fontSize: 41,
                       fontWeight: FontWeight.normal,
                     )),
                 TextSpan(
                   text: 'Digital.',
                   style: TextStyle(
                     color: XploreColors.deepBlue,
-                    fontSize: 55,
+                    fontSize: 48,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

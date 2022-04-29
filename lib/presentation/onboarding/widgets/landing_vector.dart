@@ -9,7 +9,7 @@ class LandingVector extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 300,
-      height: 250,
+      height: 230,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage(landingVectorImage),
