@@ -132,16 +132,18 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
     super.dispose();
   }
 
-  verifyOtp(String otpText, BuildContext ctx) async {
+  verifyOtp(String otpText, BuildContext ctx, {bool? isSignedIn}) async {
     setState(() {
       otpBtnStore.colorStream.add(ButtonStatus.active.color);
       otpBtnStore.statusStream.add(true);
     });
 
-    StoreProvider.dispatch<AppState>(
-        context, NavigateAction.pushNamed(dashPageRoute));
-
     _signInWithPhoneNumber(otpText, ctx);
+
+    if (isSignedIn ?? false) {
+      StoreProvider.dispatch<AppState>(
+          context, NavigateAction.pushNamed(dashPageRoute));
+    }
   }
 
   @override
@@ -157,7 +159,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                 context: context,
                 title: 'Enter code sent \n',
                 subtitle: 'to your number.',
-                extraHeading: 'We sent it to +(254) 700 000 000.',
+                extraHeading: 'We sent it to ${state.userState!.phoneNumber}',
               ),
               vSize20SizedBox,
               Padding(
@@ -185,23 +187,25 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                     hapticFeedbackTypes: HapticFeedbackTypes.vibrate,
                     length: 6,
                     obscureText: false,
-                    animationType: AnimationType.fade,
+                    animationType: AnimationType.scale,
                     pinTheme: PinTheme(
-                        shape: PinCodeFieldShape.circle,
-                        borderRadius: BorderRadius.circular(10),
-                        fieldHeight: 50,
-                        fieldWidth: 40,
-                        activeFillColor: Colors.white,
-                        inactiveColor: XploreColors.white,
-                        selectedFillColor: XploreColors.white,
-                        errorBorderColor: XploreColors.red,
-                        selectedColor: XploreColors.orange),
+                      shape: PinCodeFieldShape.circle,
+                      borderRadius: BorderRadius.circular(10),
+                      fieldHeight: 50,
+                      fieldWidth: 40,
+                      activeFillColor: Colors.white,
+                      activeColor: XploreColors.deepBlue,
+                      inactiveColor: XploreColors.orange,
+                      inactiveFillColor: XploreColors.white,
+                      selectedFillColor: XploreColors.white,
+                      errorBorderColor: XploreColors.red,
+                      selectedColor: XploreColors.orange,
+                    ),
                     cursorColor: XploreColors.orange,
                     keyboardType: TextInputType.none,
                     animationDuration: Duration(milliseconds: 300),
                     backgroundColor: XploreColors.white,
                     enableActiveFill: true,
-                    // errorAnimationController: errorAnimationController,
                     controller: otpPinCodeFieldController,
                     onCompleted: (v) {
                       print("Completed");
@@ -228,7 +232,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                 colorStream: otpBtnStore.colorStream,
                 statusStream: otpBtnStore.statusStream,
                 onTapCallback: () {
-                  verifyOtp(otpPinCodeFieldController.text, context);
+                  verifyOtp(otpPinCodeFieldController.text, context,  isSignedIn: state.userState!.isSignedIn);
                 },
               ),
               vSize30SizedBox,

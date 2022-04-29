@@ -1,8 +1,10 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:xplore/application/core/themes/colors.dart';
 
 // Project imports:
 import 'package:xplore/presentation/onboarding/widgets/layout/circles.dart';
+import 'package:xplore/presentation/onboarding/widgets/layout/diagonal_circles.dart';
 
 class OnboardingScaffold extends StatelessWidget {
   final Widget childWidgets;
@@ -26,26 +28,27 @@ class OnboardingScaffold extends StatelessWidget {
         body: Stack(
           children: <Widget>[
             ...circles(context, circleColor),
+            ...diagonalCircles(context, XploreColors.orange),
             Positioned(
               top: 70,
               left: 0,
               right: 0,
               bottom: 0,
-              child: childWidgets,
+              child: SingleChildScrollView(
+                child: childWidgets,
+              ),
             ),
             Positioned(
               left: 0,
               bottom: 0,
               right: 0,
-              child: SingleChildScrollView(
-                child: Wrap(
-                  alignment: WrapAlignment.center,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  runAlignment: WrapAlignment.center,
-                  spacing: 30,
-                  runSpacing: 40,
-                  children: trailingWidget,
-                ),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                runAlignment: WrapAlignment.center,
+                spacing: 30,
+                runSpacing: 40,
+                children: trailingWidget,
               ),
             ),
           ],

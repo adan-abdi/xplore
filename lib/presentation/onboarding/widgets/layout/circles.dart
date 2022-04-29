@@ -21,17 +21,5 @@ List<Widget> circles(BuildContext context, Color? circleColor) {
         ),
       ),
     ),
-    Positioned.fill(
-      top: -(diagonalCircleDiameter /2),
-      left: -(diagonalCircleDiameter /2),
-      child: Container(
-        width: diagonalCircleDiameter,
-        height: diagonalCircleDiameter,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: XploreColors.orange,
-        ),
-      ),
-    ),
   ];
 }
