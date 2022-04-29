@@ -232,7 +232,8 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                 colorStream: otpBtnStore.colorStream,
                 statusStream: otpBtnStore.statusStream,
                 onTapCallback: () {
-                  verifyOtp(otpPinCodeFieldController.text, context,  isSignedIn: state.userState!.isSignedIn);
+                  verifyOtp(otpPinCodeFieldController.text, context,
+                      isSignedIn: state.userState!.isSignedIn);
                 },
               ),
               vSize30SizedBox,

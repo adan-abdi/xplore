@@ -8,8 +8,8 @@ List<Widget> diagonalCircles(BuildContext context, Color? circleColor) {
   const double diagonalCircleDiameter = 350;
   return <Widget>[
     Positioned(
-      top: -(diagonalCircleDiameter /2),
-      right: -(diagonalCircleDiameter /2),
+      top: -(diagonalCircleDiameter / 2),
+      right: -(diagonalCircleDiameter / 2),
       child: Container(
         width: diagonalCircleDiameter,
         height: diagonalCircleDiameter,
@@ -20,8 +20,8 @@ List<Widget> diagonalCircles(BuildContext context, Color? circleColor) {
       ),
     ),
     Positioned(
-      bottom: -(diagonalCircleDiameter /2),
-      left: -(diagonalCircleDiameter /2),
+      bottom: -(diagonalCircleDiameter / 2),
+      left: -(diagonalCircleDiameter / 2),
       child: Container(
         width: diagonalCircleDiameter,
         height: diagonalCircleDiameter,

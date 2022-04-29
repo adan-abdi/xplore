@@ -1,8 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:xplore/application/core/themes/colors.dart';
 
 // Project imports:
+import 'package:xplore/application/core/themes/colors.dart';
 import 'package:xplore/presentation/onboarding/widgets/layout/circles.dart';
 import 'package:xplore/presentation/onboarding/widgets/layout/diagonal_circles.dart';
 
