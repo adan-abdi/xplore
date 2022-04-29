@@ -22,18 +22,19 @@ class LandingPage extends StatelessWidget {
           childWidgets: Column(
             children: [
               Wrap(
-                alignment: WrapAlignment.center,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                runAlignment: WrapAlignment.center,
+                direction: Axis.vertical,
+                // alignment: WrapAlignment.center,
+                // crossAxisAlignment: WrapCrossAlignment.center,
+                runAlignment: WrapAlignment.spaceAround,
                 spacing: 30,
                 runSpacing: 40,
                 children: <Widget>[
                   Column(
                     children: <Widget>[
                       LandingPageTitle(),
-                      vSize50SizedBox,
+                      vSize30SizedBox,
                       LandingVector(),
-                      vSize50SizedBox,
+                      vSize30SizedBox,
                       ActionButton(
                         widgetText: getStartedText,
                         nextRoute: loginPageRoute,
@@ -47,7 +48,7 @@ class LandingPage extends StatelessWidget {
             ],
           ),
           trailingWidget: [termsAndConditions(context)],
-          circleColor: XploreColors.orange,
+          circleColor: XploreColors.white,
         ));
   }
 }
