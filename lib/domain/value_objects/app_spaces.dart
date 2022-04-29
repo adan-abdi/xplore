@@ -7,6 +7,7 @@ Widget vSize20SizedBox = const SizedBox(height: 20);
 Widget vSize30SizedBox = const SizedBox(height: 30);
 Widget vSize40SizedBox = const SizedBox(height: 40);
 Widget vSize50SizedBox = const SizedBox(height: 50);
+Widget vSize60SizedBox = const SizedBox(height: 60);
 Widget vSize70SizedBox = const SizedBox(height: 70);
 Widget vSize80SizedBox = const SizedBox(height: 80);
 Widget vSize90SizedBox = const SizedBox(height: 90);

@@ -18,21 +18,21 @@ class LandingPageTitle extends StatelessWidget {
               text: 'Fast \n',
               style: TextStyle(
                   color: XploreColors.deepBlue,
-                  fontSize: 48,
+                  fontSize: 55,
                   fontWeight: FontWeight.bold),
               children: const <TextSpan>[
                 TextSpan(
                     text: '   & ',
                     style: TextStyle(
-                      color: XploreColors.white,
-                      fontSize: 41,
+                      color: XploreColors.black,
+                      fontSize: 48,
                       fontWeight: FontWeight.normal,
                     )),
                 TextSpan(
                   text: 'Digital.',
                   style: TextStyle(
                     color: XploreColors.deepBlue,
-                    fontSize: 48,
+                    fontSize: 55,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -45,7 +45,7 @@ class LandingPageTitle extends StatelessWidget {
             child: Text(
               'Keep your store in order , Easy to use  point of sale',
               style: TextStyle(
-                color: XploreColors.white,
+                color: XploreColors.black,
                 fontSize: defaultFontSize,
                 fontWeight: FontWeight.normal,
               ),
