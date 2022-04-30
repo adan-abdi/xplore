@@ -33,10 +33,8 @@ class OnboardingScaffold extends StatelessWidget {
               top: 70,
               left: 0,
               right: 0,
-              bottom: 0,
-              child: SingleChildScrollView(
-                child: childWidgets,
-              ),
+              bottom: 30,
+              child: childWidgets,
             ),
             Positioned(
               left: 0,

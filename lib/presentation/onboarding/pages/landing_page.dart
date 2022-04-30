@@ -19,34 +19,31 @@ class LandingPage extends StatelessWidget {
         onWillPop: () async => false,
         child: OnboardingScaffold(
           childWidgets: Column(
-            children: [
-              Wrap(
-                alignment: WrapAlignment.center,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                runAlignment: WrapAlignment.spaceBetween,
-                spacing: 30,
-                runSpacing: 40,
-                children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      LandingPageTitle(),
-                      LandingVector(),
-                    ],
-                  )
-                ],
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Flexible(
+                flex: 2,
+                child: LandingPageTitle(),
+              ),
+              Flexible(
+                flex: 4,
+                fit: FlexFit.loose,
+                child: LandingVector(),
+              ),
+              Flexible(
+                flex: 1,
+                child: ActionButton(
+                  widgetText: getStartedText,
+                  nextRoute: loginPageRoute,
+                  colorStream: ButtonStatusStore().landingColorStream,
+                  statusStream: ButtonStatusStore().landingStatusStream,
+                ),
               ),
             ],
           ),
           trailingWidget: [
             Column(
               children: [
-                ActionButton(
-                  widgetText: getStartedText,
-                  nextRoute: loginPageRoute,
-                  colorStream: ButtonStatusStore().landingColorStream,
-                  statusStream: ButtonStatusStore().landingStatusStream,
-                ),
                 termsAndConditions(context),
               ],
             ),
