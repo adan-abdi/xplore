@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:async_redux/async_redux.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 // Project imports:
 import 'package:xplore/application/core/services/helpers.dart';
