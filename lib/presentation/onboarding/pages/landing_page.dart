@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:xplore/application/core/themes/colors.dart';
 import 'package:xplore/application/singletons/button_status.dart';
 import 'package:xplore/domain/routes/routes.dart';
-import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/onboarding/widgets/buttons/action_button.dart';
 import 'package:xplore/presentation/onboarding/widgets/landing_title.dart';
@@ -24,16 +23,15 @@ class LandingPage extends StatelessWidget {
               Wrap(
                 alignment: WrapAlignment.center,
                 crossAxisAlignment: WrapCrossAlignment.center,
-                runAlignment: WrapAlignment.center,
+                runAlignment: WrapAlignment.spaceBetween,
                 spacing: 30,
                 runSpacing: 40,
                 children: <Widget>[
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       LandingPageTitle(),
-                      vSize30SizedBox,
                       LandingVector(),
-                      vSize60SizedBox,
                     ],
                   )
                 ],
@@ -49,7 +47,6 @@ class LandingPage extends StatelessWidget {
                   colorStream: ButtonStatusStore().landingColorStream,
                   statusStream: ButtonStatusStore().landingStatusStream,
                 ),
-                vSize20SizedBox,
                 termsAndConditions(context),
               ],
             ),

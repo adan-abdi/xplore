@@ -6,6 +6,7 @@ import 'package:rxdart/rxdart.dart';
 
 // Project imports:
 import 'package:xplore/domain/value_objects/app_enums.dart';
+import 'package:progress_state_button/progress_button.dart';
 
 class ButtonStatusStore {
   factory ButtonStatusStore() {
@@ -28,4 +29,16 @@ class ButtonStatusStore {
   final phoneLoginStatusStream = BehaviorSubject<bool>.seeded(false);
 
   static final ButtonStatusStore _singleton = ButtonStatusStore._internal();
+}
+
+class ProgressBtnStore {
+  factory ProgressBtnStore() {
+    return _singleton;
+  }
+
+  ProgressBtnStore._internal();
+
+  final btnStatus = BehaviorSubject<ButtonState>.seeded(ButtonState.idle);
+
+  static final ProgressBtnStore _singleton = ProgressBtnStore._internal();
 }

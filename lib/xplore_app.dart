@@ -11,7 +11,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 // Project imports:
 import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
-import 'package:xplore/application/singletons/initial_route.dart';
 import 'package:xplore/domain/core/lifecycle_event_handler.dart';
 import 'package:xplore/domain/routes/route_generator.dart';
 import 'package:xplore/domain/routes/routes.dart';
@@ -30,7 +29,6 @@ class XploreApp extends StatefulWidget {
 
 class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
   FirebaseApp xploreFirebaseApp = Firebase.app();
-  InitialRouteStore appInitialRoute = InitialRouteStore();
 
   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 
