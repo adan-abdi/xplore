@@ -27,7 +27,7 @@ List<Widget> diagonalCircles(BuildContext context, Color? circleColor) {
         height: diagonalCircleDiameter,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: XploreColors.orange,
+          color: XploreColors.lightOrange,
         ),
       ),
     ),

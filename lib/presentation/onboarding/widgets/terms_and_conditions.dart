@@ -17,12 +17,12 @@ Widget termsAndConditions(BuildContext context,
           TextSpan(
             text: landingTerms,
             style: TextStyle(
-              color: XploreColors.grey,
+              color: XploreColors.black,
             ),
           ),
           TextSpan(
             text: landingTAndC,
-            style: TextStyle(color: XploreColors.deepBlue),
+            style: TextStyle(color: XploreColors.black),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 ScaffoldMessenger.of(context).showSnackBar(snackbar(

@@ -2,27 +2,21 @@
 import 'dart:async';
 
 // Flutter imports:
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:async_redux/async_redux.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 // Project imports:
 import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/core/themes/colors.dart';
-import 'package:xplore/application/redux/actions/update_user_state_action.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/application/singletons/button_status.dart';
-import 'package:xplore/application/singletons/initial_route.dart';
 import 'package:xplore/domain/routes/routes.dart';
-import 'package:xplore/domain/value_objects/app_enums.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/core/pages/xplore_numeric_keyboard.dart';
-import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
 import 'package:xplore/presentation/onboarding/widgets/buttons/action_button.dart';
 import 'package:xplore/presentation/onboarding/widgets/layout/keyboard_scaffold.dart';
 import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
@@ -30,11 +24,8 @@ import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
 // import 'package:xplore/application/redux/actions/update_user_state_action.dart';
 
 class PhoneVerifyPage extends StatefulWidget {
-  final String? mobile;
-
   const PhoneVerifyPage({
     Key? key,
-    this.mobile,
   }) : super(key: key);
 
   @override
@@ -46,103 +37,15 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
   StreamController errorAnimationController = StreamController();
   FocusNode otpPinCodeFocusNode = new FocusNode();
   ButtonStatusStore otpBtnStore = ButtonStatusStore();
-  var _verificationId = '';
-
-  String otp = "";
-  bool isLoading = false;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  String initialCountryCode = 'KE';
-  PhoneNumber number = PhoneNumber(isoCode: 'KE');
-
-  String phone = "";
-  String isoCode = "";
-  bool isOtpValid = false;
-  InitialRouteStore appInitialRoute = InitialRouteStore();
 
   @override
   void initState() {
     super.initState();
-    _verifyPhoneNumber();
-  }
-
-  void _signInWithPhoneNumber(String otp, BuildContext ctx) async {
-    final state = StoreProvider.state<AppState>(ctx)!;
-    _showProgressDialog(true);
-    if (await checkInternet()) {
-      try {
-        final AuthCredential credential = PhoneAuthProvider.credential(
-          verificationId:
-              state.userState!.pinCodeVerificationID ?? _verificationId,
-          smsCode: otp,
-        );
-        final User? user = (await _auth.signInWithCredential(credential)).user;
-        final User? currentUser = _auth.currentUser;
-        assert(user!.uid == currentUser!.uid);
-
-        _showProgressDialog(false);
-        if (user != null) {
-          StoreProvider.dispatch(
-              context,
-              UpdateUserStateAction(
-                isSignedIn: true,
-                phoneNumber: user.phoneNumber,
-                uid: user.uid,
-              ));
-
-          appInitialRoute.initialRoute.add(
-            await getInitialRoute(state: state),
-          );
-
-          StoreProvider.dispatch<AppState>(
-            context,
-            NavigateAction.pushNamed(dashPageRoute),
-          );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(snackbar(
-            content: "Sign In Failed",
-          ));
-        }
-      } catch (e) {
-        print(e);
-
-        ScaffoldMessenger.of(context).showSnackBar(snackbar(
-          content: e.toString(),
-        ));
-        _showProgressDialog(false);
-      }
-    } else {
-      _showProgressDialog(false);
-      ScaffoldMessenger.of(context).showSnackBar(snackbar(
-        content: "No Internet Connection!",
-      ));
-    }
-  }
-
-  _showProgressDialog(bool isloadingstate) {
-    if (mounted)
-      setState(() {
-        isLoading = isloadingstate;
-      });
   }
 
   @override
   void dispose() {
     super.dispose();
-  }
-
-  verifyOtp(String otpText, BuildContext ctx, {bool? isSignedIn}) async {
-    setState(() {
-      otpBtnStore.colorStream.add(ButtonStatus.active.color);
-      otpBtnStore.statusStream.add(true);
-    });
-
-    _signInWithPhoneNumber(otpText, ctx);
-
-    if (isSignedIn ?? false) {
-      StoreProvider.dispatch<AppState>(
-          context, NavigateAction.pushNamed(dashPageRoute));
-    }
   }
 
   @override
@@ -257,76 +160,5 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
             ],
           );
         });
-  }
-
-  void _verifyPhoneNumber() async {
-    if (mounted)
-      setState(() {
-        isLoading = true;
-      });
-
-    final PhoneVerificationFailed verificationFailed =
-        (FirebaseAuthException authException) {
-      ScaffoldMessenger.of(context).showSnackBar(snackbar(
-        // content: "An Error Occured",
-        content: authException.message,
-      ));
-      print(authException.code);
-      print(authException.message);
-    };
-
-    final PhoneCodeSent codeSent =
-        (String verificationId, [int? forceResendingToken]) async {
-      print("codeSent");
-      print(verificationId);
-      ScaffoldMessenger.of(context).showSnackBar(snackbar(
-        content:
-            "Please check your phone for the verification code ${verificationId}.",
-      ));
-      // _verificationId = verificationId;
-    };
-
-    final PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout =
-        (String verificationId) {
-      print("codeAutoRetrievalTimeout");
-      // _verificationId = verificationId;
-    };
-
-    PhoneVerificationCompleted verificationCompleted =
-        (PhoneAuthCredential phoneAuthCredential) async {
-      print("verificationCompleted");
-    };
-
-    if (kIsWeb) {
-      await _auth
-          .signInWithPhoneNumber(
-        widget.mobile ?? '',
-      )
-          .then((value) {
-        // _verificationId = value.verificationId;
-        print("then");
-      }).catchError((onError) {
-        print(onError);
-      });
-    } else {
-      await _auth
-          .verifyPhoneNumber(
-              phoneNumber: widget.mobile ?? '',
-              timeout: const Duration(seconds: 15),
-              verificationCompleted: verificationCompleted,
-              verificationFailed: verificationFailed,
-              codeSent: codeSent,
-              codeAutoRetrievalTimeout: codeAutoRetrievalTimeout)
-          .then((value) {
-        print("then");
-      }).catchError((onError) {
-        print(onError);
-      });
-    }
-
-    if (mounted)
-      setState(() {
-        isLoading = false;
-      });
   }
 }

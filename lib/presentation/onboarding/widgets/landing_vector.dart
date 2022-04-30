@@ -8,6 +8,7 @@ class LandingVector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(vertical: 20),
       width: 300,
       height: 230,
       decoration: const BoxDecoration(

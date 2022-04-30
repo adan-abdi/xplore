@@ -1,21 +1,22 @@
 // Flutter imports:
+import 'package:async_redux/async_redux.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:async_redux/async_redux.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:logger/logger.dart';
+import 'package:xplore/application/redux/actions/signin_user_action.dart';
 
 // Project imports:
-import 'package:xplore/application/redux/actions/verify_phone_action.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/application/singletons/button_status.dart';
+import 'package:xplore/application/singletons/initial_route.dart';
 import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_enums.dart';
 import 'package:xplore/domain/value_objects/app_event_strings.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
-import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
 
 final Logger logger = Logger();
 
@@ -76,86 +77,6 @@ Future<AuthStatus> getAuthStatus({
     }
   } else {
     return AuthStatus.init;
-  }
-}
-
-/// Phone SignUp
-Future<void> signUp({
-  required BuildContext context,
-  required String phoneNumber,
-  required String pin,
-  required String confirmPin,
-  required GlobalKey<FormState> formKey,
-}) async {
-  if (formKey.currentState!.validate()) {
-    formKey.currentState!.save();
-
-    if (pin == confirmPin) {
-      // StoreProvider.dispatch<AppState>(
-      //   context,
-      //   UpdateUserStateAction(doPinsMatch: true),
-      // );
-
-      await StoreProvider.dispatch<AppState>(
-        context,
-        VerifyPhoneAction(
-          context: context,
-          phoneNumber: phoneNumber,
-          pinCode: confirmPin,
-        ),
-      );
-
-      NavigateAction<AppState>.pushNamed(homePageRoute);
-    } else {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(
-          snackbar(
-            content: comingSoonText,
-            label: okText,
-          ),
-        );
-    }
-  }
-}
-
-/// Phone SignIn
-Future<void> signIn({
-  required BuildContext context,
-  required String phoneNumber,
-  required String pin,
-  required String confirmPin,
-  required GlobalKey<FormState> formKey,
-}) async {
-  if (formKey.currentState!.validate()) {
-    formKey.currentState!.save();
-
-    if (pin == confirmPin) {
-      // StoreProvider.dispatch<AppState>(
-      //   context,
-      //   UpdateUserStateAction(doPinsMatch: true),
-      // );
-
-      await StoreProvider.dispatch<AppState>(
-        context,
-        VerifyPhoneAction(
-          context: context,
-          phoneNumber: phoneNumber,
-          pinCode: confirmPin,
-        ),
-      );
-
-      NavigateAction<AppState>.pushNamed(homePageRoute);
-    } else {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(
-          snackbar(
-            content: comingSoonText,
-            label: okText,
-          ),
-        );
-    }
   }
 }
 
@@ -265,9 +186,16 @@ void validatePhone({
   }
 }
 
-// bool getSessionRefreshStatus(UserState? userState){
-//   DateTime? _isLastSessionActive = userState!.isLastSessionActive ?? null;
-//   int _hourDiff = DateTime.now().compareTo(_isLastSessionActive?.hour );
-//   int _lastActiveHour = _isLastSessionActive?.hour ?? 12;
-//   if(_isLastSessionActive == null || )
-// }
+ProgressBtnStore phoneLoginProgressInstance = ProgressBtnStore();
+FirebaseAuth globalFirebaseAuthInstance = FirebaseAuth.instance;
+InitialRouteStore appInitialRoute = InitialRouteStore();
+
+void verifyOtp(String otpText, BuildContext ctx, {bool? isSignedIn}) async {
+  StoreProvider.dispatch<AppState>(
+      ctx, SignInUserAction(context: ctx, otp: otpText));
+
+  if (isSignedIn ?? false) {
+    StoreProvider.dispatch<AppState>(
+        ctx, NavigateAction.pushNamed(dashPageRoute));
+  }
+}

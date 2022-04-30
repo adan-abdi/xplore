@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:async_redux/async_redux.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:progress_state_button/progress_button.dart';
 
 // Project imports:
 import 'package:xplore/application/core/services/helpers.dart';
@@ -24,16 +25,16 @@ class VerifyPhoneAction extends ReduxAction<AppState> {
   VerifyPhoneAction({
     required this.context,
     required this.phoneNumber,
-    this.pinCode,
   });
 
   final BuildContext context;
   final String phoneNumber;
-  final String? pinCode;
 
   @override
-  void before() {
+  Future<void> before() async {
     dispatch(WaitAction<AppState>.add(phoneLoginStateFlag));
+    // todo: check internet connectivity
+    // await checkInternet();
     super.before();
   }
 
@@ -45,15 +46,14 @@ class VerifyPhoneAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    FirebaseAuth firebaseAuthInstance = FirebaseAuth.instance;
-
-    await firebaseAuthInstance.verifyPhoneNumber(
+    await globalFirebaseAuthInstance.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       verificationCompleted: (PhoneAuthCredential credential) async {
         // ANDROID ONLY!
-        await firebaseAuthInstance.signInWithCredential(credential);
+        await globalFirebaseAuthInstance.signInWithCredential(credential);
       },
       verificationFailed: (FirebaseAuthException e) {
+        phoneLoginProgressInstance.btnStatus.add(ButtonState.fail);
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
           ..showSnackBar(
@@ -64,6 +64,8 @@ class VerifyPhoneAction extends ReduxAction<AppState> {
           );
       },
       codeSent: (String verificationId, int? resendToken) async {
+        phoneLoginProgressInstance.btnStatus.add(ButtonState.success);
+        await Future.delayed(const Duration(milliseconds: 600));
         store.dispatch(
           EnterOtpAction(
             context: context,
@@ -73,6 +75,7 @@ class VerifyPhoneAction extends ReduxAction<AppState> {
         );
       },
       codeAutoRetrievalTimeout: (String verificationId) {
+        phoneLoginProgressInstance.btnStatus.add(ButtonState.fail);
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
           ..showSnackBar(
