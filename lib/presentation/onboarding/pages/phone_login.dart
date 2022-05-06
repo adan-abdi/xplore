@@ -59,24 +59,26 @@ class _PhoneLoginState extends State<PhoneLogin> {
           subtitle: 'mobile number',
           title: 'Enter your \n',
         ),
-        vSize20SizedBox,
-        Form(
-          key: _formKey,
-          child: PhoneLoginField(
-            btnStore: actionButtonState,
-            phoneNumberController: phoneNumberController,
-            onChanged: (String v) {
-              setState(() {
-                phoneNumberController.text = v;
-                if (phoneNumberController.text.length >= 10) {
-                  actionButtonState.phoneLoginColorStream
-                      .add(ButtonStatus.active.color);
-                }
-              });
-            },
+        vSize10SizedBox,
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Form(
+            key: _formKey,
+            child: PhoneLoginField(
+              btnStore: actionButtonState,
+              phoneNumberController: phoneNumberController,
+              onChanged: (String v) {
+                setState(() {
+                  phoneNumberController.text = v;
+                  if (phoneNumberController.text.length >= 10) {
+                    actionButtonState.phoneLoginColorStream
+                        .add(ButtonStatus.active.color);
+                  }
+                });
+              },
+            ),
           ),
         ),
-        vSize40SizedBox,
         ProgressiveButton(
           onPressed: () {
             if (phoneNumberController.text.length >= 10 &&

@@ -38,7 +38,7 @@ List<Widget> titles({
         ),
       ),
     ),
-    vSize20SizedBox,
+    vSize10SizedBox,
     Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Text(

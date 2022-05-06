@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:logger/logger.dart';
-import 'package:xplore/application/redux/actions/signin_user_action.dart';
+import 'package:progress_state_button/progress_button.dart';
+import 'package:xplore/application/redux/actions/update_user_state_action.dart';
 
 // Project imports:
 import 'package:xplore/application/redux/states/app_state.dart';
@@ -17,6 +18,7 @@ import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_enums.dart';
 import 'package:xplore/domain/value_objects/app_event_strings.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
+import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
 
 final Logger logger = Logger();
 
@@ -190,12 +192,37 @@ ProgressBtnStore phoneLoginProgressInstance = ProgressBtnStore();
 FirebaseAuth globalFirebaseAuthInstance = FirebaseAuth.instance;
 InitialRouteStore appInitialRoute = InitialRouteStore();
 
-void verifyOtp(String otpText, BuildContext ctx, {bool? isSignedIn}) async {
-  StoreProvider.dispatch<AppState>(
-      ctx, SignInUserAction(context: ctx, otp: otpText));
+void verifyOtp(String otpText, BuildContext ctx, AppState store, {bool? isSignedIn}) async {
+  final AuthCredential credential = PhoneAuthProvider.credential(
+    verificationId: store.userState!.pinCodeVerificationID ?? '',
+    smsCode: otpText,
+  );
+  final User? user = (await globalFirebaseAuthInstance.signInWithCredential(credential)).user;
 
-  if (isSignedIn ?? false) {
+  final User? currentUser = globalFirebaseAuthInstance.currentUser;
+  assert(user!.uid == currentUser!.uid);
+
+  if (user != null) {
+    StoreProvider.dispatch(
+        ctx,
+        UpdateUserStateAction(
+          isSignedIn: true,
+          phoneNumber: user.phoneNumber,
+          uid: user.uid,
+        ));
+
+    appInitialRoute.initialRoute.add(
+      await getInitialRoute(state: store),
+    );
+
     StoreProvider.dispatch<AppState>(
-        ctx, NavigateAction.pushNamed(dashPageRoute));
+      ctx,
+      NavigateAction.pushNamed(dashPageRoute),
+    );
+  } else {
+    phoneLoginProgressInstance.btnStatus.add(ButtonState.fail);
+    ScaffoldMessenger.of(ctx).showSnackBar(snackbar(
+      content: "Sign In Failed",
+    ));
   }
 }
