@@ -16,12 +16,9 @@ import 'package:xplore/application/singletons/button_status.dart';
 import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
-import 'package:xplore/presentation/core/pages/xplore_numeric_keyboard.dart';
 import 'package:xplore/presentation/onboarding/widgets/buttons/action_button.dart';
 import 'package:xplore/presentation/onboarding/widgets/layout/keyboard_scaffold.dart';
 import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
-
-// import 'package:xplore/application/redux/actions/update_user_state_action.dart';
 
 class PhoneVerifyPage extends StatefulWidget {
   const PhoneVerifyPage({
@@ -56,7 +53,8 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
           return KeyboardScaffold(
             isSecondary: true,
             trailingActionIcon: Icons.textsms,
-            widgets: [
+            keyboardController: otpPinCodeFieldController,
+            childWidgets: [
               ...titles(
                 context: context,
                 title: 'Enter code sent \n',
@@ -134,28 +132,8 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                 colorStream: otpBtnStore.colorStream,
                 statusStream: otpBtnStore.statusStream,
                 onTapCallback: () {
-                  verifyOtp(otpPinCodeFieldController.text, context,
-                      isSignedIn: state.userState!.isSignedIn);
+                  verifyOtp(otpPinCodeFieldController.text, context, isSignedIn: state.userState!.isSignedIn);
                 },
-              ),
-              vSize30SizedBox,
-              Container(
-                child: XploreNumericKeyboard(
-                  onKeyboardTap: (String text) {
-                    setState(() {
-                      insertText(text, otpPinCodeFieldController);
-                    });
-                  },
-                  rightIcon: Icon(
-                    Icons.backspace,
-                    color: XploreColors.orange,
-                  ),
-                  rightButtonFn: () {
-                    setState(() {
-                      backspace(otpPinCodeFieldController);
-                    });
-                  },
-                ),
               ),
             ],
           );

@@ -41,13 +41,7 @@ class LandingPage extends StatelessWidget {
               ),
             ],
           ),
-          trailingWidget: [
-            Column(
-              children: [
-                termsAndConditions(context),
-              ],
-            ),
-          ],
+          trailingWidget: termsAndConditions(context),
           circleColor: XploreColors.white,
         ));
   }
