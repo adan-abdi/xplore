@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:xplore/application/core/themes/colors.dart';
 
-List<Widget> diagonalCircles(BuildContext context, Color? circleColor) {
+List<Widget> diagonalCircles(
+  BuildContext context, {
+  Color? ringColor1,
+  Color? ringColor2,
+}) {
   const double diagonalCircleDiameter = 350;
   return <Widget>[
     Positioned(
@@ -15,7 +19,7 @@ List<Widget> diagonalCircles(BuildContext context, Color? circleColor) {
         height: diagonalCircleDiameter,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: XploreColors.orange,
+          color: ringColor1 ?? XploreColors.orange,
         ),
       ),
     ),
@@ -27,7 +31,7 @@ List<Widget> diagonalCircles(BuildContext context, Color? circleColor) {
         height: diagonalCircleDiameter,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: XploreColors.lightOrange,
+          color: ringColor2 ?? XploreColors.lightOrange,
         ),
       ),
     ),

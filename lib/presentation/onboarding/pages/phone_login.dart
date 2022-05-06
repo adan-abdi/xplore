@@ -7,14 +7,12 @@ import 'package:progress_state_button/progress_button.dart';
 
 // Project imports:
 import 'package:xplore/application/core/services/helpers.dart';
-import 'package:xplore/application/core/themes/colors.dart';
 import 'package:xplore/application/redux/actions/verify_phone_action.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/application/singletons/button_status.dart';
 import 'package:xplore/domain/value_objects/app_enums.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
-import 'package:xplore/presentation/core/pages/xplore_numeric_keyboard.dart';
 import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
 import 'package:xplore/presentation/onboarding/widgets/buttons/progressive_button.dart';
 import 'package:xplore/presentation/onboarding/widgets/input/login_phone_field.dart';
@@ -53,7 +51,8 @@ class _PhoneLoginState extends State<PhoneLogin> {
     return KeyboardScaffold(
       trailingActionIcon: Icons.admin_panel_settings,
       isSecondary: false,
-      widgets: [
+      keyboardController: phoneNumberController,
+      childWidgets: [
         ...titles(
           context: context,
           extraHeading: 'We will send you a confirmation code to verify you.',
@@ -100,67 +99,6 @@ class _PhoneLoginState extends State<PhoneLogin> {
                 );
             }
           },
-        ),
-        // ActionButton(
-        //   widgetText: nextText,
-        //   nextRoute: otpPageRoute,
-        //   statusStream: actionButtonState.phoneLoginStatusStream,
-        //   colorStream: actionButtonState.phoneLoginColorStream,
-        //   onTapCallback: () {
-        //     if (phoneNumberController.text.length >= 10 &&
-        //         (phoneNumberController.text.startsWith('+254') ||
-        //             phoneNumberController.text.startsWith('07'))) {
-        //       actionButtonState.phoneLoginColorStream
-        //           .add(ButtonStatus.active.color);
-        //       actionButtonState.phoneLoginStatusStream.add(true);
-
-        //       StoreProvider.dispatch<AppState>(
-        //         context,
-        //         VerifyPhoneAction(
-        //             phoneNumber: phoneNumberController.text, context: context),
-        //       );
-        //     } else {
-        //       ScaffoldMessenger.of(context)
-        //         ..hideCurrentSnackBar()
-        //         ..showSnackBar(
-        //           snackbar(
-        //             content: invalidPhoneNumberPrompt,
-        //             label: okText,
-        //           ),
-        //         );
-        //     }
-        //   },
-        // ),
-        vSize30SizedBox,
-        Container(
-          width: double.infinity,
-          child: XploreNumericKeyboard(
-            onKeyboardTap: (String text) {
-              setState(() {
-                insertText(text, phoneNumberController);
-              });
-            },
-            rightIcon: Icon(
-              Icons.backspace,
-              color: XploreColors.orange,
-            ),
-            rightButtonFn: () {
-              setState(() {
-                backspace(phoneNumberController);
-              });
-            },
-            leftIcon: Icon(
-              Icons.add,
-              color: XploreColors.orange,
-            ),
-            leftButtonFn: () {
-              if (phoneNumberController.text.length < 1) {
-                setState(() {
-                  insertText('+', phoneNumberController);
-                });
-              }
-            },
-          ),
         ),
       ],
     );
