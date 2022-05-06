@@ -36,6 +36,7 @@ class OnboardingScaffold extends StatelessWidget {
               top: 70,
               left: 0,
               right: 0,
+              bottom: 30,
               child: childWidgets,
             ),
             Positioned(

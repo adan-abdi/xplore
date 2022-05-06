@@ -54,14 +54,15 @@ class _KeyboardScaffoldState extends State<KeyboardScaffold> {
       ),
       body: Stack(
         children: <Widget>[
-          ...circles(context, circleColor: XploreColors.white),
+          ...circles(context, circleColor: XploreColors.whiteSmoke),
           ...diagonalCircles(context, ringColor1: XploreColors.whiteSmoke, ringColor2: XploreColors.whiteSmoke),
           Positioned(
-            top: 70,
+            top: 0,
             left: 0,
             right: 0,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: widget.childWidgets,
             ),
           ),

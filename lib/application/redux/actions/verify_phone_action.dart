@@ -16,6 +16,7 @@ import 'package:xplore/application/redux/actions/enter_otp_action.dart';
 import 'package:xplore/application/redux/actions/update_user_state_action.dart';
 import 'package:xplore/application/redux/misc/flags.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
+import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_constants.dart';
 import 'package:xplore/domain/value_objects/app_error_strings.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
@@ -49,8 +50,38 @@ class VerifyPhoneAction extends ReduxAction<AppState> {
     await globalFirebaseAuthInstance.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       verificationCompleted: (PhoneAuthCredential credential) async {
-        // ANDROID ONLY!
-        await globalFirebaseAuthInstance.signInWithCredential(credential);
+        final AuthCredential _credential = PhoneAuthProvider.credential(
+          verificationId: state.userState!.pinCodeVerificationID ?? '',
+          smsCode: state.userState!.pinCode ?? '',
+        );
+        await globalFirebaseAuthInstance.signInWithCredential(_credential);
+        final User? user = (await globalFirebaseAuthInstance.signInWithCredential(_credential)).user;
+        final User? currentUser = globalFirebaseAuthInstance.currentUser;
+        assert(user!.uid == currentUser!.uid);
+
+        if (user != null) {
+          StoreProvider.dispatch(
+              context,
+              UpdateUserStateAction(
+                isSignedIn: true,
+                phoneNumber: user.phoneNumber,
+                uid: user.uid,
+              ));
+
+          appInitialRoute.initialRoute.add(
+            await getInitialRoute(state: state),
+          );
+
+          StoreProvider.dispatch<AppState>(
+            context,
+            NavigateAction.pushNamed(dashPageRoute),
+          );
+        } else {
+          phoneLoginProgressInstance.btnStatus.add(ButtonState.fail);
+          ScaffoldMessenger.of(context).showSnackBar(snackbar(
+            content: "Sign In Failed",
+          ));
+        }
       },
       verificationFailed: (FirebaseAuthException e) {
         phoneLoginProgressInstance.btnStatus.add(ButtonState.fail);
@@ -65,14 +96,14 @@ class VerifyPhoneAction extends ReduxAction<AppState> {
       },
       codeSent: (String verificationId, int? resendToken) async {
         phoneLoginProgressInstance.btnStatus.add(ButtonState.success);
-        await Future.delayed(const Duration(milliseconds: 600));
-        store.dispatch(
+        await dispatch(
           EnterOtpAction(
             context: context,
             resendToken: resendToken,
             verificationId: verificationId,
           ),
         );
+        Future.delayed(const Duration(milliseconds: 600));
       },
       codeAutoRetrievalTimeout: (String verificationId) {
         phoneLoginProgressInstance.btnStatus.add(ButtonState.fail);
