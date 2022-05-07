@@ -29,7 +29,7 @@ class ProgressiveButton extends StatelessWidget {
             ButtonState.idle: IconedButton(
               text: "Verify",
               icon: Icon(Icons.send, color: Colors.white),
-              color: XploreColors.orange,
+              color: XploreColors.deepBlue,
             ),
             ButtonState.loading: IconedButton(
               text: "Loading",
@@ -49,6 +49,12 @@ class ProgressiveButton extends StatelessWidget {
               color: Colors.green.shade400,
             )
           },
+          // minWidthStates: [
+          //   ButtonState.idle,
+          //   ButtonState.loading,
+          //   ButtonState.success,
+          //   ButtonState.fail,
+          // ],
           onPressed: onPressed,
           state: phoneLoginProgressInstance.btnStatus.value,
           radius: 5.0,

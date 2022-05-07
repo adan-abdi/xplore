@@ -16,7 +16,6 @@ import 'package:xplore/application/redux/actions/enter_otp_action.dart';
 import 'package:xplore/application/redux/actions/update_user_state_action.dart';
 import 'package:xplore/application/redux/misc/flags.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
-import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_constants.dart';
 import 'package:xplore/domain/value_objects/app_error_strings.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
