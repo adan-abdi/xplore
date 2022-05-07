@@ -50,42 +50,7 @@ class VerifyPhoneAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     await globalFirebaseAuthInstance.verifyPhoneNumber(
       phoneNumber: phoneNumber,
-      verificationCompleted: (PhoneAuthCredential credential) async {
-        final AuthCredential _credential = PhoneAuthProvider.credential(
-          verificationId: state.userState!.pinCodeVerificationID ?? '',
-          smsCode: state.userState!.pinCode ?? '',
-        );
-        await globalFirebaseAuthInstance.signInWithCredential(_credential);
-        final User? user =
-            (await globalFirebaseAuthInstance.signInWithCredential(_credential))
-                .user;
-        final User? currentUser = globalFirebaseAuthInstance.currentUser;
-        assert(user!.uid == currentUser!.uid);
-
-        if (user != null) {
-          StoreProvider.dispatch(
-              context,
-              UpdateUserStateAction(
-                isSignedIn: true,
-                phoneNumber: user.phoneNumber,
-                uid: user.uid,
-              ));
-
-          appInitialRoute.initialRoute.add(
-            await getInitialRoute(state: state),
-          );
-
-          StoreProvider.dispatch<AppState>(
-            context,
-            NavigateAction.pushNamed(dashPageRoute),
-          );
-        } else {
-          phoneLoginProgressInstance.btnStatus.add(ButtonState.fail);
-          ScaffoldMessenger.of(context).showSnackBar(snackbar(
-            content: "Sign In Failed",
-          ));
-        }
-      },
+      verificationCompleted: (PhoneAuthCredential credential) async {},
       verificationFailed: (FirebaseAuthException e) {
         phoneLoginProgressInstance.btnStatus.add(ButtonState.fail);
         ScaffoldMessenger.of(context)
