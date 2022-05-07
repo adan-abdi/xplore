@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:progress_state_button/progress_button.dart';
 import 'package:rxdart/rxdart.dart';
 
 // Project imports:
 import 'package:xplore/domain/value_objects/app_enums.dart';
-import 'package:progress_state_button/progress_button.dart';
 
 class ButtonStatusStore {
   factory ButtonStatusStore() {

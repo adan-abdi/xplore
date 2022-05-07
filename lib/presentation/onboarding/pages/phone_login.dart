@@ -14,10 +14,10 @@ import 'package:xplore/domain/value_objects/app_enums.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
-import 'package:xplore/presentation/onboarding/widgets/buttons/progressive_button.dart';
-import 'package:xplore/presentation/onboarding/widgets/input/login_phone_field.dart';
 import 'package:xplore/presentation/onboarding/widgets/layout/keyboard_scaffold.dart';
-import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
+import 'package:xplore/presentation/onboarding/widgets/molecular/buttons/progressive_button.dart';
+import 'package:xplore/presentation/onboarding/widgets/molecular/input/login_phone_field.dart';
+import 'package:xplore/presentation/onboarding/widgets/molecular/text/login_title.dart';
 
 class PhoneLogin extends StatefulWidget {
   const PhoneLogin({Key? key}) : super(key: key);

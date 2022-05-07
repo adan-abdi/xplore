@@ -16,9 +16,9 @@ import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
 import 'package:xplore/infrastructure/remote/firebase_auth.dart';
-import 'package:xplore/presentation/onboarding/widgets/buttons/action_button.dart';
 import 'package:xplore/presentation/onboarding/widgets/layout/keyboard_scaffold.dart';
-import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
+import 'package:xplore/presentation/onboarding/widgets/molecular/buttons/action_button.dart';
+import 'package:xplore/presentation/onboarding/widgets/molecular/text/login_title.dart';
 
 class PhoneVerifyPage extends StatefulWidget {
   const PhoneVerifyPage({
@@ -134,7 +134,9 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                 colorStream: otpBtnStore.colorStream,
                 statusStream: otpBtnStore.statusStream,
                 onTapCallback: () {
-                  xploreFirebaseAuth.verifyOtp(otpPinCodeFieldController.text, context, state, isSignedIn: state.userState!.isSignedIn);
+                  xploreFirebaseAuth.verifyOtp(
+                      otpPinCodeFieldController.text, context, state,
+                      isSignedIn: state.userState!.isSignedIn);
                 },
               ),
             ],

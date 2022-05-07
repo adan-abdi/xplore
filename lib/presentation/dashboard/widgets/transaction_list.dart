@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Project imports:
-import 'package:xplore/infrastructure/database.dart';
+import 'package:xplore/infrastructure/local/database.dart';
 
 class TransactionList extends StatefulWidget {
   final String tstatus;

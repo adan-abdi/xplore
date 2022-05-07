@@ -185,4 +185,3 @@ void validatePhone({
 
 ProgressBtnStore phoneLoginProgressInstance = ProgressBtnStore();
 InitialRouteStore appInitialRoute = InitialRouteStore();
-

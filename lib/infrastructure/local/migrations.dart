@@ -1,5 +1,7 @@
 // Project imports:
-import 'package:xplore/infrastructure/database_base.dart';
+
+// Project imports:
+import 'package:xplore/infrastructure/local/database_base.dart';
 
 final List<String> migrations = <String>[
   '''

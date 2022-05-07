@@ -6,9 +6,11 @@ import 'dart:convert';
 import 'package:sqflite/sqflite.dart';
 
 // Project imports:
-import 'package:xplore/infrastructure/database_base.dart';
-import 'package:xplore/infrastructure/initialize_db.dart';
-import 'package:xplore/infrastructure/sqlite.dart';
+import 'package:xplore/infrastructure/local/database_base.dart';
+import 'package:xplore/infrastructure/local/initialize_db.dart';
+import 'package:xplore/infrastructure/local/sqlite.dart';
+
+// Project imports:
 
 class XploreDatabaseMobile<T extends DatabaseExecutor>
     implements XploreDatabaseBase<T> {
