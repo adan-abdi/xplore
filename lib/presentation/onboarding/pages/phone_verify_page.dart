@@ -9,13 +9,13 @@ import 'package:async_redux/async_redux.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 // Project imports:
-import 'package:xplore/application/core/services/helpers.dart';
 import 'package:xplore/application/core/themes/colors.dart';
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/application/singletons/button_status.dart';
 import 'package:xplore/domain/routes/routes.dart';
 import 'package:xplore/domain/value_objects/app_spaces.dart';
 import 'package:xplore/domain/value_objects/app_strings.dart';
+import 'package:xplore/infrastructure/remote/firebase_auth.dart';
 import 'package:xplore/presentation/onboarding/widgets/buttons/action_button.dart';
 import 'package:xplore/presentation/onboarding/widgets/layout/keyboard_scaffold.dart';
 import 'package:xplore/presentation/onboarding/widgets/login_title.dart';
@@ -47,6 +47,8 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
 
   @override
   Widget build(BuildContext context) {
+    var xploreFirebaseAuth = XploreFirebaseAuth();
+
     return StoreConnector(
         converter: (Store<AppState> store) => store.state,
         builder: (BuildContext context, AppState state) {
@@ -132,7 +134,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                 colorStream: otpBtnStore.colorStream,
                 statusStream: otpBtnStore.statusStream,
                 onTapCallback: () {
-                  verifyOtp(otpPinCodeFieldController.text, context, state, isSignedIn: state.userState!.isSignedIn);
+                  xploreFirebaseAuth.verifyOtp(otpPinCodeFieldController.text, context, state, isSignedIn: state.userState!.isSignedIn);
                 },
               ),
             ],
