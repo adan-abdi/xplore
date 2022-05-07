@@ -56,7 +56,9 @@ class VerifyPhoneAction extends ReduxAction<AppState> {
           smsCode: state.userState!.pinCode ?? '',
         );
         await globalFirebaseAuthInstance.signInWithCredential(_credential);
-        final User? user = (await globalFirebaseAuthInstance.signInWithCredential(_credential)).user;
+        final User? user =
+            (await globalFirebaseAuthInstance.signInWithCredential(_credential))
+                .user;
         final User? currentUser = globalFirebaseAuthInstance.currentUser;
         assert(user!.uid == currentUser!.uid);
 

@@ -15,7 +15,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 // Project imports:
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/domain/value_objects/app_global_constants.dart';
-import 'package:xplore/infrastructure/database_state_persistor.dart';
+import 'package:xplore/infrastructure/local/database_state_persistor.dart';
 import 'package:xplore/presentation/core/widgets/unrecoverable_error_widget.dart';
 import 'package:xplore/xplore_app.dart';
 

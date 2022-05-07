@@ -51,8 +51,8 @@ class _ActionButtonState extends State<ActionButton> {
                   ),
                   child: StreamBuilder(
                     stream: widget.statusStream,
-                    builder:
-                        (BuildContext context, AsyncSnapshot<bool> statusStream) {
+                    builder: (BuildContext context,
+                        AsyncSnapshot<bool> statusStream) {
                       return Text(
                         widget.widgetText,
                         style: TextStyle(

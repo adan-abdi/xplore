@@ -2,7 +2,9 @@
 import 'package:sqflite/sqflite.dart';
 
 // Project imports:
-import 'package:xplore/infrastructure/sqlite.dart';
+import 'package:xplore/infrastructure/local/sqlite.dart';
+
+// Project imports:
 
 class InitializeDB<T extends DatabaseExecutor> extends InitializeDBHelper<T> {
   InitializeDB({

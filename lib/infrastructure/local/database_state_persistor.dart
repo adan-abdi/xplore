@@ -8,9 +8,9 @@ import 'package:sqflite/sqflite.dart';
 // Project imports:
 import 'package:xplore/application/redux/states/app_state.dart';
 import 'package:xplore/application/redux/states/user_state.dart';
-import 'package:xplore/infrastructure/database_base.dart';
-import 'package:xplore/infrastructure/database_mobile.dart';
-import 'package:xplore/infrastructure/initialize_db.dart';
+import 'package:xplore/infrastructure/local/database_base.dart';
+import 'package:xplore/infrastructure/local/database_mobile.dart';
+import 'package:xplore/infrastructure/local/initialize_db.dart';
 
 /// [XploreStateDatabase] is the middleware that interacts with the database on behalf
 /// of the application. From the apps perspective, it doesn't care which database
