@@ -110,7 +110,8 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                     enableActiveFill: true,
                     controller: otpPinCodeFieldController,
                     onCompleted: (v) {
-                      xploreFirebaseAuth.verifyOtp(otpPinCodeFieldController.text, context, state,
+                      xploreFirebaseAuth.verifyOtp(
+                          otpPinCodeFieldController.text, context, state,
                           isSignedIn: state.userState!.isSignedIn);
                     },
                     onChanged: (value) {
@@ -129,13 +130,28 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                 ),
               ),
               vSize20SizedBox,
+              // AnimatedButton(
+              //   controller: animatedButtonController,
+              //   color: XploreColors.deepBlue,
+              //   text: 'Resend OTP Code',
+              //   loadingText: 'Loading',
+              //   loadedIcon: Icon(Icons.check, color: Colors.white),
+              //   onPressed: () async {
+              //     /// calling your API here and wait for the response.
+              //     await Future.delayed(Duration(seconds: 5)); // simulated your API requesting time.
+              //     animatedButtonController.completed(); // call when you get the response
+              //     await Future.delayed(Duration(seconds: 2));
+              //     animatedButtonController.reset(); // call to reset button animation
+              //   },
+              // ),
               ActionButton(
                 widgetText: nextText,
                 nextRoute: dashPageRoute,
                 colorStream: otpBtnStore.colorStream,
                 statusStream: otpBtnStore.statusStream,
                 onTapCallback: () {
-                  xploreFirebaseAuth.verifyOtp(otpPinCodeFieldController.text, context, state,
+                  xploreFirebaseAuth.verifyOtp(
+                      otpPinCodeFieldController.text, context, state,
                       isSignedIn: state.userState!.isSignedIn);
                 },
               ),
