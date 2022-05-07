@@ -13,3 +13,9 @@ sort:
 .PHONY: buildReleaseArtefacts
 release:
 	flutter build apk && flutter build appbundle && eytool -printcert -jarfile /home/adan/Projects/live/shamiri/xplore/build/app/outputs/bundle/release/app-release.aab
+
+.PHONY: syncRemote
+syncRemote:
+	git checkout master && \
+	git branch | grep -v "master" | xargs git branch -D && \
+	git pull origin master
