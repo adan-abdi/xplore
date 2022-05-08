@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xplore.mobile">
+    package="com.shamiri.mobile">
    <application
         android:name="${applicationName}"
-        android:label="xplore"
+        android:label="Shamiri"
         android:icon="@mipmap/logo">
         <activity
             android:name=".MainActivity"
