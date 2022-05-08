@@ -1,4 +1,4 @@
-package com.xplore.mobile
+package com.shamiri.mobile
 
 import io.flutter.embedding.android.FlutterActivity
 

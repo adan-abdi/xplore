@@ -7,6 +7,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:928513386554:android:56f3a62b1c96425aa8ad03",
+        "android_client_info": {
+          "package_name": "com.shamiri.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928513386554-p8kbd6ck6lsf60j2p1ufc77ai3vq9585.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shamiri.app",
+            "certificate_hash": "25fbe8ab5216ec3b7639eff7e91df09559c54ba3"
+          }
+        },
+        {
+          "client_id": "928513386554-v4qhqpromtc53pobg6vem93neekmlph7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz2ZEHAnbMssALhe6kDAM02itp01-KfBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "928513386554-v4qhqpromtc53pobg6vem93neekmlph7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:928513386554:android:35361739581025f3a8ad03",
         "android_client_info": {
           "package_name": "com.xplore.mobile"
@@ -14,11 +51,27 @@
       },
       "oauth_client": [
         {
-          "client_id": "928513386554-0f9hjp2s4i4a51au0t74oavceuandjic.apps.googleusercontent.com",
+          "client_id": "928513386554-2u077vqthluuddoktc0dbr531pm7gamj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.xplore.mobile",
             "certificate_hash": "25fbe8ab5216ec3b7639eff7e91df09559c54ba3"
+          }
+        },
+        {
+          "client_id": "928513386554-90m65u32jqv2d9ma82kr58rqg7tv30jb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xplore.mobile",
+            "certificate_hash": "48fafb4dd747178abd4e869fcb6d24a5c77df644"
+          }
+        },
+        {
+          "client_id": "928513386554-mdbev9f8up9soktst1rot6n4od33hq0i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xplore.mobile",
+            "certificate_hash": "0d0e1fd5d6ffca65dc166f705f1679f423389386"
           }
         },
         {
