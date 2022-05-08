@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:xplore/domain/routes/routes.dart';
-import 'package:xplore/presentation/core/widgets/unrecoverable_error_widget.dart';
-import 'package:xplore/presentation/dashboard/pages/Base.dart';
-import 'package:xplore/presentation/dashboard/pages/Profile.dart';
-import 'package:xplore/presentation/onboarding/pages/landing_page.dart';
-import 'package:xplore/presentation/onboarding/pages/phone_login.dart';
-import 'package:xplore/presentation/onboarding/pages/phone_verify_page.dart';
-import 'package:xplore/xplore_app.dart';
+import 'package:shamiri/domain/routes/routes.dart';
+import 'package:shamiri/presentation/core/widgets/unrecoverable_error_widget.dart';
+import 'package:shamiri/presentation/dashboard/pages/Base.dart';
+import 'package:shamiri/presentation/dashboard/pages/Profile.dart';
+import 'package:shamiri/presentation/onboarding/pages/landing_page.dart';
+import 'package:shamiri/presentation/onboarding/pages/phone_login.dart';
+import 'package:shamiri/presentation/onboarding/pages/phone_verify_page.dart';
+import 'package:shamiri/xplore_app.dart';
 
 class AppRouterGenerator {
   static Route<dynamic>? generateRoute(RouteSettings? settings) {

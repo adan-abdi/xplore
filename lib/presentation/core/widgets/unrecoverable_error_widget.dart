@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:xplore/application/core/themes/app_themes.dart';
-import 'package:xplore/domain/value_objects/app_asset_strings.dart';
+import 'package:shamiri/application/core/themes/app_themes.dart';
+import 'package:shamiri/domain/value_objects/app_asset_strings.dart';
 
 class UnrecoverableErrorWidget extends StatelessWidget {
   const UnrecoverableErrorWidget({Key? key}) : super(key: key);
@@ -13,8 +13,7 @@ class UnrecoverableErrorWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage(errorDisplayImgUrl), fit: BoxFit.fitHeight),
+        image: DecorationImage(image: AssetImage(errorDisplayImgUrl), fit: BoxFit.fitHeight),
       ),
       child: Align(
         alignment: Alignment.bottomCenter,

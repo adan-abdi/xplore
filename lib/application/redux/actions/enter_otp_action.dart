@@ -8,13 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:async_redux/async_redux.dart';
 
 // Project imports:
-import 'package:xplore/application/core/services/helpers.dart';
-import 'package:xplore/application/core/themes/colors.dart';
-import 'package:xplore/application/redux/actions/update_user_state_action.dart';
-import 'package:xplore/application/redux/misc/flags.dart';
-import 'package:xplore/application/redux/states/app_state.dart';
-import 'package:xplore/domain/routes/routes.dart';
-import 'package:xplore/domain/value_objects/app_constants.dart';
+import 'package:shamiri/application/core/services/helpers.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/application/redux/actions/update_user_state_action.dart';
+import 'package:shamiri/application/redux/misc/flags.dart';
+import 'package:shamiri/application/redux/states/app_state.dart';
+import 'package:shamiri/domain/routes/routes.dart';
+import 'package:shamiri/domain/value_objects/app_constants.dart';
 
 class EnterOtpAction extends ReduxAction<AppState> {
   final String verificationId;
@@ -42,10 +42,7 @@ class EnterOtpAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     dispatch(
-      UpdateUserStateAction(
-          isSignedIn: false,
-          pinCodeVerificationID: verificationId,
-          hasDoneTour: false),
+      UpdateUserStateAction(isSignedIn: false, pinCodeVerificationID: verificationId, hasDoneTour: false),
     );
 
     dispatch(NavigateAction.pushNamed(otpPageRoute));

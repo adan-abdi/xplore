@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:xplore/application/core/themes/colors.dart';
-import 'package:xplore/presentation/core/widgets/xplore_card.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/presentation/core/widgets/xplore_card.dart';
 
 class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
   final bool? automaticallyImplyLeading;
@@ -34,8 +34,7 @@ class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       title: Text(
         title,
-        style: TextStyle(
-            color: isWidgetActive ? XploreColors.deepBlue : XploreColors.white),
+        style: TextStyle(color: isWidgetActive ? XploreColors.deepBlue : XploreColors.white),
       ),
       centerTitle: true,
       backgroundColor: backgroundColor ?? XploreColors.deepBlue,

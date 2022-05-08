@@ -10,17 +10,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:progress_state_button/progress_button.dart';
 
 // Project imports:
-import 'package:xplore/application/core/services/helpers.dart';
-import 'package:xplore/application/core/themes/colors.dart';
-import 'package:xplore/application/redux/actions/enter_otp_action.dart';
-import 'package:xplore/application/redux/actions/update_user_state_action.dart';
-import 'package:xplore/application/redux/misc/flags.dart';
-import 'package:xplore/application/redux/states/app_state.dart';
-import 'package:xplore/domain/value_objects/app_constants.dart';
-import 'package:xplore/domain/value_objects/app_error_strings.dart';
-import 'package:xplore/domain/value_objects/app_strings.dart';
-import 'package:xplore/infrastructure/remote/firebase_auth.dart';
-import 'package:xplore/presentation/core/widgets/xplore_snackbar.dart';
+import 'package:shamiri/application/core/services/helpers.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/application/redux/actions/enter_otp_action.dart';
+import 'package:shamiri/application/redux/actions/update_user_state_action.dart';
+import 'package:shamiri/application/redux/misc/flags.dart';
+import 'package:shamiri/application/redux/states/app_state.dart';
+import 'package:shamiri/domain/value_objects/app_constants.dart';
+import 'package:shamiri/domain/value_objects/app_error_strings.dart';
+import 'package:shamiri/domain/value_objects/app_strings.dart';
+import 'package:shamiri/infrastructure/remote/firebase_auth.dart';
+import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
 
 class VerifyPhoneAction extends ReduxAction<AppState> {
   VerifyPhoneAction({

@@ -9,16 +9,16 @@ import 'package:async_redux/async_redux.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 // Project imports:
-import 'package:xplore/application/core/themes/colors.dart';
-import 'package:xplore/application/redux/states/app_state.dart';
-import 'package:xplore/application/singletons/button_status.dart';
-import 'package:xplore/domain/routes/routes.dart';
-import 'package:xplore/domain/value_objects/app_spaces.dart';
-import 'package:xplore/domain/value_objects/app_strings.dart';
-import 'package:xplore/infrastructure/remote/firebase_auth.dart';
-import 'package:xplore/presentation/onboarding/widgets/layout/keyboard_scaffold.dart';
-import 'package:xplore/presentation/onboarding/widgets/molecular/buttons/action_button.dart';
-import 'package:xplore/presentation/onboarding/widgets/molecular/text/login_title.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/application/redux/states/app_state.dart';
+import 'package:shamiri/application/singletons/button_status.dart';
+import 'package:shamiri/domain/routes/routes.dart';
+import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/domain/value_objects/app_strings.dart';
+import 'package:shamiri/infrastructure/remote/firebase_auth.dart';
+import 'package:shamiri/presentation/onboarding/widgets/layout/keyboard_scaffold.dart';
+import 'package:shamiri/presentation/onboarding/widgets/molecular/buttons/action_button.dart';
+import 'package:shamiri/presentation/onboarding/widgets/molecular/text/login_title.dart';
 
 class PhoneVerifyPage extends StatefulWidget {
   const PhoneVerifyPage({
@@ -110,8 +110,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                     enableActiveFill: true,
                     controller: otpPinCodeFieldController,
                     onCompleted: (v) {
-                      xploreFirebaseAuth.verifyOtp(
-                          otpPinCodeFieldController.text, context, state,
+                      xploreFirebaseAuth.verifyOtp(otpPinCodeFieldController.text, context, state,
                           isSignedIn: state.userState!.isSignedIn);
                     },
                     onChanged: (value) {
@@ -150,8 +149,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                 colorStream: otpBtnStore.colorStream,
                 statusStream: otpBtnStore.statusStream,
                 onTapCallback: () {
-                  xploreFirebaseAuth.verifyOtp(
-                      otpPinCodeFieldController.text, context, state,
+                  xploreFirebaseAuth.verifyOtp(otpPinCodeFieldController.text, context, state,
                       isSignedIn: state.userState!.isSignedIn);
                 },
               ),

@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:xplore/application/core/themes/colors.dart';
-import 'package:xplore/application/singletons/button_status.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/application/singletons/button_status.dart';
 
 class PhoneLoginField extends StatefulWidget {
   final TextEditingController phoneNumberController;

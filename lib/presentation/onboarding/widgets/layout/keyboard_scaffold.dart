@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:xplore/application/core/services/helpers.dart';
-import 'package:xplore/application/core/themes/colors.dart';
-import 'package:xplore/presentation/core/pages/xplore_numeric_keyboard.dart';
-import 'package:xplore/presentation/core/widgets/xplore_small_appbar.dart';
-import 'package:xplore/presentation/onboarding/widgets/layout/circles.dart';
-import 'package:xplore/presentation/onboarding/widgets/layout/diagonal_circles.dart';
+import 'package:shamiri/application/core/services/helpers.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/presentation/core/pages/xplore_numeric_keyboard.dart';
+import 'package:shamiri/presentation/core/widgets/xplore_small_appbar.dart';
+import 'package:shamiri/presentation/onboarding/widgets/layout/circles.dart';
+import 'package:shamiri/presentation/onboarding/widgets/layout/diagonal_circles.dart';
 
 class KeyboardScaffold extends StatefulWidget {
   final IconData? trailingActionIcon;
@@ -55,9 +55,7 @@ class _KeyboardScaffoldState extends State<KeyboardScaffold> {
       body: Stack(
         children: <Widget>[
           ...circles(context, circleColor: XploreColors.whiteSmoke),
-          ...diagonalCircles(context,
-              ringColor1: XploreColors.whiteSmoke,
-              ringColor2: XploreColors.whiteSmoke),
+          ...diagonalCircles(context, ringColor1: XploreColors.whiteSmoke, ringColor2: XploreColors.whiteSmoke),
           Positioned(
             top: 0,
             left: 0,

@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:928513386554:android:56f3a62b1c96425aa8ad03",
+        "mobilesdk_app_id": "1:928513386554:android:3958d3c2a3533deaa8ad03",
         "android_client_info": {
-          "package_name": "com.shamiri.app"
+          "package_name": "com.shamiri.mobile"
         }
       },
       "oauth_client": [
         {
-          "client_id": "928513386554-p8kbd6ck6lsf60j2p1ufc77ai3vq9585.apps.googleusercontent.com",
+          "client_id": "928513386554-er9otgmjh2u6osi6r65i4jgiffjskrqa.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.shamiri.app",
+            "package_name": "com.shamiri.mobile",
             "certificate_hash": "25fbe8ab5216ec3b7639eff7e91df09559c54ba3"
           }
         },

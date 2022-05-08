@@ -1,5 +1,5 @@
-# Xplore App
+# Shamiri App
 
-Xplore: Built for scale, made for convenience
+Shamiri: Built for scale, made for convenience
 
 Keep your store in order , Easy to use  point of sale

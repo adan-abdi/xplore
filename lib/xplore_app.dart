@@ -9,14 +9,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 // Project imports:
-import 'package:xplore/application/core/services/helpers.dart';
-import 'package:xplore/application/redux/states/app_state.dart';
-import 'package:xplore/domain/core/lifecycle_event_handler.dart';
-import 'package:xplore/domain/routes/route_generator.dart';
-import 'package:xplore/domain/routes/routes.dart';
-import 'package:xplore/domain/value_objects/app_global_constants.dart';
-import 'package:xplore/presentation/core/widgets/xplore_app_wrapper.dart';
-import 'package:xplore/presentation/core/widgets/xplore_loader.dart';
+import 'package:shamiri/application/core/services/helpers.dart';
+import 'package:shamiri/application/redux/states/app_state.dart';
+import 'package:shamiri/domain/core/lifecycle_event_handler.dart';
+import 'package:shamiri/domain/routes/route_generator.dart';
+import 'package:shamiri/domain/routes/routes.dart';
+import 'package:shamiri/domain/value_objects/app_global_constants.dart';
+import 'package:shamiri/presentation/core/widgets/xplore_app_wrapper.dart';
+import 'package:shamiri/presentation/core/widgets/xplore_loader.dart';
 
 class XploreApp extends StatefulWidget {
   const XploreApp({required this.store});
@@ -94,9 +94,7 @@ class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
                         navigatorObservers: <NavigatorObserver>[
                           FirebaseAnalyticsObserver(analytics: _analytics),
                         ],
-                        initialRoute:
-                            appInitialRoute.initialRoute.valueOrNull ??
-                                landingPageRoute,
+                        initialRoute: appInitialRoute.initialRoute.valueOrNull ?? landingPageRoute,
                         onGenerateRoute: AppRouterGenerator.generateRoute,
                       );
                     }),

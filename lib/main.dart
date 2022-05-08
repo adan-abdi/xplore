@@ -13,11 +13,11 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 // Project imports:
-import 'package:xplore/application/redux/states/app_state.dart';
-import 'package:xplore/domain/value_objects/app_global_constants.dart';
-import 'package:xplore/infrastructure/local/database_state_persistor.dart';
-import 'package:xplore/presentation/core/widgets/unrecoverable_error_widget.dart';
-import 'package:xplore/xplore_app.dart';
+import 'package:shamiri/application/redux/states/app_state.dart';
+import 'package:shamiri/domain/value_objects/app_global_constants.dart';
+import 'package:shamiri/infrastructure/local/database_state_persistor.dart';
+import 'package:shamiri/presentation/core/widgets/unrecoverable_error_widget.dart';
+import 'package:shamiri/xplore_app.dart';
 
 void main() async {
   await runZonedGuarded<Future<void>>(() async {
@@ -30,8 +30,7 @@ void main() async {
 
     NavigateAction.setNavigatorKey(globalAppNavigatorKey);
 
-    final XploreStateDatabase stateDB =
-        XploreStateDatabase(dataBaseName: xploreDBName);
+    final XploreStateDatabase stateDB = XploreStateDatabase(dataBaseName: xploreDBName);
 
     await stateDB.init();
 

@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:xplore/application/core/themes/colors.dart';
-import 'package:xplore/domain/value_objects/app_magic_numbers.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/domain/value_objects/app_magic_numbers.dart';
 
 class LandingPageTitle extends StatelessWidget {
   @override
@@ -19,10 +19,7 @@ class LandingPageTitle extends StatelessWidget {
             textAlign: TextAlign.start,
             text: TextSpan(
               text: 'Fast \n',
-              style: TextStyle(
-                  color: XploreColors.deepBlue,
-                  fontSize: mainTitleFontSize,
-                  fontWeight: FontWeight.bold),
+              style: TextStyle(color: XploreColors.deepBlue, fontSize: mainTitleFontSize, fontWeight: FontWeight.bold),
               children: <TextSpan>[
                 TextSpan(
                     text: '   & ',

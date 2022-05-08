@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:xplore/infrastructure/local/database.dart';
+import 'package:shamiri/infrastructure/local/database.dart';
 
 class EditProducts extends StatefulWidget {
   final String name;
@@ -60,8 +60,7 @@ class _EditProductsState extends State<EditProducts> {
         actions: <Widget>[
           IconButton(
               onPressed: () {
-                Database.deleteProduct(widget.docId)
-                    .whenComplete(() => Navigator.of(context).pop());
+                Database.deleteProduct(widget.docId).whenComplete(() => Navigator.of(context).pop());
               },
               icon: Icon(
                 Icons.delete,
@@ -91,8 +90,7 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -117,8 +115,7 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -144,8 +141,7 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -171,8 +167,7 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -197,8 +192,7 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -223,8 +217,7 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.grey, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -254,8 +247,7 @@ class _EditProductsState extends State<EditProducts> {
                                   quantity: _qty.text,
                                   category: _cat.text,
                                   docId: widget.docId,
-                                  image:
-                                      'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg')
+                                  image: 'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg')
                               .whenComplete(() => Navigator.of(context).pop());
                         },
                         child: Text('Save Product')),
@@ -263,8 +255,7 @@ class _EditProductsState extends State<EditProducts> {
                 ),
                 Padding(
                     // this is new
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom)),
+                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)),
               ]),
         ),
       ),

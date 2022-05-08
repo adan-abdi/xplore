@@ -2,7 +2,7 @@
 import 'package:sqflite/sqflite.dart';
 
 // Project imports:
-import 'package:xplore/infrastructure/local/sqlite.dart';
+import 'package:shamiri/infrastructure/local/sqlite.dart';
 
 // Project imports:
 

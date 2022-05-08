@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:xplore/application/core/themes/colors.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
 
 class XploreIconCard extends StatelessWidget {
   final IconData icon;

@@ -6,16 +6,14 @@ import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
 
 // Project imports:
-import 'package:xplore/application/core/services/helpers.dart';
-import 'package:xplore/application/core/themes/colors.dart';
+import 'package:shamiri/application/core/services/helpers.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
 
 class ProgressiveButton extends StatelessWidget {
   final Function onPressed;
   final ButtonState buttonState;
 
-  const ProgressiveButton(
-      {Key? key, required this.onPressed, this.buttonState = ButtonState.idle})
-      : super(key: key);
+  const ProgressiveButton({Key? key, required this.onPressed, this.buttonState = ButtonState.idle}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
