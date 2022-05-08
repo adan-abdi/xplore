@@ -35,7 +35,8 @@ class XploreStateDatabase implements PersistorPrinterDecorator<AppState> {
 
   @override
   Future<void> deleteState() async {
-    await XploreDatabaseMobile<Database>(initializeDB: InitializeDB<Database>(dbName: this.dataBaseName))
+    await XploreDatabaseMobile<Database>(
+            initializeDB: InitializeDB<Database>(dbName: this.dataBaseName))
         .clearDatabase();
   }
 
@@ -46,7 +47,8 @@ class XploreStateDatabase implements PersistorPrinterDecorator<AppState> {
   }) async {
     await Future<dynamic>.delayed(saveDuration!);
 
-    if (lastPersistedState == null || lastPersistedState.userState != newState.userState) {
+    if (lastPersistedState == null ||
+        lastPersistedState.userState != newState.userState) {
       await persistState(
         newState,
         XploreDatabaseMobile<Database>(
@@ -62,12 +64,14 @@ class XploreStateDatabase implements PersistorPrinterDecorator<AppState> {
   /// - else, we retrieve the state from the database
   @override
   Future<AppState> readState() async {
-    if (await XploreDatabaseMobile<Database>(initializeDB: InitializeDB<Database>(dbName: this.dataBaseName))
+    if (await XploreDatabaseMobile<Database>(
+            initializeDB: InitializeDB<Database>(dbName: this.dataBaseName))
         .isDatabaseEmpty()) {
       return AppState.initial();
     } else {
       return retrieveState(
-        XploreDatabaseMobile<Database>(initializeDB: InitializeDB<Database>(dbName: this.dataBaseName)),
+        XploreDatabaseMobile<Database>(
+            initializeDB: InitializeDB<Database>(dbName: this.dataBaseName)),
       );
     }
   }
@@ -79,20 +83,25 @@ class XploreStateDatabase implements PersistorPrinterDecorator<AppState> {
 
   /// initialize the database
   Future<void> init() async {
-    await XploreDatabaseMobile(initializeDB: InitializeDB(dbName: this.dataBaseName)).database;
+    await XploreDatabaseMobile(
+            initializeDB: InitializeDB(dbName: this.dataBaseName))
+        .database;
   }
 
   @visibleForTesting
-  Future<void> persistState(AppState newState, XploreDatabaseBase<dynamic> database) async {
+  Future<void> persistState(
+      AppState newState, XploreDatabaseBase<dynamic> database) async {
     // save KYC state
-    await database.saveState(data: newState.userState!.toJson(), table: Tables.userState);
+    await database.saveState(
+        data: newState.userState!.toJson(), table: Tables.userState);
   }
 
   @visibleForTesting
   Future<AppState> retrieveState(XploreDatabaseBase<dynamic> database) async {
     return const AppState().copyWith(
       // retrieve Onboarding State
-      userState: UserState.fromJson(await database.retrieveState(Tables.userState)),
+      userState:
+          UserState.fromJson(await database.retrieveState(Tables.userState)),
 
       wait: Wait(),
     );

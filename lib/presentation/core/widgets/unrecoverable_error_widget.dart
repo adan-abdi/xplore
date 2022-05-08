@@ -13,7 +13,8 @@ class UnrecoverableErrorWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       decoration: const BoxDecoration(
-        image: DecorationImage(image: AssetImage(errorDisplayImgUrl), fit: BoxFit.fitHeight),
+        image: DecorationImage(
+            image: AssetImage(errorDisplayImgUrl), fit: BoxFit.fitHeight),
       ),
       child: Align(
         alignment: Alignment.bottomCenter,

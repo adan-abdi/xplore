@@ -46,9 +46,11 @@ class UpdateUserStateAction extends ReduxAction<AppState> {
       isSignedIn: this.isSignedIn ?? state.userState?.isSignedIn,
       hasDoneTour: this.hasDoneTour ?? state.userState?.hasDoneTour,
       phoneNumber: this.phoneNumber ?? state.userState?.phoneNumber,
-      initialPhoneNumber: this.initialPhoneNumber ?? state.userState?.initialPhoneNumber,
+      initialPhoneNumber:
+          this.initialPhoneNumber ?? state.userState?.initialPhoneNumber,
       pinCode: this.pinCode ?? state.userState?.pinCode,
-      pinCodeVerificationID: this.pinCodeVerificationID ?? state.userState?.pinCodeVerificationID,
+      pinCodeVerificationID:
+          this.pinCodeVerificationID ?? state.userState?.pinCodeVerificationID,
     );
 
     final AppState newState = state.copyWith(userState: newUserState);

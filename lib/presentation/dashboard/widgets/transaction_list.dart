@@ -123,7 +123,8 @@ class _TransactionListState extends State<TransactionList> {
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Container(
-                height: MediaQuery.of(context).size.height * 0.7, child: Center(child: Text('Something went wrong')));
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: Center(child: Text('Something went wrong')));
           } else if (snapshot.hasData || snapshot.data != null) {
             return Column(
               children: <Widget>[
@@ -155,15 +156,20 @@ class _TransactionListState extends State<TransactionList> {
                               child: Icon(Icons.delete),
                             ),
                             onDismissed: (direction) {
-                              Database.deleteTransaction(docID).whenComplete(() {
+                              Database.deleteTransaction(docID)
+                                  .whenComplete(() {
                                 setState(() {
                                   snapshot.data!.docChanges.removeAt(index);
                                 });
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(content: Text('Transaction of $name deleted')));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            'Transaction of $name deleted')));
                               });
                             },
-                            child: status == widget.tstatus ? _transactions(name, qty, image) : Container());
+                            child: status == widget.tstatus
+                                ? _transactions(name, qty, image)
+                                : Container());
                       }),
                 )
               ],

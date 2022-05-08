@@ -71,7 +71,8 @@ class _PhoneLoginState extends State<PhoneLogin> {
                 setState(() {
                   phoneNumberController.text = v;
                   if (phoneNumberController.text.length >= 10) {
-                    actionButtonState.phoneLoginColorStream.add(ButtonStatus.active.color);
+                    actionButtonState.phoneLoginColorStream
+                        .add(ButtonStatus.active.color);
                   }
                 });
               },
@@ -81,11 +82,13 @@ class _PhoneLoginState extends State<PhoneLogin> {
         ProgressiveButton(
           onPressed: () {
             if (phoneNumberController.text.length >= 10 &&
-                (phoneNumberController.text.startsWith('+254') || phoneNumberController.text.startsWith('07'))) {
+                (phoneNumberController.text.startsWith('+254') ||
+                    phoneNumberController.text.startsWith('07'))) {
               phoneLoginProgressInstance.btnStatus.add(ButtonState.loading);
               StoreProvider.dispatch<AppState>(
                 context,
-                VerifyPhoneAction(phoneNumber: phoneNumberController.text, context: context),
+                VerifyPhoneAction(
+                    phoneNumber: phoneNumberController.text, context: context),
               );
             } else {
               ScaffoldMessenger.of(context)

@@ -94,7 +94,9 @@ class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
                         navigatorObservers: <NavigatorObserver>[
                           FirebaseAnalyticsObserver(analytics: _analytics),
                         ],
-                        initialRoute: appInitialRoute.initialRoute.valueOrNull ?? landingPageRoute,
+                        initialRoute:
+                            appInitialRoute.initialRoute.valueOrNull ??
+                                landingPageRoute,
                         onGenerateRoute: AppRouterGenerator.generateRoute,
                       );
                     }),

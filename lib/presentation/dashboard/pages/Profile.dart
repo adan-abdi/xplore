@@ -44,7 +44,10 @@ class _ProfileState extends State<Profile> {
             child: Center(
               child: Text(
                 'Merchant Profile',
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24, color: Colors.deepOrange),
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 24,
+                    color: Colors.deepOrange),
               ),
             )),
       ),

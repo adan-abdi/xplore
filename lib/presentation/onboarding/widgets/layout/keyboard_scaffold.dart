@@ -55,7 +55,9 @@ class _KeyboardScaffoldState extends State<KeyboardScaffold> {
       body: Stack(
         children: <Widget>[
           ...circles(context, circleColor: XploreColors.whiteSmoke),
-          ...diagonalCircles(context, ringColor1: XploreColors.whiteSmoke, ringColor2: XploreColors.whiteSmoke),
+          ...diagonalCircles(context,
+              ringColor1: XploreColors.whiteSmoke,
+              ringColor2: XploreColors.whiteSmoke),
           Positioned(
             top: 0,
             left: 0,

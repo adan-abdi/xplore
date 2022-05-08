@@ -30,7 +30,8 @@ void main() async {
 
     NavigateAction.setNavigatorKey(globalAppNavigatorKey);
 
-    final XploreStateDatabase stateDB = XploreStateDatabase(dataBaseName: xploreDBName);
+    final XploreStateDatabase stateDB =
+        XploreStateDatabase(dataBaseName: xploreDBName);
 
     await stateDB.init();
 
