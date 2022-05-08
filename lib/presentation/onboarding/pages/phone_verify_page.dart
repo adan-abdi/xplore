@@ -110,7 +110,8 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                     enableActiveFill: true,
                     controller: otpPinCodeFieldController,
                     onCompleted: (v) {
-                      xploreFirebaseAuth.verifyOtp(otpPinCodeFieldController.text, context, state,
+                      xploreFirebaseAuth.verifyOtp(
+                          otpPinCodeFieldController.text, context, state,
                           isSignedIn: state.userState!.isSignedIn);
                     },
                     onChanged: (value) {
@@ -149,7 +150,8 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                 colorStream: otpBtnStore.colorStream,
                 statusStream: otpBtnStore.statusStream,
                 onTapCallback: () {
-                  xploreFirebaseAuth.verifyOtp(otpPinCodeFieldController.text, context, state,
+                  xploreFirebaseAuth.verifyOtp(
+                      otpPinCodeFieldController.text, context, state,
                       isSignedIn: state.userState!.isSignedIn);
                 },
               ),

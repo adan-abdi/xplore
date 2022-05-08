@@ -7,7 +7,8 @@ import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
 
-Widget termsAndConditions(BuildContext context, [TextAlign align = TextAlign.center]) {
+Widget termsAndConditions(BuildContext context,
+    [TextAlign align = TextAlign.center]) {
   return Container(
     margin: const EdgeInsets.all(8.0),
     child: RichText(

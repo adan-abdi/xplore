@@ -66,7 +66,8 @@ class _BaseState extends State<Base> {
                   fillColor: Colors.white,
                   filled: true,
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
+                    borderSide:
+                        const BorderSide(color: Colors.deepOrange, width: 2.0),
                     borderRadius: BorderRadius.zero,
                   ),
                   border: new OutlineInputBorder(
@@ -90,7 +91,10 @@ class _BaseState extends State<Base> {
               children: <Widget>[
                 InkWell(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AddProducts()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => AddProducts()));
                   },
                   child: Container(
                       height: 39,
@@ -145,7 +149,8 @@ class _BaseState extends State<Base> {
                   fillColor: Colors.white,
                   filled: true,
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
+                    borderSide:
+                        const BorderSide(color: Colors.deepOrange, width: 2.0),
                     borderRadius: BorderRadius.zero,
                   ),
                   border: new OutlineInputBorder(
@@ -247,7 +252,9 @@ class _BaseState extends State<Base> {
                 child: Container(
                     height: 39,
                     decoration: BoxDecoration(
-                        color: currentIndex == 0 ? Colors.deepOrange : Colors.white,
+                        color: currentIndex == 0
+                            ? Colors.deepOrange
+                            : Colors.white,
                         border: Border.all(color: Colors.deepOrange)),
                     width: MediaQuery.of(context).size.width * 0.45,
                     child: Center(
@@ -256,7 +263,9 @@ class _BaseState extends State<Base> {
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 20,
-                          color: currentIndex == 0 ? Colors.white : Colors.deepOrange,
+                          color: currentIndex == 0
+                              ? Colors.white
+                              : Colors.deepOrange,
                         ),
                       ),
                     )),
@@ -269,7 +278,9 @@ class _BaseState extends State<Base> {
                 child: Container(
                     height: 39,
                     decoration: BoxDecoration(
-                        color: currentIndex == 1 ? Colors.deepOrange : Colors.white,
+                        color: currentIndex == 1
+                            ? Colors.deepOrange
+                            : Colors.white,
                         border: Border.all(color: Colors.deepOrange)),
                     width: MediaQuery.of(context).size.width * 0.45,
                     child: Center(
@@ -278,7 +289,9 @@ class _BaseState extends State<Base> {
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 20,
-                          color: currentIndex == 1 ? Colors.white : Colors.deepOrange,
+                          color: currentIndex == 1
+                              ? Colors.white
+                              : Colors.deepOrange,
                         ),
                       ),
                     )),

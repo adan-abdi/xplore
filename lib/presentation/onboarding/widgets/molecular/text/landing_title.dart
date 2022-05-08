@@ -19,7 +19,10 @@ class LandingPageTitle extends StatelessWidget {
             textAlign: TextAlign.start,
             text: TextSpan(
               text: 'Fast \n',
-              style: TextStyle(color: XploreColors.deepBlue, fontSize: mainTitleFontSize, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: XploreColors.deepBlue,
+                  fontSize: mainTitleFontSize,
+                  fontWeight: FontWeight.bold),
               children: <TextSpan>[
                 TextSpan(
                     text: '   & ',

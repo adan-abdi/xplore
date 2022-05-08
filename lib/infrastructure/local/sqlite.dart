@@ -21,7 +21,8 @@ Future<void> onCreateCallback(Database db, int version) async {
   await migrate(db, 0, version);
 }
 
-Future<void> onUpgradeCallback(Database db, int oldVersion, int newVersion) async {
+Future<void> onUpgradeCallback(
+    Database db, int oldVersion, int newVersion) async {
   await migrate(db, oldVersion, newVersion);
 }
 

@@ -12,7 +12,8 @@ import 'package:shamiri/infrastructure/local/sqlite.dart';
 
 // Project imports:
 
-class XploreDatabaseMobile<T extends DatabaseExecutor> implements XploreDatabaseBase<T> {
+class XploreDatabaseMobile<T extends DatabaseExecutor>
+    implements XploreDatabaseBase<T> {
   XploreDatabaseMobile({this.initializeDB});
 
   final InitializeDB<T>? initializeDB;
@@ -24,12 +25,14 @@ class XploreDatabaseMobile<T extends DatabaseExecutor> implements XploreDatabase
   }
 
   @override
-  Future<void> clearDatabase() => clearDatabaseHelper(this.initializeDB!.dbName);
+  Future<void> clearDatabase() =>
+      clearDatabaseHelper(this.initializeDB!.dbName);
 
   @override
   Future<int> countTableRecords(Tables table) async {
     final T _db = await this.database;
-    final int? count = Sqflite.firstIntValue(await _db.rawQuery('SELECT COUNT(*) FROM ${table.name}'));
+    final int? count = Sqflite.firstIntValue(
+        await _db.rawQuery('SELECT COUNT(*) FROM ${table.name}'));
     return Future<int>.value(count);
   }
 
@@ -46,8 +49,8 @@ class XploreDatabaseMobile<T extends DatabaseExecutor> implements XploreDatabase
 
   Future<Map<String, dynamic>> retrieveWorker(Tables table) async {
     final T _db = await this.database;
-    final List<Map<dynamic, dynamic>> states =
-        await _db.rawQuery('SELECT * FROM ${table.name} ORDER BY id DESC LIMIT 1');
+    final List<Map<dynamic, dynamic>> states = await _db
+        .rawQuery('SELECT * FROM ${table.name} ORDER BY id DESC LIMIT 1');
     final Map<String, dynamic> _state = Map<String, dynamic>.from(states.first);
 
     return _state;
@@ -66,12 +69,14 @@ class XploreDatabaseMobile<T extends DatabaseExecutor> implements XploreDatabase
   /// IMPORTANT: THIS METHOD WORKS ON THE ASSUMPTION THAT THE TABLE NAME
   /// MATCHES THE INSERTION FIELD NAME
   @override
-  Future<void> saveState({required Map<String, dynamic> data, required Tables table}) async {
+  Future<void> saveState(
+      {required Map<String, dynamic> data, required Tables table}) async {
     final String _tableName = table.name;
 
     final T _db = await this.database;
     final String _dataAsString = jsonEncode(data);
-    await _db.rawInsert('INSERT INTO $_tableName($_tableName) VALUES(?)', <dynamic>[_dataAsString]);
+    await _db.rawInsert('INSERT INTO $_tableName($_tableName) VALUES(?)',
+        <dynamic>[_dataAsString]);
     return;
   }
 }

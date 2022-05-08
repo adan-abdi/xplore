@@ -16,7 +16,13 @@ class XploreSmallAppbar extends StatelessWidget implements PreferredSizeWidget {
   final Function? onLeadingTap;
 
   const XploreSmallAppbar(
-      {Key? key, this.leadingIcon, this.title, this.appbarColor, this.titleColor, this.actions, this.onLeadingTap})
+      {Key? key,
+      this.leadingIcon,
+      this.title,
+      this.appbarColor,
+      this.titleColor,
+      this.actions,
+      this.onLeadingTap})
       : super(key: key);
 
   @override
@@ -36,7 +42,8 @@ class XploreSmallAppbar extends StatelessWidget implements PreferredSizeWidget {
       ),
       title: Text(
         title ?? '',
-        style: XploreThemes().textThemes(color: titleColor ?? XploreThemes.white),
+        style:
+            XploreThemes().textThemes(color: titleColor ?? XploreThemes.white),
       ),
       backgroundColor: appbarColor ?? XploreColors.white,
       centerTitle: isTitleCenter,

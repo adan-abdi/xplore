@@ -13,7 +13,9 @@ class ProgressiveButton extends StatelessWidget {
   final Function onPressed;
   final ButtonState buttonState;
 
-  const ProgressiveButton({Key? key, required this.onPressed, this.buttonState = ButtonState.idle}) : super(key: key);
+  const ProgressiveButton(
+      {Key? key, required this.onPressed, this.buttonState = ButtonState.idle})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

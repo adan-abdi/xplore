@@ -7,9 +7,12 @@ import 'package:shamiri/domain/value_objects/app_magic_numbers.dart';
 /// This class holds common themes
 class XploreThemes {
   /// Returns a TextStyle
-  TextStyle textThemes({required Color color, double? fontSize, FontWeight? fontWeight}) {
-    TextStyle textTheme =
-        TextStyle(color: color, fontSize: fontSize ?? defaultFontSize, fontWeight: fontWeight ?? FontWeight.normal);
+  TextStyle textThemes(
+      {required Color color, double? fontSize, FontWeight? fontWeight}) {
+    TextStyle textTheme = TextStyle(
+        color: color,
+        fontSize: fontSize ?? defaultFontSize,
+        fontWeight: fontWeight ?? FontWeight.normal);
 
     return textTheme;
   }
