@@ -101,6 +101,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
                 );
             }
           },
+          progressiveBtnStoreInstance: phoneLoginProgressInstance,
         ),
       ],
     );

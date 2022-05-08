@@ -14,7 +14,6 @@ class KeyboardScaffold extends StatefulWidget {
   final List<Widget> childWidgets;
   final Widget? trailingWidget;
   final bool isSecondary;
-  final bool? isLeftIconIncluded;
   final TextEditingController? keyboardController;
 
   const KeyboardScaffold({
@@ -24,7 +23,6 @@ class KeyboardScaffold extends StatefulWidget {
     this.trailingActionIcon = Icons.settings,
     this.trailingWidget,
     this.keyboardController,
-    this.isLeftIconIncluded = false,
   }) : super(key: key);
 
   @override
@@ -42,55 +40,64 @@ class _KeyboardScaffoldState extends State<KeyboardScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: XploreSmallAppbar(
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(widget.trailingActionIcon),
-            color: XploreColors.orange,
-          ),
-        ],
-      ),
-      body: Stack(
-        children: <Widget>[
-          ...circles(context, circleColor: XploreColors.whiteSmoke),
-          ...diagonalCircles(context,
-              ringColor1: XploreColors.whiteSmoke,
-              ringColor2: XploreColors.whiteSmoke),
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: widget.childWidgets,
+    return WillPopScope(
+      onWillPop: () async {
+        if (!widget.isSecondary) {
+          Navigator.pop(context);
+        }
+        return Future.value(false);
+      },
+      child: Scaffold(
+        appBar: XploreSmallAppbar(
+          isSecondary: widget.isSecondary,
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(widget.trailingActionIcon),
+              color: XploreColors.orange,
             ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: widget.trailingWidget ??
-                XploreNumericKeyboard(
-                  onKeyboardTap: (String text) {
-                    setState(() {
-                      insertText(text, keyController);
-                    });
-                  },
-                  rightIcon: Icon(
-                    Icons.backspace,
-                    color: XploreColors.orange,
+          ],
+        ),
+        body: Stack(
+          children: <Widget>[
+            ...circles(context, circleColor: XploreColors.whiteSmoke),
+            ...diagonalCircles(context,
+                ringColor1: XploreColors.whiteSmoke,
+                ringColor2: XploreColors.whiteSmoke),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: widget.childWidgets,
+              ),
+            ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: widget.trailingWidget ??
+                  XploreNumericKeyboard(
+                    onKeyboardTap: (String text) {
+                      setState(() {
+                        insertText(text, keyController);
+                      });
+                    },
+                    rightIcon: Icon(
+                      Icons.backspace,
+                      color: XploreColors.orange,
+                    ),
+                    rightButtonFn: () {
+                      setState(() {
+                        backspace(keyController);
+                      });
+                    },
                   ),
-                  rightButtonFn: () {
-                    setState(() {
-                      backspace(keyController);
-                    });
-                  },
-                ),
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

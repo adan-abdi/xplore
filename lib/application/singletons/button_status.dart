@@ -31,14 +31,28 @@ class ButtonStatusStore {
   static final ButtonStatusStore _singleton = ButtonStatusStore._internal();
 }
 
-class ProgressBtnStore {
-  factory ProgressBtnStore() {
+class LoginProgressBtnStore {
+  factory LoginProgressBtnStore() {
     return _singleton;
   }
 
-  ProgressBtnStore._internal();
+  LoginProgressBtnStore._internal();
 
   final btnStatus = BehaviorSubject<ButtonState>.seeded(ButtonState.idle);
 
-  static final ProgressBtnStore _singleton = ProgressBtnStore._internal();
+  static final LoginProgressBtnStore _singleton =
+      LoginProgressBtnStore._internal();
+}
+
+class VerifyProgressBtnStore {
+  factory VerifyProgressBtnStore() {
+    return _singleton;
+  }
+
+  VerifyProgressBtnStore._internal();
+
+  final btnStatus = BehaviorSubject<ButtonState>.seeded(ButtonState.idle);
+
+  static final VerifyProgressBtnStore _singleton =
+      VerifyProgressBtnStore._internal();
 }
