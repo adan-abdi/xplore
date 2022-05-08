@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:xplore/application/core/themes/app_themes.dart';
-import 'package:xplore/domain/value_objects/app_magic_numbers.dart';
+import 'package:shamiri/application/core/themes/app_themes.dart';
+import 'package:shamiri/domain/value_objects/app_magic_numbers.dart';
 
 class XploreGrid extends StatelessWidget {
   const XploreGrid({Key? key}) : super(key: key);

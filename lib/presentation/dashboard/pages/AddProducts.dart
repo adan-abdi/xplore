@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:xplore/infrastructure/local/database.dart';
+import 'package:shamiri/infrastructure/local/database.dart';
 
 class AddProducts extends StatefulWidget {
   const AddProducts({Key? key}) : super(key: key);
@@ -50,10 +50,7 @@ class _AddProductsState extends State<AddProducts> {
             child: Center(
               child: Text(
                 'Add Product',
-                style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 24,
-                    color: Colors.deepOrange),
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24, color: Colors.deepOrange),
               ),
             )),
       ),
@@ -79,8 +76,7 @@ class _AddProductsState extends State<AddProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -105,8 +101,7 @@ class _AddProductsState extends State<AddProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -132,8 +127,7 @@ class _AddProductsState extends State<AddProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -159,8 +153,7 @@ class _AddProductsState extends State<AddProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -186,8 +179,7 @@ class _AddProductsState extends State<AddProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -215,8 +207,7 @@ class _AddProductsState extends State<AddProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     enabledBorder: new OutlineInputBorder(
@@ -234,8 +225,7 @@ class _AddProductsState extends State<AddProducts> {
                 ),
                 ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.deepOrange),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrange),
                     ),
                     onPressed: () {
                       Database.addProduct(
@@ -245,15 +235,13 @@ class _AddProductsState extends State<AddProducts> {
                               units: _units.text,
                               quantity: _qty.text,
                               category: _cat.text,
-                              image:
-                                  'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg')
+                              image: 'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg')
                           .whenComplete(() => Navigator.of(context).pop());
                     },
                     child: Text('Add Product')),
                 Padding(
                     // this is new
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom)),
+                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)),
               ]),
         ),
       ),

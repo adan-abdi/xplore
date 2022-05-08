@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 // Project imports:
-import 'package:xplore/domain/value_objects/app_asset_strings.dart';
+import 'package:shamiri/domain/value_objects/app_asset_strings.dart';
 
 class XploreLoader extends StatelessWidget {
   const XploreLoader({Key? key}) : super(key: key);

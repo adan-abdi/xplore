@@ -7,13 +7,13 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:logger/logger.dart';
 
 // Project imports:
-import 'package:xplore/application/redux/states/app_state.dart';
-import 'package:xplore/application/singletons/button_status.dart';
-import 'package:xplore/application/singletons/initial_route.dart';
-import 'package:xplore/domain/routes/routes.dart';
-import 'package:xplore/domain/value_objects/app_enums.dart';
-import 'package:xplore/domain/value_objects/app_event_strings.dart';
-import 'package:xplore/domain/value_objects/app_strings.dart';
+import 'package:shamiri/application/redux/states/app_state.dart';
+import 'package:shamiri/application/singletons/button_status.dart';
+import 'package:shamiri/application/singletons/initial_route.dart';
+import 'package:shamiri/domain/routes/routes.dart';
+import 'package:shamiri/domain/value_objects/app_enums.dart';
+import 'package:shamiri/domain/value_objects/app_event_strings.dart';
+import 'package:shamiri/domain/value_objects/app_strings.dart';
 
 final Logger logger = Logger();
 

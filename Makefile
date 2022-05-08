@@ -12,7 +12,7 @@ sort:
 
 .PHONY: buildReleaseArtefacts
 release:
-	flutter build apk && flutter build appbundle && eytool -printcert -jarfile /home/adan/Projects/live/shamiri/xplore/build/app/outputs/bundle/release/app-release.aab
+	flutter build apk && flutter build appbundle && eytool -printcert -jarfile /home/adan/Projects/live/shamiri/shamiri/build/app/outputs/bundle/release/app-release.aab
 
 .PHONY: syncRemote
 syncRemote:

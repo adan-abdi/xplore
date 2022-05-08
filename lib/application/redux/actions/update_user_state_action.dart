@@ -2,8 +2,8 @@
 import 'package:async_redux/async_redux.dart';
 
 // Project imports:
-import 'package:xplore/application/redux/states/app_state.dart';
-import 'package:xplore/application/redux/states/user_state.dart';
+import 'package:shamiri/application/redux/states/app_state.dart';
+import 'package:shamiri/application/redux/states/user_state.dart';
 
 class UpdateUserStateAction extends ReduxAction<AppState> {
   String? uid;
@@ -46,11 +46,9 @@ class UpdateUserStateAction extends ReduxAction<AppState> {
       isSignedIn: this.isSignedIn ?? state.userState?.isSignedIn,
       hasDoneTour: this.hasDoneTour ?? state.userState?.hasDoneTour,
       phoneNumber: this.phoneNumber ?? state.userState?.phoneNumber,
-      initialPhoneNumber:
-          this.initialPhoneNumber ?? state.userState?.initialPhoneNumber,
+      initialPhoneNumber: this.initialPhoneNumber ?? state.userState?.initialPhoneNumber,
       pinCode: this.pinCode ?? state.userState?.pinCode,
-      pinCodeVerificationID:
-          this.pinCodeVerificationID ?? state.userState?.pinCodeVerificationID,
+      pinCodeVerificationID: this.pinCodeVerificationID ?? state.userState?.pinCodeVerificationID,
     );
 
     final AppState newState = state.copyWith(userState: newUserState);

@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:xplore/application/core/themes/colors.dart';
-import 'package:xplore/domain/value_objects/app_magic_numbers.dart';
-import 'package:xplore/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/domain/value_objects/app_magic_numbers.dart';
+import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
 List<Widget> titles({
   required BuildContext context,

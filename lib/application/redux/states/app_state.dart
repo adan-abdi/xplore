@@ -3,7 +3,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:equatable/equatable.dart';
 
 // Project imports:
-import 'package:xplore/application/redux/states/user_state.dart';
+import 'package:shamiri/application/redux/states/user_state.dart';
 
 class AppState extends Equatable {
   final UserState? userState;

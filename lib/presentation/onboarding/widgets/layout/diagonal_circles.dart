@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:xplore/application/core/themes/colors.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
 
 List<Widget> diagonalCircles(
   BuildContext context, {

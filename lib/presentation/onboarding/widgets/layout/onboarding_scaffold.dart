@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:xplore/presentation/onboarding/widgets/layout/circles.dart';
-import 'package:xplore/presentation/onboarding/widgets/layout/diagonal_circles.dart';
+import 'package:shamiri/presentation/onboarding/widgets/layout/circles.dart';
+import 'package:shamiri/presentation/onboarding/widgets/layout/diagonal_circles.dart';
 
 class OnboardingScaffold extends StatelessWidget {
   final Widget childWidgets;

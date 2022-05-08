@@ -4,7 +4,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 // Project imports:
-import 'package:xplore/infrastructure/local/migrations.dart';
+import 'package:shamiri/infrastructure/local/migrations.dart';
 
 Future<T> initDatabase<T extends DatabaseExecutor>(String dbName) async {
   final String _dbPath = await getDatabasesPath();
@@ -21,8 +21,7 @@ Future<void> onCreateCallback(Database db, int version) async {
   await migrate(db, 0, version);
 }
 
-Future<void> onUpgradeCallback(
-    Database db, int oldVersion, int newVersion) async {
+Future<void> onUpgradeCallback(Database db, int oldVersion, int newVersion) async {
   await migrate(db, oldVersion, newVersion);
 }
 

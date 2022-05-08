@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:xplore/domain/value_objects/app_asset_strings.dart';
+import 'package:shamiri/domain/value_objects/app_asset_strings.dart';
 
 class LandingVector extends StatelessWidget {
   @override
