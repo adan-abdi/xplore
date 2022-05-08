@@ -183,5 +183,6 @@ void validatePhone({
   }
 }
 
-ProgressBtnStore phoneLoginProgressInstance = ProgressBtnStore();
+LoginProgressBtnStore phoneLoginProgressInstance = LoginProgressBtnStore();
 InitialRouteStore appInitialRoute = InitialRouteStore();
+VerifyProgressBtnStore otpProgressProgressInstance = VerifyProgressBtnStore();

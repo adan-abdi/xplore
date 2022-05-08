@@ -25,17 +25,9 @@ class XploreIconCard extends StatelessWidget {
       alignment: Alignment.center,
       child: GestureDetector(
         onTap: () => iconOnPress(),
-        child: Card(
-          borderOnForeground: false,
-          semanticContainer: false,
-          elevation: withElevation ? 5 : 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(3.0)),
-          ),
-          child: Icon(
-            icon,
-            color: iconColor ?? XploreColors.orange,
-          ),
+        child: Icon(
+          icon,
+          color: iconColor ?? XploreColors.white,
         ),
       ),
     );

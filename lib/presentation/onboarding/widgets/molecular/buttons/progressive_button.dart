@@ -6,16 +6,19 @@ import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
 
 // Project imports:
-import 'package:shamiri/application/core/services/helpers.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 
 class ProgressiveButton extends StatelessWidget {
   final Function onPressed;
   final ButtonState buttonState;
+  final dynamic progressiveBtnStoreInstance;
 
-  const ProgressiveButton(
-      {Key? key, required this.onPressed, this.buttonState = ButtonState.idle})
-      : super(key: key);
+  const ProgressiveButton({
+    Key? key,
+    required this.onPressed,
+    this.buttonState = ButtonState.idle,
+    required this.progressiveBtnStoreInstance,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,14 +52,8 @@ class ProgressiveButton extends StatelessWidget {
               color: Colors.green.shade400,
             )
           },
-          // minWidthStates: [
-          //   ButtonState.idle,
-          //   ButtonState.loading,
-          //   ButtonState.success,
-          //   ButtonState.fail,
-          // ],
           onPressed: onPressed,
-          state: phoneLoginProgressInstance.btnStatus.value,
+          state: progressiveBtnStoreInstance.btnStatus.value,
           radius: 5.0,
         ),
       ),

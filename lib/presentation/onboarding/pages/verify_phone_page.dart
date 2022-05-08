@@ -7,17 +7,19 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:async_redux/async_redux.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:progress_state_button/progress_button.dart';
 
 // Project imports:
+import 'package:shamiri/application/core/services/helpers.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/application/redux/states/app_state.dart';
 import 'package:shamiri/application/singletons/button_status.dart';
-import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
 import 'package:shamiri/infrastructure/remote/firebase_auth.dart';
+import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
 import 'package:shamiri/presentation/onboarding/widgets/layout/keyboard_scaffold.dart';
-import 'package:shamiri/presentation/onboarding/widgets/molecular/buttons/action_button.dart';
+import 'package:shamiri/presentation/onboarding/widgets/molecular/buttons/progressive_button.dart';
 import 'package:shamiri/presentation/onboarding/widgets/molecular/text/login_title.dart';
 
 class PhoneVerifyPage extends StatefulWidget {
@@ -109,10 +111,23 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                     backgroundColor: XploreColors.white,
                     enableActiveFill: true,
                     controller: otpPinCodeFieldController,
-                    onCompleted: (v) {
-                      xploreFirebaseAuth.verifyOtp(
-                          otpPinCodeFieldController.text, context, state,
-                          isSignedIn: state.userState!.isSignedIn);
+                    onCompleted: (v) async {
+                      if (otpPinCodeFieldController.text.length >= 6) {
+                        otpProgressProgressInstance.btnStatus
+                            .add(ButtonState.loading);
+                        xploreFirebaseAuth.verifyOtp(
+                            otpPinCodeFieldController.text, context, state,
+                            isSignedIn: state.userState!.isSignedIn);
+                      } else {
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(
+                            snackbar(
+                              content: invalidOTPPrompt,
+                              label: okText,
+                            ),
+                          );
+                      }
                     },
                     onChanged: (value) {
                       setState(() {
@@ -130,30 +145,26 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                 ),
               ),
               vSize20SizedBox,
-              // AnimatedButton(
-              //   controller: animatedButtonController,
-              //   color: XploreColors.deepBlue,
-              //   text: 'Resend OTP Code',
-              //   loadingText: 'Loading',
-              //   loadedIcon: Icon(Icons.check, color: Colors.white),
-              //   onPressed: () async {
-              //     /// calling your API here and wait for the response.
-              //     await Future.delayed(Duration(seconds: 5)); // simulated your API requesting time.
-              //     animatedButtonController.completed(); // call when you get the response
-              //     await Future.delayed(Duration(seconds: 2));
-              //     animatedButtonController.reset(); // call to reset button animation
-              //   },
-              // ),
-              ActionButton(
-                widgetText: nextText,
-                nextRoute: dashPageRoute,
-                colorStream: otpBtnStore.colorStream,
-                statusStream: otpBtnStore.statusStream,
-                onTapCallback: () {
-                  xploreFirebaseAuth.verifyOtp(
-                      otpPinCodeFieldController.text, context, state,
-                      isSignedIn: state.userState!.isSignedIn);
+              ProgressiveButton(
+                onPressed: () {
+                  if (otpPinCodeFieldController.text.length >= 6) {
+                    otpProgressProgressInstance.btnStatus
+                        .add(ButtonState.loading);
+                    xploreFirebaseAuth.verifyOtp(
+                        otpPinCodeFieldController.text, context, state,
+                        isSignedIn: state.userState!.isSignedIn);
+                  } else {
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(
+                        snackbar(
+                          content: invalidOTPPrompt,
+                          label: okText,
+                        ),
+                      );
+                  }
                 },
+                progressiveBtnStoreInstance: otpProgressProgressInstance,
               ),
             ],
           );

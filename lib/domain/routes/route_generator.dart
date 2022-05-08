@@ -7,8 +7,8 @@ import 'package:shamiri/presentation/core/widgets/unrecoverable_error_widget.dar
 import 'package:shamiri/presentation/dashboard/pages/Base.dart';
 import 'package:shamiri/presentation/dashboard/pages/Profile.dart';
 import 'package:shamiri/presentation/onboarding/pages/landing_page.dart';
-import 'package:shamiri/presentation/onboarding/pages/phone_login.dart';
-import 'package:shamiri/presentation/onboarding/pages/phone_verify_page.dart';
+import 'package:shamiri/presentation/onboarding/pages/phone_input_page.dart';
+import 'package:shamiri/presentation/onboarding/pages/verify_phone_page.dart';
 import 'package:shamiri/xplore_app.dart';
 
 class AppRouterGenerator {

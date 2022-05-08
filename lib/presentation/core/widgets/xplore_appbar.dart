@@ -11,7 +11,7 @@ class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;
   final XploreIconCard? leadingIcon;
   final XploreIconCard? firstAction;
-  final IconButton? lastAction;
+  final XploreIconCard? lastAction;
   final bool expanded;
   final Color? backgroundColor;
   final double? elevation;
@@ -42,19 +42,21 @@ class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
       automaticallyImplyLeading: automaticallyImplyLeading ?? true,
       leading: leadingIcon ??
           XploreIconCard(
-              icon: Icons.arrow_back,
+              icon: Icons.menu,
               iconOnPress: () {
                 Navigator.pop(context);
               }),
       actions: [
         Container(child: firstAction),
+        Container(child: lastAction),
       ],
       bottom: expanded ? XploreAppbarBottom() : null,
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(56);
+  Size get preferredSize =>
+      expanded ? Size.fromHeight(130) : Size.fromHeight(56);
 }
 
 class XploreAppbarBottom extends StatelessWidget with PreferredSizeWidget {
@@ -65,7 +67,7 @@ class XploreAppbarBottom extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: TextField(
         cursorColor: Colors.grey,
         decoration: InputDecoration(
@@ -87,7 +89,7 @@ class XploreAppbarBottom extends StatelessWidget with PreferredSizeWidget {
             Icons.search,
             color: Colors.deepOrange,
           ),
-          hintText: "Search",
+          hintText: "Search product",
         ),
       ),
     );
