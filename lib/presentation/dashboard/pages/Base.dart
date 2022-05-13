@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
@@ -8,14 +9,14 @@ import 'package:shamiri/presentation/core/widgets/xplore_card.dart';
 import 'package:shamiri/presentation/dashboard/widgets/product_list.dart';
 import 'package:shamiri/presentation/dashboard/widgets/transaction_list.dart';
 
-class Base extends StatefulWidget {
-  const Base({Key? key}) : super(key: key);
+class MerchantCheckIn extends StatefulWidget {
+  const MerchantCheckIn({Key? key}) : super(key: key);
 
   @override
-  _BaseState createState() => _BaseState();
+  _MerchantCheckInState createState() => _MerchantCheckInState();
 }
 
-class _BaseState extends State<Base> {
+class _MerchantCheckInState extends State<MerchantCheckIn> {
   int currentIndex = 0;
 
   setBottomBarIndex(index) {
@@ -148,6 +149,12 @@ class _BaseState extends State<Base> {
       resizeToAvoidBottomInset: true,
       appBar: XploreAppBar(
         title: 'Merchant CheckIn',
+        leadingIcon: XploreIconCard(
+          icon: Icons.menu,
+          iconOnPress: () {
+            ZoomDrawer.of(context)!.toggle();
+          },
+        ),
         firstAction: XploreIconCard(
           icon: Icons.filter_list,
           iconOnPress: () {},

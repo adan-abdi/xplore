@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/presentation/core/widgets/xplore_appbar.dart';
+import 'package:shamiri/presentation/core/widgets/xplore_card.dart';
+
+class MenuPage extends StatefulWidget {
+  const MenuPage({Key? key}) : super(key: key);
+
+  @override
+  State<MenuPage> createState() => _MenuPageState();
+}
+
+class _MenuPageState extends State<MenuPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: XploreColors.deepBlue,
+      appBar: XploreAppBar(
+        leadingIcon: XploreIconCard(
+          icon: Icons.menu,
+          iconOnPress: () {
+            ZoomDrawer.of(context)!.toggle();
+          },
+        ),
+        elevation: 0,
+      ),
+    );
+  }
+}

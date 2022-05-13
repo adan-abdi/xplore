@@ -34,7 +34,7 @@ class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
 
   @override
   void didChangeDependencies() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       Future<dynamic>.delayed(Duration.zero, () async {
         appInitialRoute.initialRoute.add(
           await getInitialRoute(state: widget.store.state),
@@ -49,7 +49,7 @@ class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(
+    WidgetsBinding.instance.addObserver(
       LifecycleEventHandler(
         onResume: () => Future.value(),
         onSuspend: () => Future.value(),
@@ -60,7 +60,7 @@ class _XploreAppState extends State<XploreApp> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 

@@ -42,7 +42,7 @@ class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
       automaticallyImplyLeading: automaticallyImplyLeading ?? true,
       leading: leadingIcon ??
           XploreIconCard(
-              icon: Icons.menu,
+              icon: Icons.arrow_back,
               iconOnPress: () {
                 Navigator.pop(context);
               }),
@@ -51,6 +51,7 @@ class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
         Container(child: lastAction),
       ],
       bottom: expanded ? XploreAppbarBottom() : null,
+      elevation: elevation,
     );
   }
 
