@@ -3,7 +3,7 @@ import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/presentation/core/pages/menu_page.dart';
-import 'package:shamiri/presentation/dashboard/pages/Base.dart';
+import 'package:shamiri/presentation/dashboard/pages/merchant_checkin.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({Key? key}) : super(key: key);

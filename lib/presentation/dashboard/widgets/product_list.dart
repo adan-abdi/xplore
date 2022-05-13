@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Project imports:
 import 'package:shamiri/infrastructure/local/database.dart';
-import 'package:shamiri/presentation/dashboard/pages/Base.dart';
+import 'package:shamiri/presentation/dashboard/pages/merchant_checkin.dart';
 import 'package:shamiri/presentation/dashboard/pages/EditProduct.dart';
 
 class ProductList extends StatelessWidget {
