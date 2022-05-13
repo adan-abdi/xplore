@@ -6,6 +6,7 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_appbar.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_card.dart';
+import 'package:shamiri/presentation/dashboard/widgets/category_bar.dart';
 import 'package:shamiri/presentation/dashboard/widgets/product_list.dart';
 import 'package:shamiri/presentation/dashboard/widgets/transaction_list.dart';
 
@@ -49,6 +50,14 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
           padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
           height: MediaQuery.of(context).size.height * 0.7,
           child: Column(children: <Widget>[
+            Container(
+              child: Row(
+                children: [
+                  // CategoryBar(categoryCount: 6,),
+                  ...categoryChips(6),
+                ],
+              ),
+            ),
             Expanded(
               flex: 1,
               child: ProductList(),
@@ -56,37 +65,8 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
           ])),
       Container(
           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-          //color: Colors.green,
           height: MediaQuery.of(context).size.height * 0.7,
           child: Column(children: <Widget>[
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-              child: TextField(
-                cursorColor: Colors.grey,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(20.0),
-                  fillColor: Colors.white,
-                  filled: true,
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(color: Colors.deepOrange, width: 2.0),
-                    borderRadius: BorderRadius.zero,
-                  ),
-                  border: new OutlineInputBorder(
-                    borderSide: new BorderSide(
-                      color: Colors.deepOrange,
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.zero,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.deepOrange,
-                  ),
-                  hintText: "Search",
-                ),
-              ),
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -189,8 +169,7 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ConstrainedBox(
-                constraints: BoxConstraints.tightFor(
-                    width: MediaQuery.of(context).size.width * 0.4, height: 40),
+                constraints: BoxConstraints.tightFor(width: MediaQuery.of(context).size.width * 0.4, height: 40),
                 child: ElevatedButton(
                   clipBehavior: Clip.none,
                   child: Text('Inventory'),
@@ -199,22 +178,17 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                        currentIndex == 0
-                            ? XploreColors.deepBlue
-                            : XploreColors.white,
+                        currentIndex == 0 ? XploreColors.deepBlue : XploreColors.white,
                       ),
                       //padding: MaterialStateProperty.all(EdgeInsets.all(50)),
                       textStyle: MaterialStateProperty.all(TextStyle(
                         fontSize: 20,
-                        color: currentIndex == 0
-                            ? Colors.white
-                            : XploreColors.deepBlue,
+                        color: currentIndex == 0 ? Colors.white : XploreColors.deepBlue,
                       ))),
                 ),
               ),
               ConstrainedBox(
-                constraints: BoxConstraints.tightFor(
-                    width: MediaQuery.of(context).size.width * 0.4, height: 40),
+                constraints: BoxConstraints.tightFor(width: MediaQuery.of(context).size.width * 0.4, height: 40),
                 child: ElevatedButton(
                   clipBehavior: Clip.hardEdge,
                   child: Text('Transactions'),
@@ -223,16 +197,12 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                        currentIndex == 1
-                            ? XploreColors.deepBlue
-                            : XploreColors.deepBlue,
+                        currentIndex == 1 ? XploreColors.deepBlue : XploreColors.deepBlue,
                       ),
                       //padding: MaterialStateProperty.all(EdgeInsets.all(50)),
                       textStyle: MaterialStateProperty.all(TextStyle(
                         fontSize: 20,
-                        color: currentIndex == 1
-                            ? XploreColors.deepBlue
-                            : XploreColors.deepBlue,
+                        color: currentIndex == 1 ? XploreColors.deepBlue : XploreColors.deepBlue,
                       ))),
                 ),
               ),
