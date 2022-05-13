@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:shamiri/domain/routes/routes.dart';
+import 'package:shamiri/presentation/core/pages/core_material.dart';
 import 'package:shamiri/presentation/core/widgets/unrecoverable_error_widget.dart';
 import 'package:shamiri/presentation/dashboard/pages/Base.dart';
 import 'package:shamiri/presentation/dashboard/pages/Profile.dart';
@@ -21,7 +22,7 @@ class AppRouterGenerator {
       case loginPageRoute:
         return MaterialPageRoute<PhoneLogin>(builder: (_) => PhoneLogin());
       case dashPageRoute:
-        return MaterialPageRoute<Base>(builder: (_) => Base());
+        return MaterialPageRoute<XploreDashboard>(builder: (_) => XploreDashboard());
       case profRoute:
         return MaterialPageRoute<Profile>(builder: (_) => Profile());
       case otpPageRoute:

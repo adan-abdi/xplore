@@ -1,10 +1,12 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:design/src/molecular/xplore_numeric_keyboard.dart';
+
 // Project imports:
 import 'package:shamiri/application/core/services/helpers.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
-import 'package:shamiri/presentation/core/pages/xplore_numeric_keyboard.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_small_appbar.dart';
 import 'package:shamiri/presentation/onboarding/widgets/layout/circles.dart';
 import 'package:shamiri/presentation/onboarding/widgets/layout/diagonal_circles.dart';

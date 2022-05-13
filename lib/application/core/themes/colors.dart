@@ -14,4 +14,7 @@ class XploreColors {
 
   //
   final Color orangeAccent = Colors.deepOrange.shade100;
+
+  //
+  static Color deepBlueAccent = Color(0xff3F3D56).withOpacity(.8);
 }

@@ -14,7 +14,7 @@ class XploreNumericKeyboard extends StatefulWidget {
   /// Main axis alignment [default = MainAxisAlignment.spaceAround]
   final MainAxisAlignment mainAxisAlignment;
 
-  XploreNumericKeyboard(
+  const XploreNumericKeyboard(
       {Key? key,
       required this.onKeyboardTap,
       this.textColor = Colors.black,
