@@ -21,7 +21,8 @@ class AppRouterGenerator {
       case loginPageRoute:
         return MaterialPageRoute<PhoneLogin>(builder: (_) => PhoneLogin());
       case dashPageRoute:
-        return MaterialPageRoute<XploreDashboard>(builder: (_) => XploreDashboard());
+        return MaterialPageRoute<XploreDashboard>(
+            builder: (_) => XploreDashboard());
       case profRoute:
         return MaterialPageRoute<Profile>(builder: (_) => Profile());
       case otpPageRoute:

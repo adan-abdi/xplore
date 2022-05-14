@@ -1,5 +1,7 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:shamiri/infrastructure/local_repository/database.dart';
 
 class AddProducts extends StatefulWidget {
@@ -236,6 +238,8 @@ class _AddProductsState extends State<AddProducts> {
                           MaterialStateProperty.all<Color>(Colors.deepOrange),
                     ),
                     onPressed: () {
+                      //TODO: add remote product
+                      //TODO: dispatch save product action
                       Database.addProduct(
                               name: _name.text,
                               bp: _bp.text,

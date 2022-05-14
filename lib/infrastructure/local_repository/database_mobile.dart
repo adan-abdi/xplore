@@ -3,10 +3,12 @@ import 'dart:async';
 import 'dart:convert';
 
 // Package imports:
+import 'package:sqflite/sqflite.dart';
+
+// Project imports:
 import 'package:shamiri/infrastructure/local_repository/database_base.dart';
 import 'package:shamiri/infrastructure/local_repository/initialize_db.dart';
 import 'package:shamiri/infrastructure/local_repository/sqlite.dart';
-import 'package:sqflite/sqflite.dart';
 
 // Project imports:
 
