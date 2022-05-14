@@ -3,14 +3,14 @@ import 'package:flutter/foundation.dart';
 
 // Package imports:
 import 'package:async_redux/async_redux.dart';
+import 'package:shamiri/infrastructure/local_repository/database_base.dart';
+import 'package:shamiri/infrastructure/local_repository/database_mobile.dart';
+import 'package:shamiri/infrastructure/local_repository/initialize_db.dart';
 import 'package:sqflite/sqflite.dart';
 
 // Project imports:
 import 'package:shamiri/application/redux/states/app_state.dart';
 import 'package:shamiri/application/redux/states/user_state.dart';
-import 'package:shamiri/infrastructure/local/database_base.dart';
-import 'package:shamiri/infrastructure/local/database_mobile.dart';
-import 'package:shamiri/infrastructure/local/initialize_db.dart';
 
 /// [XploreStateDatabase] is the middleware that interacts with the database on behalf
 /// of the application. From the apps perspective, it doesn't care which database

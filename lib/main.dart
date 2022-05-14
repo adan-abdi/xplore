@@ -15,7 +15,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 // Project imports:
 import 'package:shamiri/application/redux/states/app_state.dart';
 import 'package:shamiri/domain/value_objects/app_global_constants.dart';
-import 'package:shamiri/infrastructure/local/database_state_persistor.dart';
+import 'package:shamiri/infrastructure/local_repository/database_state_persistor.dart';
 import 'package:shamiri/presentation/core/widgets/unrecoverable_error_widget.dart';
 import 'package:shamiri/xplore_app.dart';
 
