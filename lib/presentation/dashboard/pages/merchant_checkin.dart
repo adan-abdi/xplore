@@ -1,5 +1,7 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 // Project imports:
@@ -169,7 +171,8 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ConstrainedBox(
-                constraints: BoxConstraints.tightFor(width: MediaQuery.of(context).size.width * 0.4, height: 40),
+                constraints: BoxConstraints.tightFor(
+                    width: MediaQuery.of(context).size.width * 0.4, height: 40),
                 child: ElevatedButton(
                   clipBehavior: Clip.none,
                   child: Text('Inventory'),
@@ -178,17 +181,22 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                        currentIndex == 0 ? XploreColors.deepBlue : XploreColors.white,
+                        currentIndex == 0
+                            ? XploreColors.deepBlue
+                            : XploreColors.white,
                       ),
                       //padding: MaterialStateProperty.all(EdgeInsets.all(50)),
                       textStyle: MaterialStateProperty.all(TextStyle(
                         fontSize: 20,
-                        color: currentIndex == 0 ? Colors.white : XploreColors.deepBlue,
+                        color: currentIndex == 0
+                            ? Colors.white
+                            : XploreColors.deepBlue,
                       ))),
                 ),
               ),
               ConstrainedBox(
-                constraints: BoxConstraints.tightFor(width: MediaQuery.of(context).size.width * 0.4, height: 40),
+                constraints: BoxConstraints.tightFor(
+                    width: MediaQuery.of(context).size.width * 0.4, height: 40),
                 child: ElevatedButton(
                   clipBehavior: Clip.hardEdge,
                   child: Text('Transactions'),
@@ -197,12 +205,16 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                        currentIndex == 1 ? XploreColors.deepBlue : XploreColors.deepBlue,
+                        currentIndex == 1
+                            ? XploreColors.deepBlue
+                            : XploreColors.deepBlue,
                       ),
                       //padding: MaterialStateProperty.all(EdgeInsets.all(50)),
                       textStyle: MaterialStateProperty.all(TextStyle(
                         fontSize: 20,
-                        color: currentIndex == 1 ? XploreColors.deepBlue : XploreColors.deepBlue,
+                        color: currentIndex == 1
+                            ? XploreColors.deepBlue
+                            : XploreColors.deepBlue,
                       ))),
                 ),
               ),

@@ -1,6 +1,8 @@
 // Package imports:
-import 'package:shamiri/infrastructure/local_repository/sqlite.dart';
 import 'package:sqflite/sqflite.dart';
+
+// Project imports:
+import 'package:shamiri/infrastructure/local_repository/sqlite.dart';
 
 class InitializeDB<T extends DatabaseExecutor> extends InitializeDBHelper<T> {
   InitializeDB({

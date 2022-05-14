@@ -1,5 +1,7 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:shamiri/infrastructure/local_repository/database.dart';
 
 class EditProducts extends StatefulWidget {
@@ -244,6 +246,8 @@ class _EditProductsState extends State<EditProducts> {
                   children: <Widget>[
                     ElevatedButton(
                         onPressed: () {
+                          //TODO: add remote product
+                          //TODO: dispatch save product action
                           Database.updateItem(
                                   name: _name.text,
                                   bp: _bp.text,

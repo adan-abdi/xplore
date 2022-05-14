@@ -1,8 +1,10 @@
 // Package imports:
 import 'package:logger/logger.dart';
 import 'package:path/path.dart';
-import 'package:shamiri/infrastructure/local_repository/migrations.dart';
 import 'package:sqflite/sqflite.dart';
+
+// Project imports:
+import 'package:shamiri/infrastructure/local_repository/migrations.dart';
 
 Future<T> initDatabase<T extends DatabaseExecutor>(String dbName) async {
   final String _dbPath = await getDatabasesPath();
