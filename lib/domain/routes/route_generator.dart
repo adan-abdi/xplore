@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/presentation/core/pages/core_material.dart';
 import 'package:shamiri/presentation/core/widgets/unrecoverable_error_widget.dart';
-import 'package:shamiri/presentation/dashboard/pages/merchant_checkin.dart';
 import 'package:shamiri/presentation/dashboard/pages/Profile.dart';
 import 'package:shamiri/presentation/onboarding/pages/landing_page.dart';
 import 'package:shamiri/presentation/onboarding/pages/phone_input_page.dart';
