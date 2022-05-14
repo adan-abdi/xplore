@@ -19,7 +19,7 @@ import 'package:shamiri/application/redux/states/app_state.dart';
 import 'package:shamiri/domain/value_objects/app_constants.dart';
 import 'package:shamiri/domain/value_objects/app_error_strings.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
-import 'package:shamiri/infrastructure/remote/firebase_auth.dart';
+import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
 
 class VerifyPhoneAction extends ReduxAction<AppState> {

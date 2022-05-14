@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-// Project imports:
-import 'package:shamiri/infrastructure/local/database.dart';
+import 'package:shamiri/infrastructure/local_repository/database.dart';
 
 class TransactionList extends StatefulWidget {
   final String tstatus;

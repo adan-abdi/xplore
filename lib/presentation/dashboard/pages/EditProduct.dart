@@ -1,8 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-
-// Project imports:
-import 'package:shamiri/infrastructure/local/database.dart';
+import 'package:shamiri/infrastructure/local_repository/database.dart';
 
 class EditProducts extends StatefulWidget {
   final String name;

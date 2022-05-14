@@ -11,7 +11,7 @@ import 'package:shamiri/application/core/services/helpers.dart';
 import 'package:shamiri/application/redux/actions/update_user_state_action.dart';
 import 'package:shamiri/application/redux/states/app_state.dart';
 import 'package:shamiri/domain/routes/routes.dart';
-import 'package:shamiri/infrastructure/remote/firestore_db.dart';
+import 'package:shamiri/infrastructure/remote_repository/firestore_db.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
 
 FirebaseAuth globalFirebaseAuthInstance = FirebaseAuth.instance;

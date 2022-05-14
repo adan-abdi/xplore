@@ -1,7 +1,5 @@
-// Project imports:
 
-// Project imports:
-import 'package:shamiri/infrastructure/local/database_base.dart';
+import 'package:shamiri/infrastructure/local_repository/database_base.dart';
 
 final List<String> migrations = <String>[
   '''

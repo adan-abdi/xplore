@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shamiri/infrastructure/local_repository/database.dart';
 
 // Project imports:
-import 'package:shamiri/infrastructure/local/database.dart';
 import 'package:shamiri/presentation/dashboard/pages/merchant_checkin.dart';
 import 'package:shamiri/presentation/dashboard/pages/EditProduct.dart';
 

@@ -16,7 +16,7 @@ import 'package:shamiri/application/redux/states/app_state.dart';
 import 'package:shamiri/application/singletons/button_status.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
-import 'package:shamiri/infrastructure/remote/firebase_auth.dart';
+import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
 import 'package:shamiri/presentation/onboarding/widgets/layout/keyboard_scaffold.dart';
 import 'package:shamiri/presentation/onboarding/widgets/molecular/buttons/progressive_button.dart';
