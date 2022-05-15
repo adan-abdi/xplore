@@ -1,19 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user.dart';
+part of 'shamiri_user.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-User _$UserFromJson(Map<String, dynamic> json) => User(
-      json['uID'] as String?,
+ShamiriUser _$ShamiriUserFromJson(Map<String, dynamic> json) => ShamiriUser(
+      json['uid'] as String?,
       json['phoneNumber'] as String?,
-      json['referenceId'] as String?,
     );
 
-Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
-      'uID': instance.uID,
+Map<String, dynamic> _$ShamiriUserToJson(ShamiriUser instance) =>
+    <String, dynamic>{
+      'uid': instance.uid,
       'phoneNumber': instance.phoneNumber,
-      'referenceId': instance.referenceId,
     };
