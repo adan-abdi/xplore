@@ -4,22 +4,18 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'user_state.freezed.dart';
 part 'user_state.g.dart';
 
-@freezed
+@JsonSerializable(explicitToJson: true)
 class UserState with _$UserState {
   factory UserState({
     String? uid,
-    bool? isSignedIn,
-    DateTime? isLastSessionActive,
-    bool? hasDoneTour,
+    String? name,
     String? phoneNumber,
-    String? initialPhoneNumber,
-    String? pinCode,
-    String? pinCodeVerificationID,
-    String? firstName,
-    String? lastName,
-    String? displayName,
-    String? displayInitials,
     String? email,
+    //local
+    bool? isSignedIn,
+    bool? hasDoneTour,
+    String? pinCodeVerificationID,
+    DateTime? isLastSessionActive,
   }) = _UserState;
 
   factory UserState.fromJson(Map<String, dynamic> json) =>
@@ -27,17 +23,13 @@ class UserState with _$UserState {
 
   factory UserState.initial() => UserState(
         uid: null,
-        isSignedIn: false,
-        isLastSessionActive: null,
-        hasDoneTour: false,
+        name: 'Merchant Store',
         phoneNumber: 'UNKNOWN',
-        initialPhoneNumber: 'UNKNOWN',
-        pinCode: 'UNKNOWN',
-        pinCodeVerificationID: 'UNKNOWN',
-        firstName: 'UNKNOWN',
-        lastName: 'UNKNOWN',
-        displayName: 'UNKNOWN',
-        displayInitials: 'UU',
         email: 'UNKNOWN',
+        //local
+        isSignedIn: false,
+        hasDoneTour: false,
+        pinCodeVerificationID: 'UNKNOWN',
+        isLastSessionActive: null,
       );
 }

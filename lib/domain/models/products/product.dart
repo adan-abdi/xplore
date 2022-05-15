@@ -3,29 +3,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
-import 'package:shamiri/domain/models/category.dart';
+import 'package:shamiri/domain/models/categories/category.dart';
 
 part 'product.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Product {
-  @JsonKey(name: "businessUID")
-  String? businessUID;
+  Product({
+    required this.businessUID,
+    required this.name,
+    required this.quantityInStock,
+    required this.categories,
+    required this.referenceId,
+  });
 
-  @JsonKey(name: "name")
-  String? name;
-
-  @JsonKey(name: "quantityInStock")
-  int? quantityInStock;
-
-  @JsonKey(name: "categories")
-  List<Category>? categories;
-
-  @JsonKey(name: "referenceId")
+  final String? businessUID;
+  final String? name;
+  final int? quantityInStock;
+  final List<Category>? categories;
   String? referenceId;
-
-  Product(this.businessUID, this.name, this.quantityInStock, this.categories,
-      this.referenceId);
 
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);

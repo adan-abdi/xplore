@@ -28,12 +28,15 @@ class XploreFirebaseAuth {
             .user;
 
     final User? currentUser = globalFirebaseAuthInstance.currentUser;
+
     assert(user!.uid == currentUser!.uid);
 
     if (user != null) {
       var xploreRemoteDBInstance = XploreFirestore();
 
-      await xploreRemoteDBInstance.createRemoteUserEntity();
+      await xploreRemoteDBInstance.createRemoteUserEntity(
+          phoneNumber: user.phoneNumber ?? state.userState!.phoneNumber,
+          uid: user.uid);
 
       StoreProvider.dispatch(
         ctx,

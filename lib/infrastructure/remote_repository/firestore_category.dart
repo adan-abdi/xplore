@@ -2,7 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Project imports:
-import 'package:shamiri/domain/models/category.dart';
+import 'package:shamiri/domain/models/categories/category.dart';
 
 class CategoryRepository {
   final CollectionReference collection =

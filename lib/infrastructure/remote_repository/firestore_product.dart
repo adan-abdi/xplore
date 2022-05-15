@@ -2,7 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Project imports:
-import 'package:shamiri/domain/models/product.dart';
+import 'package:shamiri/domain/models/products/product.dart';
 
 class ProductRepository {
   final CollectionReference collection =

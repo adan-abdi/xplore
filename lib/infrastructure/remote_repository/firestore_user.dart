@@ -1,12 +1,15 @@
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shamiri/domain/models/shamiri_user.dart';
+
+// Project imports:
+import 'package:shamiri/domain/models/users/user.dart';
 
 FirebaseAuth globalFirebaseAuthInstance = FirebaseAuth.instance;
 
 class UserRepository {
-  final CollectionReference collection = FirebaseFirestore.instance.collection('users');
+  final CollectionReference collection =
+      FirebaseFirestore.instance.collection('users');
 
   Stream<QuerySnapshot> getStream() {
     return collection.snapshots();
@@ -27,7 +30,7 @@ class UserRepository {
 
 // FirebaseUser loggedInUser;
 // final _firestore = Firestore.instance;
-// 
+//
 // double _latitude;
 // double _longitude;
 
