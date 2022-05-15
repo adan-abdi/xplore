@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shamiri/domain/models/shamiri_user.dart';
 
 // Project imports:
 import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
@@ -16,17 +17,14 @@ class XploreFirestore {
 
     assert(_user != null);
 
-    globalFirestoreInstance.collection("Users").add({
-      "key": 'Users',
-      "UID": _user!.uid,
-      "PhoneNumber": _user.phoneNumber,
-      "IsAnonymous": _user.isAnonymous,
-    }).then((_) {
+    ShamiriUser newUser = ShamiriUser(_user!.uid, _user.phoneNumber);
+
+    globalFirestoreInstance.collection("Users").add({"key": 'Users', "newUser": newUser}).then((_) {
       if (kDebugMode) {
         print("User collection created");
       }
     }).catchError((_) {
-      print("an error occured");
+      print("an error occurred");
     });
   }
 }
