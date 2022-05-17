@@ -17,6 +17,11 @@ enum ButtonStatus {
   inactive //red
 }
 
+enum TransactionStatus {
+  fulfilled,
+  pending,
+}
+
 extension ButtonStatusEx on ButtonStatus {
   Color get color {
     switch (this) {

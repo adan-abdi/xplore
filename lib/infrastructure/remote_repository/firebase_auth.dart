@@ -10,8 +10,9 @@ import 'package:progress_state_button/progress_button.dart';
 import 'package:shamiri/application/core/services/helpers.dart';
 import 'package:shamiri/application/redux/actions/update_user_state_action.dart';
 import 'package:shamiri/application/redux/states/app_state.dart';
+import 'package:shamiri/domain/models/users/user.dart';
 import 'package:shamiri/domain/routes/routes.dart';
-import 'package:shamiri/infrastructure/remote_repository/firestore_db.dart';
+import 'package:shamiri/infrastructure/remote_repository/firestore_user.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
 
 FirebaseAuth globalFirebaseAuthInstance = FirebaseAuth.instance;
@@ -27,12 +28,15 @@ class XploreFirebaseAuth {
     final User? currentUser = globalFirebaseAuthInstance.currentUser;
 
     if (user != null && user.uid == currentUser!.uid) {
-      var xploreRemoteDBInstance = XploreFirestore();
+      var remoteUserRepoInstance = UserRepository();
 
-      await xploreRemoteDBInstance.createOrUpdateRemoteUserEntity(
-        phoneNumber: user.phoneNumber ?? state.userState!.phoneNumber,
+      final ShamiriUser newUser = ShamiriUser(
         uid: user.uid,
+        name: 'Merchant Store',
+        phoneNumber: user.phoneNumber,
       );
+
+      await remoteUserRepoInstance.addUser(newUser);
 
       StoreProvider.dispatch(
         ctx,
