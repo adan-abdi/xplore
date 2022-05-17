@@ -1,8 +1,9 @@
 const String xploreRootPageRoute = '/';
-const String landingPageRoute = '/landingPage';
-const String loginPageRoute = '/phoneLoginPageRoute';
-const String otpPageRoute = '/otpPageRoute';
+const String landingPageRoute = '/onboardingLandingPageRoute';
+//
+const String phoneInputPageRoute = '/phoneInputPageRoute';
+const String verifyPhonePageRoute = '/verifyPhonePageRoute';
+//
 const String dashPageRoute = '/xploreDashboard';
-
-const String homePageRoute = '/homePage';
-const String profRoute = '/profile';
+//
+const String profilePageRoute = '/userProfilePage';

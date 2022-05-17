@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/presentation/core/pages/core_material.dart';
 import 'package:shamiri/presentation/core/widgets/unrecoverable_error_widget.dart';
-import 'package:shamiri/presentation/dashboard/pages/Profile.dart';
+import 'package:shamiri/presentation/core/pages/user_profile_page.dart';
 import 'package:shamiri/presentation/onboarding/pages/landing_page.dart';
 import 'package:shamiri/presentation/onboarding/pages/phone_input_page.dart';
 import 'package:shamiri/presentation/onboarding/pages/verify_phone_page.dart';
@@ -16,17 +16,19 @@ class AppRouterGenerator {
     // final dynamic args = settings?.arguments;
 
     switch (settings?.name) {
+      //
       case landingPageRoute:
         return MaterialPageRoute<LandingPage>(builder: (_) => LandingPage());
-      case loginPageRoute:
-        return MaterialPageRoute<PhoneLogin>(builder: (_) => PhoneLogin());
+      //
+      case phoneInputPageRoute:
+        return MaterialPageRoute<PhoneInputPage>(builder: (_) => PhoneInputPage());
+      case verifyPhonePageRoute:
+        return MaterialPageRoute<PhoneVerifyPage>(builder: (_) => PhoneVerifyPage());
+      //
       case dashPageRoute:
-        return MaterialPageRoute<XploreDashboard>(
-            builder: (_) => XploreDashboard());
-      case profRoute:
-        return MaterialPageRoute<Profile>(builder: (_) => Profile());
-      case otpPageRoute:
-        return MaterialPageRoute<Profile>(builder: (_) => PhoneVerifyPage());
+        return MaterialPageRoute<XploreDashboard>(builder: (_) => XploreDashboard());
+      case profilePageRoute:
+        return MaterialPageRoute<UserProfilePage>(builder: (_) => UserProfilePage());
 
       default:
         return _errorRoute();

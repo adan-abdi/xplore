@@ -34,7 +34,7 @@ class LandingPage extends StatelessWidget {
                 flex: 1,
                 child: ActionButton(
                   widgetText: getStartedText,
-                  nextRoute: loginPageRoute,
+                  nextRoute: phoneInputPageRoute,
                   colorStream: ButtonStatusStore().landingColorStream,
                   statusStream: ButtonStatusStore().landingStatusStream,
                 ),

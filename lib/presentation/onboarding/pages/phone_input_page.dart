@@ -19,14 +19,14 @@ import 'package:shamiri/presentation/onboarding/widgets/molecular/buttons/progre
 import 'package:shamiri/presentation/onboarding/widgets/molecular/input/login_phone_field.dart';
 import 'package:shamiri/presentation/onboarding/widgets/molecular/text/login_title.dart';
 
-class PhoneLogin extends StatefulWidget {
-  const PhoneLogin({Key? key}) : super(key: key);
+class PhoneInputPage extends StatefulWidget {
+  const PhoneInputPage({Key? key}) : super(key: key);
 
   @override
-  _PhoneLoginState createState() => _PhoneLoginState();
+  _PhoneInputPageState createState() => _PhoneInputPageState();
 }
 
-class _PhoneLoginState extends State<PhoneLogin> {
+class _PhoneInputPageState extends State<PhoneInputPage> {
   late GlobalKey<FormState>? _formKey = GlobalKey<FormState>();
   late TextEditingController phoneNumberController;
   final ButtonStatusStore actionButtonState = ButtonStatusStore();

@@ -50,7 +50,7 @@ Future<String> getInitialRoute({
     case AuthStatus.init:
       return landingPageRoute;
     case AuthStatus.requiresLogin:
-      return loginPageRoute;
+      return phoneInputPageRoute;
     case AuthStatus.okay:
       return dashPageRoute;
     default:
