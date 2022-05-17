@@ -7,13 +7,19 @@ part of 'product.dart';
 // **************************************************************************
 
 Product _$ProductFromJson(Map<String, dynamic> json) => Product(
-      businessUID: json['businessUID'] as String?,
       name: json['name'] as String?,
-      quantityInStock: json['quantityInStock'] as int?,
+      quantityInStock: json['quantityInStock'] as String?,
+      sellingPrice: json['sellingPrice'] as String?,
+      businessUID: json['businessUID'] as String?,
       categories: (json['categories'] as List<dynamic>?)
           ?.map((e) => Category.fromJson(e as Map<String, dynamic>))
           .toList(),
-      referenceId: json['referenceId'] as String?,
+      imageList: (json['imageList'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      buyingPrice: json['buyingPrice'] as String?,
+      metricUnit: json['metricUnit'] as String?,
+      productRefID: json['productRefID'] as String?,
     );
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
@@ -21,5 +27,9 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'name': instance.name,
       'quantityInStock': instance.quantityInStock,
       'categories': instance.categories?.map((e) => e.toJson()).toList(),
-      'referenceId': instance.referenceId,
+      'imageList': instance.imageList,
+      'sellingPrice': instance.sellingPrice,
+      'buyingPrice': instance.buyingPrice,
+      'metricUnit': instance.metricUnit,
+      'productRefID': instance.productRefID,
     };

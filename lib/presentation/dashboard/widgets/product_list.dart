@@ -6,14 +6,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Project imports:
 import 'package:shamiri/infrastructure/remote_repository/firestore_db.dart';
+import 'package:shamiri/infrastructure/remote_repository/firestore_product.dart';
 import 'package:shamiri/presentation/dashboard/pages/EditProduct.dart';
 import 'package:shamiri/presentation/dashboard/pages/merchant_checkin.dart';
 
 class ProductList extends StatelessWidget {
   const ProductList({Key? key}) : super(key: key);
 
-  _myCard(BuildContext context, String name, String bp, String sp, String units,
-      String quantity, String category, String image, String docId) {
+  _myCard(BuildContext context, String name, String bp, String sp, String units, String quantity, String category,
+      String image, String docId) {
     return Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,12 +48,8 @@ class ProductList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text('$quantity Left',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey)),
-                      Text('$sp KES',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$quantity Left', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$sp KES', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
                     ],
                   ),
                   SizedBox(
@@ -66,10 +63,7 @@ class ProductList extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'Order',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 20,
-                              color: Colors.white),
+                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Colors.white),
                         ),
                       ),
                     ),
@@ -83,14 +77,11 @@ class ProductList extends StatelessWidget {
                               quantity: '1',
                               category: category,
                               rem: rem.toString(),
-                              image:
-                                  'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg',
+                              image: 'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg',
                               status: 'pending',
                               docId: docId)
-                          .whenComplete(() => Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      MerchantCheckIn())));
+                          .whenComplete(() => Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(builder: (BuildContext context) => MerchantCheckIn())));
                     },
                   ),
                 ],
@@ -104,21 +95,19 @@ class ProductList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ProductRepository productRepositoryInstance = ProductRepository();
+
     return StreamBuilder<QuerySnapshot>(
-        stream: Database.readProducts(),
+        stream: productRepositoryInstance.getStream(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Container(
-                height: MediaQuery.of(context).size.height * 0.7,
-                child: Center(child: Text('Something went wrong')));
+                height: MediaQuery.of(context).size.height * 0.7, child: Center(child: Text('Something went wrong')));
           } else if (snapshot.hasData || snapshot.data != null) {
             return GridView.builder(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 9.0 / 10.0,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 10),
+                  maxCrossAxisExtent: 200, childAspectRatio: 9.0 / 10.0, crossAxisSpacing: 5, mainAxisSpacing: 10),
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (BuildContext ctx, index) {
                 //var productInfo = snapshot.data!.docs[index].data()!;

@@ -10,26 +10,32 @@ part 'product.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Product {
   Product({
-    required this.businessUID,
     required this.name,
     required this.quantityInStock,
-    required this.categories,
-    required this.referenceId,
+    required this.sellingPrice,
+    this.businessUID,
+    this.categories,
+    this.imageList,
+    this.buyingPrice,
+    this.metricUnit,
+    this.productRefID,
   });
 
   final String? businessUID;
   final String? name;
-  final int? quantityInStock;
+  final String? quantityInStock;
   final List<Category>? categories;
-  String? referenceId;
+  final List<String>? imageList;
+  final String? sellingPrice;
+  final String? buyingPrice;
+  final String? metricUnit;
+  String? productRefID;
 
-  factory Product.fromJson(Map<String, dynamic> json) =>
-      _$ProductFromJson(json);
+  factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
 
   factory Product.fromSnapshot(DocumentSnapshot snapshot) {
-    final newProduct =
-        Product.fromJson(snapshot.data() as Map<String, dynamic>);
-    newProduct.referenceId = snapshot.reference.id;
+    final newProduct = Product.fromJson(snapshot.data() as Map<String, dynamic>);
+    newProduct.productRefID = snapshot.reference.id;
     return newProduct;
   }
 

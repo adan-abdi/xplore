@@ -7,23 +7,20 @@ part 'category.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Category {
   Category({
-    required this.businessUID,
     required this.name,
-    required this.referenceId,
+    this.businessUID,
   });
 
   final String? businessUID;
   final String? name;
-  String? referenceId;
+  String? categoryRefId;
 
-  factory Category.fromJson(Map<String, dynamic> json) =>
-      _$CategoryFromJson(json);
+  factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
 
   factory Category.fromSnapshot(DocumentSnapshot snapshot) {
-    final newProduct =
-        Category.fromJson(snapshot.data() as Map<String, dynamic>);
-    newProduct.referenceId = snapshot.reference.id;
-    return newProduct;
+    final newTransaction = Category.fromJson(snapshot.data() as Map<String, dynamic>);
+    newTransaction.categoryRefId = snapshot.reference.id;
+    return newTransaction;
   }
 
   Map<String, dynamic> toJson() => _$CategoryToJson(this);

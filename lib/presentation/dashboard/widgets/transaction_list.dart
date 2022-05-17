@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Project imports:
-import 'package:shamiri/infrastructure/remote_repository/firestore_db.dart';
+import 'package:shamiri/infrastructure/remote_repository/firestore_transaction.dart';
 
 class TransactionList extends StatefulWidget {
   final String tstatus;
@@ -118,13 +118,14 @@ class _TransactionListState extends State<TransactionList> {
 
   @override
   Widget build(BuildContext context) {
+    TransactionRepository transactionRepository = TransactionRepository();
+
     return StreamBuilder<QuerySnapshot>(
-        stream: Database.readTransactions(),
+        stream: transactionRepository.getStream(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Container(
-                height: MediaQuery.of(context).size.height * 0.7,
-                child: Center(child: Text('Something went wrong')));
+                height: MediaQuery.of(context).size.height * 0.7, child: Center(child: Text('Something went wrong')));
           } else if (snapshot.hasData || snapshot.data != null) {
             return Column(
               children: <Widget>[
@@ -155,21 +156,16 @@ class _TransactionListState extends State<TransactionList> {
                               color: Colors.red,
                               child: Icon(Icons.delete),
                             ),
-                            onDismissed: (direction) {
-                              Database.deleteTransaction(docID)
-                                  .whenComplete(() {
+                            onDismissed: (direction) async {
+                              await transactionRepository.deleteTransaction(docID).whenComplete(() {
                                 setState(() {
                                   snapshot.data!.docChanges.removeAt(index);
                                 });
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text(
-                                            'Transaction of $name deleted')));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(content: Text('Transaction of $name deleted')));
                               });
                             },
-                            child: status == widget.tstatus
-                                ? _transactions(name, qty, image)
-                                : Container());
+                            child: status == widget.tstatus ? _transactions(name, qty, image) : Container());
                       }),
                 )
               ],

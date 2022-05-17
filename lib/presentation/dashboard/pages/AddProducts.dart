@@ -1,23 +1,28 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:shamiri/domain/models/categories/category.dart';
+import 'package:shamiri/domain/models/products/product.dart';
+import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
 
 // Project imports:
-import 'package:shamiri/infrastructure/remote_repository/firestore_db.dart';
+import 'package:shamiri/infrastructure/remote_repository/firestore_product.dart';
 
-class AddProducts extends StatefulWidget {
-  const AddProducts({Key? key}) : super(key: key);
+class AddProductPage extends StatefulWidget {
+  const AddProductPage({Key? key}) : super(key: key);
 
   @override
-  _AddProductsState createState() => _AddProductsState();
+  _AddProductPageState createState() => _AddProductPageState();
 }
 
-class _AddProductsState extends State<AddProducts> {
+class _AddProductPageState extends State<AddProductPage> {
   TextEditingController _name = TextEditingController();
   TextEditingController _bp = TextEditingController();
   TextEditingController _sp = TextEditingController();
   TextEditingController _units = TextEditingController();
   TextEditingController _qty = TextEditingController();
   TextEditingController _cat = TextEditingController();
+
+  var remoteProductRepoInstance = ProductRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +55,7 @@ class _AddProductsState extends State<AddProducts> {
             child: Center(
               child: Text(
                 'Add Product',
-                style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 24,
-                    color: Colors.deepOrange),
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24, color: Colors.deepOrange),
               ),
             )),
       ),
@@ -79,8 +81,7 @@ class _AddProductsState extends State<AddProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -105,8 +106,7 @@ class _AddProductsState extends State<AddProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -132,8 +132,7 @@ class _AddProductsState extends State<AddProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -159,8 +158,7 @@ class _AddProductsState extends State<AddProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -186,8 +184,7 @@ class _AddProductsState extends State<AddProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -215,8 +212,7 @@ class _AddProductsState extends State<AddProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     enabledBorder: new OutlineInputBorder(
@@ -234,28 +230,31 @@ class _AddProductsState extends State<AddProducts> {
                 ),
                 ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.deepOrange),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrange),
                     ),
                     onPressed: () {
-                      //TODO: add remote product
-                      //TODO: dispatch save product action
-                      Database.addProduct(
-                              name: _name.text,
-                              bp: _bp.text,
-                              sp: _sp.text,
-                              units: _units.text,
-                              quantity: _qty.text,
-                              category: _cat.text,
-                              image:
-                                  'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg')
-                          .whenComplete(() => Navigator.of(context).pop());
+                      var buisinessID = globalFirebaseAuthInstance.currentUser!.uid;
+
+                      final Product newProduct = Product(
+                          businessUID: buisinessID,
+                          name: _name.text,
+                          buyingPrice: _bp.text,
+                          sellingPrice: _sp.text,
+                          quantityInStock: _qty.text,
+                          metricUnit: _units.text,
+                          categories: [
+                            Category(name: _cat.text, businessUID: buisinessID),
+                          ],
+                          imageList: [
+                            'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg',
+                          ]);
+
+                      remoteProductRepoInstance.addProduct(newProduct).whenComplete(() => Navigator.of(context).pop());
                     },
                     child: Text('Add Product')),
                 Padding(
                     // this is new
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom)),
+                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)),
               ]),
         ),
       ),
