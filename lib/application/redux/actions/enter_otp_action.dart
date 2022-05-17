@@ -43,9 +43,10 @@ class EnterOtpAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     dispatch(
       UpdateUserStateAction(
-          isSignedIn: false,
-          pinCodeVerificationID: verificationId,
-          hasDoneTour: false),
+        isSignedIn: false,
+        pinCodeVerificationID: verificationId,
+        hasDoneTour: true,
+      ),
     );
 
     dispatch(NavigateAction.pushNamed(otpPageRoute));

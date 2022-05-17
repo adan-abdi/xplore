@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:shamiri/infrastructure/local_repository/database.dart';
+import 'package:shamiri/infrastructure/remote_repository/firestore_db.dart';
 
 class AddProducts extends StatefulWidget {
   const AddProducts({Key? key}) : super(key: key);

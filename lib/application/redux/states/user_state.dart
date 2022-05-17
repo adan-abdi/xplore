@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'user_state.freezed.dart';
 part 'user_state.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+@freezed
 class UserState with _$UserState {
   factory UserState({
     String? uid,
