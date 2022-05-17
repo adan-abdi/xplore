@@ -13,13 +13,14 @@ Order _$OrderFromJson(Map<String, dynamic> json) => Order(
       productsList: (json['productsList'] as List<dynamic>)
           .map((e) => Product.fromJson(e as Map<String, dynamic>))
           .toList(),
-    );
+    )..transactionRefId = json['transactionRefId'] as String?;
 
 Map<String, dynamic> _$OrderToJson(Order instance) => <String, dynamic>{
       'businessUID': instance.businessUID,
       'name': instance.name,
       'status': _$TransactionStatusEnumMap[instance.status],
       'productsList': instance.productsList.map((e) => e.toJson()).toList(),
+      'transactionRefId': instance.transactionRefId,
     };
 
 const _$TransactionStatusEnumMap = {

@@ -49,7 +49,7 @@ class EnterOtpAction extends ReduxAction<AppState> {
       ),
     );
 
-    dispatch(NavigateAction.pushNamed(otpPageRoute));
+    dispatch(NavigateAction.pushNamed(verifyPhonePageRoute));
 
     return store.state;
   }

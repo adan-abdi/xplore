@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:shamiri/presentation/dashboard/widgets/p_list.dart';
 import 'package:shamiri/presentation/dashboard/widgets/p_top.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+class UserProfilePage extends StatefulWidget {
+  const UserProfilePage({Key? key}) : super(key: key);
 
   @override
-  _ProfileState createState() => _ProfileState();
+  _UserProfilePageState createState() => _UserProfilePageState();
 }
 
-class _ProfileState extends State<Profile> {
+class _UserProfilePageState extends State<UserProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,10 +44,7 @@ class _ProfileState extends State<Profile> {
             child: Center(
               child: Text(
                 'Merchant Profile',
-                style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 24,
-                    color: Colors.deepOrange),
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24, color: Colors.deepOrange),
               ),
             )),
       ),
