@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:shamiri/domain/models/users/user.dart';
 import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
+import 'package:shamiri/infrastructure/remote_repository/firestore_user.dart';
 
 class Database {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -149,12 +150,14 @@ class Database {
 FirebaseFirestore globalFirestoreInstance = FirebaseFirestore.instance;
 
 class XploreFirestore {
-  Future<void> createRemoteUserEntity({
+  Future<void> createOrUpdateRemoteUserEntity({
     required String? uid,
     required String? phoneNumber,
     String name = 'Merchant Store',
   }) async {
     final User? _user = globalFirebaseAuthInstance.currentUser;
+
+    var remoteUserRepoInstance = UserRepository();
 
     assert(_user != null);
 
@@ -164,7 +167,7 @@ class XploreFirestore {
       phoneNumber: phoneNumber,
     );
 
-    globalFirestoreInstance.collection("Users").add({"key": 'Users', "newUser": newUser}).then((_) {
+    remoteUserRepoInstance.addUser(newUser).then((value) {
       if (kDebugMode) {
         print("User collection created");
       }

@@ -26,12 +26,10 @@ class XploreFirebaseAuth {
 
     final User? currentUser = globalFirebaseAuthInstance.currentUser;
 
-    assert(user!.uid == currentUser!.uid);
-
-    if (user != null) {
+    if (user != null && user.uid == currentUser!.uid) {
       var xploreRemoteDBInstance = XploreFirestore();
 
-      await xploreRemoteDBInstance.createRemoteUserEntity(
+      await xploreRemoteDBInstance.createOrUpdateRemoteUserEntity(
         phoneNumber: user.phoneNumber ?? state.userState!.phoneNumber,
         uid: user.uid,
       );
