@@ -17,15 +17,12 @@ import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
 FirebaseAuth globalFirebaseAuthInstance = FirebaseAuth.instance;
 
 class XploreFirebaseAuth {
-  void verifyOtp(String otpText, BuildContext ctx, AppState state,
-      {bool? isSignedIn}) async {
+  void verifyOtp(String otpText, BuildContext ctx, AppState state, {bool? isSignedIn}) async {
     final AuthCredential credential = PhoneAuthProvider.credential(
       verificationId: state.userState!.pinCodeVerificationID ?? '',
       smsCode: otpText,
     );
-    final User? user =
-        (await globalFirebaseAuthInstance.signInWithCredential(credential))
-            .user;
+    final User? user = (await globalFirebaseAuthInstance.signInWithCredential(credential)).user;
 
     final User? currentUser = globalFirebaseAuthInstance.currentUser;
 
@@ -35,8 +32,9 @@ class XploreFirebaseAuth {
       var xploreRemoteDBInstance = XploreFirestore();
 
       await xploreRemoteDBInstance.createRemoteUserEntity(
-          phoneNumber: user.phoneNumber ?? state.userState!.phoneNumber,
-          uid: user.uid);
+        phoneNumber: user.phoneNumber ?? state.userState!.phoneNumber,
+        uid: user.uid,
+      );
 
       StoreProvider.dispatch(
         ctx,
