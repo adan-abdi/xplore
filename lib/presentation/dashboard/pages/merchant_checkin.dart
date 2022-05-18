@@ -6,9 +6,9 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_appbar.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_card.dart';
-import 'package:shamiri/presentation/dashboard/widgets/layout/category_bar.dart';
 import 'package:shamiri/presentation/dashboard/widgets/layout/product_list.dart';
 import 'package:shamiri/presentation/dashboard/widgets/transaction_list.dart';
 
@@ -52,8 +52,11 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
           padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
           height: MediaQuery.of(context).size.height * 0.7,
           child: Column(children: <Widget>[
-            Container(
-              child: CategoryBar(),
+            // Container(
+            //   child: CategoryBar(),
+            // ),
+            SizedBox(
+              height: 20,
             ),
             Expanded(
               child: ProductList(),
@@ -145,7 +148,9 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
       //todo: Make mini, reduce widget height
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: XploreColors.deepBlue,
-        onPressed: () {},
+        onPressed: () async {
+          await Navigator.pushNamed(context, addProductPageRoute);
+        },
         label: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -165,7 +170,8 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ConstrainedBox(
-                constraints: BoxConstraints.tightFor(width: MediaQuery.of(context).size.width * 0.4, height: 40),
+                constraints: BoxConstraints.tightFor(
+                    width: MediaQuery.of(context).size.width * 0.4, height: 40),
                 child: ElevatedButton(
                   clipBehavior: Clip.none,
                   child: Text('Inventory'),
@@ -174,17 +180,22 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                        currentIndex == 0 ? XploreColors.deepBlue : XploreColors.white,
+                        currentIndex == 0
+                            ? XploreColors.deepBlue
+                            : XploreColors.white,
                       ),
                       //padding: MaterialStateProperty.all(EdgeInsets.all(50)),
                       textStyle: MaterialStateProperty.all(TextStyle(
                         fontSize: 20,
-                        color: currentIndex == 0 ? Colors.white : XploreColors.deepBlue,
+                        color: currentIndex == 0
+                            ? Colors.white
+                            : XploreColors.deepBlue,
                       ))),
                 ),
               ),
               ConstrainedBox(
-                constraints: BoxConstraints.tightFor(width: MediaQuery.of(context).size.width * 0.4, height: 40),
+                constraints: BoxConstraints.tightFor(
+                    width: MediaQuery.of(context).size.width * 0.4, height: 40),
                 child: ElevatedButton(
                   clipBehavior: Clip.hardEdge,
                   child: Text('Transactions'),
@@ -193,12 +204,16 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                        currentIndex == 1 ? XploreColors.deepBlue : XploreColors.deepBlue,
+                        currentIndex == 1
+                            ? XploreColors.deepBlue
+                            : XploreColors.deepBlue,
                       ),
                       //padding: MaterialStateProperty.all(EdgeInsets.all(50)),
                       textStyle: MaterialStateProperty.all(TextStyle(
                         fontSize: 20,
-                        color: currentIndex == 1 ? XploreColors.deepBlue : XploreColors.deepBlue,
+                        color: currentIndex == 1
+                            ? XploreColors.deepBlue
+                            : XploreColors.deepBlue,
                       ))),
                 ),
               ),

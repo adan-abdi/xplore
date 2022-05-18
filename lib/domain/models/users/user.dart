@@ -17,7 +17,8 @@ class ShamiriUser {
   final String? phoneNumber;
   final String? email;
 
-  factory ShamiriUser.fromJson(Map<String, dynamic> json) => _$ShamiriUserFromJson(json);
+  factory ShamiriUser.fromJson(Map<String, dynamic> json) =>
+      _$ShamiriUserFromJson(json);
 
   Map<String, dynamic> toJson() => _$ShamiriUserToJson(this);
 }

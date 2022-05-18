@@ -15,10 +15,12 @@ class Category {
   final String? name;
   String? categoryRefId;
 
-  factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
+  factory Category.fromJson(Map<String, dynamic> json) =>
+      _$CategoryFromJson(json);
 
   factory Category.fromSnapshot(DocumentSnapshot snapshot) {
-    final newTransaction = Category.fromJson(snapshot.data() as Map<String, dynamic>);
+    final newTransaction =
+        Category.fromJson(snapshot.data() as Map<String, dynamic>);
     newTransaction.categoryRefId = snapshot.reference.id;
     return newTransaction;
   }

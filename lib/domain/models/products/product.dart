@@ -31,10 +31,12 @@ class Product {
   final String? metricUnit;
   String? productRefID;
 
-  factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
 
   factory Product.fromSnapshot(DocumentSnapshot snapshot) {
-    final newProduct = Product.fromJson(snapshot.data() as Map<String, dynamic>);
+    final newProduct =
+        Product.fromJson(snapshot.data() as Map<String, dynamic>);
     newProduct.productRefID = snapshot.reference.id;
     return newProduct;
   }

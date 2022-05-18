@@ -1,6 +1,8 @@
 // Flutter imports:
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Project imports:
 import 'package:shamiri/infrastructure/remote_repository/firestore_category.dart';
@@ -19,7 +21,8 @@ class CategoryBar extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Container(
-                  height: MediaQuery.of(context).size.height * 0.7, child: Center(child: Text('Something went wrong')));
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  child: Center(child: Text('Something went wrong')));
             } else if (snapshot.hasData && snapshot.data != null) {
               return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
