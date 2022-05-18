@@ -1,5 +1,9 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:shamiri/domain/models/categories/category.dart';
+import 'package:shamiri/presentation/dashboard/pages/edit_product_page.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -28,20 +32,21 @@ class ProductCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           AspectRatio(
-            aspectRatio: 18.0 / 11.0,
+            aspectRatio: 22.0 / 12.0,
             child: InkWell(
                 child: Image.network(imageAsset),
                 onTap: () {
-                  // Navigator.of(context).push(MaterialPageRoute(
-                  //     builder: (BuildContext context) => EditProducts(
-                  //         name: name,
-                  //         bp: bp,
-                  //         sp: sp,
-                  //         units: units,
-                  //         quantity: quantity,
-                  //         category: category,
-                  //         docId: productDocId,
-                  // )));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => EditProducts(
+                            name: name,
+                            bp: buyingPrice,
+                            sp: sellingPrice,
+                            units: 'units',
+                            quantity: quantity,
+                            category: categories.first.name,
+                            docId: productDocId,
+                            imageList: imageAsset,
+                          )));
                 }),
           ),
           Expanded(
@@ -57,8 +62,12 @@ class ProductCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text('$quantity Left', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
-                      Text('$sellingPrice KES', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$quantity Left',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$sellingPrice KES',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.grey)),
                     ],
                   ),
                   SizedBox(
@@ -66,13 +75,16 @@ class ProductCard extends StatelessWidget {
                   ),
                   InkWell(
                     child: Container(
-                      height: 25,
+                      height: 30,
                       width: MediaQuery.of(context).size.width * 0.4,
                       color: Colors.deepOrange,
                       child: Center(
                         child: Text(
                           'Order',
-                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Colors.white),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              color: Colors.white),
                         ),
                       ),
                     ),

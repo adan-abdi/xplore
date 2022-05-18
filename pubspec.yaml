@@ -2,7 +2,7 @@ name: shamiri
 description: Built for scale, made for conveniance.
 publish_to: "none"
 #Increment by 1 to add new release
-version: 1.0.7
+version: 1.0.8
 
 environment:
   sdk: ">=2.14.0 <3.0.0"

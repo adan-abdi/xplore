@@ -1,15 +1,17 @@
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shamiri/domain/models/categories/category.dart';
 
 // Project imports:
+import 'package:shamiri/domain/models/categories/category.dart';
 import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
 import 'package:shamiri/infrastructure/remote_repository/firestore_db.dart';
 
 class CategoryRepository {
-  static final _collectionReference = globalFirestoreInstance.collection("inventory");
+  static final _collectionReference =
+      globalFirestoreInstance.collection("inventory");
   static final _currentUserID = globalFirebaseAuthInstance.currentUser!.uid;
-  static final _categoryCollection = _collectionReference..doc(_currentUserID).collection("categories");
+  static final _categoryCollection = _collectionReference
+    ..doc(_currentUserID).collection("categories");
   static final _categoryDocRef = _categoryCollection.doc();
 
   Stream<QuerySnapshot> getStream() {

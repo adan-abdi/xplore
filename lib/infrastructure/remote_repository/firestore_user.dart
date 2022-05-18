@@ -1,5 +1,8 @@
-import 'package:shamiri/domain/models/users/user.dart';
+// Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+// Project imports:
+import 'package:shamiri/domain/models/users/user.dart';
 import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
 import 'package:shamiri/infrastructure/remote_repository/firestore_db.dart';
 

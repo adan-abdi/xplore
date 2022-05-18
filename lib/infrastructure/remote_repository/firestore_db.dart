@@ -1,16 +1,21 @@
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+
+// Project imports:
 import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
 
 FirebaseFirestore globalFirestoreInstance = FirebaseFirestore.instance;
 
 class Database {
-  static final _collectionReference = globalFirestoreInstance.collection("inventory");
+  static final _collectionReference =
+      globalFirestoreInstance.collection("inventory");
   static final _currentUserID = globalFirebaseAuthInstance.currentUser!.uid;
 
-  static final _docRefInventory = _collectionReference.doc(_currentUserID).collection("products");
-  static final _docRefOrder = _collectionReference.doc(_currentUserID).collection("transactions");
+  static final _docRefInventory =
+      _collectionReference.doc(_currentUserID).collection("products");
+  static final _docRefOrder =
+      _collectionReference.doc(_currentUserID).collection("transactions");
 
   static Future<void> checkoutItem({
     required String name,

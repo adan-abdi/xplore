@@ -14,13 +14,13 @@ if (flutterRoot == null) {
 //Increment by 1 to add new release
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '11'
+    flutterVersionCode = '12'
 }
 
 //Increment by 1 to add new release
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0.7'
+    flutterVersionName = '1.0.8'
 }
 
 def keystoreProperties = new Properties()

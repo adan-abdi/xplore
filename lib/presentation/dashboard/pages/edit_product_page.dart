@@ -1,63 +1,81 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:shamiri/domain/models/categories/category.dart';
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
-
-// Project imports:
 import 'package:shamiri/infrastructure/remote_repository/firestore_product.dart';
 
-class AddProductPage extends StatefulWidget {
-  const AddProductPage({Key? key}) : super(key: key);
+class EditProducts extends StatefulWidget {
+  final String imageList;
+  final String name;
+  final String bp;
+  final String sp;
+  final String units;
+  final String quantity;
+  final String? category;
+  final String docId;
+
+  const EditProducts({
+    Key? key,
+    required this.name,
+    required this.bp,
+    required this.sp,
+    required this.units,
+    required this.quantity,
+    required this.docId,
+    required this.imageList,
+    this.category,
+  }) : super(key: key);
 
   @override
-  _AddProductPageState createState() => _AddProductPageState();
+  _EditProductsState createState() => _EditProductsState();
 }
 
-class _AddProductPageState extends State<AddProductPage> {
+class _EditProductsState extends State<EditProducts> {
   TextEditingController _name = TextEditingController();
   TextEditingController _bp = TextEditingController();
   TextEditingController _sp = TextEditingController();
   TextEditingController _units = TextEditingController();
   TextEditingController _qty = TextEditingController();
   TextEditingController _cat = TextEditingController();
-
   var remoteProductRepoInstance = ProductRepository();
+
+  @override
+  void initState() {
+    super.initState();
+    _name = new TextEditingController(text: widget.name);
+    _bp = new TextEditingController(text: widget.bp);
+    _sp = new TextEditingController(text: widget.sp);
+    _units = new TextEditingController(text: widget.units);
+    _qty = new TextEditingController(text: widget.quantity);
+    _cat = new TextEditingController(text: widget.category);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Colors.deepOrange,
-        elevation: 0,
-        leading: Padding(
-          padding: EdgeInsets.all(8),
-          child: Container(
-            height: 30,
-            width: MediaQuery.of(context).size.width * 0.8,
-            // padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            color: Colors.white,
-            child: IconButton(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: Icon(Icons.arrow_back)),
+        title: Text("Edit Product"),
+        actions: <Widget>[
+          IconButton(
+              onPressed: () {
+                remoteProductRepoInstance
+                    .deleteProduct(widget.docId)
+                    .whenComplete(() => Navigator.of(context).pop());
+              },
               icon: Icon(
-                Icons.arrow_back,
-                color: Colors.deepOrange,
-              ),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ),
-        ),
-        title: Container(
-            height: 39,
-            width: MediaQuery.of(context).size.width * 0.7,
-            color: Colors.white,
-            child: Center(
-              child: Text(
-                'Add Product',
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24, color: Colors.deepOrange),
-              ),
-            )),
+                Icons.delete,
+                color: Colors.white,
+              )),
+        ],
       ),
       body: SingleChildScrollView(
         reverse: true, // this is new
@@ -74,19 +92,20 @@ class _AddProductPageState extends State<AddProductPage> {
                 ),
                 TextField(
                   controller: _name,
-                  cursorColor: Colors.deepOrange,
+                  cursorColor: Colors.grey,
                   decoration: InputDecoration(
                     labelText: 'Product Name',
                     contentPadding: EdgeInsets.all(5.0),
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
                       borderSide: new BorderSide(
-                        color: Colors.deepOrange,
+                        color: Colors.grey,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.zero,
@@ -99,24 +118,25 @@ class _AddProductPageState extends State<AddProductPage> {
                 ),
                 TextField(
                   controller: _units,
-                  cursorColor: Colors.deepOrange,
+                  cursorColor: Colors.grey,
                   decoration: InputDecoration(
-                    labelText: 'Product Unit',
+                    labelText: 'Product Units',
                     contentPadding: EdgeInsets.all(5.0),
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
                       borderSide: new BorderSide(
-                        color: Colors.deepOrange,
+                        color: Colors.grey,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.zero,
                     ),
-                    hintText: "e.g Kg, g",
+                    hintText: "Units",
                   ),
                 ),
                 SizedBox(
@@ -124,20 +144,21 @@ class _AddProductPageState extends State<AddProductPage> {
                 ),
                 TextField(
                   controller: _bp,
+                  cursorColor: Colors.grey,
                   keyboardType: TextInputType.number,
-                  cursorColor: Colors.deepOrange,
                   decoration: InputDecoration(
                     labelText: 'Buying Price',
                     contentPadding: EdgeInsets.all(5.0),
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
                       borderSide: new BorderSide(
-                        color: Colors.deepOrange,
+                        color: Colors.grey,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.zero,
@@ -150,7 +171,7 @@ class _AddProductPageState extends State<AddProductPage> {
                 ),
                 TextField(
                   controller: _sp,
-                  cursorColor: Colors.deepOrange,
+                  cursorColor: Colors.grey,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     labelText: 'Selling Price',
@@ -158,12 +179,13 @@ class _AddProductPageState extends State<AddProductPage> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
                       borderSide: new BorderSide(
-                        color: Colors.deepOrange,
+                        color: Colors.grey,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.zero,
@@ -176,20 +198,20 @@ class _AddProductPageState extends State<AddProductPage> {
                 ),
                 TextField(
                   controller: _qty,
-                  cursorColor: Colors.deepOrange,
-                  keyboardType: TextInputType.number,
+                  cursorColor: Colors.grey,
                   decoration: InputDecoration(
                     labelText: 'Quantity',
                     contentPadding: EdgeInsets.all(5.0),
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
                       borderSide: new BorderSide(
-                        color: Colors.deepOrange,
+                        color: Colors.grey,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.zero,
@@ -202,59 +224,66 @@ class _AddProductPageState extends State<AddProductPage> {
                 ),
                 TextField(
                   controller: _cat,
-                  cursorColor: Colors.deepOrange,
+                  cursorColor: Colors.grey,
                   decoration: InputDecoration(
-                    labelText: 'Category',
-                    labelStyle: TextStyle(
-                      color: Colors.deepOrange,
-                    ),
+                    labelText: 'Product Category',
                     contentPadding: EdgeInsets.all(5.0),
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
+                      borderSide:
+                          const BorderSide(color: Colors.grey, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
-                    enabledBorder: new OutlineInputBorder(
+                    border: new OutlineInputBorder(
                       borderSide: new BorderSide(
-                        color: Colors.deepOrange,
+                        color: Colors.grey,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.zero,
                     ),
-                    hintText: "Product Category",
+                    hintText: "Category",
                   ),
                 ),
                 SizedBox(
                   height: 40,
                 ),
-                ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrange),
-                    ),
-                    onPressed: () {
-                      var buisinessID = globalFirebaseAuthInstance.currentUser!.uid;
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    ElevatedButton(
+                        onPressed: () {
+                          var buisinessID =
+                              globalFirebaseAuthInstance.currentUser!.uid;
 
-                      final Product newProduct = Product(
-                          businessUID: buisinessID,
-                          name: _name.text,
-                          buyingPrice: _bp.text,
-                          sellingPrice: _sp.text,
-                          quantityInStock: _qty.text,
-                          metricUnit: _units.text,
-                          categories: [
-                            Category(name: _cat.text, businessUID: buisinessID),
-                          ],
-                          imageList: [
-                            'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg',
-                          ]);
+                          final Product newProduct = Product(
+                              businessUID: buisinessID,
+                              productRefID: widget.docId,
+                              name: _name.text,
+                              buyingPrice: _bp.text,
+                              sellingPrice: _sp.text,
+                              quantityInStock: _qty.text,
+                              metricUnit: _units.text,
+                              categories: [
+                                Category(
+                                    name: _cat.text, businessUID: buisinessID),
+                              ],
+                              imageList: [
+                                widget.imageList,
+                              ]);
 
-                      remoteProductRepoInstance.addProduct(newProduct).whenComplete(() => Navigator.of(context).pop());
-                    },
-                    child: Text('Add Product')),
+                          remoteProductRepoInstance
+                              .addProduct(newProduct)
+                              .whenComplete(() => Navigator.of(context).pop());
+                        },
+                        child: Text('Save Product')),
+                  ],
+                ),
                 Padding(
                     // this is new
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)),
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom)),
               ]),
         ),
       ),
