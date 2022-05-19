@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
 
 // Project imports:
 import 'package:shamiri/domain/models/products/product.dart';
@@ -50,19 +51,14 @@ class ProductCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('$prodName',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text('$prodName', style: TextStyle(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 6.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text('$prodQty Left',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey)),
-                      Text('$prodSp KES',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$prodQty Left', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$prodSp KES', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
                     ],
                   ),
                   SizedBox(
@@ -72,14 +68,11 @@ class ProductCard extends StatelessWidget {
                     child: Container(
                       height: 30,
                       width: MediaQuery.of(context).size.width * 0.4,
-                      color: Colors.deepOrange,
+                      color: XploreColors.lightOrange,
                       child: Center(
                         child: Text(
                           'Order',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 20,
-                              color: Colors.white),
+                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Colors.white),
                         ),
                       ),
                     ),

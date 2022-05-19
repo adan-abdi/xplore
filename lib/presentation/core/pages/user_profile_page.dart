@@ -1,9 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-
-// Project imports:
-import 'package:shamiri/presentation/dashboard/widgets/p_list.dart';
-import 'package:shamiri/presentation/dashboard/widgets/p_top.dart';
+import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/presentation/core/widgets/p_list.dart';
+import 'package:shamiri/presentation/core/widgets/p_top.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({Key? key}) : super(key: key);
@@ -44,10 +43,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
             child: Center(
               child: Text(
                 'Merchant Profile',
-                style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 24,
-                    color: Colors.deepOrange),
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24, color: Colors.deepOrange),
               ),
             )),
       ),
@@ -60,7 +56,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             PTop(),
-            SizedBox(height: 20),
+            vSize20SizedBox,
             PList(),
           ],
         ),

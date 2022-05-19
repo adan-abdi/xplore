@@ -33,6 +33,7 @@ dependencies:
   pin_code_fields: ^7.3.0
   progress_state_button: ^1.0.4
   rxdart: ^0.27.3
+  shimmer: ^2.0.0
   sqflite: ^2.0.2
 
 dev_dependencies:
