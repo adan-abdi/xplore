@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -49,7 +50,6 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
   @override
   Widget build(BuildContext context) {
     // Tabs created to display text on each screen
-
     final tabs = [
       Container(
           padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -64,6 +64,7 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
           height: MediaQuery.of(context).size.height * 0.7,
           child: Column(children: <Widget>[
+            vSize10SizedBox,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -112,12 +113,21 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
                 ),
               ],
             ),
+            vSize10SizedBox,
             Expanded(
               flex: 1,
               child: sdefault.toString() == 'pending'
                   ? TransactionList(tstatus: sdefault.toString())
                   : TransactionList(tstatus: cdefault.toString()),
             )
+          ])),
+      Container(
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+          height: MediaQuery.of(context).size.height * 0.7,
+          child: Column(children: <Widget>[
+            Expanded(
+              child: Center(child: Text('Settings page!')),
+            ),
           ])),
     ];
 
@@ -170,58 +180,47 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        elevation: 0,
-        color: Colors.grey[100],
-        shape: CircularNotchedRectangle(),
-        child: Container(
-          height: 60,
-          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ConstrainedBox(
-                constraints: BoxConstraints.tightFor(width: MediaQuery.of(context).size.width * 0.4, height: 40),
-                child: ElevatedButton(
-                  clipBehavior: Clip.none,
-                  child: Text('Inventory'),
-                  onPressed: () {
-                    setBottomBarIndex(0);
-                  },
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        currentIndex == 0 ? XploreColors.deepBlue : XploreColors.white,
-                      ),
-                      //padding: MaterialStateProperty.all(EdgeInsets.all(50)),
-                      textStyle: MaterialStateProperty.all(TextStyle(
-                        fontSize: 20,
-                        color: currentIndex == 0 ? Colors.white : XploreColors.deepBlue,
-                      ))),
-                ),
-              ),
-              ConstrainedBox(
-                constraints: BoxConstraints.tightFor(width: MediaQuery.of(context).size.width * 0.4, height: 40),
-                child: ElevatedButton(
-                  clipBehavior: Clip.hardEdge,
-                  child: Text('Transactions'),
-                  onPressed: () {
-                    setBottomBarIndex(1);
-                  },
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        currentIndex == 1 ? XploreColors.lightOrange : XploreColors.lightOrange,
-                      ),
-                      //padding: MaterialStateProperty.all(EdgeInsets.all(50)),
-                      textStyle: MaterialStateProperty.all(TextStyle(
-                        fontSize: 20,
-                        color: currentIndex == 1 ? XploreColors.deepBlue : XploreColors.deepBlue,
-                      ))),
-                ),
-              ),
-            ],
+      bottomNavigationBar: FlashyTabBar(
+        selectedIndex: currentIndex,
+        showElevation: true,
+        onItemSelected: (index) => setState(() {
+          currentIndex = index;
+        }),
+        items: [
+          FlashyTabBarItem(
+            icon: Icon(Icons.storefront),
+            title: Text('Shop'),
+            activeColor: XploreColors.orange,
           ),
-        ),
+          FlashyTabBarItem(
+            icon: Icon(Icons.shopping_cart_checkout),
+            title: Text('Transactions'),
+            activeColor: XploreColors.lightOrange,
+          ),
+          FlashyTabBarItem(
+            icon: Icon(Icons.tune),
+            title: Text('Settings'),
+            activeColor: XploreColors.lightOrange,
+          ),
+        ],
       ),
+      // TitledBottomNavigationBar(
+      //     activeColor: XploreColors.orange,
+      //     currentIndex: currentIndex, // Use this to update the Bar giving a position
+      //     onTap: (index) {
+      //       setBottomBarIndex(index);
+      //     },
+      //     items: [
+      //       TitledNavigationBarItem(
+      //         title: Text('Home'),
+      //         icon: Icons.home,
+      //       ),
+      //       TitledNavigationBarItem(
+      //         title: Text('Search'),
+      //         icon: Icons.search,
+      //       ),
+      //       // TitledNavigationBarItem(title: Text('Bag'), icon: Icons.card_travel),
+      //     ]),
     );
   }
 }

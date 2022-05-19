@@ -20,6 +20,7 @@ dependencies:
   firebase_auth: ^3.3.9
   firebase_crashlytics: ^2.5.3
   firebase_core: ^1.13.1
+  flashy_tab_bar2: ^0.0.4
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.1.1
@@ -35,6 +36,7 @@ dependencies:
   rxdart: ^0.27.3
   shimmer: ^2.0.0
   sqflite: ^2.0.2
+  dependencies:
 
 dev_dependencies:
   build_runner:

@@ -68,7 +68,7 @@ class ProductCard extends StatelessWidget {
                     child: Container(
                       height: 30,
                       width: MediaQuery.of(context).size.width * 0.4,
-                      color: XploreColors.lightOrange,
+                      color: XploreColors.orange,
                       child: Center(
                         child: Text(
                           'Order',
