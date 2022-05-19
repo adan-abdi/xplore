@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:shamiri/domain/models/products/product.dart';
-import 'package:shamiri/presentation/dashboard/pages/edit_product_page.dart';
+import 'package:shamiri/domain/routes/routes.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({Key? key, required this.product}) : super(key: key);
@@ -12,6 +12,13 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String prodName = product.name.toString();
+    final String prodQty = product.quantityInStock.toString();
+    final String prodSp = product.sellingPrice.toString();
+    final String prodBp = product.buyingPrice.toString();
+    final String prodImag = product.imageList!.first.toString();
+    final String productRef = product.productRefID.toString();
+
     return Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -19,20 +26,21 @@ class ProductCard extends StatelessWidget {
           AspectRatio(
             aspectRatio: 22.0 / 12.0,
             child: InkWell(
-                child: Image.network(product.imageList!.first),
+                child: Image.network(product.imageList!.first.toString()),
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => EditProducts(
-                            product: Product(
-                              name: product.name,
-                              quantityInStock: product.quantityInStock,
-                              sellingPrice: product.sellingPrice,
-                              buyingPrice: product.buyingPrice,
-                              categories: [],
-                              imageList: [product.imageList!.first],
-                              productRefID: product.productRefID,
-                            ),
-                          )));
+                  Navigator.pushNamed(
+                    context,
+                    editProductPageRoute,
+                    arguments: Product(
+                      name: prodName,
+                      quantityInStock: prodQty,
+                      sellingPrice: prodSp,
+                      buyingPrice: prodBp,
+                      categories: [],
+                      imageList: [prodImag],
+                      productRefID: productRef,
+                    ),
+                  );
                 }),
           ),
           Expanded(
@@ -42,15 +50,19 @@ class ProductCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('$product.name', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text('$prodName',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 6.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text('$product.quantity Left', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
-                      Text('$product.sellingPrice KES',
-                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$prodQty Left',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$prodSp KES',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.grey)),
                     ],
                   ),
                   SizedBox(
@@ -64,7 +76,10 @@ class ProductCard extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'Order',
-                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Colors.white),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              color: Colors.white),
                         ),
                       ),
                     ),

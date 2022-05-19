@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
+import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/models/categories/category.dart';
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
@@ -11,7 +12,8 @@ class EditProducts extends StatefulWidget {
   final Product product;
 
   const EditProducts({
-    Key? key, required this.product,
+    Key? key,
+    required this.product,
   }) : super(key: key);
 
   @override
@@ -35,7 +37,7 @@ class _EditProductsState extends State<EditProducts> {
     _sp = new TextEditingController(text: widget.product.sellingPrice);
     _units = new TextEditingController(text: widget.product.metricUnit);
     _qty = new TextEditingController(text: widget.product.quantityInStock);
-    _cat = new TextEditingController(text: widget.product.categories!.first.name);
+    _cat = new TextEditingController(text: 'category');
   }
 
   @override
@@ -43,6 +45,7 @@ class _EditProductsState extends State<EditProducts> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        backgroundColor: XploreColors.deepBlue,
         leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();
@@ -262,6 +265,7 @@ class _EditProductsState extends State<EditProducts> {
                               .addProduct(newProduct)
                               .whenComplete(() => Navigator.of(context).pop());
                         },
+                        // style: ButtonStyle(backgroundColor: XploreColors.deepBlue),
                         child: Text('Save Product')),
                   ],
                 ),

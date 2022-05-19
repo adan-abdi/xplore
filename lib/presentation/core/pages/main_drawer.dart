@@ -20,6 +20,7 @@ class MainDrawer extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
+        backgroundColor: XploreColors.white,
         body: ZoomDrawer(
           controller: zoomDrawerController,
           menuScreen: MenuPage(),

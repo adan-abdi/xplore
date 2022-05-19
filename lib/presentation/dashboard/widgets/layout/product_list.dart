@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shamiri/domain/models/products/product.dart';
 
 // Project imports:
+import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/infrastructure/remote_repository/firestore_product.dart';
 import 'package:shamiri/presentation/dashboard/widgets/molecular/product_card.dart';
 
@@ -21,20 +21,26 @@ class ProductList extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Container(
-                height: MediaQuery.of(context).size.height * 0.7, child: Center(child: Text('Something went wrong')));
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: Center(child: Text('Something went wrong')));
           } else if (snapshot.hasData || snapshot.data != null) {
             return GridView.builder(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200, childAspectRatio: 9.0 / 10.0, crossAxisSpacing: 5, mainAxisSpacing: 10),
+                  maxCrossAxisExtent: 200,
+                  childAspectRatio: 9.0 / 10.0,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 10),
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (BuildContext ctx, index) {
                 //var productInfo = snapshot.data!.docs[index].data()!;
                 String docID = snapshot.data!.docs[index].id;
                 String name = snapshot.data!.docs[index]["name"];
                 String buyingPrice = snapshot.data!.docs[index]["buyingPrice"];
-                String sellingPrice = snapshot.data!.docs[index]["sellingPrice"];
-                String quantityInStock = snapshot.data!.docs[index]["quantityInStock"];
+                String sellingPrice =
+                    snapshot.data!.docs[index]["sellingPrice"];
+                String quantityInStock =
+                    snapshot.data!.docs[index]["quantityInStock"];
                 String imageList = snapshot.data!.docs[index]["imageList"][0];
 
                 return ProductCard(

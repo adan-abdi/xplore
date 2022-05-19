@@ -20,10 +20,12 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: XploreColors.deepBlue,
+      backgroundColor: XploreColors.whiteSmoke,
       appBar: XploreAppBar(
+        backgroundColor: XploreColors.whiteSmoke,
         leadingIcon: XploreIconCard(
           icon: Icons.menu,
+          iconColor: XploreColors.deepBlue,
           iconOnPress: () {
             ZoomDrawer.of(context)!.toggle();
           },
