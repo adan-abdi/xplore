@@ -17,4 +17,5 @@ class XploreColors {
 
   //
   static Color deepBlueAccent = Color(0xff3F3D56).withOpacity(.8);
+  static Color deepBlueShimmer = Color(0xff3F3D56).withOpacity(.2);
 }

@@ -7,6 +7,7 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/routes/routes.dart';
+import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_appbar.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_card.dart';
 import 'package:shamiri/presentation/dashboard/widgets/layout/product_list.dart';
@@ -21,6 +22,7 @@ class MerchantCheckIn extends StatefulWidget {
 
 class _MerchantCheckInState extends State<MerchantCheckIn> {
   int currentIndex = 0;
+  bool isAppbarExpanded = false;
 
   setBottomBarIndex(index) {
     setState(() {
@@ -41,6 +43,7 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
   void initState() {
     super.initState();
     sdefault = 'pending';
+    isAppbarExpanded = false;
   }
 
   @override
@@ -52,12 +55,7 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
           padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
           height: MediaQuery.of(context).size.height * 0.7,
           child: Column(children: <Widget>[
-            // Container(
-            //   child: CategoryBar(),
-            // ),
-            SizedBox(
-              height: 20,
-            ),
+            vSize10SizedBox,
             Expanded(
               child: ProductList(),
             ),
@@ -135,14 +133,27 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
           },
         ),
         firstAction: XploreIconCard(
-          icon: Icons.filter_list,
-          iconOnPress: () {},
-        ),
-        lastAction: XploreIconCard(
           icon: Icons.qr_code_scanner,
           iconOnPress: () {},
         ),
-        expanded: true,
+        lastAction: isAppbarExpanded
+            ? XploreIconCard(
+                icon: Icons.unfold_less,
+                iconOnPress: () {
+                  setState(() {
+                    isAppbarExpanded = !isAppbarExpanded;
+                  });
+                },
+              )
+            : XploreIconCard(
+                icon: Icons.unfold_more,
+                iconOnPress: () {
+                  setState(() {
+                    isAppbarExpanded = !isAppbarExpanded;
+                  });
+                },
+              ),
+        expanded: isAppbarExpanded,
       ),
       body: tabs[currentIndex],
       //todo: Make mini, reduce widget height
@@ -170,8 +181,7 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ConstrainedBox(
-                constraints: BoxConstraints.tightFor(
-                    width: MediaQuery.of(context).size.width * 0.4, height: 40),
+                constraints: BoxConstraints.tightFor(width: MediaQuery.of(context).size.width * 0.4, height: 40),
                 child: ElevatedButton(
                   clipBehavior: Clip.none,
                   child: Text('Inventory'),
@@ -180,22 +190,17 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                        currentIndex == 0
-                            ? XploreColors.deepBlue
-                            : XploreColors.white,
+                        currentIndex == 0 ? XploreColors.deepBlue : XploreColors.white,
                       ),
                       //padding: MaterialStateProperty.all(EdgeInsets.all(50)),
                       textStyle: MaterialStateProperty.all(TextStyle(
                         fontSize: 20,
-                        color: currentIndex == 0
-                            ? Colors.white
-                            : XploreColors.deepBlue,
+                        color: currentIndex == 0 ? Colors.white : XploreColors.deepBlue,
                       ))),
                 ),
               ),
               ConstrainedBox(
-                constraints: BoxConstraints.tightFor(
-                    width: MediaQuery.of(context).size.width * 0.4, height: 40),
+                constraints: BoxConstraints.tightFor(width: MediaQuery.of(context).size.width * 0.4, height: 40),
                 child: ElevatedButton(
                   clipBehavior: Clip.hardEdge,
                   child: Text('Transactions'),
@@ -204,16 +209,12 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                        currentIndex == 1
-                            ? XploreColors.deepBlue
-                            : XploreColors.deepBlue,
+                        currentIndex == 1 ? XploreColors.lightOrange : XploreColors.lightOrange,
                       ),
                       //padding: MaterialStateProperty.all(EdgeInsets.all(50)),
                       textStyle: MaterialStateProperty.all(TextStyle(
                         fontSize: 20,
-                        color: currentIndex == 1
-                            ? XploreColors.deepBlue
-                            : XploreColors.deepBlue,
+                        color: currentIndex == 1 ? XploreColors.deepBlue : XploreColors.deepBlue,
                       ))),
                 ),
               ),
