@@ -113,8 +113,10 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                     controller: otpPinCodeFieldController,
                     onCompleted: (v) async {
                       if (otpPinCodeFieldController.text.length >= 6) {
-                        otpProgressProgressInstance.btnStatus.add(ButtonState.loading);
-                        xploreFirebaseAuth.verifyOtp(otpPinCodeFieldController.text, context, state,
+                        otpProgressProgressInstance.btnStatus
+                            .add(ButtonState.loading);
+                        xploreFirebaseAuth.verifyOtp(
+                            otpPinCodeFieldController.text, context, state,
                             isSignedIn: state.userState!.isSignedIn);
                       } else {
                         ScaffoldMessenger.of(context)
@@ -146,8 +148,10 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
               ProgressiveButton(
                 onPressed: () {
                   if (otpPinCodeFieldController.text.length >= 6) {
-                    otpProgressProgressInstance.btnStatus.add(ButtonState.loading);
-                    xploreFirebaseAuth.verifyOtp(otpPinCodeFieldController.text, context, state,
+                    otpProgressProgressInstance.btnStatus
+                        .add(ButtonState.loading);
+                    xploreFirebaseAuth.verifyOtp(
+                        otpPinCodeFieldController.text, context, state,
                         isSignedIn: state.userState!.isSignedIn);
                   } else {
                     ScaffoldMessenger.of(context)
