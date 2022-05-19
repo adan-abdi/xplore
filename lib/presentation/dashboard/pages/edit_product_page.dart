@@ -8,25 +8,10 @@ import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
 import 'package:shamiri/infrastructure/remote_repository/firestore_product.dart';
 
 class EditProducts extends StatefulWidget {
-  final String imageList;
-  final String name;
-  final String bp;
-  final String sp;
-  final String units;
-  final String quantity;
-  final String? category;
-  final String docId;
+  final Product product;
 
   const EditProducts({
-    Key? key,
-    required this.name,
-    required this.bp,
-    required this.sp,
-    required this.units,
-    required this.quantity,
-    required this.docId,
-    required this.imageList,
-    this.category,
+    Key? key, required this.product,
   }) : super(key: key);
 
   @override
@@ -45,12 +30,12 @@ class _EditProductsState extends State<EditProducts> {
   @override
   void initState() {
     super.initState();
-    _name = new TextEditingController(text: widget.name);
-    _bp = new TextEditingController(text: widget.bp);
-    _sp = new TextEditingController(text: widget.sp);
-    _units = new TextEditingController(text: widget.units);
-    _qty = new TextEditingController(text: widget.quantity);
-    _cat = new TextEditingController(text: widget.category);
+    _name = new TextEditingController(text: widget.product.name);
+    _bp = new TextEditingController(text: widget.product.buyingPrice);
+    _sp = new TextEditingController(text: widget.product.sellingPrice);
+    _units = new TextEditingController(text: widget.product.metricUnit);
+    _qty = new TextEditingController(text: widget.product.quantityInStock);
+    _cat = new TextEditingController(text: widget.product.categories!.first.name);
   }
 
   @override
@@ -68,7 +53,7 @@ class _EditProductsState extends State<EditProducts> {
           IconButton(
               onPressed: () {
                 remoteProductRepoInstance
-                    .deleteProduct(widget.docId)
+                    .deleteProduct(widget.product.productRefID)
                     .whenComplete(() => Navigator.of(context).pop());
               },
               icon: Icon(
@@ -259,7 +244,7 @@ class _EditProductsState extends State<EditProducts> {
 
                           final Product newProduct = Product(
                               businessUID: buisinessID,
-                              productRefID: widget.docId,
+                              productRefID: widget.product.productRefID,
                               name: _name.text,
                               buyingPrice: _bp.text,
                               sellingPrice: _sp.text,
@@ -270,7 +255,7 @@ class _EditProductsState extends State<EditProducts> {
                                     name: _cat.text, businessUID: buisinessID),
                               ],
                               imageList: [
-                                widget.imageList,
+                                widget.product.imageList!.first,
                               ]);
 
                           remoteProductRepoInstance

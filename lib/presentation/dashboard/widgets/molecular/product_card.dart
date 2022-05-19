@@ -2,28 +2,13 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:shamiri/domain/models/categories/category.dart';
+import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/presentation/dashboard/pages/edit_product_page.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({
-    Key? key,
-    required this.imageAsset,
-    required this.name,
-    required this.buyingPrice,
-    required this.quantity,
-    required this.sellingPrice,
-    required this.categories,
-    required this.productDocId,
-  }) : super(key: key);
+  const ProductCard({Key? key, required this.product}) : super(key: key);
 
-  final String imageAsset;
-  final String name;
-  final String buyingPrice;
-  final String sellingPrice;
-  final String quantity;
-  final String productDocId;
-  final List<Category> categories;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -34,18 +19,19 @@ class ProductCard extends StatelessWidget {
           AspectRatio(
             aspectRatio: 22.0 / 12.0,
             child: InkWell(
-                child: Image.network(imageAsset),
+                child: Image.network(product.imageList!.first),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) => EditProducts(
-                            name: name,
-                            bp: buyingPrice,
-                            sp: sellingPrice,
-                            units: 'units',
-                            quantity: quantity,
-                            category: categories.first.name,
-                            docId: productDocId,
-                            imageList: imageAsset,
+                            product: Product(
+                              name: product.name,
+                              quantityInStock: product.quantityInStock,
+                              sellingPrice: product.sellingPrice,
+                              buyingPrice: product.buyingPrice,
+                              categories: [],
+                              imageList: [product.imageList!.first],
+                              productRefID: product.productRefID,
+                            ),
                           )));
                 }),
           ),
@@ -56,18 +42,15 @@ class ProductCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('$name', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text('$product.name', style: TextStyle(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 6.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text('$quantity Left',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey)),
-                      Text('$sellingPrice KES',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$product.quantity Left', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$product.sellingPrice KES',
+                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
                     ],
                   ),
                   SizedBox(
@@ -81,10 +64,7 @@ class ProductCard extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'Order',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 20,
-                              color: Colors.white),
+                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Colors.white),
                         ),
                       ),
                     ),
