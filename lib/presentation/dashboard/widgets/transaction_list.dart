@@ -144,9 +144,9 @@ class _TransactionListState extends State<TransactionList> {
                         // String total = snapshot.data!.docs[index]["total"];
                         // String date = snapshot.data!.docs[index]["date"];
                         // String units = snapshot.data!.docs[index]["units"];
-                        String qty = snapshot.data!.docs[index]["quantity"];
-                        String image = snapshot.data!.docs[index]["image"];
-                        String status = snapshot.data!.docs[index]["status"];
+                        // String qty = snapshot.data!.docs[index]["quantity"];
+                        // String image = snapshot.data!.docs[index]["image"];
+                        String status = 'pending';
 
                         //return _myList(name, qty, price, units, total, date);
 
@@ -171,7 +171,7 @@ class _TransactionListState extends State<TransactionList> {
                               });
                             },
                             child: status == widget.tstatus
-                                ? _transactions(name, qty, image)
+                                ? _transactions(name, 'qty', 'image')
                                 : Container());
                       }),
                 )

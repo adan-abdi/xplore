@@ -1,6 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:shamiri/application/core/themes/colors.dart';
+
+// Package imports:
 import 'package:shimmer/shimmer.dart';
+
+// Project imports:
+import 'package:shamiri/application/core/themes/colors.dart';
 
 class ProductShimmer extends StatefulWidget {
   @override
@@ -52,7 +57,8 @@ class _ProductShimmerState extends State<ProductShimmer> {
                               color: Colors.grey.withOpacity(0.3),
                               spreadRadius: 2,
                               blurRadius: 10,
-                              offset: const Offset(3, 0), // changes position of shadow
+                              offset: const Offset(
+                                  3, 0), // changes position of shadow
                             ),
                           ],
                         ),

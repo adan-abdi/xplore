@@ -1,5 +1,7 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/presentation/core/widgets/p_list.dart';
 import 'package:shamiri/presentation/core/widgets/p_top.dart';
@@ -43,7 +45,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
             child: Center(
               child: Text(
                 'Merchant Profile',
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24, color: Colors.deepOrange),
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 24,
+                    color: Colors.deepOrange),
               ),
             )),
       ),

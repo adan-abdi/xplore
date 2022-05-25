@@ -1,18 +1,19 @@
 // Flutter imports:
-import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/application/singletons/sliding_tab_status.dart';
 import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_appbar.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_card.dart';
 import 'package:shamiri/presentation/dashboard/widgets/layout/product_list.dart';
-import 'package:shamiri/presentation/dashboard/widgets/transaction_list.dart';
+import 'package:shamiri/presentation/dashboard/widgets/layout/sliding_tab.dart';
 
 class MerchantCheckIn extends StatefulWidget {
   const MerchantCheckIn({Key? key}) : super(key: key);
@@ -49,6 +50,8 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
 
   @override
   Widget build(BuildContext context) {
+    SlidingTabStatusStore transactionTabState = SlidingTabStatusStore();
+
     // Tabs created to display text on each screen
     final tabs = [
       Container(
@@ -65,61 +68,37 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
           height: MediaQuery.of(context).size.height * 0.7,
           child: Column(children: <Widget>[
             vSize10SizedBox,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                InkWell(
-                  onTap: () {
-                    //setIndex(0);
-                    newDefault('pending');
-                    //print(sdefault);
-                  },
-                  child: Container(
-                      height: 39,
-                      width: MediaQuery.of(context).size.width * 0.45,
-                      color: Colors.deepOrange,
-                      child: Center(
-                        child: Text(
-                          'Pending',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )),
-                ),
-                InkWell(
-                  onTap: () {
-                    //setIndex(1);
-                    newDefault('complete');
-                    //print(sdefault);
-                  },
-                  child: Container(
-                      height: 39,
-                      width: MediaQuery.of(context).size.width * 0.45,
-                      color: Colors.deepOrange,
-                      child: Center(
-                        child: Text(
-                          'Fullfilled',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )),
-                ),
-              ],
+            Container(
+              width: double.infinity,
+              child: SlidingTabs(
+                selectedTab: transactionTabState.activeTabState.value,
+                tabs: [
+                  SlidingTab(
+                    key: const ValueKey("TransactionOverview_PendingTab"),
+                    title: Text('Pending'),
+                  ),
+                  SlidingTab(
+                    key: const ValueKey("TransactionOverview_FulfilledTab"),
+                    title: Text('Fulfilled'),
+                  ),
+                ],
+                onTabChanged: (v) {
+                  print('Tab changed to $v');
+                  setState(() {
+                    transactionTabState.activeTabState.add(v ?? 0);
+                  });
+                },
+              ),
             ),
             vSize10SizedBox,
+            // Expanded(
+            //   flex: 1,
+            //   child: sdefault.toString() == 'pending'
+            //       ? TransactionList(tstatus: sdefault.toString())
+            //       : TransactionList(tstatus: cdefault.toString()),
+            // ),
             Expanded(
-              flex: 1,
-              child: sdefault.toString() == 'pending'
-                  ? TransactionList(tstatus: sdefault.toString())
-                  : TransactionList(tstatus: cdefault.toString()),
-            )
+                flex: 1, child: Center(child: Text('Transactions list page!')))
           ])),
       Container(
           padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -135,7 +114,7 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       appBar: XploreAppBar(
-        title: 'Merchant CheckIn',
+        title: 'Merchant Store',
         leadingIcon: XploreIconCard(
           icon: Icons.menu,
           iconOnPress: () {
@@ -204,23 +183,6 @@ class _MerchantCheckInState extends State<MerchantCheckIn> {
           ),
         ],
       ),
-      // TitledBottomNavigationBar(
-      //     activeColor: XploreColors.orange,
-      //     currentIndex: currentIndex, // Use this to update the Bar giving a position
-      //     onTap: (index) {
-      //       setBottomBarIndex(index);
-      //     },
-      //     items: [
-      //       TitledNavigationBarItem(
-      //         title: Text('Home'),
-      //         icon: Icons.home,
-      //       ),
-      //       TitledNavigationBarItem(
-      //         title: Text('Search'),
-      //         icon: Icons.search,
-      //       ),
-      //       // TitledNavigationBarItem(title: Text('Bag'), icon: Icons.card_travel),
-      //     ]),
     );
   }
 }
