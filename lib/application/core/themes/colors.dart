@@ -18,4 +18,9 @@ class XploreColors {
   //
   static Color deepBlueAccent = Color(0xff3F3D56).withOpacity(.8);
   static Color deepBlueShimmer = Color(0xff3F3D56).withOpacity(.2);
+
+  //
+  static Color neutralLight = const Color(0xFFF1F5FA);
+  static Color transparent = Colors.transparent;
+  static Color neutralDark = const Color(0xFF4C6688);
 }
