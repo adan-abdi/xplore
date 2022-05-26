@@ -9,14 +9,14 @@ import 'package:shamiri/infrastructure/remote_repository/firestore_product.dart'
 import 'package:shamiri/presentation/dashboard/widgets/layout/dashboard_shimmer.dart';
 import 'package:shamiri/presentation/dashboard/widgets/molecular/product_card.dart';
 
-class MerchantCheckIn extends StatefulWidget {
-  const MerchantCheckIn({Key? key}) : super(key: key);
+class MerchantStore extends StatefulWidget {
+  const MerchantStore({Key? key}) : super(key: key);
 
   @override
-  _MerchantCheckInState createState() => _MerchantCheckInState();
+  _MerchantStoreState createState() => _MerchantStoreState();
 }
 
-class _MerchantCheckInState extends State<MerchantCheckIn> {
+class _MerchantStoreState extends State<MerchantStore> {
   @override
   Widget build(BuildContext context) {
     ProductRepository productRepositoryInstance = ProductRepository();

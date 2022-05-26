@@ -68,9 +68,9 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (BuildContext ctx, index) {
                         return Transactioncard(
-                          image: '',
-                          name: '',
-                          quantity: '',
+                          image: 'image',
+                          name: 'name',
+                          quantity: '12',
                         );
                       },
                     );
