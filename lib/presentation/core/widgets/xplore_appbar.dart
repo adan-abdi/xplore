@@ -13,6 +13,7 @@ class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
   final XploreIconCard? firstAction;
   final XploreIconCard? lastAction;
   final bool expanded;
+  final bool centerTitle;
   final Color? backgroundColor;
   final double? elevation;
 
@@ -27,6 +28,7 @@ class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
     this.backgroundColor,
     this.elevation,
     this.isWidgetActive = false,
+    this.centerTitle = true,
   }) : super(key: key);
 
   @override
@@ -34,10 +36,9 @@ class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       title: Text(
         title,
-        style: TextStyle(
-            color: isWidgetActive ? XploreColors.deepBlue : XploreColors.white),
+        style: TextStyle(color: isWidgetActive ? XploreColors.deepBlue : XploreColors.white),
       ),
-      centerTitle: true,
+      centerTitle: centerTitle,
       backgroundColor: backgroundColor ?? XploreColors.deepBlue,
       automaticallyImplyLeading: automaticallyImplyLeading ?? true,
       leading: leadingIcon ??
@@ -56,8 +57,7 @@ class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize =>
-      expanded ? Size.fromHeight(130) : Size.fromHeight(56);
+  Size get preferredSize => expanded ? Size.fromHeight(130) : Size.fromHeight(56);
 }
 
 class XploreAppbarBottom extends StatelessWidget with PreferredSizeWidget {
