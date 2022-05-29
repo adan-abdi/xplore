@@ -12,44 +12,11 @@ part of 'user_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 UserState _$UserStateFromJson(Map<String, dynamic> json) {
   return _UserState.fromJson(json);
 }
-
-/// @nodoc
-class _$UserStateTearOff {
-  const _$UserStateTearOff();
-
-  _UserState call(
-      {String? uid,
-      String? name,
-      String? phoneNumber,
-      String? email,
-      bool? isSignedIn,
-      bool? hasDoneTour,
-      String? pinCodeVerificationID,
-      DateTime? isLastSessionActive}) {
-    return _UserState(
-      uid: uid,
-      name: name,
-      phoneNumber: phoneNumber,
-      email: email,
-      isSignedIn: isSignedIn,
-      hasDoneTour: hasDoneTour,
-      pinCodeVerificationID: pinCodeVerificationID,
-      isLastSessionActive: isLastSessionActive,
-    );
-  }
-
-  UserState fromJson(Map<String, Object?> json) {
-    return UserState.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $UserState = _$UserStateTearOff();
 
 /// @nodoc
 mixin _$UserState {
@@ -140,10 +107,10 @@ class _$UserStateCopyWithImpl<$Res> implements $UserStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
-  factory _$UserStateCopyWith(
-          _UserState value, $Res Function(_UserState) then) =
-      __$UserStateCopyWithImpl<$Res>;
+abstract class _$$_UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
+  factory _$$_UserStateCopyWith(
+          _$_UserState value, $Res Function(_$_UserState) then) =
+      __$$_UserStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {String? uid,
@@ -157,13 +124,14 @@ abstract class _$UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
-    implements _$UserStateCopyWith<$Res> {
-  __$UserStateCopyWithImpl(_UserState _value, $Res Function(_UserState) _then)
-      : super(_value, (v) => _then(v as _UserState));
+class __$$_UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
+    implements _$$_UserStateCopyWith<$Res> {
+  __$$_UserStateCopyWithImpl(
+      _$_UserState _value, $Res Function(_$_UserState) _then)
+      : super(_value, (v) => _then(v as _$_UserState));
 
   @override
-  _UserState get _value => super._value as _UserState;
+  _$_UserState get _value => super._value as _$_UserState;
 
   @override
   $Res call({
@@ -176,7 +144,7 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
     Object? pinCodeVerificationID = freezed,
     Object? isLastSessionActive = freezed,
   }) {
-    return _then(_UserState(
+    return _then(_$_UserState(
       uid: uid == freezed
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
@@ -237,7 +205,8 @@ class _$_UserState implements _UserState {
   final String? phoneNumber;
   @override
   final String? email;
-  @override //local
+//local
+  @override
   final bool? isSignedIn;
   @override
   final bool? hasDoneTour;
@@ -255,7 +224,7 @@ class _$_UserState implements _UserState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _UserState &&
+            other is _$_UserState &&
             const DeepCollectionEquality().equals(other.uid, uid) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
@@ -271,6 +240,7 @@ class _$_UserState implements _UserState {
                 .equals(other.isLastSessionActive, isLastSessionActive));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -285,8 +255,8 @@ class _$_UserState implements _UserState {
 
   @JsonKey(ignore: true)
   @override
-  _$UserStateCopyWith<_UserState> get copyWith =>
-      __$UserStateCopyWithImpl<_UserState>(this, _$identity);
+  _$$_UserStateCopyWith<_$_UserState> get copyWith =>
+      __$$_UserStateCopyWithImpl<_$_UserState>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -296,36 +266,36 @@ class _$_UserState implements _UserState {
 
 abstract class _UserState implements UserState {
   factory _UserState(
-      {String? uid,
-      String? name,
-      String? phoneNumber,
-      String? email,
-      bool? isSignedIn,
-      bool? hasDoneTour,
-      String? pinCodeVerificationID,
-      DateTime? isLastSessionActive}) = _$_UserState;
+      {final String? uid,
+      final String? name,
+      final String? phoneNumber,
+      final String? email,
+      final bool? isSignedIn,
+      final bool? hasDoneTour,
+      final String? pinCodeVerificationID,
+      final DateTime? isLastSessionActive}) = _$_UserState;
 
   factory _UserState.fromJson(Map<String, dynamic> json) =
       _$_UserState.fromJson;
 
   @override
-  String? get uid;
+  String? get uid => throw _privateConstructorUsedError;
   @override
-  String? get name;
+  String? get name => throw _privateConstructorUsedError;
   @override
-  String? get phoneNumber;
+  String? get phoneNumber => throw _privateConstructorUsedError;
   @override
-  String? get email;
+  String? get email => throw _privateConstructorUsedError;
   @override //local
-  bool? get isSignedIn;
+  bool? get isSignedIn => throw _privateConstructorUsedError;
   @override
-  bool? get hasDoneTour;
+  bool? get hasDoneTour => throw _privateConstructorUsedError;
   @override
-  String? get pinCodeVerificationID;
+  String? get pinCodeVerificationID => throw _privateConstructorUsedError;
   @override
-  DateTime? get isLastSessionActive;
+  DateTime? get isLastSessionActive => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$UserStateCopyWith<_UserState> get copyWith =>
+  _$$_UserStateCopyWith<_$_UserState> get copyWith =>
       throw _privateConstructorUsedError;
 }

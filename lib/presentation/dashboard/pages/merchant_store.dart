@@ -44,7 +44,6 @@ class _MerchantStoreState extends State<MerchantStore> {
                         mainAxisSpacing: 10),
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (BuildContext ctx, index) {
-                      //var productInfo = snapshot.data!.docs[index].data()!;
                       String docID = snapshot.data!.docs[index].id;
                       String name = snapshot.data!.docs[index]["name"];
                       String buyingPrice = snapshot.data!.docs[index]["buyingPrice"];

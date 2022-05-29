@@ -6,7 +6,7 @@ import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_card.dart';
 
 class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
-  final bool? automaticallyImplyLeading;
+  final bool automaticallyImplyLeading;
   final bool isWidgetActive;
   final String title;
   final XploreIconCard? leadingIcon;
@@ -40,9 +40,10 @@ class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
       ),
       centerTitle: centerTitle,
       backgroundColor: backgroundColor ?? XploreColors.deepBlue,
-      automaticallyImplyLeading: automaticallyImplyLeading ?? true,
-      leading: leadingIcon ??
-          XploreIconCard(
+      automaticallyImplyLeading: automaticallyImplyLeading,
+      leading: (!automaticallyImplyLeading)
+          ? leadingIcon
+          : XploreIconCard(
               icon: Icons.arrow_back,
               iconOnPress: () {
                 Navigator.pop(context);

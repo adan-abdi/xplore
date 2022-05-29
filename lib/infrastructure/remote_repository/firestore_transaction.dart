@@ -10,8 +10,7 @@ class TransactionRepository {
   static final _collectionReference =
       globalFirestoreInstance.collection("inventory");
   static final _currentUserID = globalFirebaseAuthInstance.currentUser!.uid;
-  static final _transactionCollection = _collectionReference
-    ..doc(_currentUserID).collection("transactions");
+  static final _transactionCollection = _collectionReference.doc(_currentUserID).collection("transactions");
   static final _transactionDocRef = _transactionCollection.doc();
 
   Stream<QuerySnapshot> getStream() {

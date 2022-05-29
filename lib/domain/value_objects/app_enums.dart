@@ -22,6 +22,19 @@ enum TransactionStatus {
   pending,
 }
 
+extension OrderStatusExtension on TransactionStatus {
+  String get name {
+    switch (this) {
+      case TransactionStatus.fulfilled:
+        return 'fulfilled';
+      case TransactionStatus.pending:
+        return 'pending';
+      default:
+        return 'pending';
+    }
+  }
+}
+
 extension ButtonStatusEx on ButtonStatus {
   Color get color {
     switch (this) {

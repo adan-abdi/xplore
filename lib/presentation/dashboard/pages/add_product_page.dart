@@ -7,6 +7,7 @@ import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
 import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
 import 'package:shamiri/infrastructure/remote_repository/firestore_product.dart';
+import 'package:shamiri/presentation/core/pages/dashboard.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
 
 class AddProductPage extends StatefulWidget {
@@ -57,10 +58,7 @@ class _AddProductPageState extends State<AddProductPage> {
             child: Center(
               child: Text(
                 'Add Product',
-                style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 24,
-                    color: Colors.deepOrange),
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24, color: Colors.deepOrange),
               ),
             )),
       ),
@@ -86,8 +84,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -112,8 +109,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -139,8 +135,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -166,8 +161,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -193,8 +187,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -222,8 +215,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     enabledBorder: new OutlineInputBorder(
@@ -241,8 +233,7 @@ class _AddProductPageState extends State<AddProductPage> {
                 ),
                 ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.deepOrange),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrange),
                     ),
                     onPressed: () {
                       if (_name.text.length > 0 ||
@@ -251,8 +242,7 @@ class _AddProductPageState extends State<AddProductPage> {
                           _units.text.length > 0 ||
                           _qty.text.length > 0 ||
                           _cat.text.length > 0) {
-                        var buisinessID =
-                            globalFirebaseAuthInstance.currentUser!.uid;
+                        var buisinessID = globalFirebaseAuthInstance.currentUser!.uid;
 
                         final Product newProduct = Product(
                             businessUID: buisinessID,
@@ -262,16 +252,16 @@ class _AddProductPageState extends State<AddProductPage> {
                             quantityInStock: _qty.text,
                             metricUnit: _units.text,
                             categories: [
-                              Category(
-                                  name: _cat.text, businessUID: buisinessID),
+                              Category(name: _cat.text, businessUID: buisinessID),
                             ],
                             imageList: [
                               'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg',
                             ]);
 
-                        remoteProductRepoInstance
-                            .addProduct(newProduct)
-                            .whenComplete(() => Navigator.of(context).pop());
+                        remoteProductRepoInstance.addProduct(newProduct).whenComplete(() {
+                          globalDashIndex.currentIndex.add(0);
+                          Navigator.of(context).pop();
+                        });
                       } else {
                         ScaffoldMessenger.of(context)
                           ..hideCurrentSnackBar()
@@ -284,9 +274,7 @@ class _AddProductPageState extends State<AddProductPage> {
                       }
                     },
                     child: Text('Add Product')),
-                Padding(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom)),
+                Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)),
               ]),
         ),
       ),

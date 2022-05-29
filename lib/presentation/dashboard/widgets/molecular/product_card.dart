@@ -5,20 +5,27 @@ import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/domain/routes/routes.dart';
+import 'package:shamiri/infrastructure/remote_repository/firestore_db.dart';
+import 'package:shamiri/presentation/core/pages/dashboard.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends StatefulWidget {
   const ProductCard({Key? key, required this.product}) : super(key: key);
 
   final Product product;
 
   @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
+  @override
   Widget build(BuildContext context) {
-    final String prodName = product.name.toString();
-    final String prodQty = product.quantityInStock.toString();
-    final String prodSp = product.sellingPrice.toString();
-    final String prodBp = product.buyingPrice.toString();
-    final String prodImag = product.imageList!.first.toString();
-    final String productRef = product.productRefID.toString();
+    final String prodName = widget.product.name.toString();
+    final String prodQty = widget.product.quantityInStock.toString();
+    final String prodSp = widget.product.sellingPrice.toString();
+    final String prodBp = widget.product.buyingPrice.toString();
+    final String prodImag = widget.product.imageList!.first.toString();
+    final String productRef = widget.product.productRefID.toString();
 
     return Card(
       child: Column(
@@ -27,7 +34,7 @@ class ProductCard extends StatelessWidget {
           AspectRatio(
             aspectRatio: 22.0 / 12.0,
             child: InkWell(
-                child: Image.network(product.imageList!.first.toString()),
+                child: Image.network(widget.product.imageList!.first.toString()),
                 onTap: () {
                   Navigator.pushNamed(
                     context,
@@ -51,19 +58,14 @@ class ProductCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('$prodName',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text('$prodName', style: TextStyle(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 6.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text('$prodQty Left',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey)),
-                      Text('$prodSp KES',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$prodQty Left', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$prodSp KES', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
                     ],
                   ),
                   SizedBox(
@@ -77,28 +79,28 @@ class ProductCard extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'Order',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 20,
-                              color: Colors.white),
+                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Colors.white),
                         ),
                       ),
                     ),
                     onTap: () {
-                      // int rem = int.parse(quantity) - 1;
-                      // Database.checkoutItem(
-                      //         name: name,
-                      //         bp: bp,
-                      //         sp: sp,
-                      //         units: units,
-                      //         quantity: '1',
-                      //         category: category,
-                      //         rem: rem.toString(),
-                      //         image: 'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg',
-                      //         status: 'pending',
-                      //         docId: productDocId)
-                      //     .whenComplete(() => Navigator.of(context).pushReplacement(
-                      //         MaterialPageRoute(builder: (BuildContext context) => MerchantCheckIn())));
+                      int rem = int.parse(prodQty) - 1;
+                      Database.checkoutItem(
+                        name: prodName,
+                        bp: prodBp,
+                        sp: prodSp,
+                        units: '',
+                        quantity: '1',
+                        category: 'category',
+                        rem: rem.toString(),
+                        image: 'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg',
+                        status: 'pending',
+                        docId: productRef,
+                      ).whenComplete(() {
+                        setState(() {
+                          globalDashIndex.currentIndex.add(1);
+                        });
+                      });
                     },
                   ),
                 ],
