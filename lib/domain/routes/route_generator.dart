@@ -23,21 +23,26 @@ class AppRouterGenerator {
         return MaterialPageRoute<LandingPage>(builder: (_) => LandingPage());
       //
       case phoneInputPageRoute:
-        return MaterialPageRoute<PhoneInputPage>(builder: (_) => PhoneInputPage());
+        return MaterialPageRoute<PhoneInputPage>(
+            builder: (_) => PhoneInputPage());
       case verifyPhonePageRoute:
-        return MaterialPageRoute<PhoneVerifyPage>(builder: (_) => PhoneVerifyPage());
+        return MaterialPageRoute<PhoneVerifyPage>(
+            builder: (_) => PhoneVerifyPage());
       //
       case dashPageRoute:
-        return MaterialPageRoute<XploreDashboard>(builder: (_) => XploreDashboard());
+        return MaterialPageRoute<XploreDashboard>(
+            builder: (_) => XploreDashboard());
       case addProductPageRoute:
-        return MaterialPageRoute<AddProductPage>(builder: (_) => AddProductPage());
+        return MaterialPageRoute<AddProductPage>(
+            builder: (_) => AddProductPage());
       case editProductPageRoute:
         return MaterialPageRoute<EditProducts>(
             builder: (_) => EditProducts(
                   product: args,
                 ));
       case profilePageRoute:
-        return MaterialPageRoute<UserProfilePage>(builder: (_) => UserProfilePage());
+        return MaterialPageRoute<UserProfilePage>(
+            builder: (_) => UserProfilePage());
 
       default:
         return _errorRoute();

@@ -1,5 +1,10 @@
-import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
+
+// Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/application/singletons/dashboard_current_index.dart';
 import 'package:shamiri/domain/routes/routes.dart';
@@ -29,7 +34,9 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
   @override
   Widget build(BuildContext context) {
     InventoryRepository inventoryRepository = InventoryRepository();
-    String appBarTitle = (widget.dashboardIndexStatusStore.currentIndex == 0) ? 'Merchant Store' : 'Merchant Records';
+    String appBarTitle = (widget.dashboardIndexStatusStore.currentIndex == 0)
+        ? 'Merchant Store'
+        : 'Merchant Records';
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -52,7 +59,8 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
           stream: inventoryRepository.getStream(),
           builder: (context, snapshot) {
             if (snapshot.data != null) {
-              return widget.tabs[widget.dashboardIndexStatusStore.currentIndex.value];
+              return widget
+                  .tabs[widget.dashboardIndexStatusStore.currentIndex.value];
             }
             return DashboardShimmer();
           }),

@@ -10,5 +10,6 @@ class DashboardIndexStatusStore {
 
   final currentIndex = BehaviorSubject<int>.seeded(0);
 
-  static final DashboardIndexStatusStore _singleton = DashboardIndexStatusStore._internal();
+  static final DashboardIndexStatusStore _singleton =
+      DashboardIndexStatusStore._internal();
 }

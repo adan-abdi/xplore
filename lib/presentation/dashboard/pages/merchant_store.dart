@@ -1,6 +1,8 @@
 // Flutter imports:
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Project imports:
 import 'package:shamiri/domain/models/products/product.dart';
@@ -46,10 +48,14 @@ class _MerchantStoreState extends State<MerchantStore> {
                     itemBuilder: (BuildContext ctx, index) {
                       String docID = snapshot.data!.docs[index].id;
                       String name = snapshot.data!.docs[index]["name"];
-                      String buyingPrice = snapshot.data!.docs[index]["buyingPrice"];
-                      String sellingPrice = snapshot.data!.docs[index]["sellingPrice"];
-                      String quantityInStock = snapshot.data!.docs[index]["quantityInStock"];
-                      String imageList = snapshot.data!.docs[index]["imageList"][0];
+                      String buyingPrice =
+                          snapshot.data!.docs[index]["buyingPrice"];
+                      String sellingPrice =
+                          snapshot.data!.docs[index]["sellingPrice"];
+                      String quantityInStock =
+                          snapshot.data!.docs[index]["quantityInStock"];
+                      String imageList =
+                          snapshot.data!.docs[index]["imageList"][0];
 
                       return ProductCard(
                         product: Product(

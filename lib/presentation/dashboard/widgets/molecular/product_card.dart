@@ -34,7 +34,8 @@ class _ProductCardState extends State<ProductCard> {
           AspectRatio(
             aspectRatio: 22.0 / 12.0,
             child: InkWell(
-                child: Image.network(widget.product.imageList!.first.toString()),
+                child:
+                    Image.network(widget.product.imageList!.first.toString()),
                 onTap: () {
                   Navigator.pushNamed(
                     context,
@@ -58,14 +59,19 @@ class _ProductCardState extends State<ProductCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('$prodName', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text('$prodName',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 6.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text('$prodQty Left', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
-                      Text('$prodSp KES', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$prodQty Left',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$prodSp KES',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.grey)),
                     ],
                   ),
                   SizedBox(
@@ -79,7 +85,10 @@ class _ProductCardState extends State<ProductCard> {
                       child: Center(
                         child: Text(
                           'Order',
-                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Colors.white),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              color: Colors.white),
                         ),
                       ),
                     ),
@@ -93,7 +102,8 @@ class _ProductCardState extends State<ProductCard> {
                         quantity: '1',
                         category: 'category',
                         rem: rem.toString(),
-                        image: 'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg',
+                        image:
+                            'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg',
                         status: 'pending',
                         docId: productRef,
                       ).whenComplete(() {
