@@ -49,7 +49,8 @@ class _DashboardShimmerState extends State<DashboardShimmer> {
                               color: Colors.grey.withOpacity(0.3),
                               spreadRadius: 2,
                               blurRadius: 10,
-                              offset: const Offset(3, 0), // changes position of shadow
+                              offset: const Offset(
+                                  3, 0), // changes position of shadow
                             ),
                           ],
                         ),
