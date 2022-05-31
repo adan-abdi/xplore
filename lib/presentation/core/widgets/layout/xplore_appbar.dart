@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/application/singletons/product_listing_status.dart';
+import 'package:shamiri/application/singletons/search_state.dart';
 import 'package:shamiri/presentation/core/widgets/molecular/appbar_search.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_card.dart';
 
+// ignore: must_be_immutable
 class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
   final bool automaticallyImplyLeading;
   final bool isWidgetActive;
@@ -17,8 +20,10 @@ class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
   final bool centerTitle;
   final Color? backgroundColor;
   final double? elevation;
+  SearchStatus searchStatus;
+  ProductListingStatus productListingStatus;
 
-  const XploreAppBar({
+  XploreAppBar({
     Key? key,
     this.automaticallyImplyLeading = true,
     this.title = '',
@@ -30,6 +35,8 @@ class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
     this.elevation,
     this.isWidgetActive = false,
     this.centerTitle = true,
+    required this.searchStatus,
+    required this.productListingStatus,
   }) : super(key: key);
 
   @override
@@ -54,7 +61,12 @@ class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
         Container(child: firstAction),
         Container(child: lastAction),
       ],
-      bottom: expanded ? AppbarSearch() : null,
+      bottom: expanded
+          ? AppbarSearch(
+              searchStatus: searchStatus,
+              productListingStatus: productListingStatus,
+            )
+          : null,
       elevation: elevation,
     );
   }
