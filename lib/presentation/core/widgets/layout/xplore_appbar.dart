@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/presentation/core/widgets/molecular/appbar_search.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_card.dart';
 
 class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -53,7 +54,7 @@ class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
         Container(child: firstAction),
         Container(child: lastAction),
       ],
-      bottom: expanded ? XploreAppbarBottom() : null,
+      bottom: expanded ? AppbarSearch() : null,
       elevation: elevation,
     );
   }
@@ -61,44 +62,4 @@ class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Size get preferredSize =>
       expanded ? Size.fromHeight(130) : Size.fromHeight(56);
-}
-
-class XploreAppbarBottom extends StatelessWidget with PreferredSizeWidget {
-  const XploreAppbarBottom({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      child: TextField(
-        cursorColor: Colors.grey,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(20.0),
-          fillColor: Colors.white,
-          filled: true,
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.deepOrange, width: .0),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          border: new OutlineInputBorder(
-            borderSide: new BorderSide(
-              color: Colors.deepOrange,
-              width: 1.0,
-            ),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          prefixIcon: Icon(
-            Icons.search,
-            color: XploreColors.deepBlue,
-          ),
-          hintText: "Search product",
-        ),
-      ),
-    );
-  }
-
-  @override
-  Size get preferredSize => Size.fromHeight(56);
 }

@@ -14,7 +14,8 @@ class ProductRepository {
       _collectionReference.doc(_currentUserID).collection("products");
 
   Stream<QuerySnapshot> getStream() {
-    return _productCollection.snapshots();
+    var sortedCollection = _productCollection.orderBy('name');
+    return sortedCollection.snapshots();
   }
 
   Future<void> addProduct(Product product) {
@@ -28,5 +29,20 @@ class ProductRepository {
 
   Future<void> deleteProduct(String? productRefID) async {
     await _productCollection.doc(productRefID).delete();
+  }
+
+  Future<void> searchProduct(String searchTerm) async {
+    await _productCollection.where('name',
+        isEqualTo: _setSearchParam(searchTerm));
+  }
+
+  _setSearchParam(String searchTerm) {
+    List<String> nameSearchList = [];
+    String temp = "";
+    for (int i = 0; i < searchTerm.length; i++) {
+      temp = temp + searchTerm[i];
+      nameSearchList.add(temp);
+    }
+    return nameSearchList;
   }
 }

@@ -10,7 +10,8 @@ import 'package:shamiri/application/singletons/dashboard_current_index.dart';
 import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
 import 'package:shamiri/infrastructure/remote_repository/firebase_inventory.dart';
-import 'package:shamiri/presentation/core/widgets/xplore_appbar.dart';
+import 'package:shamiri/presentation/core/widgets/molecular/dashboard_tab_action_button.dart';
+import 'package:shamiri/presentation/core/widgets/layout/xplore_appbar.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_card.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
 import 'package:shamiri/presentation/dashboard/widgets/layout/dashboard_shimmer.dart';
@@ -31,18 +32,30 @@ class DashboardScaffold extends StatefulWidget {
 }
 
 class _DashboardScaffoldState extends State<DashboardScaffold> {
+  bool isAppbarExpanded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isAppbarExpanded = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     InventoryRepository inventoryRepository = InventoryRepository();
-    String appBarTitle = (widget.dashboardIndexStatusStore.currentIndex == 0)
-        ? 'Merchant Store'
-        : 'Merchant Records';
+    int activeTab = widget.dashboardIndexStatusStore.currentIndex.value;
+    String appBarTitle =
+        (activeTab == 0) ? 'Merchant Store' : 'Merchant Records';
 
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       appBar: XploreAppBar(
-        centerTitle: false,
+        leadingIcon: XploreIconCard(
+          icon: Icons.menu,
+          iconOnPress: () {},
+        ),
+        centerTitle: true,
         automaticallyImplyLeading: false,
         title: appBarTitle,
         firstAction: XploreIconCard(
@@ -53,7 +66,24 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
             ));
           },
         ),
-        expanded: false,
+        lastAction: isAppbarExpanded
+            ? XploreIconCard(
+                icon: Icons.unfold_less,
+                iconOnPress: () {
+                  setState(() {
+                    isAppbarExpanded = !isAppbarExpanded;
+                  });
+                },
+              )
+            : XploreIconCard(
+                icon: Icons.unfold_more,
+                iconOnPress: () {
+                  setState(() {
+                    isAppbarExpanded = !isAppbarExpanded;
+                  });
+                },
+              ),
+        expanded: isAppbarExpanded,
       ),
       body: StreamBuilder(
           stream: inventoryRepository.getStream(),
@@ -64,28 +94,15 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
             }
             return DashboardShimmer();
           }),
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: XploreColors.deepBlue,
+      floatingActionButton: DashboardTabActionFAB(
+        actionIcon: activeTab == 0 ? Icons.add_circle : Icons.receipt,
+        actionLabel: activeTab == 0 ? addProducts : fulfillAll,
         onPressed: () async {
-          await Navigator.pushNamed(context, addProductPageRoute);
+          activeTab == 0
+              ? await Navigator.pushReplacementNamed(
+                  context, addProductPageRoute)
+              : print('Fulfill all pressed');
         },
-        label: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Icon(
-              Icons.add_circle,
-              size: 25,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text('Add Product',
-                style: TextStyle(
-                  fontSize: 14,
-                )),
-          ],
-        ),
-        enableFeedback: true,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: FlashyTabBar(
