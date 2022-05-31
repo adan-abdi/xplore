@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:shamiri/domain/models/categories/category.dart';
 import 'package:shamiri/domain/models/products/product.dart';
+import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
 import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
 import 'package:shamiri/infrastructure/remote_repository/firestore_product.dart';
@@ -47,7 +48,7 @@ class _AddProductPageState extends State<AddProductPage> {
                 Icons.arrow_back,
                 color: Colors.deepOrange,
               ),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => Navigator.of(context).pushReplacementNamed(dashPageRoute),
             ),
           ),
         ),

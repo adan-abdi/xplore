@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Project imports:
 import 'package:shamiri/domain/models/products/product.dart';
+import 'package:shamiri/domain/value_objects/app_enums.dart';
 import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
 import 'package:shamiri/infrastructure/remote_repository/firestore_db.dart';
 
@@ -13,9 +14,23 @@ class ProductRepository {
   static final _productCollection =
       _collectionReference.doc(_currentUserID).collection("products");
 
-  Stream<QuerySnapshot> getStream() {
-    var sortedCollection = _productCollection.orderBy('name');
-    return sortedCollection.snapshots();
+  Stream<QuerySnapshot> getProductStream() {
+    var productCollectionStream = _productCollection.orderBy('name');
+
+    return productCollectionStream.snapshots();
+  }
+
+  Stream<QuerySnapshot> getSearchStream(
+      {required ProductListingStates? state, required String searchterm}) {
+    Stream<QuerySnapshot> productCollectionStream;
+
+    assert(state!.index == 4);
+
+    productCollectionStream = _productCollection
+        .where('name', isEqualTo: _setSearchParam(searchterm))
+        .snapshots();
+
+    return productCollectionStream;
   }
 
   Future<void> addProduct(Product product) {
@@ -29,11 +44,6 @@ class ProductRepository {
 
   Future<void> deleteProduct(String? productRefID) async {
     await _productCollection.doc(productRefID).delete();
-  }
-
-  Future<void> searchProduct(String searchTerm) async {
-    await _productCollection.where('name',
-        isEqualTo: _setSearchParam(searchTerm));
   }
 
   _setSearchParam(String searchTerm) {

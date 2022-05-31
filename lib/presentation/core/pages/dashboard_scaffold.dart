@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -7,6 +8,8 @@ import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/application/singletons/dashboard_current_index.dart';
+import 'package:shamiri/application/singletons/product_listing_status.dart';
+import 'package:shamiri/application/singletons/search_state.dart';
 import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
 import 'package:shamiri/infrastructure/remote_repository/firebase_inventory.dart';
@@ -20,11 +23,15 @@ import 'package:shamiri/presentation/dashboard/widgets/layout/dashboard_shimmer.
 class DashboardScaffold extends StatefulWidget {
   final List<Widget> tabs;
   DashboardIndexStatusStore dashboardIndexStatusStore;
+  SearchStatus searchStatus;
+  ProductListingStatus productListingStatus;
 
   DashboardScaffold({
     Key? key,
     required this.tabs,
     required this.dashboardIndexStatusStore,
+    required this.searchStatus,
+    required this.productListingStatus,
   }) : super(key: key);
 
   @override
@@ -37,7 +44,7 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
   @override
   void initState() {
     super.initState();
-    isAppbarExpanded = false;
+    isAppbarExpanded = !kDebugMode;
   }
 
   @override
@@ -51,6 +58,8 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       appBar: XploreAppBar(
+        productListingStatus: widget.productListingStatus,
+        searchStatus: widget.searchStatus,
         leadingIcon: XploreIconCard(
           icon: Icons.menu,
           iconOnPress: () {},
@@ -70,17 +79,17 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
             ? XploreIconCard(
                 icon: Icons.unfold_less,
                 iconOnPress: () {
-                  setState(() {
-                    isAppbarExpanded = !isAppbarExpanded;
-                  });
+                  // setState(() {
+                  //   // isAppbarExpanded = !isAppbarExpanded;
+                  // });
                 },
               )
             : XploreIconCard(
                 icon: Icons.unfold_more,
                 iconOnPress: () {
-                  setState(() {
-                    isAppbarExpanded = !isAppbarExpanded;
-                  });
+                  // setState(() {
+                  //   isAppbarExpanded = !isAppbarExpanded;
+                  // });
                 },
               ),
         expanded: isAppbarExpanded,

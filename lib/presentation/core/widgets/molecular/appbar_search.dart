@@ -1,8 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/application/singletons/product_listing_status.dart';
+import 'package:shamiri/application/singletons/search_state.dart';
+import 'package:shamiri/domain/value_objects/app_enums.dart';
 
-class AppbarSearch extends StatelessWidget with PreferredSizeWidget {
-  const AppbarSearch({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class AppbarSearch extends StatefulWidget with PreferredSizeWidget {
+  SearchStatus searchStatus;
+  ProductListingStatus productListingStatus;
+
+  AppbarSearch({
+    Key? key,
+    required this.searchStatus,
+    required this.productListingStatus,
+  }) : super(key: key);
+
+  @override
+  State<AppbarSearch> createState() => _AppbarSearchState();
+
+  @override
+  Size get preferredSize => Size.fromHeight(56);
+}
+
+class _AppbarSearchState extends State<AppbarSearch> {
+  TextEditingController productSearchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    productSearchController.text = 'S.';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,12 +37,14 @@ class AppbarSearch extends StatelessWidget with PreferredSizeWidget {
       margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: TextField(
         cursorColor: Colors.grey,
+        controller: productSearchController,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(20.0),
           fillColor: Colors.white,
           filled: true,
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.deepOrange, width: .0),
+            borderSide:
+                const BorderSide(color: XploreColors.deepBlue, width: .0),
             borderRadius: BorderRadius.circular(5),
           ),
           border: new OutlineInputBorder(
@@ -31,12 +60,16 @@ class AppbarSearch extends StatelessWidget with PreferredSizeWidget {
           ),
           hintText: "Search product",
         ),
-        onTap: () {},
-        onChanged: (String v) {},
+        onTap: () {
+          setState(() {
+            widget.productListingStatus.productState
+                .add(ProductListingStates.search);
+          });
+        },
+        onChanged: (String v) {
+          widget.searchStatus.searchTerm.add(v);
+        },
       ),
     );
   }
-
-  @override
-  Size get preferredSize => Size.fromHeight(56);
 }
