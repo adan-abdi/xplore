@@ -12,14 +12,13 @@ class ProductRepository {
   static final _currentUserID = globalFirebaseAuthInstance.currentUser!.uid;
   static final _productCollection =
       _collectionReference.doc(_currentUserID).collection("products");
-  static final _productDocRef = _productCollection.doc();
 
   Stream<QuerySnapshot> getStream() {
     return _productCollection.snapshots();
   }
 
   Future<void> addProduct(Product product) {
-    return _productDocRef.set(product.toJson());
+    return _productCollection.add(product.toJson());
   }
 
   Future<void> updateProduct(Product product) async {
