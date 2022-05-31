@@ -48,7 +48,8 @@ class _AddProductPageState extends State<AddProductPage> {
                 Icons.arrow_back,
                 color: Colors.deepOrange,
               ),
-              onPressed: () => Navigator.of(context).pushReplacementNamed(dashPageRoute),
+              onPressed: () =>
+                  Navigator.of(context).pushReplacementNamed(dashPageRoute),
             ),
           ),
         ),

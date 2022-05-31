@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+// Project imports:
 import 'package:shamiri/application/singletons/product_listing_status.dart';
 import 'package:shamiri/application/singletons/search_state.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
-
-// Project imports:
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/infrastructure/remote_repository/firestore_product.dart';
 import 'package:shamiri/presentation/dashboard/widgets/layout/dashboard_shimmer.dart';
@@ -56,8 +56,7 @@ class _MerchantStoreState extends State<MerchantStore> {
                         return Container(
                             height: MediaQuery.of(context).size.height * 0.7,
                             child: Center(child: Text('Something went wrong')));
-                      } else if (snapshot.hasData &&
-                          snapshot.data != null) {
+                      } else if (snapshot.hasData && snapshot.data != null) {
                         return ProductDataGrid(
                           snapshotData: snapshot.data,
                         );
@@ -76,7 +75,8 @@ class _MerchantStoreState extends State<MerchantStore> {
                             height: MediaQuery.of(context).size.height * 0.7,
                             child: Center(child: Text('Something went wrong')));
                       } else if (snapshot.hasData &&
-                          snapshot.data != null && !(snapshot.data!.docs.length == 0)) {
+                          snapshot.data != null &&
+                          !(snapshot.data!.docs.length == 0)) {
                         return ProductDataGrid(
                           snapshotData: snapshot.data,
                         );
