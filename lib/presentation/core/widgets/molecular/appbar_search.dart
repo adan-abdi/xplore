@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/application/singletons/product_listing_status.dart';
 import 'package:shamiri/application/singletons/search_state.dart';

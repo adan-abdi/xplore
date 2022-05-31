@@ -76,11 +76,4 @@ extension UserStatusEx on UserStatus {
   }
 }
 
-enum ProductListingStates {
-  error,
-  empty,
-  dataGrid,
-  dataList,
-  search,
-  shimmer
-}
+enum ProductListingStates { error, empty, dataGrid, dataList, search, shimmer }

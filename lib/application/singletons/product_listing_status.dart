@@ -1,5 +1,7 @@
 // Package imports:
 import 'package:rxdart/rxdart.dart';
+
+// Project imports:
 import 'package:shamiri/domain/value_objects/app_enums.dart';
 
 class ProductListingStatus {
@@ -9,7 +11,9 @@ class ProductListingStatus {
 
   ProductListingStatus._internal();
 
-  final productState = BehaviorSubject<ProductListingStates>.seeded(ProductListingStates.shimmer);
+  final productState = BehaviorSubject<ProductListingStates>.seeded(
+      ProductListingStates.shimmer);
 
-  static final ProductListingStatus _singleton = ProductListingStatus._internal();
+  static final ProductListingStatus _singleton =
+      ProductListingStatus._internal();
 }

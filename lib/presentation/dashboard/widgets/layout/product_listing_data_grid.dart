@@ -1,5 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+// Project imports:
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/presentation/dashboard/widgets/molecular/product_card.dart';
 
