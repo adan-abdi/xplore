@@ -3,7 +3,7 @@
    <application
         android:name="${applicationName}"
         android:label="Shamiri"
-        android:icon="@mipmap/logo">
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:exported="true"
