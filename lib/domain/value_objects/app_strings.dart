@@ -23,3 +23,5 @@ const String invalidOTPPrompt =
     'Please enter the correct OTP Code sent to your number';
 
 const String invalidProductDetails = 'Please enter a valid product details';
+const String addProducts = 'Add Products';
+const String fulfillAll = 'Fulfill all';

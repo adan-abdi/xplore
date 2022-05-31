@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/domain/routes/routes.dart';
+import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/infrastructure/remote_repository/firestore_db.dart';
 import 'package:shamiri/presentation/core/pages/dashboard.dart';
 
@@ -80,15 +81,29 @@ class _ProductCardState extends State<ProductCard> {
                   InkWell(
                     child: Container(
                       height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: XploreColors.xploreOrange,
+                      ),
                       width: MediaQuery.of(context).size.width * 0.4,
-                      color: XploreColors.orange,
                       child: Center(
-                        child: Text(
-                          'Order',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 20,
-                              color: Colors.white),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              'Order',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20,
+                                  color: Colors.white),
+                            ),
+                            hSize10SizedBox,
+                            Icon(
+                              Icons.add_shopping_cart_rounded,
+                              size: 21,
+                              color: XploreColors.white,
+                            )
+                          ],
                         ),
                       ),
                     ),
