@@ -70,9 +70,13 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                         itemBuilder: (BuildContext ctx, index) {
                           String name = snapshot.data!.docs[index]["name"];
                           String qty = snapshot.data!.docs[index]["quantity"];
+                          String date = snapshot.data!.docs[index]["date"];
+                          String price = snapshot.data!.docs[index]["price"];
                           return Transactioncard(
                             name: name,
                             quantity: qty,
+                            date: date,
+                            price: price,
                           );
                         },
                       ),
