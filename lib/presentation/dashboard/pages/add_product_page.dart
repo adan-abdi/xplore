@@ -6,8 +6,8 @@ import 'package:shamiri/domain/models/categories/category.dart';
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
-import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
-import 'package:shamiri/infrastructure/remote_repository/firestore_product.dart';
+import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
+import 'package:shamiri/infrastructure/remote_repository/users/firebase_auth.dart';
 import 'package:shamiri/presentation/core/pages/dashboard.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
 
@@ -61,9 +61,10 @@ class _AddProductPageState extends State<AddProductPage> {
               child: Text(
                 'Add Product',
                 style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 24,
-                    color: Colors.deepOrange),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 24,
+                  color: Colors.deepOrange,
+                ),
               ),
             )),
       ),
@@ -276,7 +277,8 @@ class _AddProductPageState extends State<AddProductPage> {
                             .addProduct(newProduct)
                             .whenComplete(() {
                           globalDashIndex.currentIndex.add(0);
-                          Navigator.of(context).pop();
+                          Navigator.pushReplacementNamed(
+                              context, dashPageRoute);
                         });
                       } else {
                         ScaffoldMessenger.of(context)

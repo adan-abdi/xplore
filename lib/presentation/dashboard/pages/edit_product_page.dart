@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/models/categories/category.dart';
 import 'package:shamiri/domain/models/products/product.dart';
-import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
-import 'package:shamiri/infrastructure/remote_repository/firestore_product.dart';
+import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
+import 'package:shamiri/infrastructure/remote_repository/users/firebase_auth.dart';
 
 class EditProducts extends StatefulWidget {
   final Product product;

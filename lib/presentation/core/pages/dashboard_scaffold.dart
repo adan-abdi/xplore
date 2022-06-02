@@ -12,7 +12,7 @@ import 'package:shamiri/application/singletons/product_listing_status.dart';
 import 'package:shamiri/application/singletons/search_state.dart';
 import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
-import 'package:shamiri/infrastructure/remote_repository/firebase_inventory.dart';
+import 'package:shamiri/infrastructure/remote_repository/inventory/firebase_inventory.dart';
 import 'package:shamiri/presentation/core/widgets/layout/xplore_appbar.dart';
 import 'package:shamiri/presentation/core/widgets/molecular/dashboard_tab_action_button.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_card.dart';
@@ -124,12 +124,12 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
           FlashyTabBarItem(
             icon: Icon(Icons.storefront),
             title: Text('Shop'),
-            activeColor: XploreColors.orange,
+            activeColor: XploreColors.xploreOrange,
           ),
           FlashyTabBarItem(
             icon: Icon(Icons.shopping_cart_checkout),
             title: Text('Transactions'),
-            activeColor: XploreColors.lightOrange,
+            activeColor: XploreColors.xploreOrange,
           ),
         ],
       ),

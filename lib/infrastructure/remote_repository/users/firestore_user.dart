@@ -3,8 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Project imports:
 import 'package:shamiri/domain/models/users/user.dart';
-import 'package:shamiri/infrastructure/remote_repository/firebase_auth.dart';
-import 'package:shamiri/infrastructure/remote_repository/firestore_db.dart';
+import 'package:shamiri/infrastructure/remote_repository/users/firebase_auth.dart';
+import 'package:shamiri/infrastructure/remote_repository/xplore_firestore.dart';
 
 class UserRepository {
   static final _collection = globalFirestoreInstance.collection('Users');
