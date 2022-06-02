@@ -1,12 +1,18 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:intl/intl.dart';
+
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/models/products/product.dart';
+import 'package:shamiri/domain/models/transactions/transaction.dart';
 import 'package:shamiri/domain/routes/routes.dart';
+import 'package:shamiri/domain/value_objects/app_enums.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
-import 'package:shamiri/infrastructure/remote_repository/firestore_db.dart';
+import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
+import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_transaction.dart';
 import 'package:shamiri/presentation/core/pages/dashboard.dart';
 
 class ProductCard extends StatefulWidget {
@@ -21,12 +27,26 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
+    TransactionRepository transactionRepositoryInstance =
+        TransactionRepository();
+    ProductRepository productRepositoryInstance = ProductRepository();
     final String prodName = widget.product.name.toString();
     final String prodQty = widget.product.quantityInStock.toString();
     final String prodSp = widget.product.sellingPrice.toString();
     final String prodBp = widget.product.buyingPrice.toString();
     final String prodImag = widget.product.imageList!.first.toString();
     final String productRef = widget.product.productRefID.toString();
+    final String businessUID = widget.product.productRefID.toString();
+    final int rem = int.parse(prodQty) - 1;
+    final Product product = Product(
+      name: prodName,
+      quantityInStock: rem.toString(),
+      sellingPrice: prodSp,
+      buyingPrice: prodBp,
+      imageList: [prodImag],
+      productRefID: productRef,
+      businessUID: businessUID,
+    );
 
     return Card(
       child: Column(
@@ -108,20 +128,21 @@ class _ProductCardState extends State<ProductCard> {
                       ),
                     ),
                     onTap: () {
-                      int rem = int.parse(prodQty) - 1;
-                      Database.checkoutItem(
-                        name: prodName,
-                        bp: prodBp,
-                        sp: prodSp,
-                        units: '',
-                        quantity: '1',
-                        category: 'category',
-                        rem: rem.toString(),
-                        image:
-                            'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg',
-                        status: 'pending',
-                        docId: productRef,
-                      ).whenComplete(() {
+                      var now = DateTime.now();
+                      final format = DateFormat('yyyy-MM-dd HH:mm');
+                      var date = format.format(now);
+
+                      productRepositoryInstance.updateProduct(product);
+                      transactionRepositoryInstance
+                          .recordTransaction(
+                        Order(
+                          businessUID: businessUID,
+                          status: TransactionStatus.pending,
+                          productsList: [product],
+                          date: date,
+                        ),
+                      )
+                          .whenComplete(() {
                         setState(() {
                           globalDashIndex.currentIndex.add(1);
                         });

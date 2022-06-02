@@ -8,7 +8,6 @@ part of 'transaction.dart';
 
 Order _$OrderFromJson(Map<String, dynamic> json) => Order(
       businessUID: json['businessUID'] as String?,
-      name: json['name'] as String?,
       status: $enumDecodeNullable(_$TransactionStatusEnumMap, json['status']),
       productsList: (json['productsList'] as List<dynamic>)
           .map((e) => Product.fromJson(e as Map<String, dynamic>))
@@ -17,7 +16,6 @@ Order _$OrderFromJson(Map<String, dynamic> json) => Order(
 
 Map<String, dynamic> _$OrderToJson(Order instance) => <String, dynamic>{
       'businessUID': instance.businessUID,
-      'name': instance.name,
       'status': _$TransactionStatusEnumMap[instance.status],
       'productsList': instance.productsList.map((e) => e.toJson()).toList(),
       'transactionRefId': instance.transactionRefId,

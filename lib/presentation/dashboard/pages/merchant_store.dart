@@ -9,7 +9,7 @@ import 'package:shamiri/application/singletons/product_listing_status.dart';
 import 'package:shamiri/application/singletons/search_state.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
-import 'package:shamiri/infrastructure/remote_repository/firestore_product.dart';
+import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
 import 'package:shamiri/presentation/dashboard/widgets/layout/dashboard_shimmer.dart';
 import 'package:shamiri/presentation/dashboard/widgets/layout/product_listing_data_grid.dart';
 

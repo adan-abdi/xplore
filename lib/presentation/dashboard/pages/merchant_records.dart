@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 // Project imports:
 import 'package:shamiri/application/singletons/sliding_tab_status.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
-import 'package:shamiri/infrastructure/remote_repository/firestore_db.dart';
+import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_transaction.dart';
 import 'package:shamiri/presentation/dashboard/widgets/layout/dashboard_shimmer.dart';
 import 'package:shamiri/presentation/dashboard/widgets/layout/sliding_tab.dart';
 import 'package:shamiri/presentation/dashboard/widgets/molecular/transaction_card.dart';
@@ -22,7 +23,8 @@ class MerchantRecords extends StatefulWidget {
 class _MerchantRecordsState extends State<MerchantRecords> {
   @override
   Widget build(BuildContext context) {
-    Database transactionRepositoryInstance = Database();
+    TransactionRepository transactionRepositoryInstance =
+        TransactionRepository();
     SlidingTabStatusStore transactionTabState = SlidingTabStatusStore();
 
     return Container(
@@ -68,15 +70,17 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                         padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (BuildContext ctx, index) {
-                          String name = snapshot.data!.docs[index]["name"];
-                          String qty = snapshot.data!.docs[index]["quantity"];
-                          String date = snapshot.data!.docs[index]["date"];
-                          String price = snapshot.data!.docs[index]["price"];
+                          var now = DateTime.now();
+                          final format = DateFormat('yyyy-MM-dd HH:mm');
+                          var date = format.format(now);
+                          // String qty = snapshot.data!.docs[index]["productsList"][0]["quantityInStock"];
+                          // String date = snapshot.data!.docs[index]["date"];
+                          // String price = snapshot.data!.docs[index]["price"];
                           return Transactioncard(
-                            name: name,
-                            quantity: qty,
+                            name: 'name',
+                            quantity: 'qty',
                             date: date,
-                            price: price,
+                            price: 'price',
                           );
                         },
                       ),

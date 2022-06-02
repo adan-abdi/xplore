@@ -12,16 +12,16 @@ part 'transaction.g.dart';
 class Order {
   Order({
     required this.businessUID,
-    required this.name,
     required this.status,
     required this.productsList,
+    this.date,
   });
 
   final String? businessUID;
-  final String? name;
   final TransactionStatus? status;
   final List<Product> productsList;
   String? transactionRefId;
+  final String? date;
 
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
 
