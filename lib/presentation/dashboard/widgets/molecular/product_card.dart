@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/domain/models/transactions/transaction.dart';
+import 'package:shamiri/domain/models/transactions/transaction_product.dart';
 import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
@@ -27,8 +28,7 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
-    TransactionRepository transactionRepositoryInstance =
-        TransactionRepository();
+    TransactionRepository transactionRepositoryInstance = TransactionRepository();
     ProductRepository productRepositoryInstance = ProductRepository();
     final String prodName = widget.product.name.toString();
     final String prodQty = widget.product.quantityInStock.toString();
@@ -38,7 +38,7 @@ class _ProductCardState extends State<ProductCard> {
     final String productRef = widget.product.productRefID.toString();
     final String businessUID = widget.product.productRefID.toString();
     final int rem = int.parse(prodQty) - 1;
-    final Product product = Product(
+    final Product newProduct = Product(
       name: prodName,
       quantityInStock: rem.toString(),
       sellingPrice: prodSp,
@@ -55,8 +55,7 @@ class _ProductCardState extends State<ProductCard> {
           AspectRatio(
             aspectRatio: 22.0 / 12.0,
             child: InkWell(
-                child:
-                    Image.network(widget.product.imageList!.first.toString()),
+                child: Image.network(widget.product.imageList!.first.toString()),
                 onTap: () {
                   Navigator.pushNamed(
                     context,
@@ -80,19 +79,14 @@ class _ProductCardState extends State<ProductCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('$prodName',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text('$prodName', style: TextStyle(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 6.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text('$prodQty Left',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey)),
-                      Text('$prodSp KES',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$prodQty Left', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$prodSp KES', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
                     ],
                   ),
                   SizedBox(
@@ -112,10 +106,7 @@ class _ProductCardState extends State<ProductCard> {
                           children: [
                             Text(
                               'Order',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20,
-                                  color: Colors.white),
+                              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Colors.white),
                             ),
                             hSize10SizedBox,
                             Icon(
@@ -132,13 +123,22 @@ class _ProductCardState extends State<ProductCard> {
                       final format = DateFormat('yyyy-MM-dd HH:mm');
                       var date = format.format(now);
 
-                      productRepositoryInstance.updateProduct(product);
+                      productRepositoryInstance.updateProduct(newProduct);
                       transactionRepositoryInstance
                           .recordTransaction(
                         Order(
                           businessUID: businessUID,
                           status: TransactionStatus.pending,
-                          productsList: [product],
+                          transactionRefId: productRef,
+                          productsMap: [
+                            TransactionProduct(
+                              product: newProduct,
+                              transactionProductRefId: newProduct.productRefID,
+                              date: date,
+                              businessUID: businessUID,
+                              quantityOrdered: 1,
+                            )
+                          ],
                           date: date,
                         ),
                       )

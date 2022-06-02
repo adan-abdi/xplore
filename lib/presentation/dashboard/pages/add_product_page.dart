@@ -265,6 +265,7 @@ class _AddProductPageState extends State<AddProductPage> {
                             sellingPrice: _sp.text,
                             quantityInStock: _qty.text,
                             metricUnit: _units.text,
+                            // productRefID: productRefID,
                             categories: [
                               Category(
                                   name: _cat.text, businessUID: buisinessID),

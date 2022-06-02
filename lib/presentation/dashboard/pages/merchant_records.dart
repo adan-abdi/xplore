@@ -1,12 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 // Project imports:
 import 'package:shamiri/application/singletons/sliding_tab_status.dart';
+import 'package:shamiri/domain/models/products/product.dart';
+import 'package:shamiri/domain/models/transactions/transaction.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_transaction.dart';
 import 'package:shamiri/presentation/dashboard/widgets/layout/dashboard_shimmer.dart';
@@ -23,8 +22,7 @@ class MerchantRecords extends StatefulWidget {
 class _MerchantRecordsState extends State<MerchantRecords> {
   @override
   Widget build(BuildContext context) {
-    TransactionRepository transactionRepositoryInstance =
-        TransactionRepository();
+    TransactionRepository transactionRepositoryInstance = TransactionRepository();
     SlidingTabStatusStore transactionTabState = SlidingTabStatusStore();
 
     return Container(
@@ -39,11 +37,11 @@ class _MerchantRecordsState extends State<MerchantRecords> {
               tabs: [
                 SlidingTab(
                   key: const ValueKey("TransactionOverview_PendingTab"),
-                  title: Text('Pending'),
+                  title: Text('Cart'),
                 ),
                 SlidingTab(
                   key: const ValueKey("TransactionOverview_FulfilledTab"),
-                  title: Text('Fulfilled'),
+                  title: Text('Receipts'),
                 ),
               ],
               onTabChanged: (v) {
@@ -57,7 +55,7 @@ class _MerchantRecordsState extends State<MerchantRecords> {
           vSize10SizedBox,
           Expanded(
             flex: 1,
-            child: StreamBuilder<QuerySnapshot>(
+            child: StreamBuilder<List<Order>>(
                 stream: transactionRepositoryInstance.getStream(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
@@ -68,19 +66,28 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                     return Container(
                       child: ListView.builder(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        itemCount: snapshot.data!.docs.length,
+                        itemCount: snapshot.data!.length,
                         itemBuilder: (BuildContext ctx, index) {
-                          var now = DateTime.now();
-                          final format = DateFormat('yyyy-MM-dd HH:mm');
-                          var date = format.format(now);
-                          // String qty = snapshot.data!.docs[index]["productsList"][0]["quantityInStock"];
-                          // String date = snapshot.data!.docs[index]["date"];
-                          // String price = snapshot.data!.docs[index]["price"];
+                          String qty = snapshot.data![index].productsMap[index].quantityOrdered.toString();
+                          Product? product = snapshot.data![index].productsMap[index].product;
+                          String name = snapshot.data![index].productsMap[index].product!.name.toString();
+                          String price = snapshot.data![index].productsMap[index].product!.sellingPrice.toString();
+                          String image = snapshot.data![index].productsMap[index].product!.imageList![0].toString();
+                          String date = snapshot.data![index].productsMap[index].date.toString();
+                          String transactionRefId = snapshot.data![index].transactionRefId.toString();
+
+                          var amount = price.toUpperCase();
+                          var dateParsed = DateFormat('yyyy-MM-dd HH:mm').parse(date);
+                          var dateOrdered = DateFormat.yMMMd().format(dateParsed);
+
                           return Transactioncard(
-                            name: 'name',
-                            quantity: 'qty',
-                            date: date,
-                            price: 'price',
+                            name: name,
+                            quantity: qty,
+                            image: image,
+                            product: product,
+                            amount: amount,
+                            date: dateOrdered,
+                            transactionRefId: transactionRefId,
                           );
                         },
                       ),

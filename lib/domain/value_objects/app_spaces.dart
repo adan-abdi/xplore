@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Vertical (h)Prefix
+Widget vSize5SizedBox = const SizedBox(height: 5);
 Widget vSize10SizedBox = const SizedBox(height: 10);
 Widget vSize20SizedBox = const SizedBox(height: 20);
 Widget vSize30SizedBox = const SizedBox(height: 30);
@@ -16,6 +17,7 @@ Widget hHalf(BuildContext context) {
 }
 
 // Horizontal (h)Prefix
+Widget hSize5SizedBox = const SizedBox(width: 5);
 Widget hSize10SizedBox = const SizedBox(width: 10);
 Widget hSize20SizedBox = const SizedBox(width: 20);
 Widget hSize30SizedBox = const SizedBox(width: 30);
