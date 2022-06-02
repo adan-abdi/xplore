@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
-import 'package:shamiri/domain/models/products/product.dart';
+import 'package:shamiri/domain/models/transactions/transaction_product.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
 
 part 'transaction.g.dart';
@@ -13,13 +13,14 @@ class Order {
   Order({
     required this.businessUID,
     required this.status,
-    required this.productsList,
+    required this.productsMap,
     this.date,
+    this.transactionRefId,
   });
 
   final String? businessUID;
   final TransactionStatus? status;
-  final List<Product> productsList;
+  final List<TransactionProduct> productsMap;
   String? transactionRefId;
   final String? date;
 
