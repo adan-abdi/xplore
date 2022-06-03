@@ -1,5 +1,7 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:intl/intl.dart';
 
 // Project imports:
@@ -22,7 +24,8 @@ class MerchantRecords extends StatefulWidget {
 class _MerchantRecordsState extends State<MerchantRecords> {
   @override
   Widget build(BuildContext context) {
-    TransactionRepository transactionRepositoryInstance = TransactionRepository();
+    TransactionRepository transactionRepositoryInstance =
+        TransactionRepository();
     SlidingTabStatusStore transactionTabState = SlidingTabStatusStore();
 
     return Container(
@@ -68,17 +71,31 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                         padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                         itemCount: snapshot.data!.length,
                         itemBuilder: (BuildContext ctx, index) {
-                          String qty = snapshot.data![index].productsMap[index].quantityOrdered.toString();
-                          Product? product = snapshot.data![index].productsMap[index].product;
-                          String name = snapshot.data![index].productsMap[index].product!.name.toString();
-                          String price = snapshot.data![index].productsMap[index].product!.sellingPrice.toString();
-                          String image = snapshot.data![index].productsMap[index].product!.imageList![0].toString();
-                          String date = snapshot.data![index].productsMap[index].date.toString();
-                          String transactionRefId = snapshot.data![index].businessUID.toString();
+                          String qty = snapshot
+                              .data![index].productsMap[index].quantityOrdered
+                              .toString();
+                          Product? product =
+                              snapshot.data![index].productsMap[index].product;
+                          String name = snapshot
+                              .data![index].productsMap[index].product!.name
+                              .toString();
+                          String price = snapshot.data![index]
+                              .productsMap[index].product!.sellingPrice
+                              .toString();
+                          String image = snapshot.data![index]
+                              .productsMap[index].product!.imageList![0]
+                              .toString();
+                          String date = snapshot
+                              .data![index].productsMap[index].date
+                              .toString();
+                          String transactionRefId =
+                              snapshot.data![index].businessUID.toString();
 
                           var amount = price.toUpperCase();
-                          var dateParsed = DateFormat('yyyy-MM-dd HH:mm').parse(date);
-                          var dateOrdered = DateFormat.yMMMd().format(dateParsed);
+                          var dateParsed =
+                              DateFormat('yyyy-MM-dd HH:mm').parse(date);
+                          var dateOrdered =
+                              DateFormat.yMMMd().format(dateParsed);
 
                           return Transactioncard(
                             name: name,

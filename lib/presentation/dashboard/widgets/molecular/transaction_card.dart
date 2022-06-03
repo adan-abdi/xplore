@@ -123,15 +123,18 @@ class _TransactioncardState extends State<Transactioncard> {
                     width: 35,
                     height: 35,
                     margin: EdgeInsets.all(8),
-                    decoration: BoxDecoration(color: XploreColors.deepBlue, borderRadius: BorderRadius.circular(5)),
+                    decoration: BoxDecoration(
+                        color: XploreColors.deepBlue,
+                        borderRadius: BorderRadius.circular(5)),
                     child: IconButton(
                       icon: Icon(
                         Icons.remove,
                         size: 18,
                         color: XploreColors.white,
                       ),
-                      onPressed: () async{
-                        newQty = await decrementOrderQty(widget.transactionRefId);
+                      onPressed: () async {
+                        newQty =
+                            await decrementOrderQty(widget.transactionRefId);
                         setState(() {
                           widget.quantity = newQty;
                         });
@@ -148,7 +151,9 @@ class _TransactioncardState extends State<Transactioncard> {
                     width: 35,
                     height: 35,
                     margin: EdgeInsets.all(8),
-                    decoration: BoxDecoration(color: XploreColors.deepBlue, borderRadius: BorderRadius.circular(5)),
+                    decoration: BoxDecoration(
+                        color: XploreColors.deepBlue,
+                        borderRadius: BorderRadius.circular(5)),
                     child: IconButton(
                       icon: Icon(
                         Icons.add,
@@ -156,7 +161,8 @@ class _TransactioncardState extends State<Transactioncard> {
                         color: XploreColors.white,
                       ),
                       onPressed: () async {
-                        var newQty = await incrementOrderQty(widget.transactionRefId);
+                        var newQty =
+                            await incrementOrderQty(widget.transactionRefId);
                         setState(() {
                           widget.quantity = newQty;
                         });
