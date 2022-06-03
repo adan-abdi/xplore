@@ -74,7 +74,7 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                           String price = snapshot.data![index].productsMap[index].product!.sellingPrice.toString();
                           String image = snapshot.data![index].productsMap[index].product!.imageList![0].toString();
                           String date = snapshot.data![index].productsMap[index].date.toString();
-                          String transactionRefId = snapshot.data![index].transactionRefId.toString();
+                          String transactionRefId = snapshot.data![index].businessUID.toString();
 
                           var amount = price.toUpperCase();
                           var dateParsed = DateFormat('yyyy-MM-dd HH:mm').parse(date);
