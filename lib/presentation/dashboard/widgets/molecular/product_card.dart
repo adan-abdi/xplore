@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:intl/intl.dart';
+import 'package:shamiri/application/core/services/helpers.dart';
 
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
@@ -10,8 +11,10 @@ import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/domain/models/transactions/transaction.dart';
 import 'package:shamiri/domain/models/transactions/transaction_product.dart';
 import 'package:shamiri/domain/routes/routes.dart';
+import 'package:shamiri/domain/value_objects/app_constants.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/domain/value_objects/app_strings.dart';
 import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
 import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_transaction.dart';
 import 'package:shamiri/presentation/core/pages/dashboard.dart';
@@ -141,10 +144,18 @@ class _ProductCardState extends State<ProductCard> {
                           ],
                           date: date,
                         ),
-                      )
-                          .whenComplete(() {
+                      ).whenComplete(() {
                         setState(() {
                           globalDashIndex.currentIndex.add(1);
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(
+                              SnackBar(
+                                content: Text(newOrder),
+                                duration: const Duration(seconds: kShortSnackBarDuration),
+                                action: dismissSnackBar(okText, XploreColors.white, context),
+                              ),
+                            );
                         });
                       });
                     },
