@@ -11,10 +11,24 @@ class TransactionRepository {
   static final _currentUserID = globalFirebaseAuthInstance.currentUser!.uid;
   static final _transactionCollection = _collectionReference.doc(_currentUserID).collection("transactions");
 
-  Stream<List<Order>> getStream() {
-    return _transactionCollection
-        .snapshots()
-        .map((snapshot) => snapshot.docs.map((e) => Order.fromJson(e.data())).toList());
+  Stream<List<Order>> getPendingOrdersStream() {
+    var pendingOrders;
+
+    pendingOrders = _transactionCollection.where('status', isEqualTo: 'pending').snapshots();
+
+    pendingOrders.map((snapshot) => snapshot.docs.map((e) => Order.fromJson(e.data())).toList());
+
+    return pendingOrders;
+  }
+
+  Stream<List<Order>> getFulfilledOrdersStream() {
+    var pendingOrders;
+
+    pendingOrders = _transactionCollection.where('status', isEqualTo: 'fulfilled').snapshots();
+
+    pendingOrders.map((snapshot) => snapshot.docs.map((e) => Order.fromJson(e.data())).toList());
+
+    return pendingOrders;
   }
 
   Future<void> recordTransaction(Order order) {

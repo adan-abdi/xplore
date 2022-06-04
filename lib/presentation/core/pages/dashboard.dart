@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 
 // Project imports:
 import 'package:shamiri/application/singletons/dashboard_current_index.dart';
+import 'package:shamiri/application/singletons/pending_items_store.dart';
 import 'package:shamiri/application/singletons/product_listing_status.dart';
 import 'package:shamiri/application/singletons/search_state.dart';
 import 'package:shamiri/presentation/core/pages/dashboard_scaffold.dart';
@@ -21,6 +22,7 @@ class XploreDashboard extends StatefulWidget {
 class _XploreDashboardState extends State<XploreDashboard> {
   SearchStatus searchStatus = SearchStatus();
   ProductListingStatus productListingStatus = ProductListingStatus();
+  OrdersStore pendingOrdersStore = OrdersStore();
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +32,14 @@ class _XploreDashboardState extends State<XploreDashboard> {
           searchStatus: searchStatus,
           productListingStatus: productListingStatus,
         ),
-        MerchantRecords(),
+        MerchantRecords(
+          pendingOrdersStore: pendingOrdersStore,
+        ),
       ],
       dashboardIndexStatusStore: globalDashIndex,
       searchStatus: searchStatus,
       productListingStatus: productListingStatus,
+      pendingOrdersStore: pendingOrdersStore,
     );
   }
 }

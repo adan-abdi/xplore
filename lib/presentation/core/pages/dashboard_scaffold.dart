@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
+import 'package:rxdart/subjects.dart';
 
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/application/singletons/dashboard_current_index.dart';
+import 'package:shamiri/application/singletons/pending_items_store.dart';
 import 'package:shamiri/application/singletons/product_listing_status.dart';
 import 'package:shamiri/application/singletons/search_state.dart';
 import 'package:shamiri/domain/routes/routes.dart';
@@ -25,6 +27,7 @@ class DashboardScaffold extends StatefulWidget {
   DashboardIndexStatusStore dashboardIndexStatusStore;
   SearchStatus searchStatus;
   ProductListingStatus productListingStatus;
+  OrdersStore pendingOrdersStore;
 
   DashboardScaffold({
     Key? key,
@@ -32,6 +35,7 @@ class DashboardScaffold extends StatefulWidget {
     required this.dashboardIndexStatusStore,
     required this.searchStatus,
     required this.productListingStatus,
+    required this.pendingOrdersStore,
   }) : super(key: key);
 
   @override
@@ -51,8 +55,7 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
   Widget build(BuildContext context) {
     InventoryRepository inventoryRepository = InventoryRepository();
     int activeTab = widget.dashboardIndexStatusStore.currentIndex.value;
-    String appBarTitle =
-        (activeTab == 0) ? 'Merchant Store' : 'Merchant Records';
+    String appBarTitle = (activeTab == 0) ? 'Merchant Store' : 'Merchant Records';
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -98,8 +101,7 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
           stream: inventoryRepository.getStream(),
           builder: (context, snapshot) {
             if (snapshot.data != null) {
-              return widget
-                  .tabs[widget.dashboardIndexStatusStore.currentIndex.value];
+              return widget.tabs[widget.dashboardIndexStatusStore.currentIndex.value];
             }
             return DashboardShimmer();
           }),
@@ -108,9 +110,8 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
         actionLabel: activeTab == 0 ? addProducts : fulfillAll,
         onPressed: () async {
           activeTab == 0
-              ? await Navigator.pushReplacementNamed(
-                  context, addProductPageRoute)
-              : print('Fulfill all pressed');
+              ? await Navigator.pushReplacementNamed(context, addProductPageRoute)
+              : fulfillAllOrders(widget.pendingOrdersStore.pendingItems);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -134,5 +135,9 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
         ],
       ),
     );
+  }
+
+  void fulfillAllOrders(BehaviorSubject<List<String>> pendingItemsRefIdList) {
+    
   }
 }
