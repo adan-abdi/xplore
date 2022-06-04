@@ -7,40 +7,64 @@ import 'package:shamiri/infrastructure/remote_repository/xplore_firestore.dart';
 ///Inventory ==> uid ==> products,      ==> docId ==>product
 ///                      transactions,  ==> docId ==>product?
 class TransactionRepository {
-  static final _collectionReference = globalFirestoreInstance.collection("inventory");
+  static final _collectionReference =
+      globalFirestoreInstance.collection("inventory");
   static final _currentUserID = globalFirebaseAuthInstance.currentUser!.uid;
-  static final _transactionCollection = _collectionReference.doc(_currentUserID).collection("transactions");
+  static final _transactionCollection =
+      _collectionReference.doc(_currentUserID).collection("transactions");
 
   dynamic getPendingOrdersStream() {
     var pendingOrders;
 
-    pendingOrders = _transactionCollection.where('status', isEqualTo: 'pending').snapshots();
+    pendingOrders = _transactionCollection
+        .where('status', isEqualTo: 'pending')
+        .snapshots();
 
-    pendingOrders = pendingOrders.map((snapshot) => snapshot.docs.map((e) => Order.fromJson(e.data())).toList());
+    pendingOrders = pendingOrders.map((snapshot) =>
+        snapshot.docs.map((e) => Order.fromJson(e.data())).toList());
 
     return pendingOrders;
   }
 
-  Stream<List<Order>> getFulfilledOrdersStream() {
-    var pendingOrders;
+  dynamic getFulfilledOrdersStream() {
+    var fulfilledOrders;
 
-    pendingOrders = _transactionCollection.where('status', isEqualTo: 'fulfilled').snapshots();
+    fulfilledOrders = _transactionCollection
+        .where('status', isEqualTo: 'fulfilled')
+        .snapshots();
 
-    pendingOrders.map((snapshot) => snapshot.docs.map((e) => Order.fromJson(e.data())).toList());
+    fulfilledOrders = fulfilledOrders.map((snapshot) =>
+        snapshot.docs.map((e) => Order.fromJson(e.data())).toList());
 
-    return pendingOrders;
+    return fulfilledOrders;
   }
 
   Future<void> recordTransaction(Order order) {
-    return _transactionCollection.add(order.toJson());
+    return _transactionCollection
+        .doc(order.transactionRefId)
+        .set(order.toJson());
   }
 
   Future<void> updateTransaction(Order order) async {
-    var _updateTransactionDocRef = _transactionCollection.doc(order.transactionRefId);
+    var _updateTransactionDocRef =
+        _transactionCollection.doc(order.transactionRefId);
     await _updateTransactionDocRef.update(order.toJson());
   }
 
   Future<void> deleteTransaction(String? transactionRefId) async {
     await _transactionCollection.doc(transactionRefId).delete();
+  }
+
+  Future<void> fulfillTransaction(String? transactionRefId) async {
+    await _transactionCollection
+        .doc(transactionRefId)
+        .update({'status': 'fulfilled'});
+  }
+
+  Future<void> updateTransactionQty(
+      {String? transactionRefId, String? newQTy}) async {
+    await _transactionCollection
+        .doc(transactionRefId)
+        .update({'quantityOrdered': newQTy});
   }
 }

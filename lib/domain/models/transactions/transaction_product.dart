@@ -11,10 +11,10 @@ part 'transaction_product.g.dart';
 class TransactionProduct {
   TransactionProduct({
     required this.product,
-    required this.transactionProductRefId,
     required this.date,
     required this.businessUID,
     required this.quantityOrdered,
+    this.transactionProductRefId,
   });
 
   final String? businessUID;
@@ -23,10 +23,12 @@ class TransactionProduct {
   final int quantityOrdered;
   String? transactionProductRefId;
 
-  factory TransactionProduct.fromJson(Map<String, dynamic> json) => _$TransactionProductFromJson(json);
+  factory TransactionProduct.fromJson(Map<String, dynamic> json) =>
+      _$TransactionProductFromJson(json);
 
   factory TransactionProduct.fromSnapshot(DocumentSnapshot snapshot) {
-    final newTransaction = TransactionProduct.fromJson(snapshot.data() as Map<String, dynamic>);
+    final newTransaction =
+        TransactionProduct.fromJson(snapshot.data() as Map<String, dynamic>);
     newTransaction.transactionProductRefId = snapshot.reference.id;
     return newTransaction;
   }

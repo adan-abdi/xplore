@@ -60,7 +60,8 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
   Widget build(BuildContext context) {
     InventoryRepository inventoryRepository = InventoryRepository();
     int activeTab = widget.dashboardIndexStatusStore.currentIndex.value;
-    String appBarTitle = (activeTab == 0) ? 'Merchant Store' : 'Merchant Records';
+    String appBarTitle =
+        (activeTab == 0) ? 'Merchant Store' : 'Merchant Records';
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -106,7 +107,8 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
           stream: inventoryRepository.getStream(),
           builder: (context, snapshot) {
             if (snapshot.data != null) {
-              return widget.tabs[widget.dashboardIndexStatusStore.currentIndex.value];
+              return widget
+                  .tabs[widget.dashboardIndexStatusStore.currentIndex.value];
             }
             return DashboardShimmer();
           }),
@@ -115,7 +117,8 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
         actionLabel: activeTab == 0 ? addProducts : fulfillAll,
         onPressed: () async {
           activeTab == 0
-              ? await Navigator.pushReplacementNamed(context, addProductPageRoute,
+              ? await Navigator.pushReplacementNamed(
+                  context, addProductPageRoute,
                   arguments: widget.productRepoInstance)
               : fulfillAllOrders(widget.pendingOrdersStore.pendingItems.value);
         },
@@ -144,11 +147,11 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
   }
 
   Future<void> fulfillAllOrders(List<String> pendingItemsRefIdList) async {
-    for (int i = 0; i < int.parse(pendingItemsRefIdList.length.toString()); i++) {
-      // var orderSnapshot = await widget.transactionRepository.getOrderByRefId(pendingItemsRefIdList[i]);
-      // var newOrder = Order(businessUID: orderSnapshot.docs.first, status: status, productsMap: productsMap);
-      // widget.transactionRepository.updateTransaction(orderToBeUpdated);
-      // widget.transactionRepository.
+    for (int i = 0;
+        i < int.parse(pendingItemsRefIdList.length.toString());
+        i++) {
+      await widget.transactionRepository
+          .fulfillTransaction(pendingItemsRefIdList[i]);
     }
   }
 }

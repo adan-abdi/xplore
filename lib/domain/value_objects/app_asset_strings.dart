@@ -1,5 +1,5 @@
 const String errorDisplayImgUrl = 'assets/images/error-img.png';
-const String xploreLoader = 'assets/xplore_loader.json';
+const String xploreLoader = 'assets/general/xplore_loader.json';
 
 // Onboarding Assets
 const String onboardingBackgroundImage = 'assets/onboarding/onboarding_bg.png';

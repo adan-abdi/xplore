@@ -53,3 +53,4 @@ flutter:
     - assets/
     - assets/onboarding/
     - assets/appIcon/playstore.png
+    - assets/general/xplore_loader.json

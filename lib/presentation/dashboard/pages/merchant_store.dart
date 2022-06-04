@@ -10,6 +10,7 @@ import 'package:shamiri/application/singletons/search_state.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
+import 'package:shamiri/presentation/core/widgets/xplore_loader.dart';
 import 'package:shamiri/presentation/dashboard/widgets/layout/dashboard_shimmer.dart';
 import 'package:shamiri/presentation/dashboard/widgets/layout/product_listing_data_grid.dart';
 
@@ -20,7 +21,10 @@ class MerchantStore extends StatefulWidget {
   ProductRepository productRepository;
 
   MerchantStore(
-      {Key? key, required this.searchStatus, required this.productListingStatus, required this.productRepository})
+      {Key? key,
+      required this.searchStatus,
+      required this.productListingStatus,
+      required this.productRepository})
       : super(key: key);
 
   @override
@@ -55,9 +59,27 @@ class _MerchantStoreState extends State<MerchantStore> {
                         return Container(
                             height: MediaQuery.of(context).size.height * 0.7,
                             child: Center(child: Text('Something went wrong')));
-                      } else if (snapshot.hasData && snapshot.data != null) {
+                      } else if (snapshot.hasData &&
+                          snapshot.data!.docs.length != 0) {
                         return ProductDataGrid(
                           snapshotData: snapshot.data,
+                        );
+                      } else if (snapshot.data?.docs.length == 0) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              XploreLoader(),
+                              vSize10SizedBox,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 30),
+                                child: Text(
+                                    'You have no products in your store, kindly add to continue',
+                                    textAlign: TextAlign.center),
+                              )
+                            ],
+                          ),
                         );
                       }
                       return DashboardShimmer();
@@ -73,7 +95,9 @@ class _MerchantStoreState extends State<MerchantStore> {
                         return Container(
                             height: MediaQuery.of(context).size.height * 0.7,
                             child: Center(child: Text('Something went wrong')));
-                      } else if (snapshot.hasData && snapshot.data != null && !(snapshot.data!.docs.length == 0)) {
+                      } else if (snapshot.hasData &&
+                          snapshot.data != null &&
+                          !(snapshot.data!.docs.length == 0)) {
                         return ProductDataGrid(
                           snapshotData: snapshot.data,
                         );

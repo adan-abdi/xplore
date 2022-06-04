@@ -29,7 +29,7 @@ class ProductDataGrid extends StatelessWidget {
         String buyingPrice = snapshotData!.docs[index]["buyingPrice"];
         String sellingPrice = snapshotData!.docs[index]["sellingPrice"];
         String quantityInStock = snapshotData!.docs[index]["quantityInStock"];
-        String imageList = snapshotData!.docs[index]["imageList"][0];
+        String imageList = '';
 
         return ProductCard(
           product: Product(

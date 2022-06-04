@@ -4,20 +4,19 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/models/products/product.dart';
-import 'package:shamiri/domain/models/transactions/transaction.dart';
-import 'package:shamiri/domain/models/transactions/transaction_product.dart';
-import 'package:shamiri/domain/value_objects/app_enums.dart';
 import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
 import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_transaction.dart';
 
+// ignore: must_be_immutable
 class Transactioncard extends StatefulWidget {
   final String name;
-  final String quantity;
+  String quantity;
   final String date;
   final String amount;
   final String? image;
   final Product? product;
   final String transactionRefId;
+  final String status;
 
   Transactioncard({
     Key? key,
@@ -28,6 +27,7 @@ class Transactioncard extends StatefulWidget {
     this.image,
     this.product,
     required this.transactionRefId,
+    required this.status,
   }) : super(key: key);
 
   @override
@@ -42,6 +42,7 @@ class _TransactioncardState extends State<Transactioncard> {
   Widget build(BuildContext context) {
     var transactionAmount = widget.amount;
     var dateOrdered = widget.date;
+    var newQty = widget.quantity;
     return Container(
       padding: EdgeInsets.all(0),
       height: 100,
@@ -110,52 +111,61 @@ class _TransactioncardState extends State<Transactioncard> {
               ],
             ),
           ),
-          // hSize20SizedBox,
           Expanded(
             flex: 3,
             child: Container(
               child: Row(
                 children: [
-                  Container(
-                    width: 35,
-                    height: 35,
-                    margin: EdgeInsets.all(8),
-                    decoration: BoxDecoration(color: XploreColors.deepBlue, borderRadius: BorderRadius.circular(5)),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.add,
-                        size: 18,
-                        color: XploreColors.white,
+                  if (widget.status == "TransactionStatus.pending")
+                    Container(
+                      width: 35,
+                      height: 35,
+                      margin: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: XploreColors.deepBlue,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.remove,
+                          size: 18,
+                          color: XploreColors.white,
+                        ),
+                        onPressed: () async {
+                          newQty =
+                              await decrementOrderQty(widget.transactionRefId);
+                          setState(() {
+                            widget.quantity = newQty;
+                          });
+                        },
                       ),
-                      onPressed: () {
-                        setState(() {
-                          incrementOrderQty(widget.transactionRefId);
-                        });
-                      },
                     ),
-                  ),
                   Text(
-                    widget.quantity,
+                    newQty,
                     style: TextStyle(fontSize: 14),
                   ),
-                  Container(
-                    width: 35,
-                    height: 35,
-                    margin: EdgeInsets.all(8),
-                    decoration: BoxDecoration(color: XploreColors.deepBlue, borderRadius: BorderRadius.circular(5)),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.remove,
-                        size: 18,
-                        color: XploreColors.white,
+                  if (widget.status == "TransactionStatus.pending")
+                    Container(
+                      width: 35,
+                      height: 35,
+                      margin: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: XploreColors.deepBlue,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.add,
+                          size: 18,
+                          color: XploreColors.white,
+                        ),
+                        onPressed: () async {
+                          newQty =
+                              await incrementOrderQty(widget.transactionRefId);
+                          setState(() {
+                            widget.quantity = newQty;
+                          });
+                        },
                       ),
-                      onPressed: () {
-                        setState(() {
-                          decrementOrderQty(widget.transactionRefId);
-                        });
-                      },
                     ),
-                  ),
                 ],
               ),
             ),
@@ -165,9 +175,10 @@ class _TransactioncardState extends State<Transactioncard> {
     );
   }
 
-  void incrementOrderQty(String transactionRefId) {
+  Future<String> incrementOrderQty(String transactionRefId) async {
     var qtyInStock = int.parse(widget.product!.quantityInStock!) - 1;
-    var newOrderedQty = int.parse(widget.quantity) + 1;
+    var currentQty = int.parse(widget.quantity);
+    var newOrderedQty = currentQty + 1;
     var newProduct = Product(
       name: widget.name,
       quantityInStock: qtyInStock.toString(),
@@ -180,58 +191,37 @@ class _TransactioncardState extends State<Transactioncard> {
       metricUnit: widget.product!.metricUnit,
     );
 
-    productRepositoryInstance.updateProduct(newProduct);
-    transactionRepositoryInstance.updateTransaction(
-      Order(
-        businessUID: newProduct.businessUID,
-        status: TransactionStatus.pending,
-        date: widget.date,
-        transactionRefId: transactionRefId,
-        productsMap: [
-          TransactionProduct(
-            product: widget.product,
-            transactionProductRefId: widget.product!.productRefID,
-            date: widget.date,
-            businessUID: widget.product!.businessUID,
-            quantityOrdered: newOrderedQty,
-          )
-        ],
-      ),
-    );
+    await productRepositoryInstance.updateProduct(newProduct);
+    await transactionRepositoryInstance.updateTransactionQty(
+        transactionRefId: transactionRefId, newQTy: newOrderedQty.toString());
+
+    return newOrderedQty.toString();
   }
 
-  void decrementOrderQty(String transactionRefId) {
-    var qtyInStock = int.parse(widget.product!.quantityInStock!) + 1;
-    var newOrderedQty = int.parse(widget.quantity) - 1;
-    var newProduct = Product(
-      name: widget.name,
-      quantityInStock: qtyInStock.toString(),
-      sellingPrice: widget.amount,
-      productRefID: widget.product!.productRefID,
-      businessUID: widget.product!.businessUID,
-      buyingPrice: widget.product!.buyingPrice,
-      categories: widget.product!.categories,
-      imageList: [],
-      metricUnit: widget.product!.metricUnit,
-    );
+  Future<String> decrementOrderQty(String transactionRefId) async {
+    var currentQty = int.parse(widget.quantity);
 
-    productRepositoryInstance.updateProduct(newProduct);
-    transactionRepositoryInstance.updateTransaction(
-      Order(
-        businessUID: newProduct.businessUID,
-        status: TransactionStatus.pending,
-        date: widget.date,
-        transactionRefId: transactionRefId,
-        productsMap: [
-          TransactionProduct(
-            product: widget.product,
-            transactionProductRefId: widget.product!.productRefID,
-            date: widget.date,
-            businessUID: widget.product!.businessUID,
-            quantityOrdered: newOrderedQty,
-          )
-        ],
-      ),
-    );
+    if (currentQty != 0) {
+      var qtyInStock = int.parse(widget.product!.quantityInStock!) + 1;
+      var newOrderedQty = int.parse(widget.quantity) - 1;
+      var newProduct = Product(
+        name: widget.name,
+        quantityInStock: qtyInStock.toString(),
+        sellingPrice: widget.amount,
+        productRefID: widget.product!.productRefID,
+        businessUID: widget.product!.businessUID,
+        buyingPrice: widget.product!.buyingPrice,
+        categories: widget.product!.categories,
+        imageList: [],
+        metricUnit: widget.product!.metricUnit,
+      );
+
+      await productRepositoryInstance.updateProduct(newProduct);
+      await transactionRepositoryInstance.updateTransactionQty(
+          transactionRefId: transactionRefId, newQTy: newOrderedQty.toString());
+
+      return newOrderedQty.toString();
+    }
+    return currentQty.toString();
   }
 }
