@@ -26,3 +26,4 @@ const String invalidProductDetails = 'Please enter a valid product details';
 const String addProducts = 'Add Products';
 const String orderAdded = 'Order added succesfully';
 const String fulfillAll = 'Fulfill all';
+const String newOrder = 'Order added to cart';

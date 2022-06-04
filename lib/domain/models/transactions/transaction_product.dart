@@ -15,6 +15,7 @@ class TransactionProduct {
     required this.businessUID,
     required this.quantityOrdered,
     this.transactionProductRefId,
+
   });
 
   final String? businessUID;
@@ -29,6 +30,7 @@ class TransactionProduct {
   factory TransactionProduct.fromSnapshot(DocumentSnapshot snapshot) {
     final newTransaction =
         TransactionProduct.fromJson(snapshot.data() as Map<String, dynamic>);
+
     newTransaction.transactionProductRefId = snapshot.reference.id;
     return newTransaction;
   }

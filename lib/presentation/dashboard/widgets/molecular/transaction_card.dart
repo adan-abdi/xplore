@@ -194,13 +194,11 @@ class _TransactioncardState extends State<Transactioncard> {
     await productRepositoryInstance.updateProduct(newProduct);
     await transactionRepositoryInstance.updateTransactionQty(
         transactionRefId: transactionRefId, newQTy: newOrderedQty.toString());
-
     return newOrderedQty.toString();
   }
 
   Future<String> decrementOrderQty(String transactionRefId) async {
     var currentQty = int.parse(widget.quantity);
-
     if (currentQty != 0) {
       var qtyInStock = int.parse(widget.product!.quantityInStock!) + 1;
       var newOrderedQty = int.parse(widget.quantity) - 1;
