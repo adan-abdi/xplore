@@ -15,7 +15,6 @@ class TransactionProduct {
     required this.businessUID,
     required this.quantityOrdered,
     this.transactionProductRefId,
-
   });
 
   final String? businessUID;

@@ -45,7 +45,7 @@ class TransactionRepository {
   Future<void> updateTransaction(Order order) async {
     var _updateTransactionDocRef =
         _transactionCollection.doc(order.transactionRefId);
-    
+
     await _updateTransactionDocRef.update(order.toJson());
   }
 
