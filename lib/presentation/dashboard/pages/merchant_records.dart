@@ -18,8 +18,7 @@ import 'package:shamiri/presentation/dashboard/widgets/molecular/transaction_car
 class MerchantRecords extends StatefulWidget {
   final OrdersStore pendingOrdersStore;
 
-  MerchantRecords({Key? key, required this.pendingOrdersStore})
-      : super(key: key);
+  MerchantRecords({Key? key, required this.pendingOrdersStore}) : super(key: key);
 
   @override
   State<MerchantRecords> createState() => _MerchantRecordsState();
@@ -28,8 +27,7 @@ class MerchantRecords extends StatefulWidget {
 class _MerchantRecordsState extends State<MerchantRecords> {
   @override
   Widget build(BuildContext context) {
-    TransactionRepository transactionRepositoryInstance =
-        TransactionRepository();
+    TransactionRepository transactionRepositoryInstance = TransactionRepository();
     SlidingTabStatusStore transactionTabState = SlidingTabStatusStore();
 
     return Container(
@@ -64,53 +62,32 @@ class _MerchantRecordsState extends State<MerchantRecords> {
               ? Expanded(
                   flex: 1,
                   child: StreamBuilder<dynamic>(
-                      stream: transactionRepositoryInstance
-                          .getPendingOrdersStream(),
+                      stream: transactionRepositoryInstance.getPendingOrdersStream(),
                       builder: (context, snapshot) {
                         if (snapshot.hasError) {
                           return Container(
                               height: MediaQuery.of(context).size.height * 0.7,
-                              child:
-                                  Center(child: Text('Something went wrong')));
-                        } else if (snapshot.hasData &&
-                            snapshot.data != null &&
-                            snapshot.data?.length != 0) {
+                              child: Center(child: Text('Something went wrong')));
+                        } else if (snapshot.hasData && snapshot.data != null && snapshot.data?.length != 0) {
                           return Container(
                             child: ListView.builder(
                               padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                               itemCount: snapshot.data!.length,
                               itemBuilder: (BuildContext ctx, index) {
-                                String transactionRefId = snapshot
-                                    .data![index].transactionRefId
-                                    .toString();
-                                widget.pendingOrdersStore.pendingItems
-                                    .add([transactionRefId]);
+                                String transactionRefId = snapshot.data![index].transactionRefId.toString();
+                                widget.pendingOrdersStore.pendingItems.add([transactionRefId]);
 
-                                String qty = snapshot
-                                    .data![index].productsMap[0].quantityOrdered
-                                    .toString();
-                                Product? product = snapshot
-                                    .data![index].productsMap[0].product;
-                                String name = snapshot
-                                    .data![index].productsMap[0].product!.name
-                                    .toString();
-                                String price = snapshot.data![index]
-                                    .productsMap[0].product!.sellingPrice
-                                    .toString();
-                                String image = snapshot.data![index]
-                                    .productsMap[0].product!.imageList![0]
-                                    .toString();
-                                String date = snapshot
-                                    .data![index].productsMap[0].date
-                                    .toString();
-                                String status =
-                                    snapshot.data![index].status.toString();
+                                String qty = snapshot.data![index].quantityOrdered.toString();
+                                Product? product = snapshot.data![index].products;
+                                String name = snapshot.data![index].products!.name.toString();
+                                String price = snapshot.data![index].products!.sellingPrice.toString();
+                                String image = snapshot.data![index].products!.imageList![0].toString();
+                                String date = snapshot.data![index].date.toString();
+                                String status = snapshot.data![index].status.toString();
 
                                 var amount = price.toUpperCase();
-                                var dateParsed =
-                                    DateFormat('yyyy-MM-dd HH:mm').parse(date);
-                                var dateOrdered =
-                                    DateFormat.yMMMd().format(dateParsed);
+                                var dateParsed = DateFormat('yyyy-MM-dd HH:mm').parse(date);
+                                var dateOrdered = DateFormat.yMMMd().format(dateParsed);
 
                                 return Transactioncard(
                                   name: name,
@@ -133,10 +110,8 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                                 XploreLoader(),
                                 vSize10SizedBox,
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 30),
-                                  child: Text(
-                                      'You have no order in your store, kindly add new order to continue',
+                                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                                  child: Text('You have no order in your store, kindly add new order to continue',
                                       textAlign: TextAlign.center),
                                 )
                               ],
@@ -149,50 +124,30 @@ class _MerchantRecordsState extends State<MerchantRecords> {
               : Expanded(
                   flex: 1,
                   child: StreamBuilder<dynamic>(
-                      stream: transactionRepositoryInstance
-                          .getFulfilledOrdersStream(),
+                      stream: transactionRepositoryInstance.getFulfilledOrdersStream(),
                       builder: (context, snapshot) {
                         if (snapshot.hasError) {
                           return Container(
                               height: MediaQuery.of(context).size.height * 0.7,
-                              child:
-                                  Center(child: Text('Something went wrong')));
-                        } else if (snapshot.hasData &&
-                            snapshot.data != null &&
-                            snapshot.data?.length != 0) {
+                              child: Center(child: Text('Something went wrong')));
+                        } else if (snapshot.hasData && snapshot.data != null && snapshot.data?.length != 0) {
                           return Container(
                             child: ListView.builder(
                               padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                               itemCount: snapshot.data!.length,
                               itemBuilder: (BuildContext ctx, index) {
-                                String transactionRefId = snapshot
-                                    .data![index].transactionRefId
-                                    .toString();
-                                String qty = snapshot
-                                    .data![index].productsMap[0].quantityOrdered
-                                    .toString();
-                                Product? product = snapshot
-                                    .data![index].productsMap[0].product;
-                                String name = snapshot
-                                    .data![index].productsMap[0].product!.name
-                                    .toString();
-                                String price = snapshot.data![index]
-                                    .productsMap[0].product!.sellingPrice
-                                    .toString();
-                                String image = snapshot.data![index]
-                                    .productsMap[0].product!.imageList![0]
-                                    .toString();
-                                String date = snapshot
-                                    .data![index].productsMap[0].date
-                                    .toString();
-                                String status =
-                                    snapshot.data![index].status.toString();
+                                String transactionRefId = snapshot.data![index].transactionRefId.toString();
+                                String qty = snapshot.data![index].quantityOrdered.toString();
+                                Product? product = snapshot.data![index].products;
+                                String name = snapshot.data![index].products!.name.toString();
+                                String price = snapshot.data![index].products!.sellingPrice.toString();
+                                String image = snapshot.data![index].products!.imageList![0].toString();
+                                String date = snapshot.data![index].date.toString();
+                                String status = snapshot.data![index].status.toString();
 
                                 var amount = price.toUpperCase();
-                                var dateParsed =
-                                    DateFormat('yyyy-MM-dd HH:mm').parse(date);
-                                var dateOrdered =
-                                    DateFormat.yMMMd().format(dateParsed);
+                                var dateParsed = DateFormat('yyyy-MM-dd HH:mm').parse(date);
+                                var dateOrdered = DateFormat.yMMMd().format(dateParsed);
 
                                 return Transactioncard(
                                   name: name,
@@ -215,10 +170,8 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                                 XploreLoader(),
                                 vSize10SizedBox,
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 30),
-                                  child: Text(
-                                      'You have no order in your store, kindly add new order to continue',
+                                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                                  child: Text('You have no order in your store, kindly add new order to continue',
                                       textAlign: TextAlign.center),
                                 )
                               ],

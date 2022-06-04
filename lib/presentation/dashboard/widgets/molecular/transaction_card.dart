@@ -43,6 +43,7 @@ class _TransactioncardState extends State<Transactioncard> {
     var transactionAmount = widget.amount;
     var dateOrdered = widget.date;
     var newQty = widget.quantity;
+    bool isPending = widget.status == "TransactionStatus.pending";
     return Container(
       padding: EdgeInsets.all(0),
       height: 100,
@@ -60,16 +61,18 @@ class _TransactioncardState extends State<Transactioncard> {
                     color: XploreColors.xploreOrange.withOpacity(.3),
                     width: 40,
                     height: 40,
-                    child: Icon(
-                      Icons.receipt_long,
-                      color: XploreColors.xploreOrange,
-                    )
-                    // : Image.network(widget.image!),
-                    ),
+                    child: isPending
+                        ? Icon(
+                            Icons.receipt_long,
+                            color: XploreColors.xploreOrange,
+                          )
+                        : Icon(
+                            Icons.receipt,
+                            color: XploreColors.xploreOrange,
+                          )),
               ),
             ),
           ),
-          // hSize20SizedBox,
           Expanded(
             flex: 3,
             child: Column(
@@ -115,15 +118,14 @@ class _TransactioncardState extends State<Transactioncard> {
             flex: 3,
             child: Container(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   if (widget.status == "TransactionStatus.pending")
                     Container(
                       width: 35,
                       height: 35,
-                      margin: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: XploreColors.deepBlue,
-                          borderRadius: BorderRadius.circular(5)),
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(color: XploreColors.deepBlue, borderRadius: BorderRadius.circular(5)),
                       child: IconButton(
                         icon: Icon(
                           Icons.remove,
@@ -131,26 +133,26 @@ class _TransactioncardState extends State<Transactioncard> {
                           color: XploreColors.white,
                         ),
                         onPressed: () async {
-                          newQty =
-                              await decrementOrderQty(widget.transactionRefId);
+                          newQty = await decrementOrderQty(widget.transactionRefId);
                           setState(() {
                             widget.quantity = newQty;
                           });
                         },
                       ),
                     ),
-                  Text(
-                    newQty,
-                    style: TextStyle(fontSize: 14),
+                  CircleAvatar(
+                    backgroundColor: XploreColors.xploreOrange.withOpacity(.2),
+                    child: Text(
+                      newQty,
+                      style: TextStyle(fontSize: 14, color: XploreColors.deepBlue),
+                    ),
                   ),
                   if (widget.status == "TransactionStatus.pending")
                     Container(
                       width: 35,
                       height: 35,
-                      margin: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: XploreColors.deepBlue,
-                          borderRadius: BorderRadius.circular(5)),
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(color: XploreColors.deepBlue, borderRadius: BorderRadius.circular(5)),
                       child: IconButton(
                         icon: Icon(
                           Icons.add,
@@ -158,8 +160,7 @@ class _TransactioncardState extends State<Transactioncard> {
                           color: XploreColors.white,
                         ),
                         onPressed: () async {
-                          newQty =
-                              await incrementOrderQty(widget.transactionRefId);
+                          newQty = await incrementOrderQty(widget.transactionRefId);
                           setState(() {
                             widget.quantity = newQty;
                           });

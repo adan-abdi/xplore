@@ -9,7 +9,6 @@ import 'package:shamiri/application/core/services/helpers.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/domain/models/transactions/transaction.dart';
-import 'package:shamiri/domain/models/transactions/transaction_product.dart';
 import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/domain/value_objects/app_constants.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
@@ -31,8 +30,7 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
-    TransactionRepository transactionRepositoryInstance =
-        TransactionRepository();
+    TransactionRepository transactionRepositoryInstance = TransactionRepository();
     ProductRepository productRepositoryInstance = ProductRepository();
     final String prodName = widget.product.name.toString();
     final String prodQty = widget.product.quantityInStock.toString();
@@ -89,19 +87,14 @@ class _ProductCardState extends State<ProductCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('$prodName',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text('$prodName', style: TextStyle(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 6.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text('$prodQty Left',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey)),
-                      Text('$prodSp KES',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$prodQty Left', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$prodSp KES', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
                     ],
                   ),
                   SizedBox(
@@ -121,10 +114,7 @@ class _ProductCardState extends State<ProductCard> {
                           children: [
                             Text(
                               'Order',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20,
-                                  color: Colors.white),
+                              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Colors.white),
                             ),
                             hSize10SizedBox,
                             Icon(
@@ -148,14 +138,8 @@ class _ProductCardState extends State<ProductCard> {
                           businessUID: businessUID,
                           status: TransactionStatus.pending,
                           transactionRefId: productRef,
-                          productsMap: [
-                            TransactionProduct(
-                              product: newProduct,
-                              date: date,
-                              businessUID: businessUID,
-                              quantityOrdered: 1,
-                            )
-                          ],
+                          quantityOrdered: '1',
+                          products: newProduct,
                           date: date,
                         ),
                       )
@@ -167,10 +151,8 @@ class _ProductCardState extends State<ProductCard> {
                             ..showSnackBar(
                               SnackBar(
                                 content: Text(orderAdded),
-                                duration: const Duration(
-                                    seconds: kShortSnackBarDuration),
-                                action: dismissSnackBar(
-                                    okText, XploreColors.white, context),
+                                duration: const Duration(seconds: kShortSnackBarDuration),
+                                action: dismissSnackBar(okText, XploreColors.white, context),
                               ),
                             );
                         });

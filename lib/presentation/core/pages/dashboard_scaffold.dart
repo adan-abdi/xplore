@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -53,105 +52,102 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
   @override
   void initState() {
     super.initState();
-    isAppbarExpanded = !kDebugMode;
+    isAppbarExpanded = false;
   }
 
   @override
   Widget build(BuildContext context) {
     InventoryRepository inventoryRepository = InventoryRepository();
     int activeTab = widget.dashboardIndexStatusStore.currentIndex.value;
-    String appBarTitle =
-        (activeTab == 0) ? 'Merchant Store' : 'Merchant Records';
+    String appBarTitle = (activeTab == 0) ? 'Merchant Store' : 'Merchant Records';
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: true,
-      appBar: XploreAppBar(
-        productListingStatus: widget.productListingStatus,
-        searchStatus: widget.searchStatus,
-        leadingIcon: XploreIconCard(
-          icon: Icons.menu,
-          iconOnPress: () {},
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        resizeToAvoidBottomInset: true,
+        appBar: XploreAppBar(
+          productListingStatus: widget.productListingStatus,
+          searchStatus: widget.searchStatus,
+          leadingIcon: XploreIconCard(
+            icon: Icons.menu,
+            iconOnPress: () {},
+          ),
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          title: appBarTitle,
+          firstAction: XploreIconCard(
+            icon: Icons.qr_code_scanner,
+            iconOnPress: () {
+              ScaffoldMessenger.of(context).showSnackBar(snackbar(
+                content: comingSoonText,
+              ));
+            },
+          ),
+          lastAction: isAppbarExpanded
+              ? XploreIconCard(
+                  icon: Icons.unfold_less,
+                  iconOnPress: () {
+                    // setState(() {
+                    //   // isAppbarExpanded = !isAppbarExpanded;
+                    // });
+                  },
+                )
+              : XploreIconCard(
+                  icon: Icons.unfold_more,
+                  iconOnPress: () {
+                    // setState(() {
+                    //   isAppbarExpanded = !isAppbarExpanded;
+                    // });
+                  },
+                ),
+          expanded: isAppbarExpanded,
         ),
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        title: appBarTitle,
-        firstAction: XploreIconCard(
-          icon: Icons.qr_code_scanner,
-          iconOnPress: () {
-            ScaffoldMessenger.of(context).showSnackBar(snackbar(
-              content: comingSoonText,
-            ));
+        body: StreamBuilder(
+            stream: inventoryRepository.getStream(),
+            builder: (context, snapshot) {
+              if (snapshot.data != null) {
+                return widget.tabs[widget.dashboardIndexStatusStore.currentIndex.value];
+              }
+              return DashboardShimmer();
+            }),
+        floatingActionButton: DashboardTabActionFAB(
+          actionIcon: activeTab == 0 ? Icons.add_circle : Icons.receipt,
+          actionLabel: activeTab == 0 ? addProducts : fulfillAll,
+          onPressed: () async {
+            activeTab == 0
+                ? await Navigator.pushReplacementNamed(context, addProductPageRoute,
+                    arguments: widget.productRepoInstance)
+                : fulfillAllOrders(widget.pendingOrdersStore.pendingItems.value);
           },
         ),
-        lastAction: isAppbarExpanded
-            ? XploreIconCard(
-                icon: Icons.unfold_less,
-                iconOnPress: () {
-                  // setState(() {
-                  //   // isAppbarExpanded = !isAppbarExpanded;
-                  // });
-                },
-              )
-            : XploreIconCard(
-                icon: Icons.unfold_more,
-                iconOnPress: () {
-                  // setState(() {
-                  //   isAppbarExpanded = !isAppbarExpanded;
-                  // });
-                },
-              ),
-        expanded: isAppbarExpanded,
-      ),
-      body: StreamBuilder(
-          stream: inventoryRepository.getStream(),
-          builder: (context, snapshot) {
-            if (snapshot.data != null) {
-              return widget
-                  .tabs[widget.dashboardIndexStatusStore.currentIndex.value];
-            }
-            return DashboardShimmer();
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        bottomNavigationBar: FlashyTabBar(
+          selectedIndex: widget.dashboardIndexStatusStore.currentIndex.value,
+          showElevation: true,
+          onItemSelected: (index) => setState(() {
+            widget.dashboardIndexStatusStore.currentIndex.value = index;
           }),
-      floatingActionButton: DashboardTabActionFAB(
-        actionIcon: activeTab == 0 ? Icons.add_circle : Icons.receipt,
-        actionLabel: activeTab == 0 ? addProducts : fulfillAll,
-        onPressed: () async {
-          activeTab == 0
-              ? await Navigator.pushReplacementNamed(
-                  context, addProductPageRoute,
-                  arguments: widget.productRepoInstance)
-              : fulfillAllOrders(widget.pendingOrdersStore.pendingItems.value);
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      bottomNavigationBar: FlashyTabBar(
-        selectedIndex: widget.dashboardIndexStatusStore.currentIndex.value,
-        showElevation: true,
-        onItemSelected: (index) => setState(() {
-          widget.dashboardIndexStatusStore.currentIndex.value = index;
-        }),
-        items: [
-          FlashyTabBarItem(
-            icon: Icon(Icons.storefront),
-            title: Text('Shop'),
-            activeColor: XploreColors.xploreOrange,
-          ),
-          FlashyTabBarItem(
-            icon: Icon(Icons.shopping_cart_checkout),
-            title: Text('Transactions'),
-            activeColor: XploreColors.xploreOrange,
-          ),
-        ],
+          items: [
+            FlashyTabBarItem(
+              icon: Icon(Icons.storefront),
+              title: Text('Shop'),
+              activeColor: XploreColors.xploreOrange,
+            ),
+            FlashyTabBarItem(
+              icon: Icon(Icons.shopping_cart_checkout),
+              title: Text('Transactions'),
+              activeColor: XploreColors.xploreOrange,
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Future<void> fulfillAllOrders(List<String> pendingItemsRefIdList) async {
-    for (int i = 0;
-        i < int.parse(pendingItemsRefIdList.length.toString());
-        i++) {
-      await widget.transactionRepository
-          .fulfillTransaction(pendingItemsRefIdList[i]);
+    for (int i = 0; i < int.parse(pendingItemsRefIdList.length.toString()); i++) {
+      await widget.transactionRepository.fulfillTransaction(pendingItemsRefIdList[i]);
     }
   }
 }
