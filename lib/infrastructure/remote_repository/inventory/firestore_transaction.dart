@@ -11,12 +11,12 @@ class TransactionRepository {
   static final _currentUserID = globalFirebaseAuthInstance.currentUser!.uid;
   static final _transactionCollection = _collectionReference.doc(_currentUserID).collection("transactions");
 
-  Stream<List<Order>> getPendingOrdersStream() {
+  dynamic getPendingOrdersStream() {
     var pendingOrders;
 
     pendingOrders = _transactionCollection.where('status', isEqualTo: 'pending').snapshots();
 
-    pendingOrders.map((snapshot) => snapshot.docs.map((e) => Order.fromJson(e.data())).toList());
+    pendingOrders = pendingOrders.map((snapshot) => snapshot.docs.map((e) => Order.fromJson(e.data())).toList());
 
     return pendingOrders;
   }

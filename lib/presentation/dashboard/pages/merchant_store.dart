@@ -17,11 +17,10 @@ import 'package:shamiri/presentation/dashboard/widgets/layout/product_listing_da
 class MerchantStore extends StatefulWidget {
   SearchStatus searchStatus;
   ProductListingStatus productListingStatus;
+  ProductRepository productRepository;
 
   MerchantStore(
-      {Key? key,
-      required this.searchStatus,
-      required this.productListingStatus})
+      {Key? key, required this.searchStatus, required this.productListingStatus, required this.productRepository})
       : super(key: key);
 
   @override
@@ -74,9 +73,7 @@ class _MerchantStoreState extends State<MerchantStore> {
                         return Container(
                             height: MediaQuery.of(context).size.height * 0.7,
                             child: Center(child: Text('Something went wrong')));
-                      } else if (snapshot.hasData &&
-                          snapshot.data != null &&
-                          !(snapshot.data!.docs.length == 0)) {
+                      } else if (snapshot.hasData && snapshot.data != null && !(snapshot.data!.docs.length == 0)) {
                         return ProductDataGrid(
                           snapshotData: snapshot.data,
                         );

@@ -59,7 +59,7 @@ class _MerchantRecordsState extends State<MerchantRecords> {
           (transactionTabState.activeTabState.value == 0)
               ? Expanded(
                   flex: 1,
-                  child: StreamBuilder<List<Order>>(
+                  child: StreamBuilder<dynamic>(
                       stream: transactionRepositoryInstance.getPendingOrdersStream(),
                       builder: (context, snapshot) {
                         if (snapshot.hasError) {
@@ -75,7 +75,7 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                                 String transactionRefId = snapshot.data![index].transactionRefId.toString();
                                 widget.pendingOrdersStore.pendingItems.add([transactionRefId]);
 
-                                String qty = snapshot.data![index].productsMap[index].quantityOrdered.toString();
+                                String qty = snapshot.data![index].productsMap[0].quantityOrdered.toString();
                                 Product? product = snapshot.data![index].productsMap[index].product;
                                 String name = snapshot.data![index].productsMap[index].product!.name.toString();
                                 String price =
@@ -120,8 +120,6 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                               itemCount: snapshot.data!.length,
                               itemBuilder: (BuildContext ctx, index) {
                                 String transactionRefId = snapshot.data![index].transactionRefId.toString();
-                                widget.pendingOrdersStore.pendingItems.add([transactionRefId]);
-
                                 String qty = snapshot.data![index].productsMap[index].quantityOrdered.toString();
                                 Product? product = snapshot.data![index].productsMap[index].product;
                                 String name = snapshot.data![index].productsMap[index].product!.name.toString();

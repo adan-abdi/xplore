@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
-import 'package:rxdart/subjects.dart';
 
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
@@ -15,6 +14,8 @@ import 'package:shamiri/application/singletons/search_state.dart';
 import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
 import 'package:shamiri/infrastructure/remote_repository/inventory/firebase_inventory.dart';
+import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
+import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_transaction.dart';
 import 'package:shamiri/presentation/core/widgets/layout/xplore_appbar.dart';
 import 'package:shamiri/presentation/core/widgets/molecular/dashboard_tab_action_button.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_card.dart';
@@ -28,6 +29,8 @@ class DashboardScaffold extends StatefulWidget {
   SearchStatus searchStatus;
   ProductListingStatus productListingStatus;
   OrdersStore pendingOrdersStore;
+  ProductRepository productRepoInstance;
+  TransactionRepository transactionRepository;
 
   DashboardScaffold({
     Key? key,
@@ -36,6 +39,8 @@ class DashboardScaffold extends StatefulWidget {
     required this.searchStatus,
     required this.productListingStatus,
     required this.pendingOrdersStore,
+    required this.productRepoInstance,
+    required this.transactionRepository,
   }) : super(key: key);
 
   @override
@@ -110,8 +115,9 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
         actionLabel: activeTab == 0 ? addProducts : fulfillAll,
         onPressed: () async {
           activeTab == 0
-              ? await Navigator.pushReplacementNamed(context, addProductPageRoute)
-              : fulfillAllOrders(widget.pendingOrdersStore.pendingItems);
+              ? await Navigator.pushReplacementNamed(context, addProductPageRoute,
+                  arguments: widget.productRepoInstance)
+              : fulfillAllOrders(widget.pendingOrdersStore.pendingItems.value);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -137,7 +143,12 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
     );
   }
 
-  void fulfillAllOrders(BehaviorSubject<List<String>> pendingItemsRefIdList) {
-    
+  Future<void> fulfillAllOrders(List<String> pendingItemsRefIdList) async {
+    for (int i = 0; i < int.parse(pendingItemsRefIdList.length.toString()); i++) {
+      // var orderSnapshot = await widget.transactionRepository.getOrderByRefId(pendingItemsRefIdList[i]);
+      // var newOrder = Order(businessUID: orderSnapshot.docs.first, status: status, productsMap: productsMap);
+      // widget.transactionRepository.updateTransaction(orderToBeUpdated);
+      // widget.transactionRepository.
+    }
   }
 }
