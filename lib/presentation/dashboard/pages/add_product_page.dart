@@ -12,7 +12,10 @@ import 'package:shamiri/presentation/core/pages/dashboard.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
 
 class AddProductPage extends StatefulWidget {
-  const AddProductPage({Key? key}) : super(key: key);
+  final ProductRepository productRepoInstance;
+
+  const AddProductPage({Key? key, required this.productRepoInstance})
+      : super(key: key);
 
   @override
   _AddProductPageState createState() => _AddProductPageState();
@@ -25,8 +28,6 @@ class _AddProductPageState extends State<AddProductPage> {
   TextEditingController _units = TextEditingController();
   TextEditingController _qty = TextEditingController();
   TextEditingController _cat = TextEditingController();
-
-  var remoteProductRepoInstance = ProductRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -274,7 +275,7 @@ class _AddProductPageState extends State<AddProductPage> {
                               'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg',
                             ]);
 
-                        remoteProductRepoInstance
+                        widget.productRepoInstance
                             .addProduct(newProduct)
                             .whenComplete(() {
                           globalDashIndex.currentIndex.add(0);

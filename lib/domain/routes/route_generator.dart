@@ -34,7 +34,9 @@ class AppRouterGenerator {
             builder: (_) => XploreDashboard());
       case addProductPageRoute:
         return MaterialPageRoute<AddProductPage>(
-            builder: (_) => AddProductPage());
+            builder: (_) => AddProductPage(
+                  productRepoInstance: args,
+                ));
       case editProductPageRoute:
         return MaterialPageRoute<EditProducts>(
             builder: (_) => EditProducts(

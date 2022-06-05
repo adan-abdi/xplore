@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:intl/intl.dart';
-import 'package:shamiri/application/core/services/helpers.dart';
 
 // Project imports:
+import 'package:shamiri/application/core/services/helpers.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/domain/models/transactions/transaction.dart';
-import 'package:shamiri/domain/models/transactions/transaction_product.dart';
 import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/domain/value_objects/app_constants.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
@@ -55,25 +54,31 @@ class _ProductCardState extends State<ProductCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          AspectRatio(
-            aspectRatio: 22.0 / 12.0,
-            child: InkWell(
-                child: Image.network(widget.product.imageList!.first.toString()),
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    editProductPageRoute,
-                    arguments: Product(
-                      name: prodName,
-                      quantityInStock: prodQty,
-                      sellingPrice: prodSp,
-                      buyingPrice: prodBp,
-                      categories: [],
-                      imageList: [prodImag],
-                      productRefID: productRef,
-                    ),
-                  );
-                }),
+          Container(
+            color: XploreColors.xploreOrange.withOpacity(.3),
+            child: AspectRatio(
+              aspectRatio: 22.0 / 12.0,
+              child: InkWell(
+                  child: Icon(
+                    Icons.inventory,
+                    color: XploreColors.deepBlueAccent,
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      editProductPageRoute,
+                      arguments: Product(
+                        name: prodName,
+                        quantityInStock: prodQty,
+                        sellingPrice: prodSp,
+                        buyingPrice: prodBp,
+                        categories: [],
+                        imageList: [prodImag],
+                        productRefID: productRef,
+                      ),
+                    );
+                  }),
+            ),
           ),
           Expanded(
             flex: 1,
@@ -133,25 +138,19 @@ class _ProductCardState extends State<ProductCard> {
                           businessUID: businessUID,
                           status: TransactionStatus.pending,
                           transactionRefId: productRef,
-                          productsMap: [
-                            TransactionProduct(
-                              product: newProduct,
-                              transactionProductRefId: newProduct.productRefID,
-                              date: date,
-                              businessUID: businessUID,
-                              quantityOrdered: 1,
-                            )
-                          ],
+                          quantityOrdered: '1',
+                          products: newProduct,
                           date: date,
                         ),
-                      ).whenComplete(() {
+                      )
+                          .whenComplete(() {
                         setState(() {
                           globalDashIndex.currentIndex.add(1);
                           ScaffoldMessenger.of(context)
                             ..hideCurrentSnackBar()
                             ..showSnackBar(
                               SnackBar(
-                                content: Text(newOrder),
+                                content: Text(orderAdded),
                                 duration: const Duration(seconds: kShortSnackBarDuration),
                                 action: dismissSnackBar(okText, XploreColors.white, context),
                               ),
