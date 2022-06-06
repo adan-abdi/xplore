@@ -28,11 +28,10 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
+  ProductRepository productRepositoryInstance = ProductRepository();
+  TransactionRepository transactionRepositoryInstance = TransactionRepository();
   @override
   Widget build(BuildContext context) {
-    TransactionRepository transactionRepositoryInstance =
-        TransactionRepository();
-    ProductRepository productRepositoryInstance = ProductRepository();
     final String prodName = widget.product.name.toString();
     final String prodQty = widget.product.quantityInStock.toString();
     final String prodSp = widget.product.sellingPrice.toString();
@@ -49,6 +48,7 @@ class _ProductCardState extends State<ProductCard> {
       imageList: [prodImag],
       productRefID: productRef,
       businessUID: businessUID,
+      quantityOrdered: '1',
     );
 
     return Card(
@@ -140,19 +140,15 @@ class _ProductCardState extends State<ProductCard> {
                       final format = DateFormat('yyyy-MM-dd HH:mm');
                       var date = format.format(now);
 
+                      var newOrder = Order(
+                        businessUID: businessUID,
+                        status: TransactionStatus.pending,
+                        products: [newProduct.productRefID ?? ''],
+                        date: date,
+                      );
+
                       productRepositoryInstance.updateProduct(newProduct);
-                      transactionRepositoryInstance
-                          .recordTransaction(
-                        Order(
-                          businessUID: businessUID,
-                          status: TransactionStatus.pending,
-                          transactionRefId: productRef,
-                          quantityOrdered: '1',
-                          products: newProduct,
-                          date: date,
-                        ),
-                      )
-                          .whenComplete(() {
+                      _addNewTransaction(newOrder).whenComplete(() {
                         setState(() {
                           globalDashIndex.currentIndex.add(1);
                           ScaffoldMessenger.of(context)
@@ -177,5 +173,12 @@ class _ProductCardState extends State<ProductCard> {
         ],
       ),
     );
+  }
+
+  Future<dynamic> _addNewTransaction(Order newOrder) {
+    var newTransactionRef =
+        transactionRepositoryInstance.recordTransaction(newOrder);
+    transactionRepositoryInstance.updateTransactionRef(newOrder);
+    return newTransactionRef;
   }
 }
