@@ -125,7 +125,9 @@ class _TransactioncardState extends State<Transactioncard> {
                       width: 35,
                       height: 35,
                       margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(color: XploreColors.deepBlue, borderRadius: BorderRadius.circular(5)),
+                      decoration: BoxDecoration(
+                          color: XploreColors.deepBlue,
+                          borderRadius: BorderRadius.circular(5)),
                       child: IconButton(
                         icon: Icon(
                           Icons.remove,
@@ -133,7 +135,8 @@ class _TransactioncardState extends State<Transactioncard> {
                           color: XploreColors.white,
                         ),
                         onPressed: () async {
-                          newQty = await decrementOrderQty(widget.transactionRefId);
+                          newQty =
+                              await decrementOrderQty(widget.transactionRefId);
                           setState(() {
                             widget.quantity = newQty;
                           });
@@ -144,7 +147,8 @@ class _TransactioncardState extends State<Transactioncard> {
                     backgroundColor: XploreColors.xploreOrange.withOpacity(.2),
                     child: Text(
                       newQty,
-                      style: TextStyle(fontSize: 14, color: XploreColors.deepBlue),
+                      style:
+                          TextStyle(fontSize: 14, color: XploreColors.deepBlue),
                     ),
                   ),
                   if (widget.status == "TransactionStatus.pending")
@@ -152,7 +156,9 @@ class _TransactioncardState extends State<Transactioncard> {
                       width: 35,
                       height: 35,
                       margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(color: XploreColors.deepBlue, borderRadius: BorderRadius.circular(5)),
+                      decoration: BoxDecoration(
+                          color: XploreColors.deepBlue,
+                          borderRadius: BorderRadius.circular(5)),
                       child: IconButton(
                         icon: Icon(
                           Icons.add,
@@ -160,7 +166,8 @@ class _TransactioncardState extends State<Transactioncard> {
                           color: XploreColors.white,
                         ),
                         onPressed: () async {
-                          newQty = await incrementOrderQty(widget.transactionRefId);
+                          newQty =
+                              await incrementOrderQty(widget.transactionRefId);
                           setState(() {
                             widget.quantity = newQty;
                           });
@@ -177,7 +184,7 @@ class _TransactioncardState extends State<Transactioncard> {
   }
 
   Future<String> incrementOrderQty(String transactionRefId) async {
-    var qtyInStock = int.parse(widget.product!.quantityInStock!) - 1;
+    var qtyInStock = int.parse(widget.product!.quantityInStock) - 1;
     var currentQty = int.parse(widget.quantity);
     var newOrderedQty = currentQty + 1;
     var newProduct = Product(
@@ -201,7 +208,7 @@ class _TransactioncardState extends State<Transactioncard> {
   Future<String> decrementOrderQty(String transactionRefId) async {
     var currentQty = int.parse(widget.quantity);
     if (currentQty != 0) {
-      var qtyInStock = int.parse(widget.product!.quantityInStock!) + 1;
+      var qtyInStock = int.parse(widget.product!.quantityInStock) + 1;
       var newOrderedQty = int.parse(widget.quantity) - 1;
       var newProduct = Product(
         name: widget.name,

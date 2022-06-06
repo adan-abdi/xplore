@@ -23,7 +23,7 @@ class Product {
 
   final String? businessUID;
   final String? name;
-  final String? quantityInStock;
+  final String quantityInStock;
   final List<Category>? categories;
   final List<String>? imageList;
   final String? sellingPrice;
