@@ -266,7 +266,7 @@ class _AddProductPageState extends State<AddProductPage> {
                             sellingPrice: _sp.text,
                             quantityInStock: _qty.text,
                             metricUnit: _units.text,
-                            // productRefID: productRefID,
+                            quantityOrdered: '0',
                             categories: [
                               Category(
                                   name: _cat.text, businessUID: buisinessID),
@@ -275,9 +275,7 @@ class _AddProductPageState extends State<AddProductPage> {
                               'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg',
                             ]);
 
-                        widget.productRepoInstance
-                            .addProduct(newProduct)
-                            .whenComplete(() {
+                        _addNewProduct(newProduct).whenComplete(() {
                           globalDashIndex.currentIndex.add(0);
                           Navigator.pushReplacementNamed(
                               context, dashPageRoute);
@@ -301,5 +299,11 @@ class _AddProductPageState extends State<AddProductPage> {
         ),
       ),
     );
+  }
+
+  Future<dynamic> _addNewProduct(Product newProduct) {
+    var newProductRef = widget.productRepoInstance.addProduct(newProduct);
+    widget.productRepoInstance.updateProductRef(newProduct);
+    return newProductRef;
   }
 }

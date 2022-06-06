@@ -37,9 +37,20 @@ class TransactionRepository {
   }
 
   Future<void> recordTransaction(Order order) {
-    return _transactionCollection
-        .doc(order.transactionRefId)
-        .set(order.toJson());
+    return _transactionCollection.add(order.toJson());
+  }
+
+  Future<void> updateTransactionRef(Order order) async {
+    String ref;
+    var oldTransaction = await _transactionCollection
+        .where('products.first', isEqualTo: order.products.first)
+        .snapshots()
+        .first;
+    if (oldTransaction.docs.length != 0) {
+      ref = oldTransaction.docs.first.reference.id;
+      var _updateProductDocRef = _transactionCollection.doc(ref);
+      await _updateProductDocRef.update({'transactionRefId': ref});
+    }
   }
 
   Future<void> updateTransaction(Order order) async {
