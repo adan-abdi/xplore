@@ -8,11 +8,9 @@ import 'package:shamiri/infrastructure/remote_repository/users/firebase_auth.dar
 import 'package:shamiri/infrastructure/remote_repository/xplore_firestore.dart';
 
 class ProductRepository {
-  static final _collectionReference =
-      globalFirestoreInstance.collection("inventory");
+  static final _collectionReference = globalFirestoreInstance.collection("inventory");
   static final _currentUserID = globalFirebaseAuthInstance.currentUser!.uid;
-  static final _productCollection =
-      _collectionReference.doc(_currentUserID).collection("products");
+  static final _productCollection = _collectionReference.doc(_currentUserID).collection("products");
 
   Stream<QuerySnapshot> getProductStream() {
     var productCollectionStream = _productCollection.orderBy('name');
@@ -20,15 +18,12 @@ class ProductRepository {
     return productCollectionStream.snapshots();
   }
 
-  Stream<QuerySnapshot> getSearchStream(
-      {required ProductListingStates? state, required String searchterm}) {
+  Stream<QuerySnapshot> getSearchStream({required ProductListingStates? state, required String searchterm}) {
     Stream<QuerySnapshot> productCollectionStream;
 
     assert(state!.index == 4);
 
-    productCollectionStream = _productCollection
-        .where('name', isEqualTo: _setSearchParam(searchterm))
-        .snapshots();
+    productCollectionStream = _productCollection.where('name', isEqualTo: _setSearchParam(searchterm)).snapshots();
 
     return productCollectionStream;
   }
@@ -41,9 +36,7 @@ class ProductRepository {
       var oldQty = int.parse(originalSnapshotData!['quantityInStock']);
       var newProductQty = int.parse(product.quantityInStock);
       var newQty = oldQty + newProductQty;
-      return _productCollection
-          .doc(matchedDocRef)
-          .update({'quantityInStock': newQty.toString()});
+      return _productCollection.doc(matchedDocRef).update({'quantityInStock': newQty.toString()});
     } else {
       return _productCollection.add(product.toJson());
     }
@@ -69,18 +62,10 @@ class ProductRepository {
   }
 
   _searchProductByName(Product product) async {
-    var matchedDocRef;
-    matchedDocRef = await _productCollection
-        .where('name', isEqualTo: product.name)
-        .get()
-        .then((event) {
-      if (event.docs.isNotEmpty) {
-        DocumentReference<Map<String, dynamic>> matchedDocRef =
-            event.docs.first.reference;
-        return matchedDocRef;
-      }
-    });
-
-    return matchedDocRef;
+    var oldMatchingProduct = await _productCollection.where('name', isEqualTo: product.name).snapshots().first;
+    if (oldMatchingProduct.docs.length != 0) {
+      var matchedDocRef = oldMatchingProduct.docs.first.reference.id;
+      return matchedDocRef;
+    }
   }
 }
