@@ -33,8 +33,20 @@ class ProductRepository {
     return productCollectionStream;
   }
 
-  Future<void> addProduct(Product product) {
-    return _productCollection.add(product.toJson());
+  Future<dynamic> addProduct(Product product) async {
+    var matchedDocRef = await _searchProductByName(product);
+    if (matchedDocRef != null) {
+      var originalSnapshot = await _productCollection.doc(matchedDocRef).get();
+      var originalSnapshotData = originalSnapshot.data();
+      var oldQty = int.parse(originalSnapshotData!['quantityInStock']);
+      var newProductQty = int.parse(product.quantityInStock);
+      var newQty = oldQty + newProductQty;
+      return _productCollection
+          .doc(matchedDocRef)
+          .update({'quantityInStock': newQty.toString()});
+    } else {
+      return _productCollection.add(product.toJson());
+    }
   }
 
   Future<void> updateProduct(Product? product) async {
@@ -54,5 +66,21 @@ class ProductRepository {
       nameSearchList.add(temp);
     }
     return nameSearchList;
+  }
+
+  _searchProductByName(Product product) async {
+    var matchedDocRef;
+    matchedDocRef = await _productCollection
+        .where('name', isEqualTo: product.name)
+        .get()
+        .then((event) {
+      if (event.docs.isNotEmpty) {
+        DocumentReference<Map<String, dynamic>> matchedDocRef =
+            event.docs.first.reference;
+        return matchedDocRef;
+      }
+    });
+
+    return matchedDocRef;
   }
 }
