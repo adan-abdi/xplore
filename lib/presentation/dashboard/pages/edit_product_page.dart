@@ -262,7 +262,7 @@ class _EditProductsState extends State<EditProducts> {
                               ]);
 
                           remoteProductRepoInstance
-                              .addProduct(newProduct)
+                              .updateProduct(newProduct)
                               .whenComplete(() => Navigator.of(context).pop());
                         },
                         // style: ButtonStyle(backgroundColor: XploreColors.deepBlue),

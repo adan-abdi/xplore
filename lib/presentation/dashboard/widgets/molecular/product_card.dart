@@ -16,7 +16,6 @@ import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
 import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
 import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_transaction.dart';
-import 'package:shamiri/presentation/core/pages/dashboard.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({Key? key, required this.product}) : super(key: key);
@@ -150,7 +149,6 @@ class _ProductCardState extends State<ProductCard> {
                       productRepositoryInstance.updateProduct(newProduct);
                       _addNewTransaction(newOrder).whenComplete(() {
                         setState(() {
-                          globalDashIndex.currentIndex.add(1);
                           ScaffoldMessenger.of(context)
                             ..hideCurrentSnackBar()
                             ..showSnackBar(
