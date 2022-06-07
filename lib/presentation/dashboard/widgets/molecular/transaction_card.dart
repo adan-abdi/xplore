@@ -10,24 +10,30 @@ import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_tra
 // ignore: must_be_immutable
 class Transactioncard extends StatefulWidget {
   final String name;
-  String quantity;
+  String qtyOrdered;
+  final String qtyInStock;
   final String date;
   final String amount;
   final String? image;
-  final Product? product;
   final String transactionRefId;
   final String status;
+  final String? productRefID;
+  final String? businessUID;
+  final String? buyingPrice;
 
   Transactioncard({
     Key? key,
     required this.name,
-    required this.quantity,
     required this.date,
     required this.amount,
-    this.image,
-    this.product,
     required this.transactionRefId,
     required this.status,
+    required this.qtyOrdered,
+    required this.qtyInStock,
+    this.image,
+    this.productRefID,
+    this.businessUID,
+    this.buyingPrice,
   }) : super(key: key);
 
   @override
@@ -35,6 +41,11 @@ class Transactioncard extends StatefulWidget {
 }
 
 class _TransactioncardState extends State<Transactioncard> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   TransactionRepository transactionRepositoryInstance = TransactionRepository();
   ProductRepository productRepositoryInstance = ProductRepository();
 
@@ -42,7 +53,7 @@ class _TransactioncardState extends State<Transactioncard> {
   Widget build(BuildContext context) {
     var transactionAmount = widget.amount;
     var dateOrdered = widget.date;
-    var newQty = widget.quantity;
+    var newQtyOrdered = widget.qtyOrdered;
     bool isPending = widget.status == "TransactionStatus.pending";
     return Container(
       padding: EdgeInsets.all(0),
@@ -125,9 +136,7 @@ class _TransactioncardState extends State<Transactioncard> {
                       width: 35,
                       height: 35,
                       margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          color: XploreColors.deepBlue,
-                          borderRadius: BorderRadius.circular(5)),
+                      decoration: BoxDecoration(color: XploreColors.deepBlue, borderRadius: BorderRadius.circular(5)),
                       child: IconButton(
                         icon: Icon(
                           Icons.remove,
@@ -135,10 +144,9 @@ class _TransactioncardState extends State<Transactioncard> {
                           color: XploreColors.white,
                         ),
                         onPressed: () async {
-                          newQty =
-                              await decrementOrderQty(widget.transactionRefId);
+                          newQtyOrdered = await decrementOrderQty(widget.transactionRefId);
                           setState(() {
-                            widget.quantity = newQty;
+                            widget.qtyOrdered = newQtyOrdered;
                           });
                         },
                       ),
@@ -146,9 +154,8 @@ class _TransactioncardState extends State<Transactioncard> {
                   CircleAvatar(
                     backgroundColor: XploreColors.xploreOrange.withOpacity(.2),
                     child: Text(
-                      newQty,
-                      style:
-                          TextStyle(fontSize: 14, color: XploreColors.deepBlue),
+                      newQtyOrdered,
+                      style: TextStyle(fontSize: 14, color: XploreColors.deepBlue),
                     ),
                   ),
                   if (widget.status == "TransactionStatus.pending")
@@ -156,9 +163,7 @@ class _TransactioncardState extends State<Transactioncard> {
                       width: 35,
                       height: 35,
                       margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          color: XploreColors.deepBlue,
-                          borderRadius: BorderRadius.circular(5)),
+                      decoration: BoxDecoration(color: XploreColors.deepBlue, borderRadius: BorderRadius.circular(5)),
                       child: IconButton(
                         icon: Icon(
                           Icons.add,
@@ -166,10 +171,9 @@ class _TransactioncardState extends State<Transactioncard> {
                           color: XploreColors.white,
                         ),
                         onPressed: () async {
-                          newQty =
-                              await incrementOrderQty(widget.transactionRefId);
+                          newQtyOrdered = await incrementOrderQty(widget.transactionRefId);
                           setState(() {
-                            widget.quantity = newQty;
+                            widget.qtyOrdered = newQtyOrdered;
                           });
                         },
                       ),
@@ -184,19 +188,19 @@ class _TransactioncardState extends State<Transactioncard> {
   }
 
   Future<String> incrementOrderQty(String transactionRefId) async {
-    var qtyInStock = int.parse(widget.product!.quantityInStock) - 1;
-    var currentQty = int.parse(widget.quantity);
+    var qtyInStock = int.parse(widget.qtyInStock) - 1;
+    var currentQty = int.parse(widget.qtyInStock);
     var newOrderedQty = currentQty + 1;
     var newProduct = Product(
       name: widget.name,
       quantityInStock: qtyInStock.toString(),
       sellingPrice: widget.amount,
-      productRefID: widget.product!.productRefID,
-      businessUID: widget.product!.businessUID,
-      buyingPrice: widget.product!.buyingPrice,
-      categories: widget.product!.categories,
+      productRefID: widget.productRefID,
+      businessUID: widget.businessUID,
+      buyingPrice: widget.buyingPrice,
+      // categories: widget.categories,
+      // metricUnit: widget.metricUnit,
       imageList: [],
-      metricUnit: widget.product!.metricUnit,
     );
 
     await productRepositoryInstance.updateProduct(newProduct);
@@ -206,20 +210,20 @@ class _TransactioncardState extends State<Transactioncard> {
   }
 
   Future<String> decrementOrderQty(String transactionRefId) async {
-    var currentQty = int.parse(widget.quantity);
+    var currentQty = int.parse(widget.qtyInStock);
     if (currentQty != 0) {
-      var qtyInStock = int.parse(widget.product!.quantityInStock) + 1;
-      var newOrderedQty = int.parse(widget.quantity) - 1;
+      var qtyInStock = int.parse(widget.qtyInStock) + 1;
+      var newOrderedQty = int.parse(widget.qtyOrdered) - 1;
       var newProduct = Product(
         name: widget.name,
         quantityInStock: qtyInStock.toString(),
         sellingPrice: widget.amount,
-        productRefID: widget.product!.productRefID,
-        businessUID: widget.product!.businessUID,
-        buyingPrice: widget.product!.buyingPrice,
-        categories: widget.product!.categories,
+        productRefID: widget.productRefID,
+        businessUID: widget.businessUID,
+        buyingPrice: widget.buyingPrice,
+        // categories: widget.categories,
+        // metricUnit: widget.metricUnit,
         imageList: [],
-        metricUnit: widget.product!.metricUnit,
       );
 
       await productRepositoryInstance.updateProduct(newProduct);

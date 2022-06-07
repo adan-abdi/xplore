@@ -1,7 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-/// [snackbar]
 SnackBar snackbar({
   required dynamic content,
   int durationSeconds = 10,
