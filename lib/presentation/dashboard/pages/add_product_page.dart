@@ -257,6 +257,14 @@ class _AddProductPageState extends State<AddProductPage> {
                             ]);
 
                         _addNewProduct(newProduct).whenComplete(() {
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(
+                              snackbar(
+                                content: productAddedSuccess,
+                                label: okText,
+                              ),
+                            );
                           Navigator.pushReplacementNamed(context, dashPageRoute);
                         });
                       } else {

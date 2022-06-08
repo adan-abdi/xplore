@@ -40,3 +40,5 @@ const String qtyInStockText = 'Quantity';
 const String qtyInStockHint = 'Quantity in stock';
 const String categoryText = 'Category';
 const String categoryHint = 'Which category best describes this product?';
+const String productAddedSuccess = 'New product added successfully';
+const String productDetailsUpdated = 'Product details updated successfully';
