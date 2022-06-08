@@ -30,6 +30,7 @@ class ProductDataGrid extends StatelessWidget {
         String sellingPrice = snapshotData!.docs[index]["sellingPrice"];
         String quantityInStock = snapshotData!.docs[index]["quantityInStock"];
         String imageList = '';
+        String units = snapshotData!.docs[index]['metricUnit'].toString();
 
         return ProductCard(
           product: Product(
@@ -40,6 +41,7 @@ class ProductDataGrid extends StatelessWidget {
             categories: [],
             imageList: [imageList],
             productRefID: docID,
+            metricUnit: units,
           ),
         );
       },

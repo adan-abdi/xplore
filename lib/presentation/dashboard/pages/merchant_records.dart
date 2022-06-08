@@ -25,11 +25,12 @@ class MerchantRecords extends StatefulWidget {
 }
 
 class _MerchantRecordsState extends State<MerchantRecords> {
+  ProductRepository productRepository = ProductRepository();
+
   @override
   Widget build(BuildContext context) {
     TransactionRepository transactionRepositoryInstance = TransactionRepository();
     SlidingTabStatusStore transactionTabState = SlidingTabStatusStore();
-    ProductRepository productRepository = ProductRepository();
 
     return Container(
         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -78,35 +79,32 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                                 String transactionRefId = snapshot.data![index].transactionRefId.toString();
                                 widget.pendingOrdersStore.pendingItems.add([transactionRefId]);
 
-                                List<String>? products = snapshot.data![index].products;
+                                List<String>? productRef = snapshot.data![index].products;
 
-                                assert(products != null);
+                                assert(productRef != null);
 
-                                //Get first product details
-                                var firstorderedProduct = productRepository.getProductsByRef(products);
+                                var product;
+                                productRepository.getProductByRef(productRef!.first).then((p) {
+                                  setState(() {
+                                    product = p;
+                                  });
+                                });
 
-                                String name = firstorderedProduct.name.toString();
-                                String qtyOrdered = firstorderedProduct.quantityOrdered.toString();
-                                String qtyInStock = firstorderedProduct.quantityInStock.toString();
-                                String price = firstorderedProduct.sellingPrice.toString();
-                                String image = firstorderedProduct.imageList![0].toString();
-                                String date = snapshot.data![index].date.toString();
-                                String status = snapshot.data![index].status.toString();
-
-                                var amount = price.toUpperCase();
+                                var date = snapshot.data[index].date.toString();
+                                var status = snapshot.data[index].status.toString();
                                 var dateParsed = DateFormat('yyyy-MM-dd HH:mm').parse(date);
                                 var dateOrdered = DateFormat.yMMMd().format(dateParsed);
 
-                                return Transactioncard(
-                                  name: name,
-                                  amount: amount,
-                                  date: dateOrdered,
-                                  transactionRefId: transactionRefId,
-                                  status: status,
-                                  qtyInStock: qtyInStock,
-                                  qtyOrdered: qtyOrdered,
-                                  image: image,
-                                );
+                                if (product?.businessUID != null) {
+                                  return Transactioncard(
+                                    product: product!,
+                                    date: dateOrdered,
+                                    status: status,
+                                    transactionRefId: transactionRefId,
+                                  );
+                                } else {
+                                  return SizedBox();
+                                }
                               },
                             ),
                           );
@@ -147,34 +145,32 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                                 String transactionRefId = snapshot.data![index].transactionRefId.toString();
                                 widget.pendingOrdersStore.pendingItems.add([transactionRefId]);
 
-                                List<String>? products = snapshot.data![index].products;
+                                List<String>? productRef = snapshot.data![index].products;
 
-                                assert(products != null);
+                                assert(productRef != null);
 
-                                var firstorderedProduct = productRepository.getProductsByRef(products);
-
-                                String qtyOrdered = firstorderedProduct.quantityOrdered.toString();
-                                String qtyInStock = firstorderedProduct.quantityInStock.toString();
-                                String name = firstorderedProduct.name.toString();
-                                String price = firstorderedProduct.sellingPrice.toString();
-                                String image = firstorderedProduct.imageList![0].toString();
-                                String date = snapshot.data![index].date.toString();
-                                String status = snapshot.data![index].status.toString();
-
-                                var amount = price.toUpperCase();
+                                //Get first product details
+                                var product;
+                                productRepository.getProductByRef(productRef!.first).then((p) {
+                                  setState(() {
+                                    product = p;
+                                  });
+                                });
+                                var date = snapshot.data[index].date.toString();
+                                var status = snapshot.data[index].status.toString();
                                 var dateParsed = DateFormat('yyyy-MM-dd HH:mm').parse(date);
                                 var dateOrdered = DateFormat.yMMMd().format(dateParsed);
 
-                                return Transactioncard(
-                                  name: name,
-                                  amount: amount,
-                                  date: dateOrdered,
-                                  transactionRefId: transactionRefId,
-                                  status: status,
-                                  qtyInStock: qtyInStock,
-                                  qtyOrdered: qtyOrdered,
-                                  image: image,
-                                );
+                                if (product?.businessUID != null) {
+                                  return Transactioncard(
+                                    product: product!,
+                                    date: dateOrdered,
+                                    status: status,
+                                    transactionRefId: transactionRefId,
+                                  );
+                                } else {
+                                  return SizedBox();
+                                }
                               },
                             ),
                           );
@@ -199,4 +195,14 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                 ),
         ]));
   }
+
+  // Product? getOrderProducts(String ref) {
+  //   var product;
+  //   productRepository.getProductByRef(ref).then((p) {
+  //     setState(() {
+  //       product = p;
+  //     });
+  //   });
+  //   return product;
+  // }
 }
