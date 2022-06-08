@@ -1,7 +1,4 @@
-// Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-// Project imports:
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/domain/value_objects/app_domain_strings.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
@@ -78,13 +75,12 @@ class ProductRepository {
     }
   }
 
-  getProductsByRef(
-    List<String>? refs,
-  ) {
-    var productOrdered;
-    for (var i = 0; i < refs!.length; i++) {
-      productOrdered = _productCollection.doc(refs[i]).get;
-      return productOrdered;
-    }
+  Future<Product> getProductByRef(
+    String? refs,
+  ) async {
+    Product product;
+    var productOrderedRef = await _productCollection.doc(refs).get();
+    product = productOrderedRef.data()!.values.map((e) => Product.fromJson(e)).first;
+    return product;
   }
 }

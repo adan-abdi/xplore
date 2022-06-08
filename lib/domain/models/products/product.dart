@@ -30,7 +30,7 @@ class Product {
   final String? sellingPrice;
   final String? buyingPrice;
   final String? metricUnit;
-  final String? quantityOrdered;
+  String? quantityOrdered;
   String? productRefID;
 
   factory Product.fromJson(Map<String, dynamic> json) =>

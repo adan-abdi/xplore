@@ -30,6 +30,7 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   ProductRepository productRepositoryInstance = ProductRepository();
   TransactionRepository transactionRepositoryInstance = TransactionRepository();
+
   @override
   Widget build(BuildContext context) {
     final String prodName = widget.product.name.toString();
@@ -41,7 +42,7 @@ class _ProductCardState extends State<ProductCard> {
     final String prodImag = widget.product.imageList!.first.toString();
     final String productRef = widget.product.productRefID.toString();
     final String businessUID = widget.product.businessUID.toString();
-    final String category = widget.product.categories!.first.toString();
+    final String category = '';
 
     final int rem = int.parse(prodQtyInStock) - 1;
     final Product newProduct = Product(
