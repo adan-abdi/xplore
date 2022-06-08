@@ -9,16 +9,17 @@ import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_tra
 
 // ignore: must_be_immutable
 class Transactioncard extends StatefulWidget {
-  final Product product;
+  final String ref;
   final String date;
   final String status;
   final String transactionRefId;
 
   Transactioncard({
     Key? key,
-    required this.product,
+    required this.ref,
     required this.date,
-    required this.status, required this.transactionRefId,
+    required this.status,
+    required this.transactionRefId,
   }) : super(key: key);
 
   @override
@@ -26,9 +27,12 @@ class Transactioncard extends StatefulWidget {
 }
 
 class _TransactioncardState extends State<Transactioncard> {
+  Product? product;
+
   @override
   void initState() {
     super.initState();
+    _getOrderProducts(widget.ref);
   }
 
   TransactionRepository transactionRepositoryInstance = TransactionRepository();
@@ -36,9 +40,9 @@ class _TransactioncardState extends State<Transactioncard> {
 
   @override
   Widget build(BuildContext context) {
-    var transactionAmount = widget.product.sellingPrice;
+    var transactionAmount = product!.sellingPrice;
     var dateOrdered = widget.date;
-    String newQtyOrdered = widget.product.quantityOrdered ?? ''; 
+    String newQtyOrdered = product!.quantityOrdered ?? '';
     bool isPending = widget.status == "TransactionStatus.pending";
     return Container(
       padding: EdgeInsets.all(0),
@@ -77,7 +81,7 @@ class _TransactioncardState extends State<Transactioncard> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 5),
                   child: Text(
-                    "${widget.product.name.toString()}",
+                    "${product!.name}",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -131,7 +135,7 @@ class _TransactioncardState extends State<Transactioncard> {
                         onPressed: () async {
                           newQtyOrdered = await decrementOrderQty(widget.transactionRefId);
                           setState(() {
-                            widget.product.quantityOrdered = newQtyOrdered;
+                            product!.quantityOrdered = newQtyOrdered;
                           });
                         },
                       ),
@@ -158,7 +162,7 @@ class _TransactioncardState extends State<Transactioncard> {
                         onPressed: () async {
                           newQtyOrdered = await incrementOrderQty(widget.transactionRefId);
                           setState(() {
-                            widget.product.quantityOrdered = newQtyOrdered;
+                            product!.quantityOrdered = newQtyOrdered;
                           });
                         },
                       ),
@@ -173,18 +177,18 @@ class _TransactioncardState extends State<Transactioncard> {
   }
 
   Future<String> incrementOrderQty(String transactionRefId) async {
-    var qtyInStock = int.parse(widget.product.quantityInStock) - 1;
-    var currentQty = int.parse(widget.product.quantityInStock);
+    var qtyInStock = int.parse(product!.quantityInStock) - 1;
+    var currentQty = int.parse(product!.quantityInStock);
     var newOrderedQty = currentQty + 1;
     var newProduct = Product(
-      name: widget.product.name,
+      name: product!.name,
       quantityInStock: qtyInStock.toString(),
-      sellingPrice: widget.product.sellingPrice,
-      productRefID: widget.product.productRefID,
-      businessUID: widget.product.businessUID,
-      buyingPrice: widget.product.buyingPrice,
-      // categories: widget.categories,
-      // metricUnit: widget.metricUnit,
+      sellingPrice: product!.sellingPrice,
+      productRefID: product!.productRefID,
+      businessUID: product!.businessUID,
+      buyingPrice: product!.buyingPrice,
+      categories: product!.categories,
+      metricUnit: product!.metricUnit,
       imageList: [],
     );
 
@@ -195,19 +199,19 @@ class _TransactioncardState extends State<Transactioncard> {
   }
 
   Future<String> decrementOrderQty(String transactionRefId) async {
-    var currentQty = int.parse(widget.product.quantityInStock);
+    var currentQty = int.parse(product!.quantityInStock);
     if (currentQty != 0) {
-      var qtyInStock = int.parse(widget.product.quantityInStock) + 1;
-      var newOrderedQty = int.parse(widget.product.quantityOrdered ?? '') - 1;
+      var qtyInStock = int.parse(product!.quantityInStock) + 1;
+      var newOrderedQty = int.parse(product!.quantityOrdered ?? '') - 1;
       var newProduct = Product(
-        name: widget.product.name,
+        name: product!.name,
         quantityInStock: qtyInStock.toString(),
-        sellingPrice: widget.product.sellingPrice,
-        productRefID: widget.product.productRefID,
-        businessUID: widget.product.businessUID,
-        buyingPrice: widget.product.buyingPrice,
-        // categories: widget.categories,
-        // metricUnit: widget.metricUnit,
+        sellingPrice: product!.sellingPrice,
+        productRefID: product!.productRefID,
+        businessUID: product!.businessUID,
+        buyingPrice: product!.buyingPrice,
+        categories: product!.categories,
+        metricUnit: product!.metricUnit,
         imageList: [],
       );
 
@@ -218,5 +222,13 @@ class _TransactioncardState extends State<Transactioncard> {
       return newOrderedQty.toString();
     }
     return currentQty.toString();
+  }
+
+  Future<void> _getOrderProducts(String ref) async {
+    await productRepositoryInstance.getProductByRef(ref).then((p) {
+      setState(() {
+        product = p;
+      });
+    });
   }
 }

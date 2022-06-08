@@ -83,28 +83,17 @@ class _MerchantRecordsState extends State<MerchantRecords> {
 
                                 assert(productRef != null);
 
-                                var product;
-                                productRepository.getProductByRef(productRef!.first).then((p) {
-                                  setState(() {
-                                    product = p;
-                                  });
-                                });
-
                                 var date = snapshot.data[index].date.toString();
                                 var status = snapshot.data[index].status.toString();
                                 var dateParsed = DateFormat('yyyy-MM-dd HH:mm').parse(date);
                                 var dateOrdered = DateFormat.yMMMd().format(dateParsed);
 
-                                if (product?.businessUID != null) {
-                                  return Transactioncard(
-                                    product: product!,
-                                    date: dateOrdered,
-                                    status: status,
-                                    transactionRefId: transactionRefId,
-                                  );
-                                } else {
-                                  return SizedBox();
-                                }
+                                return Transactioncard(
+                                  ref: productRef!.first,
+                                  date: dateOrdered,
+                                  status: status,
+                                  transactionRefId: transactionRefId,
+                                );
                               },
                             ),
                           );
@@ -149,28 +138,17 @@ class _MerchantRecordsState extends State<MerchantRecords> {
 
                                 assert(productRef != null);
 
-                                //Get first product details
-                                var product;
-                                productRepository.getProductByRef(productRef!.first).then((p) {
-                                  setState(() {
-                                    product = p;
-                                  });
-                                });
                                 var date = snapshot.data[index].date.toString();
                                 var status = snapshot.data[index].status.toString();
                                 var dateParsed = DateFormat('yyyy-MM-dd HH:mm').parse(date);
                                 var dateOrdered = DateFormat.yMMMd().format(dateParsed);
 
-                                if (product?.businessUID != null) {
-                                  return Transactioncard(
-                                    product: product!,
-                                    date: dateOrdered,
-                                    status: status,
-                                    transactionRefId: transactionRefId,
-                                  );
-                                } else {
-                                  return SizedBox();
-                                }
+                                return Transactioncard(
+                                  ref: productRef!.first,
+                                  date: dateOrdered,
+                                  status: status,
+                                  transactionRefId: transactionRefId,
+                                );
                               },
                             ),
                           );
@@ -195,14 +173,4 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                 ),
         ]));
   }
-
-  // Product? getOrderProducts(String ref) {
-  //   var product;
-  //   productRepository.getProductByRef(ref).then((p) {
-  //     setState(() {
-  //       product = p;
-  //     });
-  //   });
-  //   return product;
-  // }
 }
