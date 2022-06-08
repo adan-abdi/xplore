@@ -40,9 +40,8 @@ class _ProductCardState extends State<ProductCard> {
     final String productUnit = widget.product.metricUnit!.toString();
     final String prodImag = widget.product.imageList!.first.toString();
     final String productRef = widget.product.productRefID.toString();
-    final String businessUID = widget.product.productRefID.toString();
+    final String businessUID = widget.product.businessUID.toString();
     final String category = widget.product.categories!.first.toString();
-
 
     final int rem = int.parse(prodQtyInStock) - 1;
     final Product newProduct = Product(
@@ -54,6 +53,7 @@ class _ProductCardState extends State<ProductCard> {
       productRefID: productRef,
       businessUID: businessUID,
       quantityOrdered: '1',
+      metricUnit: productUnit,
     );
 
     return Card(
@@ -171,9 +171,9 @@ class _ProductCardState extends State<ProductCard> {
     );
   }
 
-  Future<dynamic> _addNewTransaction(Order newOrder) {
-    var newTransactionRef = transactionRepositoryInstance.recordTransaction(newOrder);
-    transactionRepositoryInstance.updateTransactionRef(newOrder);
-    return newTransactionRef;
+  Future<void> _addNewTransaction(Order newOrder) async {
+    await transactionRepositoryInstance.recordTransaction(newOrder).then((newOrderRef) {
+      transactionRepositoryInstance.updateTransactionRef(newOrderRef.id);
+    });
   }
 }
