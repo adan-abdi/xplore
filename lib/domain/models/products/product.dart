@@ -13,13 +13,13 @@ class Product {
     required this.name,
     required this.quantityInStock,
     required this.sellingPrice,
+    this.buyingPrice,
+    this.quantityOrdered,
+    this.metricUnit,
     this.businessUID,
     this.categories,
     this.imageList,
-    this.buyingPrice,
-    this.metricUnit,
     this.productRefID,
-    this.quantityOrdered,
   });
 
   final String? businessUID;

@@ -1,21 +1,21 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
 
 // Project imports:
 import 'package:shamiri/domain/models/categories/category.dart';
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/domain/routes/routes.dart';
+import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
 import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
 import 'package:shamiri/infrastructure/remote_repository/users/firebase_auth.dart';
-import 'package:shamiri/presentation/core/pages/dashboard.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
 
 class AddProductPage extends StatefulWidget {
   final ProductRepository productRepoInstance;
 
-  const AddProductPage({Key? key, required this.productRepoInstance})
-      : super(key: key);
+  const AddProductPage({Key? key, required this.productRepoInstance}) : super(key: key);
 
   @override
   _AddProductPageState createState() => _AddProductPageState();
@@ -35,7 +35,7 @@ class _AddProductPageState extends State<AddProductPage> {
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        backgroundColor: Colors.deepOrange,
+        backgroundColor: XploreColors.xploreOrange,
         elevation: 0,
         leading: Padding(
           padding: EdgeInsets.all(8),
@@ -47,10 +47,9 @@ class _AddProductPageState extends State<AddProductPage> {
             child: IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.deepOrange,
+                color: XploreColors.xploreOrange,
               ),
-              onPressed: () =>
-                  Navigator.of(context).pushReplacementNamed(dashPageRoute),
+              onPressed: () => Navigator.of(context).pushReplacementNamed(dashPageRoute),
             ),
           ),
         ),
@@ -60,11 +59,11 @@ class _AddProductPageState extends State<AddProductPage> {
             color: Colors.white,
             child: Center(
               child: Text(
-                'Add Product',
+                addProductText,
                 style: TextStyle(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.normal,
                   fontSize: 24,
-                  color: Colors.deepOrange,
+                  color: XploreColors.xploreOrange,
                 ),
               ),
             )),
@@ -84,170 +83,151 @@ class _AddProductPageState extends State<AddProductPage> {
                 ),
                 TextField(
                   controller: _name,
-                  cursorColor: Colors.deepOrange,
+                  cursorColor: XploreColors.xploreOrange,
                   decoration: InputDecoration(
-                    labelText: 'Product Name',
+                    labelText: productNameText,
                     contentPadding: EdgeInsets.all(5.0),
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: XploreColors.xploreOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
                       borderSide: new BorderSide(
-                        color: Colors.deepOrange,
+                        color: XploreColors.xploreOrange,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.zero,
                     ),
-                    hintText: "Product Name",
+                    hintText: productNameText,
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                vSize20SizedBox,
                 TextField(
                   controller: _units,
-                  cursorColor: Colors.deepOrange,
+                  cursorColor: XploreColors.xploreOrange,
                   decoration: InputDecoration(
-                    labelText: 'Product Unit',
+                    labelText: productUnitText,
                     contentPadding: EdgeInsets.all(5.0),
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: XploreColors.xploreOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
                       borderSide: new BorderSide(
-                        color: Colors.deepOrange,
+                        color: XploreColors.xploreOrange,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.zero,
                     ),
-                    hintText: "e.g Kg, g",
+                    hintText: "e.g Kg, g, Lt",
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                vSize20SizedBox,
                 TextField(
                   controller: _bp,
                   keyboardType: TextInputType.number,
-                  cursorColor: Colors.deepOrange,
+                  cursorColor: XploreColors.xploreOrange,
                   decoration: InputDecoration(
-                    labelText: 'Buying Price',
+                    labelText: buyingPriceText,
                     contentPadding: EdgeInsets.all(5.0),
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: XploreColors.xploreOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
                       borderSide: new BorderSide(
-                        color: Colors.deepOrange,
+                        color: XploreColors.xploreOrange,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.zero,
                     ),
-                    hintText: "Buying Price",
+                    hintText: priceFromSupplier,
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                vSize20SizedBox,
                 TextField(
                   controller: _sp,
-                  cursorColor: Colors.deepOrange,
+                  cursorColor: XploreColors.xploreOrange,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'Selling Price',
+                    labelText: sellingPriceText,
                     contentPadding: EdgeInsets.all(5.0),
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: XploreColors.xploreOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
                       borderSide: new BorderSide(
-                        color: Colors.deepOrange,
+                        color: XploreColors.xploreOrange,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.zero,
                     ),
-                    hintText: "Selling Price",
+                    hintText: priceToConsumerText,
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                vSize20SizedBox,
                 TextField(
                   controller: _qty,
-                  cursorColor: Colors.deepOrange,
+                  cursorColor: XploreColors.xploreOrange,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'Quantity',
+                    labelText: qtyInStockText,
                     contentPadding: EdgeInsets.all(5.0),
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: XploreColors.xploreOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
                       borderSide: new BorderSide(
-                        color: Colors.deepOrange,
+                        color: XploreColors.xploreOrange,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.zero,
                     ),
-                    hintText: "Quantity in Stock",
+                    hintText: qtyInStockHint,
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                vSize20SizedBox,
                 TextField(
                   controller: _cat,
-                  cursorColor: Colors.deepOrange,
+                  cursorColor: XploreColors.xploreOrange,
                   decoration: InputDecoration(
-                    labelText: 'Category',
+                    labelText: categoryText,
                     labelStyle: TextStyle(
-                      color: Colors.deepOrange,
+                      color: XploreColors.xploreOrange,
                     ),
                     contentPadding: EdgeInsets.all(5.0),
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(color: XploreColors.xploreOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     enabledBorder: new OutlineInputBorder(
                       borderSide: new BorderSide(
-                        color: Colors.deepOrange,
+                        color: XploreColors.xploreOrange,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.zero,
                     ),
-                    hintText: "Product Category",
+                    hintText: categoryHint,
                   ),
                 ),
-                SizedBox(
-                  height: 40,
-                ),
+                vSize40SizedBox,
                 ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.deepOrange),
+                      backgroundColor: MaterialStateProperty.all<Color>(XploreColors.xploreOrange),
                     ),
                     onPressed: () {
                       if (_name.text.length > 0 ||
@@ -256,8 +236,7 @@ class _AddProductPageState extends State<AddProductPage> {
                           _units.text.length > 0 ||
                           _qty.text.length > 0 ||
                           _cat.text.length > 0) {
-                        var buisinessID =
-                            globalFirebaseAuthInstance.currentUser!.uid;
+                        var buisinessID = globalFirebaseAuthInstance.currentUser!.uid;
 
                         final Product newProduct = Product(
                             businessUID: buisinessID,
@@ -265,20 +244,20 @@ class _AddProductPageState extends State<AddProductPage> {
                             buyingPrice: _bp.text,
                             sellingPrice: _sp.text,
                             quantityInStock: _qty.text,
-                            metricUnit: _units.text,
                             quantityOrdered: '0',
+                            metricUnit: _units.text,
                             categories: [
                               Category(
-                                  name: _cat.text, businessUID: buisinessID),
+                                name: _cat.text,
+                                businessUID: buisinessID,
+                              ),
                             ],
                             imageList: [
                               'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg',
                             ]);
 
                         _addNewProduct(newProduct).whenComplete(() {
-                          globalDashIndex.currentIndex.add(0);
-                          Navigator.pushReplacementNamed(
-                              context, dashPageRoute);
+                          Navigator.pushReplacementNamed(context, dashPageRoute);
                         });
                       } else {
                         ScaffoldMessenger.of(context)
@@ -291,19 +270,17 @@ class _AddProductPageState extends State<AddProductPage> {
                           );
                       }
                     },
-                    child: Text('Add Product')),
-                Padding(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom)),
+                    child: Text(addProductText)),
+                Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)),
               ]),
         ),
       ),
     );
   }
 
-  Future<dynamic> _addNewProduct(Product newProduct) {
-    var newProductRef = widget.productRepoInstance.addProduct(newProduct);
-    widget.productRepoInstance.updateProductRef(newProduct);
-    return newProductRef;
+  Future<void> _addNewProduct(Product newProduct) async {
+    await widget.productRepoInstance.addProduct(newProduct).then((docRef) {
+      widget.productRepoInstance.updateProductefId(docRef.id);
+    });
   }
 }

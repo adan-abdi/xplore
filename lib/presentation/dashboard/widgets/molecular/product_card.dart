@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 // Project imports:
 import 'package:shamiri/application/core/services/helpers.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/domain/models/categories/category.dart';
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/domain/models/transactions/transaction.dart';
 import 'package:shamiri/domain/routes/routes.dart';
@@ -32,13 +33,18 @@ class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     final String prodName = widget.product.name.toString();
-    final String prodQty = widget.product.quantityInStock.toString();
+    final String prodQtyInStock = widget.product.quantityInStock.toString();
+    final String quantityOrdered = widget.product.quantityOrdered.toString();
     final String prodSp = widget.product.sellingPrice.toString();
     final String prodBp = widget.product.buyingPrice.toString();
+    final String productUnit = widget.product.metricUnit!.toString();
     final String prodImag = widget.product.imageList!.first.toString();
     final String productRef = widget.product.productRefID.toString();
     final String businessUID = widget.product.productRefID.toString();
-    final int rem = int.parse(prodQty) - 1;
+    final String category = widget.product.categories!.first.toString();
+
+
+    final int rem = int.parse(prodQtyInStock) - 1;
     final Product newProduct = Product(
       name: prodName,
       quantityInStock: rem.toString(),
@@ -69,10 +75,12 @@ class _ProductCardState extends State<ProductCard> {
                       editProductPageRoute,
                       arguments: Product(
                         name: prodName,
-                        quantityInStock: prodQty,
+                        quantityInStock: prodQtyInStock,
+                        quantityOrdered: quantityOrdered,
                         sellingPrice: prodSp,
                         buyingPrice: prodBp,
-                        categories: [],
+                        metricUnit: productUnit,
+                        categories: [Category(name: category)],
                         imageList: [prodImag],
                         productRefID: productRef,
                       ),
@@ -87,19 +95,14 @@ class _ProductCardState extends State<ProductCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('$prodName',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text('$prodName', style: TextStyle(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 6.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text('$prodQty Left',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey)),
-                      Text('$prodSp KES',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$prodQtyInStock Left', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+                      Text('$prodSp KES', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
                     ],
                   ),
                   SizedBox(
@@ -119,10 +122,7 @@ class _ProductCardState extends State<ProductCard> {
                           children: [
                             Text(
                               'Order',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20,
-                                  color: Colors.white),
+                              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Colors.white),
                             ),
                             hSize10SizedBox,
                             Icon(
@@ -154,10 +154,8 @@ class _ProductCardState extends State<ProductCard> {
                             ..showSnackBar(
                               SnackBar(
                                 content: Text(orderAdded),
-                                duration: const Duration(
-                                    seconds: kShortSnackBarDuration),
-                                action: dismissSnackBar(
-                                    okText, XploreColors.white, context),
+                                duration: const Duration(seconds: kShortSnackBarDuration),
+                                action: dismissSnackBar(okText, XploreColors.white, context),
                               ),
                             );
                         });
@@ -174,8 +172,7 @@ class _ProductCardState extends State<ProductCard> {
   }
 
   Future<dynamic> _addNewTransaction(Order newOrder) {
-    var newTransactionRef =
-        transactionRepositoryInstance.recordTransaction(newOrder);
+    var newTransactionRef = transactionRepositoryInstance.recordTransaction(newOrder);
     transactionRepositoryInstance.updateTransactionRef(newOrder);
     return newTransactionRef;
   }
