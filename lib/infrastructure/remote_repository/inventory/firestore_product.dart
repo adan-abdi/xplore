@@ -50,14 +50,9 @@ class ProductRepository {
     await _updateProductDocRef.update(product.toJson());
   }
 
-  Future<void> updateProductRef(Product product) async {
-    String ref;
-    var oldProduct = await _productCollection.where('name', isEqualTo: product.name).snapshots().first;
-    if (oldProduct.docs.length != 0) {
-      ref = oldProduct.docs.first.reference.id;
-      var _updateProductDocRef = _productCollection.doc(ref);
-      await _updateProductDocRef.update({'productRefID': ref});
-    }
+  Future<void> updateProductefId(String? ref) async {
+    var _updateProductDocRef = _productCollection.doc(ref);
+    await _updateProductDocRef.update({'productRefID': ref});
   }
 
   Future<void> deleteProduct(String? productRefID) async {
@@ -75,7 +70,8 @@ class ProductRepository {
   }
 
   _searchProductByName(Product product) async {
-    var oldMatchingProduct = await _productCollection.where('name', isEqualTo: product.name!.toLowerCase()).snapshots().first;
+    var oldMatchingProduct =
+        await _productCollection.where('name', isEqualTo: product.name!.toLowerCase()).snapshots().first;
     if (oldMatchingProduct.docs.length != 0) {
       var matchedDocRef = oldMatchingProduct.docs.first.reference.id;
       return matchedDocRef;

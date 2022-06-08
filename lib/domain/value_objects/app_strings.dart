@@ -27,3 +27,16 @@ const String addProducts = 'Add Products';
 const String orderAdded = 'Order added succesfully';
 const String fulfillAll = 'Fulfill all';
 const String newOrder = 'Order added to cart';
+
+//Add Product Page Strings
+const String addProductText = 'Add Product';
+const String productNameText = 'Product name';
+const String productUnitText = 'Product unit';
+const String buyingPriceText = 'Buying Price';
+const String priceFromSupplier = 'Price quoted by supplier';
+const String sellingPriceText = 'Selling Price';
+const String priceToConsumerText = 'Price quoted to consumer';
+const String qtyInStockText = 'Quantity';
+const String qtyInStockHint = 'Quantity in stock';
+const String categoryText = 'Category';
+const String categoryHint = 'Which category best describes this product?';

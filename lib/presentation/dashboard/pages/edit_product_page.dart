@@ -252,6 +252,7 @@ class _EditProductsState extends State<EditProducts> {
                               buyingPrice: _bp.text,
                               sellingPrice: _sp.text,
                               quantityInStock: _qty.text,
+                              quantityOrdered: '0',
                               metricUnit: _units.text,
                               categories: [
                                 Category(
@@ -266,7 +267,7 @@ class _EditProductsState extends State<EditProducts> {
                               .whenComplete(() => Navigator.of(context).pop());
                         },
                         // style: ButtonStyle(backgroundColor: XploreColors.deepBlue),
-                        child: Text('Save Product')),
+                        child: Text('Update Product')),
                   ],
                 ),
                 Padding(
