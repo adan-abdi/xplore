@@ -89,7 +89,8 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -114,7 +115,8 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -140,7 +142,8 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -166,7 +169,8 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -191,7 +195,8 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.deepOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Colors.deepOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -216,7 +221,8 @@ class _EditProductsState extends State<EditProducts> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                      borderSide:
+                          const BorderSide(color: Colors.grey, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -238,7 +244,8 @@ class _EditProductsState extends State<EditProducts> {
                   children: <Widget>[
                     ElevatedButton(
                         onPressed: () {
-                          var buisinessID = globalFirebaseAuthInstance.currentUser!.uid;
+                          var buisinessID =
+                              globalFirebaseAuthInstance.currentUser!.uid;
 
                           final Product newProduct = Product(
                               businessUID: buisinessID,
@@ -250,13 +257,16 @@ class _EditProductsState extends State<EditProducts> {
                               quantityOrdered: '0',
                               metricUnit: _units.text,
                               categories: [
-                                Category(name: _cat.text, businessUID: buisinessID),
+                                Category(
+                                    name: _cat.text, businessUID: buisinessID),
                               ],
                               imageList: [
                                 widget.product.imageList!.first,
                               ]);
 
-                          remoteProductRepoInstance.updateProduct(newProduct).whenComplete(() {
+                          remoteProductRepoInstance
+                              .updateProduct(newProduct)
+                              .whenComplete(() {
                             ScaffoldMessenger.of(context)
                               ..hideCurrentSnackBar()
                               ..showSnackBar(
@@ -274,7 +284,8 @@ class _EditProductsState extends State<EditProducts> {
                 ),
                 Padding(
                     // this is new
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)),
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom)),
               ]),
         ),
       ),

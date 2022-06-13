@@ -1,4 +1,7 @@
+// Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+// Project imports:
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/domain/value_objects/app_domain_strings.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
@@ -6,9 +9,12 @@ import 'package:shamiri/infrastructure/remote_repository/users/firebase_auth.dar
 import 'package:shamiri/infrastructure/remote_repository/xplore_firestore.dart';
 
 class ProductRepository {
-  static final _collectionReference = globalFirestoreInstance.collection("inventory");
-  static final _currentUserID = globalFirebaseAuthInstance.currentUser?.uid ?? testUid;
-  static final _productCollection = _collectionReference.doc(_currentUserID).collection("products");
+  static final _collectionReference =
+      globalFirestoreInstance.collection("inventory");
+  static final _currentUserID =
+      globalFirebaseAuthInstance.currentUser?.uid ?? testUid;
+  static final _productCollection =
+      _collectionReference.doc(_currentUserID).collection("products");
 
   Stream<QuerySnapshot> getProductStream() {
     var productCollectionStream = _productCollection.orderBy('name');
@@ -16,17 +22,21 @@ class ProductRepository {
     return productCollectionStream.snapshots();
   }
 
-  Stream<QuerySnapshot> getSearchStream({required ProductListingStates? state, required String searchterm}) {
+  Stream<QuerySnapshot> getSearchStream(
+      {required ProductListingStates? state, required String searchterm}) {
     Stream<QuerySnapshot> productCollectionStream;
 
     assert(state!.index == 4);
 
-    productCollectionStream = _productCollection.where('name', isEqualTo: _setSearchParam(searchterm)).snapshots();
+    productCollectionStream = _productCollection
+        .where('name', isEqualTo: _setSearchParam(searchterm))
+        .snapshots();
 
     return productCollectionStream;
   }
 
-  Future<DocumentReference<Map<String, dynamic>>> addProduct(Product product) async {
+  Future<DocumentReference<Map<String, dynamic>>> addProduct(
+      Product product) async {
     var matchedDocRef = await _searchProductByName(product);
     if (matchedDocRef != null) {
       var originalSnapshot = await _productCollection.doc(matchedDocRef).get();
@@ -34,7 +44,9 @@ class ProductRepository {
       var oldQty = int.parse(originalSnapshotData!['quantityInStock']);
       var newProductQty = int.parse(product.quantityInStock);
       var newQty = oldQty + newProductQty;
-      await _productCollection.doc(matchedDocRef).update({'quantityInStock': newQty.toString()});
+      await _productCollection
+          .doc(matchedDocRef)
+          .update({'quantityInStock': newQty.toString()});
       return matchedDocRef;
     } else {
       return await _productCollection.add(product.toJson());
@@ -67,8 +79,10 @@ class ProductRepository {
   }
 
   _searchProductByName(Product product) async {
-    var oldMatchingProduct =
-        await _productCollection.where('name', isEqualTo: product.name!.toLowerCase()).snapshots().first;
+    var oldMatchingProduct = await _productCollection
+        .where('name', isEqualTo: product.name!.toLowerCase())
+        .snapshots()
+        .first;
     if (oldMatchingProduct.docs.length != 0) {
       var matchedDocRef = oldMatchingProduct.docs.first.reference.id;
       return matchedDocRef;
@@ -80,7 +94,8 @@ class ProductRepository {
   ) async {
     Product product;
     var productOrderedRef = await _productCollection.doc(refs).get();
-    product = productOrderedRef.data()!.values.map((e) => Product.fromJson(e)).first;
+    product =
+        productOrderedRef.data()!.values.map((e) => Product.fromJson(e)).first;
     return product;
   }
 }
