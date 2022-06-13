@@ -18,7 +18,8 @@ import 'package:shamiri/presentation/dashboard/widgets/molecular/transaction_car
 class MerchantRecords extends StatefulWidget {
   final OrdersStore pendingOrdersStore;
 
-  MerchantRecords({Key? key, required this.pendingOrdersStore}) : super(key: key);
+  MerchantRecords({Key? key, required this.pendingOrdersStore})
+      : super(key: key);
 
   @override
   State<MerchantRecords> createState() => _MerchantRecordsState();
@@ -29,7 +30,8 @@ class _MerchantRecordsState extends State<MerchantRecords> {
 
   @override
   Widget build(BuildContext context) {
-    TransactionRepository transactionRepositoryInstance = TransactionRepository();
+    TransactionRepository transactionRepositoryInstance =
+        TransactionRepository();
     SlidingTabStatusStore transactionTabState = SlidingTabStatusStore();
 
     return Container(
@@ -64,29 +66,40 @@ class _MerchantRecordsState extends State<MerchantRecords> {
               ? Expanded(
                   flex: 1,
                   child: StreamBuilder<dynamic>(
-                      stream: transactionRepositoryInstance.getPendingOrdersStream(),
+                      stream: transactionRepositoryInstance
+                          .getPendingOrdersStream(),
                       builder: (context, snapshot) {
                         if (snapshot.hasError) {
                           return Container(
                               height: MediaQuery.of(context).size.height * 0.7,
-                              child: Center(child: Text('Something went wrong')));
-                        } else if (snapshot.hasData && snapshot.data != null && snapshot.data?.length != 0) {
+                              child:
+                                  Center(child: Text('Something went wrong')));
+                        } else if (snapshot.hasData &&
+                            snapshot.data != null &&
+                            snapshot.data?.length != 0) {
                           return Container(
                             child: ListView.builder(
                               padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                               itemCount: snapshot.data!.length,
                               itemBuilder: (BuildContext ctx, index) {
-                                String transactionRefId = snapshot.data![index].transactionRefId.toString();
-                                widget.pendingOrdersStore.pendingItems.add([transactionRefId]);
+                                String transactionRefId = snapshot
+                                    .data![index].transactionRefId
+                                    .toString();
+                                widget.pendingOrdersStore.pendingItems
+                                    .add([transactionRefId]);
 
-                                List<String>? productRef = snapshot.data![index].products;
+                                List<String>? productRef =
+                                    snapshot.data![index].products;
 
                                 assert(productRef != null);
 
                                 var date = snapshot.data[index].date.toString();
-                                var status = snapshot.data[index].status.toString();
-                                var dateParsed = DateFormat('yyyy-MM-dd HH:mm').parse(date);
-                                var dateOrdered = DateFormat.yMMMd().format(dateParsed);
+                                var status =
+                                    snapshot.data[index].status.toString();
+                                var dateParsed =
+                                    DateFormat('yyyy-MM-dd HH:mm').parse(date);
+                                var dateOrdered =
+                                    DateFormat.yMMMd().format(dateParsed);
 
                                 return Transactioncard(
                                   ref: productRef!.first,
@@ -105,8 +118,10 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                                 XploreLoader(),
                                 vSize10SizedBox,
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                                  child: Text('You have no order in your store, kindly add new order to continue',
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 30),
+                                  child: Text(
+                                      'You have no order in your store, kindly add new order to continue',
                                       textAlign: TextAlign.center),
                                 )
                               ],
@@ -119,29 +134,40 @@ class _MerchantRecordsState extends State<MerchantRecords> {
               : Expanded(
                   flex: 1,
                   child: StreamBuilder<dynamic>(
-                      stream: transactionRepositoryInstance.getFulfilledOrdersStream(),
+                      stream: transactionRepositoryInstance
+                          .getFulfilledOrdersStream(),
                       builder: (context, snapshot) {
                         if (snapshot.hasError) {
                           return Container(
                               height: MediaQuery.of(context).size.height * 0.7,
-                              child: Center(child: Text('Something went wrong')));
-                        } else if (snapshot.hasData && snapshot.data != null && snapshot.data?.length != 0) {
+                              child:
+                                  Center(child: Text('Something went wrong')));
+                        } else if (snapshot.hasData &&
+                            snapshot.data != null &&
+                            snapshot.data?.length != 0) {
                           return Container(
                             child: ListView.builder(
                               padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                               itemCount: snapshot.data!.length,
                               itemBuilder: (BuildContext ctx, index) {
-                                String transactionRefId = snapshot.data![index].transactionRefId.toString();
-                                widget.pendingOrdersStore.pendingItems.add([transactionRefId]);
+                                String transactionRefId = snapshot
+                                    .data![index].transactionRefId
+                                    .toString();
+                                widget.pendingOrdersStore.pendingItems
+                                    .add([transactionRefId]);
 
-                                List<String>? productRef = snapshot.data![index].products;
+                                List<String>? productRef =
+                                    snapshot.data![index].products;
 
                                 assert(productRef != null);
 
                                 var date = snapshot.data[index].date.toString();
-                                var status = snapshot.data[index].status.toString();
-                                var dateParsed = DateFormat('yyyy-MM-dd HH:mm').parse(date);
-                                var dateOrdered = DateFormat.yMMMd().format(dateParsed);
+                                var status =
+                                    snapshot.data[index].status.toString();
+                                var dateParsed =
+                                    DateFormat('yyyy-MM-dd HH:mm').parse(date);
+                                var dateOrdered =
+                                    DateFormat.yMMMd().format(dateParsed);
 
                                 return Transactioncard(
                                   ref: productRef!.first,
@@ -160,8 +186,10 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                                 XploreLoader(),
                                 vSize10SizedBox,
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                                  child: Text('You have no order in your store, kindly add new order to continue',
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 30),
+                                  child: Text(
+                                      'You have no order in your store, kindly add new order to continue',
                                       textAlign: TextAlign.center),
                                 )
                               ],

@@ -1,8 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:shamiri/application/core/themes/colors.dart';
 
 // Project imports:
+import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/models/categories/category.dart';
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/domain/routes/routes.dart';
@@ -15,7 +15,8 @@ import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
 class AddProductPage extends StatefulWidget {
   final ProductRepository productRepoInstance;
 
-  const AddProductPage({Key? key, required this.productRepoInstance}) : super(key: key);
+  const AddProductPage({Key? key, required this.productRepoInstance})
+      : super(key: key);
 
   @override
   _AddProductPageState createState() => _AddProductPageState();
@@ -49,7 +50,8 @@ class _AddProductPageState extends State<AddProductPage> {
                 Icons.arrow_back,
                 color: XploreColors.xploreOrange,
               ),
-              onPressed: () => Navigator.of(context).pushReplacementNamed(dashPageRoute),
+              onPressed: () =>
+                  Navigator.of(context).pushReplacementNamed(dashPageRoute),
             ),
           ),
         ),
@@ -90,7 +92,8 @@ class _AddProductPageState extends State<AddProductPage> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: XploreColors.xploreOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: XploreColors.xploreOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -113,7 +116,8 @@ class _AddProductPageState extends State<AddProductPage> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: XploreColors.xploreOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: XploreColors.xploreOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -137,7 +141,8 @@ class _AddProductPageState extends State<AddProductPage> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: XploreColors.xploreOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: XploreColors.xploreOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -161,7 +166,8 @@ class _AddProductPageState extends State<AddProductPage> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: XploreColors.xploreOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: XploreColors.xploreOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -185,7 +191,8 @@ class _AddProductPageState extends State<AddProductPage> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: XploreColors.xploreOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: XploreColors.xploreOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     border: new OutlineInputBorder(
@@ -211,7 +218,8 @@ class _AddProductPageState extends State<AddProductPage> {
                     fillColor: Colors.white,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: XploreColors.xploreOrange, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: XploreColors.xploreOrange, width: 2.0),
                       borderRadius: BorderRadius.zero,
                     ),
                     enabledBorder: new OutlineInputBorder(
@@ -227,7 +235,8 @@ class _AddProductPageState extends State<AddProductPage> {
                 vSize40SizedBox,
                 ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(XploreColors.xploreOrange),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          XploreColors.xploreOrange),
                     ),
                     onPressed: () {
                       if (_name.text.length > 0 ||
@@ -236,7 +245,8 @@ class _AddProductPageState extends State<AddProductPage> {
                           _units.text.length > 0 ||
                           _qty.text.length > 0 ||
                           _cat.text.length > 0) {
-                        var buisinessID = globalFirebaseAuthInstance.currentUser!.uid;
+                        var buisinessID =
+                            globalFirebaseAuthInstance.currentUser!.uid;
 
                         final Product newProduct = Product(
                             businessUID: buisinessID,
@@ -265,7 +275,8 @@ class _AddProductPageState extends State<AddProductPage> {
                                 label: okText,
                               ),
                             );
-                          Navigator.pushReplacementNamed(context, dashPageRoute);
+                          Navigator.pushReplacementNamed(
+                              context, dashPageRoute);
                         });
                       } else {
                         ScaffoldMessenger.of(context)
@@ -279,7 +290,9 @@ class _AddProductPageState extends State<AddProductPage> {
                       }
                     },
                     child: Text(addProductText)),
-                Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)),
+                Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom)),
               ]),
         ),
       ),
