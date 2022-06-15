@@ -10,6 +10,9 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       name: json['name'] as String?,
       quantityInStock: json['quantityInStock'] as String,
       sellingPrice: json['sellingPrice'] as String?,
+      buyingPrice: json['buyingPrice'] as String?,
+      quantityOrdered: json['quantityOrdered'] as String?,
+      metricUnit: json['metricUnit'] as String?,
       businessUID: json['businessUID'] as String?,
       categories: (json['categories'] as List<dynamic>?)
           ?.map((e) => Category.fromJson(e as Map<String, dynamic>))
@@ -17,10 +20,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       imageList: (json['imageList'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      buyingPrice: json['buyingPrice'] as String?,
-      metricUnit: json['metricUnit'] as String?,
       productRefID: json['productRefID'] as String?,
-      quantityOrdered: json['quantityOrdered'] as String?,
     );
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{

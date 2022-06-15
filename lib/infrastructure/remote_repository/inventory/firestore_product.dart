@@ -89,13 +89,10 @@ class ProductRepository {
     }
   }
 
-  Future<Product> getProductByRef(
-    String? refs,
-  ) async {
-    Product product;
+  Future<Product> getProductByRef(String? refs) async {
     var productOrderedRef = await _productCollection.doc(refs).get();
-    product =
-        productOrderedRef.data()!.values.map((e) => Product.fromJson(e)).first;
-    return product;
+    var product = productOrderedRef.data();
+    var p = Product.fromJson(product!);
+    return Future.value(p);
   }
 }
