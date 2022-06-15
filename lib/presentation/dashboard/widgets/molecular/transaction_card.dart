@@ -40,162 +40,168 @@ class _TransactioncardState extends State<Transactioncard> {
 
   @override
   Widget build(BuildContext context) {
-    var transactionAmount = product!.sellingPrice;
     var dateOrdered = widget.date;
-    String newQtyOrdered = product!.quantityOrdered ?? '';
     bool isPending = widget.status == "TransactionStatus.pending";
-    return Container(
-      padding: EdgeInsets.all(0),
-      height: 100,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: Expanded(
-              flex: 1,
-              child: Container(
-                width: 60,
-                height: 60,
-                child: Container(
-                    color: XploreColors.xploreOrange.withOpacity(.3),
-                    width: 40,
-                    height: 40,
-                    child: isPending
-                        ? Icon(
-                            Icons.receipt_long,
-                            color: XploreColors.xploreOrange,
-                          )
-                        : Icon(
-                            Icons.receipt,
-                            color: XploreColors.xploreOrange,
-                          )),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Column(
+
+    return FutureBuilder(
+        future: _getOrderProducts(widget.ref),
+        builder: (BuildContext ctx, AsyncSnapshot snapshot) {
+          var newQtyOrdered = snapshot.data?.quantityOrdered ?? '';
+          var transactionAmount = snapshot.data?.sellingPrice;
+          return Container(
+            padding: EdgeInsets.all(0),
+            height: 100,
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text(
-                    "${product!.name}",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontSize: 18,
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Expanded(
+                    flex: 1,
+                    child: Container(
+                      width: 60,
+                      height: 60,
+                      child: Container(
+                          color: XploreColors.xploreOrange.withOpacity(.3),
+                          width: 40,
+                          height: 40,
+                          child: isPending
+                              ? Icon(
+                                  Icons.receipt_long,
+                                  color: XploreColors.xploreOrange,
+                                )
+                              : Icon(
+                                  Icons.receipt,
+                                  color: XploreColors.xploreOrange,
+                                )),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 3),
-                  child: Text(
-                    "$dateOrdered",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      color: XploreColors.deepBlue,
-                      fontSize: 15,
-                    ),
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Text(
+                          "${snapshot.data?.name}",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 3),
+                        child: Text(
+                          "$dateOrdered",
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            color: XploreColors.deepBlue,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 3),
+                        child: Text(
+                          "KES $transactionAmount",
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 3),
-                  child: Text(
-                    "KES $transactionAmount",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black,
-                      fontSize: 13,
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        if (widget.status == "TransactionStatus.pending")
+                          Container(
+                            width: 35,
+                            height: 35,
+                            margin: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                color: XploreColors.deepBlue,
+                                borderRadius: BorderRadius.circular(5)),
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.remove,
+                                size: 18,
+                                color: XploreColors.white,
+                              ),
+                              onPressed: () async {
+                                newQtyOrdered = await decrementOrderQty(
+                                    widget.transactionRefId, snapshot.data);
+                                // setState(() {
+                                //   snapshot.data.quantityOrdered = newQtyOrdered;
+                                // });
+                              },
+                            ),
+                          ),
+                        CircleAvatar(
+                          backgroundColor:
+                              XploreColors.xploreOrange.withOpacity(.2),
+                          child: Text(
+                            newQtyOrdered,
+                            style: TextStyle(
+                                fontSize: 14, color: XploreColors.deepBlue),
+                          ),
+                        ),
+                        if (widget.status == "TransactionStatus.pending")
+                          Container(
+                            width: 35,
+                            height: 35,
+                            margin: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                color: XploreColors.deepBlue,
+                                borderRadius: BorderRadius.circular(5)),
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.add,
+                                size: 18,
+                                color: XploreColors.white,
+                              ),
+                              onPressed: () async {
+                                newQtyOrdered = await incrementOrderQty(
+                                    widget.transactionRefId, snapshot.data);
+                                // setState(() {
+                                //   snapshot.data.quantityOrdered = newQtyOrdered;
+                                // });
+                              },
+                            ),
+                          ),
+                      ],
                     ),
                   ),
-                ),
+                )
               ],
             ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  if (widget.status == "TransactionStatus.pending")
-                    Container(
-                      width: 35,
-                      height: 35,
-                      margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          color: XploreColors.deepBlue,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.remove,
-                          size: 18,
-                          color: XploreColors.white,
-                        ),
-                        onPressed: () async {
-                          newQtyOrdered =
-                              await decrementOrderQty(widget.transactionRefId);
-                          setState(() {
-                            product!.quantityOrdered = newQtyOrdered;
-                          });
-                        },
-                      ),
-                    ),
-                  CircleAvatar(
-                    backgroundColor: XploreColors.xploreOrange.withOpacity(.2),
-                    child: Text(
-                      newQtyOrdered,
-                      style:
-                          TextStyle(fontSize: 14, color: XploreColors.deepBlue),
-                    ),
-                  ),
-                  if (widget.status == "TransactionStatus.pending")
-                    Container(
-                      width: 35,
-                      height: 35,
-                      margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          color: XploreColors.deepBlue,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.add,
-                          size: 18,
-                          color: XploreColors.white,
-                        ),
-                        onPressed: () async {
-                          newQtyOrdered =
-                              await incrementOrderQty(widget.transactionRefId);
-                          setState(() {
-                            product!.quantityOrdered = newQtyOrdered;
-                          });
-                        },
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    );
+          );
+        });
   }
 
-  Future<String> incrementOrderQty(String transactionRefId) async {
-    var qtyInStock = int.parse(product!.quantityInStock) - 1;
-    var currentQty = int.parse(product!.quantityInStock);
+  Future<String> incrementOrderQty(String transactionRefId, Product pro) async {
+    var qtyInStock = int.parse(pro.quantityInStock) - 1;
+    var currentQty = int.parse(pro.quantityOrdered ?? '0');
     var newOrderedQty = currentQty + 1;
     var newProduct = Product(
-      name: product!.name,
+      name: pro.name,
       quantityInStock: qtyInStock.toString(),
-      sellingPrice: product!.sellingPrice,
-      productRefID: product!.productRefID,
-      businessUID: product!.businessUID,
-      buyingPrice: product!.buyingPrice,
-      categories: product!.categories,
-      metricUnit: product!.metricUnit,
+      sellingPrice: pro.sellingPrice,
+      productRefID: pro.productRefID,
+      businessUID: pro.businessUID,
+      buyingPrice: pro.buyingPrice,
+      categories: pro.categories,
+      metricUnit: pro.metricUnit,
       imageList: [],
     );
 
@@ -205,20 +211,20 @@ class _TransactioncardState extends State<Transactioncard> {
     return newOrderedQty.toString();
   }
 
-  Future<String> decrementOrderQty(String transactionRefId) async {
-    var currentQty = int.parse(product!.quantityInStock);
+  Future<String> decrementOrderQty(String transactionRefId, Product pro) async {
+    var currentQty = int.parse(pro.quantityOrdered ?? '0');
     if (currentQty != 0) {
-      var qtyInStock = int.parse(product!.quantityInStock) + 1;
-      var newOrderedQty = int.parse(product!.quantityOrdered ?? '') - 1;
+      var qtyInStock = int.parse(pro.quantityInStock) + 1;
+      var newOrderedQty = int.parse(pro.quantityOrdered ?? '0') - 1;
       var newProduct = Product(
-        name: product!.name,
+        name: pro.name,
         quantityInStock: qtyInStock.toString(),
-        sellingPrice: product!.sellingPrice,
-        productRefID: product!.productRefID,
-        businessUID: product!.businessUID,
-        buyingPrice: product!.buyingPrice,
-        categories: product!.categories,
-        metricUnit: product!.metricUnit,
+        sellingPrice: pro.sellingPrice,
+        productRefID: pro.productRefID,
+        businessUID: pro.businessUID,
+        buyingPrice: pro.buyingPrice,
+        categories: pro.categories,
+        metricUnit: pro.metricUnit,
         imageList: [],
       );
 
@@ -231,11 +237,8 @@ class _TransactioncardState extends State<Transactioncard> {
     return currentQty.toString();
   }
 
-  Future<void> _getOrderProducts(String ref) async {
-    await productRepositoryInstance.getProductByRef(ref).then((p) {
-      setState(() {
-        product = p;
-      });
-    });
+  Future<Product> _getOrderProducts(String ref) async {
+    product = await productRepositoryInstance.getProductByRef(ref);
+    return Future.value(product);
   }
 }
