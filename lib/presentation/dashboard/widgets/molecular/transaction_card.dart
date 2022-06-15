@@ -129,9 +129,8 @@ class _TransactioncardState extends State<Transactioncard> {
                             width: 35,
                             height: 35,
                             margin: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: XploreColors.deepBlue,
-                                borderRadius: BorderRadius.circular(5)),
+                            decoration:
+                                BoxDecoration(color: XploreColors.deepBlue, borderRadius: BorderRadius.circular(5)),
                             child: IconButton(
                               icon: Icon(
                                 Icons.remove,
@@ -139,21 +138,18 @@ class _TransactioncardState extends State<Transactioncard> {
                                 color: XploreColors.white,
                               ),
                               onPressed: () async {
-                                newQtyOrdered = await decrementOrderQty(
-                                    widget.transactionRefId, snapshot.data);
-                                // setState(() {
-                                //   snapshot.data.quantityOrdered = newQtyOrdered;
-                                // });
+                                newQtyOrdered = await decrementOrderQty(widget.transactionRefId, snapshot.data);
+                                setState(() {
+                                  snapshot.data.quantityOrdered = newQtyOrdered;
+                                });
                               },
                             ),
                           ),
                         CircleAvatar(
-                          backgroundColor:
-                              XploreColors.xploreOrange.withOpacity(.2),
+                          backgroundColor: XploreColors.xploreOrange.withOpacity(.2),
                           child: Text(
-                            newQtyOrdered,
-                            style: TextStyle(
-                                fontSize: 14, color: XploreColors.deepBlue),
+                            snapshot.data.quantityOrdered?.toString() ?? '',
+                            style: TextStyle(fontSize: 14, color: XploreColors.deepBlue),
                           ),
                         ),
                         if (widget.status == "TransactionStatus.pending")
@@ -161,9 +157,8 @@ class _TransactioncardState extends State<Transactioncard> {
                             width: 35,
                             height: 35,
                             margin: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: XploreColors.deepBlue,
-                                borderRadius: BorderRadius.circular(5)),
+                            decoration:
+                                BoxDecoration(color: XploreColors.deepBlue, borderRadius: BorderRadius.circular(5)),
                             child: IconButton(
                               icon: Icon(
                                 Icons.add,
@@ -171,11 +166,10 @@ class _TransactioncardState extends State<Transactioncard> {
                                 color: XploreColors.white,
                               ),
                               onPressed: () async {
-                                newQtyOrdered = await incrementOrderQty(
-                                    widget.transactionRefId, snapshot.data);
-                                // setState(() {
-                                //   snapshot.data.quantityOrdered = newQtyOrdered;
-                                // });
+                                newQtyOrdered = await incrementOrderQty(widget.transactionRefId, snapshot.data);
+                                setState(() {
+                                  snapshot.data.quantityOrdered = newQtyOrdered;
+                                });
                               },
                             ),
                           ),
