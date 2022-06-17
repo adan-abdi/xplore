@@ -22,6 +22,11 @@ enum TransactionStatus {
   pending,
 }
 
+enum TransactionTabs {
+  cart,
+  receipts,
+}
+
 extension OrderStatusExtension on TransactionStatus {
   String get name {
     switch (this) {

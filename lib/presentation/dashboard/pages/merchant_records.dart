@@ -2,18 +2,22 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:intl/intl.dart';
+import 'package:async_redux/async_redux.dart';
+import 'package:equatable/equatable.dart';
 
 // Project imports:
+import 'package:shamiri/application/redux/actions/dashboard_actions.dart';
+import 'package:shamiri/application/redux/states/app_state.dart';
 import 'package:shamiri/application/singletons/pending_items_store.dart';
 import 'package:shamiri/application/singletons/sliding_tab_status.dart';
+import 'package:shamiri/domain/value_objects/app_enums.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/domain/value_objects/app_strings.dart';
+import 'package:shamiri/domain/value_objects/app_widget_keys.dart';
 import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
 import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_transaction.dart';
-import 'package:shamiri/presentation/core/widgets/xplore_loader.dart';
-import 'package:shamiri/presentation/dashboard/widgets/layout/dashboard_shimmer.dart';
 import 'package:shamiri/presentation/dashboard/widgets/layout/sliding_tab.dart';
-import 'package:shamiri/presentation/dashboard/widgets/molecular/transaction_card.dart';
+import 'package:shamiri/presentation/dashboard/widgets/layout/transaction_tab.dart';
 
 class MerchantRecords extends StatefulWidget {
   final OrdersStore pendingOrdersStore;
@@ -34,171 +38,66 @@ class _MerchantRecordsState extends State<MerchantRecords> {
         TransactionRepository();
     SlidingTabStatusStore transactionTabState = SlidingTabStatusStore();
 
-    return Container(
-        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-        height: MediaQuery.of(context).size.height * 0.7,
-        child: Column(children: <Widget>[
-          vSize10SizedBox,
-          Container(
-            width: double.infinity,
-            child: SlidingTabs(
-              selectedTab: transactionTabState.activeTabState.value,
-              tabs: [
-                SlidingTab(
-                  key: const ValueKey("TransactionOverview_PendingTab"),
-                  title: Text('Cart'),
+    return StoreConnector<AppState, _ViewModel>(
+      converter: (store) => _ViewModel.fromState(store.state),
+      builder: (context, vm) {
+        return Container(
+          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+          height: MediaQuery.of(context).size.height * 0.7,
+          child: Column(
+            children: <Widget>[
+              vSize10SizedBox,
+              Container(
+                width: double.infinity,
+                child: SlidingTabs(
+                  selectedTab: vm.activeTab,
+                  tabs: [
+                    SlidingTab(
+                      key: transactionCartKey,
+                      title: Text(cartText),
+                    ),
+                    SlidingTab(
+                      key: transactionReceiptsKey,
+                      title: Text(receiptsText),
+                    ),
+                  ],
+                  onTabChanged: (v) {
+                    StoreProvider.dispatch(
+                        context, DashboardAction(activeOrderTab: v ?? 0));
+                  },
                 ),
-                SlidingTab(
-                  key: const ValueKey("TransactionOverview_FulfilledTab"),
-                  title: Text('Receipts'),
-                ),
-              ],
-              onTabChanged: (v) {
-                print('Tab changed to $v');
-                setState(() {
-                  transactionTabState.activeTabState.add(v ?? 0);
-                });
-              },
-            ),
-          ),
-          vSize10SizedBox,
-          (transactionTabState.activeTabState.value == 0)
-              ? Expanded(
-                  flex: 1,
-                  child: StreamBuilder<dynamic>(
-                      stream: transactionRepositoryInstance
+              ),
+              vSize10SizedBox,
+              (transactionTabState.activeTabState.value == 0)
+                  ? TransactionTab(
+                      tabType: TransactionTabs.cart,
+                      orderStream: transactionRepositoryInstance
                           .getPendingOrdersStream(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          return Container(
-                              height: MediaQuery.of(context).size.height * 0.7,
-                              child:
-                                  Center(child: Text('Something went wrong')));
-                        } else if (snapshot.hasData &&
-                            snapshot.data != null &&
-                            snapshot.data?.length != 0) {
-                          return Container(
-                            child: ListView.builder(
-                              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                              itemCount: snapshot.data!.length,
-                              itemBuilder: (BuildContext ctx, index) {
-                                String transactionRefId = snapshot
-                                    .data![index].transactionRefId
-                                    .toString();
-                                widget.pendingOrdersStore.pendingItems
-                                    .add([transactionRefId]);
-
-                                List<String>? productRef =
-                                    snapshot.data![index].products;
-
-                                assert(productRef != null);
-
-                                var date = snapshot.data[index].date.toString();
-                                var status =
-                                    snapshot.data[index].status.toString();
-                                var dateParsed =
-                                    DateFormat('yyyy-MM-dd HH:mm').parse(date);
-                                var dateOrdered =
-                                    DateFormat.yMMMd().format(dateParsed);
-
-                                return Transactioncard(
-                                  ref: productRef!.first,
-                                  date: dateOrdered,
-                                  status: status,
-                                  transactionRefId: transactionRefId,
-                                );
-                              },
-                            ),
-                          );
-                        } else if (snapshot.data?.length == 0) {
-                          return Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                XploreLoader(),
-                                vSize10SizedBox,
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 30),
-                                  child: Text(
-                                      'You have no order in your store, kindly add new order to continue',
-                                      textAlign: TextAlign.center),
-                                )
-                              ],
-                            ),
-                          );
-                        }
-                        return DashboardShimmer();
-                      }),
-                )
-              : Expanded(
-                  flex: 1,
-                  child: StreamBuilder<dynamic>(
-                      stream: transactionRepositoryInstance
+                      ordersStore: widget.pendingOrdersStore,
+                    )
+                  : TransactionTab(
+                      tabType: TransactionTabs.receipts,
+                      orderStream: transactionRepositoryInstance
                           .getFulfilledOrdersStream(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          return Container(
-                              height: MediaQuery.of(context).size.height * 0.7,
-                              child:
-                                  Center(child: Text('Something went wrong')));
-                        } else if (snapshot.hasData &&
-                            snapshot.data != null &&
-                            snapshot.data?.length != 0) {
-                          return Container(
-                            child: ListView.builder(
-                              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                              itemCount: snapshot.data!.length,
-                              itemBuilder: (BuildContext ctx, index) {
-                                String transactionRefId = snapshot
-                                    .data![index].transactionRefId
-                                    .toString();
-                                widget.pendingOrdersStore.pendingItems
-                                    .add([transactionRefId]);
-
-                                List<String>? productRef =
-                                    snapshot.data![index].products;
-
-                                assert(productRef != null);
-
-                                var date = snapshot.data[index].date.toString();
-                                var status =
-                                    snapshot.data[index].status.toString();
-                                var dateParsed =
-                                    DateFormat('yyyy-MM-dd HH:mm').parse(date);
-                                var dateOrdered =
-                                    DateFormat.yMMMd().format(dateParsed);
-
-                                return Transactioncard(
-                                  ref: productRef!.first,
-                                  date: dateOrdered,
-                                  status: status,
-                                  transactionRefId: transactionRefId,
-                                );
-                              },
-                            ),
-                          );
-                        } else if (snapshot.data?.length == 0) {
-                          return Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                XploreLoader(),
-                                vSize10SizedBox,
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 30),
-                                  child: Text(
-                                      'You have no order in your store, kindly add new order to continue',
-                                      textAlign: TextAlign.center),
-                                )
-                              ],
-                            ),
-                          );
-                        }
-                        return DashboardShimmer();
-                      }),
-                ),
-        ]));
+                      ordersStore: widget.pendingOrdersStore,
+                    )
+            ],
+          ),
+        );
+      },
+    );
   }
+}
+
+class _ViewModel with EquatableMixin {
+  final int? activeTab;
+
+  _ViewModel.fromState(
+    AppState state,
+  ) : activeTab = state.dashboardState!.activeTransactionTab;
+
+  @override
+  List<Object?> get props => [
+        activeTab,
+      ];
 }

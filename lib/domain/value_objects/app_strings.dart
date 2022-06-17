@@ -42,3 +42,8 @@ const String categoryText = 'Category';
 const String categoryHint = 'Which category best describes this product?';
 const String productAddedSuccess = 'New product added successfully';
 const String productDetailsUpdated = 'Product details updated successfully';
+
+const String emptyOrderTabPromptFirst =
+    'You have no order in your store, kindly add new order to continue';
+const String receiptsText = 'Receipts';
+const String cartText = 'Cart';

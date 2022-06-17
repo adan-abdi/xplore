@@ -21,6 +21,7 @@ dependencies:
   firebase_core: ^1.17.1
   flutter:
     sdk: flutter
+  freezed: ^2.0.3+1
   json_serializable: ^6.2.0
   json_annotation: ^4.5.0
   intl: ^0.17.0
@@ -38,7 +39,6 @@ dev_dependencies:
   built_value_generator: ^8.3.2
   flutter_native_splash: ^2.2.1
   flutter_lints: ^2.0.1
-  freezed: ^2.0.3+1
   freezed_annotation: ^2.0.3
   import_sorter: ^4.6.0
   lint:
