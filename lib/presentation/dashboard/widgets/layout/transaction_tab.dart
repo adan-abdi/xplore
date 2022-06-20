@@ -48,7 +48,7 @@ class _TransactionTabState extends State<TransactionTab> {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext ctx, index) {
                     String transactionRefId =
-                        snapshot.data![index].transactionRefId.toString();
+                        snapshot.data![index].orderRefId.toString();
                     widget.ordersStore.pendingItems.add([transactionRefId]);
 
                     List<String>? productRef = snapshot.data![index].products;

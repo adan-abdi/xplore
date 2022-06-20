@@ -9,14 +9,14 @@ import 'package:shamiri/application/core/services/helpers.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/models/categories/category.dart';
 import 'package:shamiri/domain/models/products/product.dart';
-import 'package:shamiri/domain/models/transactions/transaction.dart';
+import 'package:shamiri/domain/models/transactions/order.dart';
 import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/domain/value_objects/app_constants.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
 import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
-import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_transaction.dart';
+import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_order.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({Key? key, required this.product}) : super(key: key);
@@ -184,9 +184,9 @@ class _ProductCardState extends State<ProductCard> {
 
   Future<void> _addNewTransaction(Order newOrder) async {
     await transactionRepositoryInstance
-        .recordTransaction(newOrder)
+        .recordOrder(newOrder)
         .then((newOrderRef) {
-      transactionRepositoryInstance.updateTransactionRef(newOrderRef.id);
+      transactionRepositoryInstance.updateOrderRef(newOrderRef.id);
     });
   }
 }

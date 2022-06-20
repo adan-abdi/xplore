@@ -19,7 +19,7 @@ List<Widget> diagonalCircles(
         height: diagonalCircleDiameter,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: ringColor1 ?? XploreColors.orange,
+          color: ringColor1 ?? XploreColors.xploreOrange,
         ),
       ),
     ),

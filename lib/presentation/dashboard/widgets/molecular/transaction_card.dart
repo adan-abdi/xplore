@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
-import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_transaction.dart';
+import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_order.dart';
 
 // ignore: must_be_immutable
 class Transactioncard extends StatefulWidget {
@@ -129,9 +129,8 @@ class _TransactioncardState extends State<Transactioncard> {
                             width: 35,
                             height: 35,
                             margin: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: XploreColors.deepBlue,
-                                borderRadius: BorderRadius.circular(5)),
+                            decoration:
+                                BoxDecoration(color: XploreColors.deepBlue, borderRadius: BorderRadius.circular(5)),
                             child: IconButton(
                               icon: Icon(
                                 Icons.remove,
@@ -139,8 +138,7 @@ class _TransactioncardState extends State<Transactioncard> {
                                 color: XploreColors.white,
                               ),
                               onPressed: () async {
-                                newQtyOrdered = await decrementOrderQty(
-                                    widget.transactionRefId, snapshot.data);
+                                newQtyOrdered = await decrementOrderQty(widget.transactionRefId, snapshot.data);
                                 setState(() {
                                   snapshot.data.quantityOrdered = newQtyOrdered;
                                 });
@@ -148,12 +146,10 @@ class _TransactioncardState extends State<Transactioncard> {
                             ),
                           ),
                         CircleAvatar(
-                          backgroundColor:
-                              XploreColors.xploreOrange.withOpacity(.2),
+                          backgroundColor: XploreColors.xploreOrange.withOpacity(.2),
                           child: Text(
                             snapshot.data.quantityOrdered?.toString() ?? '',
-                            style: TextStyle(
-                                fontSize: 14, color: XploreColors.deepBlue),
+                            style: TextStyle(fontSize: 14, color: XploreColors.deepBlue),
                           ),
                         ),
                         if (widget.status == "TransactionStatus.pending")
@@ -161,9 +157,8 @@ class _TransactioncardState extends State<Transactioncard> {
                             width: 35,
                             height: 35,
                             margin: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: XploreColors.deepBlue,
-                                borderRadius: BorderRadius.circular(5)),
+                            decoration:
+                                BoxDecoration(color: XploreColors.deepBlue, borderRadius: BorderRadius.circular(5)),
                             child: IconButton(
                               icon: Icon(
                                 Icons.add,
@@ -171,8 +166,7 @@ class _TransactioncardState extends State<Transactioncard> {
                                 color: XploreColors.white,
                               ),
                               onPressed: () async {
-                                newQtyOrdered = await incrementOrderQty(
-                                    widget.transactionRefId, snapshot.data);
+                                newQtyOrdered = await incrementOrderQty(widget.transactionRefId, snapshot.data);
                                 setState(() {
                                   snapshot.data.quantityOrdered = newQtyOrdered;
                                 });
@@ -206,8 +200,7 @@ class _TransactioncardState extends State<Transactioncard> {
     );
 
     await productRepositoryInstance.updateProduct(newProduct);
-    await transactionRepositoryInstance.updateTransactionQty(
-        transactionRefId: transactionRefId, newQTy: newOrderedQty.toString());
+    await transactionRepositoryInstance.updateorderQty(orderRefId: transactionRefId, newQTy: newOrderedQty.toString());
     return newOrderedQty.toString();
   }
 
@@ -229,8 +222,8 @@ class _TransactioncardState extends State<Transactioncard> {
       );
 
       await productRepositoryInstance.updateProduct(newProduct);
-      await transactionRepositoryInstance.updateTransactionQty(
-          transactionRefId: transactionRefId, newQTy: newOrderedQty.toString());
+      await transactionRepositoryInstance.updateorderQty(
+          orderRefId: transactionRefId, newQTy: newOrderedQty.toString());
 
       return newOrderedQty.toString();
     }
