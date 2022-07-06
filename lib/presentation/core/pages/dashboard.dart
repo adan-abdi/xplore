@@ -1,5 +1,7 @@
 // Flutter imports:
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:shamiri/application/redux/states/app_state.dart';
+import 'package:shamiri/application/redux/states/dashboard_state.dart';
 
 // Project imports:
 import 'package:shamiri/application/singletons/dashboard_current_index.dart';
@@ -30,6 +32,8 @@ class _XploreDashboardState extends State<XploreDashboard> {
 
   @override
   Widget build(BuildContext context) {
+    DashboardState _transactionState(AppState state) => state.dashboardState ?? DashboardState.initial();
+
     return DashboardScaffold(
       tabs: [
         MerchantStore(
@@ -38,6 +42,7 @@ class _XploreDashboardState extends State<XploreDashboard> {
           productRepository: productRepoInstance,
         ),
         MerchantRecords(
+          _transactionState,
           pendingOrdersStore: pendingOrdersStore,
         ),
       ],

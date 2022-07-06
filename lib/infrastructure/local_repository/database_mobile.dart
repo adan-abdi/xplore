@@ -10,10 +10,6 @@ import 'package:shamiri/infrastructure/local_repository/database_base.dart';
 import 'package:shamiri/infrastructure/local_repository/initialize_db.dart';
 import 'package:shamiri/infrastructure/local_repository/sqlite.dart';
 
-// Project imports:
-
-// Project imports:
-
 class XploreDatabaseMobile<T extends DatabaseExecutor>
     implements XploreDatabaseBase<T> {
   XploreDatabaseMobile({this.initializeDB});

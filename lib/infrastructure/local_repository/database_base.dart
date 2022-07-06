@@ -5,8 +5,7 @@ abstract class XploreDatabaseBase<T> {
   Future<T> get database;
 
   /// [saveState] stores the state in the linked [database]
-  Future<void> saveState(
-      {required Map<String, dynamic> data, required Tables table});
+  Future<void> saveState({required Map<String, dynamic> data, required Tables table});
 
   /// [countTableRecords] get how many records belong to specific table as in the
   /// case of SQLite, and key as in the case of local storage
@@ -22,7 +21,7 @@ abstract class XploreDatabaseBase<T> {
 }
 
 /// [Tables] definitions
-enum Tables { userState }
+enum Tables { userState, dashboardState }
 
 /// [TablesEx] extends [Tables] enum to get the values as
 /// strings
@@ -31,6 +30,8 @@ extension TablesEx on Tables {
     switch (this) {
       case Tables.userState:
         return 'userState';
+      case Tables.dashboardState:
+        return 'dashboardState';
     }
   }
 }

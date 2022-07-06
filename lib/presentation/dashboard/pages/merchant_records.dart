@@ -6,6 +6,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shamiri/application/redux/actions/dashboard_actions.dart';
 import 'package:shamiri/application/redux/states/app_state.dart';
+import 'package:shamiri/application/redux/states/dashboard_state.dart';
 import 'package:shamiri/application/singletons/pending_items_store.dart';
 import 'package:shamiri/application/singletons/sliding_tab_status.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
@@ -20,8 +21,13 @@ import 'package:shamiri/presentation/dashboard/widgets/layout/transaction_tab.da
 
 class MerchantRecords extends StatefulWidget {
   final OrdersStore pendingOrdersStore;
+  final DashboardState Function(AppState state) _transactionState;
 
-  MerchantRecords({Key? key, required this.pendingOrdersStore}) : super(key: key);
+  MerchantRecords(
+    this._transactionState, {
+    Key? key,
+    required this.pendingOrdersStore,
+  }) : super(key: key);
 
   @override
   State<MerchantRecords> createState() => _MerchantRecordsState();
@@ -37,9 +43,8 @@ class _MerchantRecordsState extends State<MerchantRecords> {
     ReceiptsRepository receiptsRepositoryInstance = ReceiptsRepository();
 
     return StoreConnector<AppState, _ViewModel>(
-      converter: (store) => _ViewModel.fromState(store.state),
+      converter: (store) => _ViewModel.fromStore(store.state, widget._transactionState(store.state)),
       builder: (context, vm) {
-        bool activeTab = (vm.activeTab == null || vm.activeTab == 0);
         return Container(
           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
           height: MediaQuery.of(context).size.height * 0.7,
@@ -49,22 +54,25 @@ class _MerchantRecordsState extends State<MerchantRecords> {
               Container(
                 width: double.infinity,
                 child: SlidingTabs(
-                  selectedTab: vm.activeTab ?? 0,
-                  tabs: [
-                    SlidingTab(
-                      key: transactionCartKey,
-                      title: Text(cartText),
-                    ),
-                    SlidingTab(
-                      key: transactionReceiptsKey,
-                      title: Text(receiptsText),
-                    ),
-                  ],
-                  onTabChanged: (v) => vm.changeOrderTab(v, context),
-                ),
+                    selectedTab: vm.activeTab,
+                    tabs: [
+                      SlidingTab(
+                        key: transactionCartKey,
+                        title: Text(cartText),
+                      ),
+                      SlidingTab(
+                        key: transactionReceiptsKey,
+                        title: Text(receiptsText),
+                      ),
+                    ],
+                    onTabChanged: (v) {
+                      setState(() {
+                        vm.changeOrderTab(v, context);
+                      });
+                    }),
               ),
               vSize10SizedBox,
-              (activeTab)
+              (vm.activeTab == 0)
                   ? TransactionTab(
                       tabType: TransactionTabs.cart,
                       orderStream: transactionRepositoryInstance.getOrderStream(),
@@ -84,11 +92,12 @@ class _MerchantRecordsState extends State<MerchantRecords> {
 }
 
 class _ViewModel with EquatableMixin {
-  final int? activeTab;
+  final int activeTab;
 
-  _ViewModel.fromState(
+  _ViewModel.fromStore(
     AppState state,
-  ) : activeTab = state.dashboardState?.activeOrderTab;
+    DashboardState dashboardState,
+  ) : activeTab = dashboardState.activeOrderTab;
 
   void changeOrderTab(int? v, context) {
     StoreProvider.dispatch(context, DashboardAction(activeOrderTab: v ?? 0));

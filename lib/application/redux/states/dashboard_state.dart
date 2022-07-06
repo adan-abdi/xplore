@@ -7,8 +7,8 @@ part 'dashboard_state.g.dart';
 @freezed
 class DashboardState with _$DashboardState {
   factory DashboardState({
-    int? activeTransactionTab,
-    int? activeOrderTab,
+    required int activeTransactionTab,
+    required int activeOrderTab,
   }) = _DashboardState;
 
   factory DashboardState.initial() => DashboardState(

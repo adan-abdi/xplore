@@ -8,8 +8,8 @@ part of 'dashboard_state.dart';
 
 _$_DashboardState _$$_DashboardStateFromJson(Map<String, dynamic> json) =>
     _$_DashboardState(
-      activeTransactionTab: json['activeTransactionTab'] as int?,
-      activeOrderTab: json['activeOrderTab'] as int?,
+      activeTransactionTab: json['activeTransactionTab'] as int,
+      activeOrderTab: json['activeOrderTab'] as int,
     );
 
 Map<String, dynamic> _$$_DashboardStateToJson(_$_DashboardState instance) =>

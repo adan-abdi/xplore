@@ -20,8 +20,8 @@ DashboardState _$DashboardStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DashboardState {
-  int? get activeTransactionTab => throw _privateConstructorUsedError;
-  int? get activeOrderTab => throw _privateConstructorUsedError;
+  int get activeTransactionTab => throw _privateConstructorUsedError;
+  int get activeOrderTab => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +34,7 @@ abstract class $DashboardStateCopyWith<$Res> {
   factory $DashboardStateCopyWith(
           DashboardState value, $Res Function(DashboardState) then) =
       _$DashboardStateCopyWithImpl<$Res>;
-  $Res call({int? activeTransactionTab, int? activeOrderTab});
+  $Res call({int activeTransactionTab, int activeOrderTab});
 }
 
 /// @nodoc
@@ -55,11 +55,11 @@ class _$DashboardStateCopyWithImpl<$Res>
       activeTransactionTab: activeTransactionTab == freezed
           ? _value.activeTransactionTab
           : activeTransactionTab // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       activeOrderTab: activeOrderTab == freezed
           ? _value.activeOrderTab
           : activeOrderTab // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
     ));
   }
 }
@@ -71,7 +71,7 @@ abstract class _$$_DashboardStateCopyWith<$Res>
           _$_DashboardState value, $Res Function(_$_DashboardState) then) =
       __$$_DashboardStateCopyWithImpl<$Res>;
   @override
-  $Res call({int? activeTransactionTab, int? activeOrderTab});
+  $Res call({int activeTransactionTab, int activeOrderTab});
 }
 
 /// @nodoc
@@ -94,11 +94,11 @@ class __$$_DashboardStateCopyWithImpl<$Res>
       activeTransactionTab: activeTransactionTab == freezed
           ? _value.activeTransactionTab
           : activeTransactionTab // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       activeOrderTab: activeOrderTab == freezed
           ? _value.activeOrderTab
           : activeOrderTab // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
     ));
   }
 }
@@ -106,15 +106,16 @@ class __$$_DashboardStateCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_DashboardState implements _DashboardState {
-  _$_DashboardState({this.activeTransactionTab, this.activeOrderTab});
+  _$_DashboardState(
+      {required this.activeTransactionTab, required this.activeOrderTab});
 
   factory _$_DashboardState.fromJson(Map<String, dynamic> json) =>
       _$$_DashboardStateFromJson(json);
 
   @override
-  final int? activeTransactionTab;
+  final int activeTransactionTab;
   @override
-  final int? activeOrderTab;
+  final int activeOrderTab;
 
   @override
   String toString() {
@@ -152,16 +153,16 @@ class _$_DashboardState implements _DashboardState {
 
 abstract class _DashboardState implements DashboardState {
   factory _DashboardState(
-      {final int? activeTransactionTab,
-      final int? activeOrderTab}) = _$_DashboardState;
+      {required final int activeTransactionTab,
+      required final int activeOrderTab}) = _$_DashboardState;
 
   factory _DashboardState.fromJson(Map<String, dynamic> json) =
       _$_DashboardState.fromJson;
 
   @override
-  int? get activeTransactionTab => throw _privateConstructorUsedError;
+  int get activeTransactionTab => throw _privateConstructorUsedError;
   @override
-  int? get activeOrderTab => throw _privateConstructorUsedError;
+  int get activeOrderTab => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_DashboardStateCopyWith<_$_DashboardState> get copyWith =>

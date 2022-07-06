@@ -45,6 +45,7 @@ class _TransactioncardState extends State<Transactioncard> {
 
     return FutureBuilder(
         future: _getOrderProducts(widget.ref),
+        initialData: Product(name: '', quantityInStock: '', sellingPrice: '0'),
         builder: (BuildContext ctx, AsyncSnapshot snapshot) {
           var newQtyOrdered = snapshot.data?.quantityOrdered ?? '';
           var transactionAmount = snapshot.data?.sellingPrice;

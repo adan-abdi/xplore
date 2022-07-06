@@ -20,9 +20,9 @@ class DashboardAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     var dashboardState = store.state.dashboardState!.copyWith(
       activeTransactionTab: activeTransactionTab ??
-          store.state.dashboardState?.activeTransactionTab,
+          store.state.dashboardState!.activeTransactionTab,
       activeOrderTab:
-          activeOrderTab ?? store.state.dashboardState?.activeOrderTab,
+          activeOrderTab ?? store.state.dashboardState!.activeOrderTab,
     );
     return state.copyWith(
       dashboardState: dashboardState,

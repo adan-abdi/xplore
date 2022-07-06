@@ -14,7 +14,7 @@ class TransactionRepository {
   dynamic getOrderStream() {
     var pendingOrders;
 
-    pendingOrders = _orderCollection.snapshots();
+    pendingOrders = _orderCollection.where('status', isEqualTo: 'pending').snapshots();
 
     pendingOrders = pendingOrders.map((snapshot) => snapshot.docs.map((e) => Order.fromJson(e.data())).toList());
 
