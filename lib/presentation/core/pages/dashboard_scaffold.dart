@@ -1,4 +1,6 @@
 // Flutter imports:
+import 'package:async_redux/async_redux.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -6,6 +8,9 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/application/redux/actions/dashboard_actions.dart';
+import 'package:shamiri/application/redux/states/app_state.dart';
+import 'package:shamiri/application/redux/states/dashboard_state.dart';
 import 'package:shamiri/application/singletons/dashboard_current_index.dart';
 import 'package:shamiri/application/singletons/pending_items_store.dart';
 import 'package:shamiri/application/singletons/product_listing_status.dart';
@@ -55,82 +60,92 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    int activeTab = widget.dashboardIndexStatusStore.currentIndex.value;
-    String appBarTitle = (activeTab == 0) ? 'Merchant Store' : 'Merchant Records';
+    DashboardState _transactionState(AppState state) => state.dashboardState ?? DashboardState.initial();
 
     return WillPopScope(
       onWillPop: () async => false,
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        resizeToAvoidBottomInset: true,
-        appBar: XploreAppBar(
-          productListingStatus: widget.productListingStatus,
-          searchStatus: widget.searchStatus,
-          leadingIcon: XploreIconCard(
-            icon: Icons.menu,
-            iconOnPress: () {},
-          ),
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          title: appBarTitle,
-          firstAction: XploreIconCard(
-            icon: Icons.qr_code_scanner,
-            iconOnPress: () {
-              ScaffoldMessenger.of(context).showSnackBar(snackbar(
-                content: comingSoonText,
-              ));
-            },
-          ),
-          lastAction: isAppbarExpanded
-              ? XploreIconCard(
-                  icon: Icons.unfold_less,
-                  iconOnPress: () {
-                    ScaffoldMessenger.of(context).showSnackBar(snackbar(
-                      content: comingSoonText,
-                    ));
-                  },
-                )
-              : XploreIconCard(
-                  icon: Icons.unfold_more,
+      child: StoreConnector<AppState, _ViewModel>(
+          converter: (store) => _ViewModel.fromStore(store.state, _transactionState(store.state)),
+          builder: (context, vm) {
+            int activeTab = widget.dashboardIndexStatusStore.currentIndex.value;
+            String appBarTitle = (activeTab == 0) ? 'Merchant Store' : 'Merchant Records';
+
+            return Scaffold(
+              backgroundColor: Colors.white,
+              resizeToAvoidBottomInset: true,
+              appBar: XploreAppBar(
+                productListingStatus: widget.productListingStatus,
+                searchStatus: widget.searchStatus,
+                leadingIcon: XploreIconCard(
+                  icon: Icons.menu,
+                  iconOnPress: () {},
+                ),
+                centerTitle: true,
+                automaticallyImplyLeading: false,
+                title: appBarTitle,
+                firstAction: XploreIconCard(
+                  icon: Icons.qr_code_scanner,
                   iconOnPress: () {
                     ScaffoldMessenger.of(context).showSnackBar(snackbar(
                       content: comingSoonText,
                     ));
                   },
                 ),
-          expanded: isAppbarExpanded,
-        ),
-        body: widget.tabs[widget.dashboardIndexStatusStore.currentIndex.value],
-        floatingActionButton: DashboardTabActionFAB(
-          actionIcon: activeTab == 0 ? Icons.add_circle : Icons.receipt,
-          actionLabel: activeTab == 0 ? addProducts : fulfillAll,
-          onPressed: () async {
-            activeTab == 0
-                ? await Navigator.pushReplacementNamed(context, addProductPageRoute,
-                    arguments: widget.productRepoInstance)
-                : await fulfillAllOrders(widget.pendingOrdersStore.pendingItems.value);
-          },
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        bottomNavigationBar: SalomonBottomBar(
-          currentIndex: widget.dashboardIndexStatusStore.currentIndex.value,
-          onTap: (i) => setState(() => widget.dashboardIndexStatusStore.currentIndex.add(i)),
-          items: [
-            SalomonBottomBarItem(
-              icon: Icon(Icons.storefront),
-              title: Text("Store"),
-              selectedColor: XploreColors.xploreOrange,
-              unselectedColor: XploreColors.deepBlue,
-            ),
-            SalomonBottomBarItem(
-              icon: Icon(Icons.shopping_cart_checkout),
-              title: Text("Transactions"),
-              selectedColor: XploreColors.xploreOrange,
-              unselectedColor: XploreColors.deepBlue,
-            ),
-          ],
-        ),
-      ),
+                lastAction: isAppbarExpanded
+                    ? XploreIconCard(
+                        icon: Icons.unfold_less,
+                        iconOnPress: () {
+                          ScaffoldMessenger.of(context).showSnackBar(snackbar(
+                            content: comingSoonText,
+                          ));
+                        },
+                      )
+                    : XploreIconCard(
+                        icon: Icons.unfold_more,
+                        iconOnPress: () {
+                          ScaffoldMessenger.of(context).showSnackBar(snackbar(
+                            content: comingSoonText,
+                          ));
+                        },
+                      ),
+                expanded: isAppbarExpanded,
+              ),
+              body: widget.tabs[vm.activeTransactionTab],
+              floatingActionButton: DashboardTabActionFAB(
+                actionIcon: vm.activeTransactionTab == 0 ? Icons.add_circle : Icons.receipt,
+                actionLabel: vm.activeTransactionTab == 0 ? addProducts : fulfillAll,
+                onPressed: () async {
+                  vm.activeTransactionTab == 0
+                      ? await Navigator.pushReplacementNamed(context, addProductPageRoute,
+                          arguments: widget.productRepoInstance)
+                      : await fulfillAllOrders(widget.pendingOrdersStore.pendingItems.value);
+                },
+              ),
+              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+              bottomNavigationBar: SalomonBottomBar(
+                currentIndex: vm.activeTransactionTab,
+                onTap: (i) {
+                  setState(() {
+                    vm.changeDashboardTab(i, context);
+                  });
+                },
+                items: [
+                  SalomonBottomBarItem(
+                    icon: Icon(Icons.storefront),
+                    title: Text("Store"),
+                    selectedColor: XploreColors.xploreOrange,
+                    unselectedColor: XploreColors.deepBlue,
+                  ),
+                  SalomonBottomBarItem(
+                    icon: Icon(Icons.shopping_cart_checkout),
+                    title: Text("Transactions"),
+                    selectedColor: XploreColors.xploreOrange,
+                    unselectedColor: XploreColors.deepBlue,
+                  ),
+                ],
+              ),
+            );
+          }),
     );
   }
 
@@ -139,4 +154,22 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
       await widget.transactionRepository.fulfillOrder(pendingItemsRefIdList[i]);
     }
   }
+}
+
+class _ViewModel with EquatableMixin {
+  final int activeTransactionTab;
+
+  _ViewModel.fromStore(
+    AppState state,
+    DashboardState dashboardState,
+  ) : activeTransactionTab = dashboardState.activeTransactionTab;
+
+  void changeDashboardTab(int? v, context) {
+    StoreProvider.dispatch(context, DashboardAction(activeTransactionTab: v ?? 0));
+  }
+
+  @override
+  List<Object?> get props => [
+        activeTransactionTab,
+      ];
 }

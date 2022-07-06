@@ -25,90 +25,50 @@ class TransactionTab extends StatefulWidget {
 class _TransactionTabState extends State<TransactionTab> {
   @override
   Widget build(BuildContext context) {
-    return (widget.tabType == TransactionTabs.cart)
-        ? Expanded(
-            flex: 1,
-            child: StreamBuilder<dynamic>(
-                stream: widget.orderStream,
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Container(
-                        height: MediaQuery.of(context).size.height * 0.7,
-                        child: Center(child: Text('Something went wrong')));
-                  } else if (snapshot.hasData && snapshot.data != null && snapshot.data?.length != 0) {
-                    return Container(
-                      child: ListView.builder(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (BuildContext ctx, index) {
-                          String transactionRefId = snapshot.data![index].orderRefId.toString();
-                          widget.ordersStore.pendingItems.add([transactionRefId]);
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.6,
+      child: Expanded(
+        flex: 1,
+        child: StreamBuilder<dynamic>(
+            stream: widget.orderStream,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Container(
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    child: Center(child: Text('Something went wrong')));
+              } else if (snapshot.hasData && snapshot.data != null && snapshot.data?.length != 0) {
+                return Container(
+                  child: ListView.builder(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext ctx, index) {
+                      String transactionRefId = snapshot.data![index].orderRefId.toString();
+                      widget.ordersStore.pendingItems.add([transactionRefId]);
 
-                          List<String>? productRef = snapshot.data![index].products;
+                      List<String>? productRef = snapshot.data![index].products;
 
-                          assert(productRef != null);
+                      assert(productRef != null);
 
-                          var date = snapshot.data[index].date.toString();
-                          var status = snapshot.data[index].status.toString();
-                          var dateParsed = DateFormat('yyyy-MM-dd HH:mm').parse(date);
-                          var dateOrdered = DateFormat.yMMMd().format(dateParsed);
+                      var date = snapshot.data[index].date.toString();
+                      var status = snapshot.data[index].status.toString();
+                      var dateParsed = DateFormat('yyyy-MM-dd HH:mm').parse(date);
+                      var dateOrdered = DateFormat.yMMMd().format(dateParsed);
 
-                          return Transactioncard(
-                            ref: productRef!.first,
-                            date: dateOrdered,
-                            status: status,
-                            transactionRefId: transactionRefId,
-                          );
-                        },
-                      ),
-                    );
-                  } else if (snapshot.data?.length == 0) {
-                    return EmptyOrder();
-                  }
-                  return DashboardShimmer();
-                }),
-          )
-        : Expanded(
-            flex: 1,
-            child: StreamBuilder<dynamic>(
-                stream: widget.orderStream,
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Container(
-                        height: MediaQuery.of(context).size.height * 0.7,
-                        child: Center(child: Text('Something went wrong')));
-                  } else if (snapshot.hasData && snapshot.data != null && snapshot.data?.length != 0) {
-                    return Container(
-                      child: ListView.builder(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (BuildContext ctx, index) {
-                          String transactionRefId = snapshot.data![index].orderRefId.toString();
-                          widget.ordersStore.pendingItems.add([transactionRefId]);
-
-                          List<String>? productRef = snapshot.data![index].products;
-
-                          assert(productRef != null);
-
-                          var date = snapshot.data[index].date.toString();
-                          var status = snapshot.data[index].status.toString();
-                          var dateParsed = DateFormat('yyyy-MM-dd HH:mm').parse(date);
-                          var dateOrdered = DateFormat.yMMMd().format(dateParsed);
-
-                          return Transactioncard(
-                            ref: productRef!.first,
-                            date: dateOrdered,
-                            status: status,
-                            transactionRefId: transactionRefId,
-                          );
-                        },
-                      ),
-                    );
-                  } else if (snapshot.data?.length == 0) {
-                    return EmptyOrder();
-                  }
-                  return DashboardShimmer();
-                }),
-          );
+                      return Transactioncard(
+                        ref: productRef!.first,
+                        date: dateOrdered,
+                        status: status,
+                        transactionRefId: transactionRefId,
+                      );
+                    },
+                  ),
+                );
+              } else if (snapshot.data?.length == 0) {
+                return EmptyOrder();
+              }
+              return DashboardShimmer();
+            }),
+      ),
+    );
   }
 }
