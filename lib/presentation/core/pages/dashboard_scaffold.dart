@@ -56,7 +56,8 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
   @override
   Widget build(BuildContext context) {
     int activeTab = widget.dashboardIndexStatusStore.currentIndex.value;
-    String appBarTitle = (activeTab == 0) ? 'Merchant Store' : 'Merchant Records';
+    String appBarTitle =
+        (activeTab == 0) ? 'Merchant Store' : 'Merchant Records';
 
     return WillPopScope(
       onWillPop: () async => false,
@@ -106,15 +107,18 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
           actionLabel: activeTab == 0 ? addProducts : fulfillAll,
           onPressed: () async {
             activeTab == 0
-                ? await Navigator.pushReplacementNamed(context, addProductPageRoute,
+                ? await Navigator.pushReplacementNamed(
+                    context, addProductPageRoute,
                     arguments: widget.productRepoInstance)
-                : await fulfillAllOrders(widget.pendingOrdersStore.pendingItems.value);
+                : await fulfillAllOrders(
+                    widget.pendingOrdersStore.pendingItems.value);
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         bottomNavigationBar: SalomonBottomBar(
           currentIndex: widget.dashboardIndexStatusStore.currentIndex.value,
-          onTap: (i) => setState(() => widget.dashboardIndexStatusStore.currentIndex.add(i)),
+          onTap: (i) => setState(
+              () => widget.dashboardIndexStatusStore.currentIndex.add(i)),
           items: [
             SalomonBottomBarItem(
               icon: Icon(Icons.storefront),
@@ -135,7 +139,9 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
   }
 
   Future<void> fulfillAllOrders(List<String> pendingItemsRefIdList) async {
-    for (int i = 0; i < int.parse(pendingItemsRefIdList.length.toString()); i++) {
+    for (int i = 0;
+        i < int.parse(pendingItemsRefIdList.length.toString());
+        i++) {
       await widget.transactionRepository.fulfillOrder(pendingItemsRefIdList[i]);
     }
   }

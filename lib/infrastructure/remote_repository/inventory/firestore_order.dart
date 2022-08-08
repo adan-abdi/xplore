@@ -7,16 +7,19 @@ import 'package:shamiri/infrastructure/remote_repository/users/firebase_auth.dar
 import 'package:shamiri/infrastructure/remote_repository/xplore_firestore.dart';
 
 class TransactionRepository {
-  static final _collectionReference = globalFirestoreInstance.collection("inventory");
+  static final _collectionReference =
+      globalFirestoreInstance.collection("inventory");
   static final _currentUserID = globalFirebaseAuthInstance.currentUser!.uid;
-  static final _orderCollection = _collectionReference.doc(_currentUserID).collection("orders");
+  static final _orderCollection =
+      _collectionReference.doc(_currentUserID).collection("orders");
 
   dynamic getOrderStream() {
     var pendingOrders;
 
     pendingOrders = _orderCollection.snapshots();
 
-    pendingOrders = pendingOrders.map((snapshot) => snapshot.docs.map((e) => Order.fromJson(e.data())).toList());
+    pendingOrders = pendingOrders.map((snapshot) =>
+        snapshot.docs.map((e) => Order.fromJson(e.data())).toList());
 
     return pendingOrders;
   }
