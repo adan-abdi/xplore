@@ -28,8 +28,7 @@ class ReceiptsRepository {
   }
 
   Future<void> updateReceipt(Order order) async {
-    var _updateTransactionDocRef =
-        _transactionCollection.doc(order.orderRefId);
+    var _updateTransactionDocRef = _transactionCollection.doc(order.orderRefId);
 
     await _updateTransactionDocRef.update(order.toJson());
   }

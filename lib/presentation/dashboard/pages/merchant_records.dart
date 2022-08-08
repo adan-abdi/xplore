@@ -21,7 +21,8 @@ import 'package:shamiri/presentation/dashboard/widgets/layout/transaction_tab.da
 class MerchantRecords extends StatefulWidget {
   final OrdersStore pendingOrdersStore;
 
-  MerchantRecords({Key? key, required this.pendingOrdersStore}) : super(key: key);
+  MerchantRecords({Key? key, required this.pendingOrdersStore})
+      : super(key: key);
 
   @override
   State<MerchantRecords> createState() => _MerchantRecordsState();
@@ -33,7 +34,8 @@ class _MerchantRecordsState extends State<MerchantRecords> {
 
   @override
   Widget build(BuildContext context) {
-    TransactionRepository transactionRepositoryInstance = TransactionRepository();
+    TransactionRepository transactionRepositoryInstance =
+        TransactionRepository();
     ReceiptsRepository receiptsRepositoryInstance = ReceiptsRepository();
 
     return StoreConnector<AppState, _ViewModel>(
@@ -67,12 +69,14 @@ class _MerchantRecordsState extends State<MerchantRecords> {
               (activeTab)
                   ? TransactionTab(
                       tabType: TransactionTabs.cart,
-                      orderStream: transactionRepositoryInstance.getOrderStream(),
+                      orderStream:
+                          transactionRepositoryInstance.getOrderStream(),
                       ordersStore: widget.pendingOrdersStore,
                     )
                   : TransactionTab(
                       tabType: TransactionTabs.receipts,
-                      orderStream: receiptsRepositoryInstance.getReceiptsStream(),
+                      orderStream:
+                          receiptsRepositoryInstance.getReceiptsStream(),
                       ordersStore: widget.pendingOrdersStore,
                     )
             ],
