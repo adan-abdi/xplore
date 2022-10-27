@@ -12,8 +12,6 @@ dependencies:
   cloud_firestore: ^3.1.17
   connectivity_plus: ^2.3.0
   cupertino_icons: ^1.0.4
-  design:
-    path: "./design"
   equatable: ^2.0.3
   firebase_analytics: ^9.1.9
   firebase_auth: ^3.3.19
