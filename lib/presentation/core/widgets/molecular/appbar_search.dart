@@ -8,7 +8,7 @@ import 'package:shamiri/application/singletons/search_state.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
 
 // ignore: must_be_immutable
-class AppbarSearch extends StatefulWidget with PreferredSizeWidget {
+class AppbarSearch extends StatefulWidget {
   SearchStatus searchStatus;
   ProductListingStatus productListingStatus;
 

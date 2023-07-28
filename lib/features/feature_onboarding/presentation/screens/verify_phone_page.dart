@@ -18,9 +18,9 @@ import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
 import 'package:shamiri/infrastructure/remote_repository/users/firebase_auth.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
-import 'package:shamiri/presentation/onboarding/widgets/layout/keyboard_scaffold.dart';
-import 'package:shamiri/presentation/onboarding/widgets/molecular/buttons/progressive_button.dart';
-import 'package:shamiri/presentation/onboarding/widgets/molecular/text/login_title.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/components/keyboard_scaffold.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/components/progressive_button.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/components/login_title.dart';
 
 class PhoneVerifyPage extends StatefulWidget {
   const PhoneVerifyPage({

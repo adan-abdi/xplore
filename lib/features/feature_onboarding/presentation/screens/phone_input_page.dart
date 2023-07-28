@@ -13,11 +13,12 @@ import 'package:shamiri/application/singletons/button_status.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/components/phone_input_page_content.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
-import 'package:shamiri/presentation/onboarding/widgets/layout/keyboard_scaffold.dart';
-import 'package:shamiri/presentation/onboarding/widgets/molecular/buttons/progressive_button.dart';
-import 'package:shamiri/presentation/onboarding/widgets/molecular/input/login_phone_field.dart';
-import 'package:shamiri/presentation/onboarding/widgets/molecular/text/login_title.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/components/keyboard_scaffold.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/components/progressive_button.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/components/login_phone_field.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/components/login_title.dart';
 
 class PhoneInputPage extends StatefulWidget {
   const PhoneInputPage({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class PhoneInputPage extends StatefulWidget {
 }
 
 class _PhoneInputPageState extends State<PhoneInputPage> {
-  late GlobalKey<FormState>? _formKey = GlobalKey<FormState>();
+  late GlobalKey<FormState>? _formKey;
   late TextEditingController phoneNumberController;
   final ButtonStatusStore actionButtonState = ButtonStatusStore();
 
@@ -48,6 +49,7 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
 
   @override
   Widget build(BuildContext context) {
+    return PhoneInputPageContent();
     return KeyboardScaffold(
       trailingActionIcon: Icons.admin_panel_settings,
       isSecondary: false,
@@ -65,7 +67,6 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
           child: Form(
             key: _formKey,
             child: PhoneLoginField(
-              btnStore: actionButtonState,
               phoneNumberController: phoneNumberController,
               onChanged: (String v) {
                 setState(() {

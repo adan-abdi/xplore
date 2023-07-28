@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:design/src/molecular/xplore_numeric_keyboard.dart';
+// import 'package:design/src/molecular/xplore_numeric_keyboard.dart';
 
 // Project imports:
 import 'package:shamiri/application/core/services/helpers.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_small_appbar.dart';
-import 'package:shamiri/presentation/onboarding/widgets/layout/circles.dart';
-import 'package:shamiri/presentation/onboarding/widgets/layout/diagonal_circles.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/components/circles.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/components/diagonal_circles.dart';
 
 class KeyboardScaffold extends StatefulWidget {
   final IconData? trailingActionIcon;
@@ -76,28 +76,28 @@ class _KeyboardScaffoldState extends State<KeyboardScaffold> {
                 children: widget.childWidgets,
               ),
             ),
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: widget.trailingWidget ??
-                  XploreNumericKeyboard(
-                    onKeyboardTap: (String text) {
-                      setState(() {
-                        insertText(text, keyController);
-                      });
-                    },
-                    rightIcon: Icon(
-                      Icons.backspace,
-                      color: XploreColors.orange,
-                    ),
-                    rightButtonFn: () {
-                      setState(() {
-                        backspace(keyController);
-                      });
-                    },
-                  ),
-            ),
+            // Positioned(
+            //   left: 0,
+            //   right: 0,
+            //   bottom: 0,
+            //   child: widget.trailingWidget ??
+            //       XploreNumericKeyboard(
+            //         onKeyboardTap: (String text) {
+            //           setState(() {
+            //             insertText(text, keyController);
+            //           });
+            //         },
+            //         rightIcon: Icon(
+            //           Icons.backspace,
+            //           color: XploreColors.orange,
+            //         ),
+            //         rightButtonFn: () {
+            //           setState(() {
+            //             backspace(keyController);
+            //           });
+            //         },
+            //       ),
+            // ),
           ],
         ),
       ),

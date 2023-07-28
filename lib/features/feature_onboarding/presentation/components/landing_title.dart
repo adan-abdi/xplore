@@ -27,7 +27,7 @@ class LandingPageTitle extends StatelessWidget {
                 TextSpan(
                     text: '   & ',
                     style: TextStyle(
-                      color: XploreColors.black,
+                      color: XploreColors.orange,
                       fontSize: andFontSize,
                       fontWeight: FontWeight.normal,
                     )),

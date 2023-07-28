@@ -156,21 +156,21 @@ class _ProductCardState extends State<ProductCard> {
                       );
 
                       productRepositoryInstance.updateProduct(newProduct);
-                      _addNewTransaction(newOrder).whenComplete(() {
-                        setState(() {
-                          ScaffoldMessenger.of(context)
-                            ..hideCurrentSnackBar()
-                            ..showSnackBar(
-                              SnackBar(
-                                content: Text(orderAdded),
-                                duration: const Duration(
-                                    seconds: kShortSnackBarDuration),
-                                action: dismissSnackBar(
-                                    okText, XploreColors.white, context),
-                              ),
-                            );
-                        });
-                      });
+                      // _addNewTransaction(newOrder).whenComplete(() {
+                      //   setState(() {
+                      //     ScaffoldMessenger.of(context)
+                      //       ..hideCurrentSnackBar()
+                      //       ..showSnackBar(
+                      //         SnackBar(
+                      //           content: Text(orderAdded),
+                      //           duration: const Duration(
+                      //               seconds: kShortSnackBarDuration),
+                      //           action: dismissSnackBar(
+                      //               okText, XploreColors.white, context),
+                      //         ),
+                      //       );
+                      //   });
+                      // });
                     },
                   ),
                 ],
@@ -182,11 +182,11 @@ class _ProductCardState extends State<ProductCard> {
     );
   }
 
-  Future<void> _addNewTransaction(Order newOrder) async {
-    await transactionRepositoryInstance
-        .recordOrder(newOrder)
-        .then((newOrderRef) {
-      transactionRepositoryInstance.updateOrderRef(newOrderRef.id);
-    });
-  }
+  // Future<void> _addNewTransaction(Order newOrder) async {
+  //   await transactionRepositoryInstance
+  //       .recordOrder(newOrder)
+  //       .then((newOrderRef) {
+  //     transactionRepositoryInstance.updateOrderRef(newOrderRef.id);
+  //   });
+  // }
 }

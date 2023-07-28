@@ -13,30 +13,30 @@ class TransactionRepository {
   static final _orderCollection =
       _collectionReference.doc(_currentUserID).collection("orders");
 
-  dynamic getOrderStream() {
-    var pendingOrders;
+  // dynamic getOrderStream() {
+  //   var pendingOrders;
+  //
+  //   pendingOrders = _orderCollection.snapshots();
+  //
+  //   pendingOrders = pendingOrders.map((snapshot) =>
+  //       snapshot.docs.map((e) => Order.fromJson(e.data())).toList());
+  //
+  //   return pendingOrders;
+  // }
 
-    pendingOrders = _orderCollection.snapshots();
-
-    pendingOrders = pendingOrders.map((snapshot) =>
-        snapshot.docs.map((e) => Order.fromJson(e.data())).toList());
-
-    return pendingOrders;
-  }
-
-  Future<DocumentReference<Map<String, dynamic>>> recordOrder(Order order) {
-    return _orderCollection.add(order.toJson());
-  }
+  // Future<DocumentReference<Map<String, dynamic>>> recordOrder(Order order) {
+  //   return _orderCollection.add(order.toJson());
+  // }
 
   Future<void> updateOrderRef(String ref) async {
     _orderCollection.doc(ref).update({'orderRefId': ref});
   }
 
-  Future<void> updateorder(Order order) async {
-    var _updateorderDocRef = _orderCollection.doc(order.orderRefId);
-
-    await _updateorderDocRef.update(order.toJson());
-  }
+  // Future<void> updateorder(Order order) async {
+  //   var _updateorderDocRef = _orderCollection.doc(order.orderRefId);
+  //
+  //   await _updateorderDocRef.update(order.toJson());
+  // }
 
   Future<void> deleteorder(String? orderRefId) async {
     await _orderCollection.doc(orderRefId).delete();

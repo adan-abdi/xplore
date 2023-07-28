@@ -9,7 +9,7 @@ import 'package:shamiri/presentation/core/widgets/molecular/appbar_search.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_card.dart';
 
 // ignore: must_be_immutable
-class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
+class XploreAppBar extends StatelessWidget {
   final bool automaticallyImplyLeading;
   final bool isWidgetActive;
   final String title;
@@ -61,12 +61,6 @@ class XploreAppBar extends StatelessWidget with PreferredSizeWidget {
         Container(child: firstAction),
         Container(child: lastAction),
       ],
-      bottom: expanded
-          ? AppbarSearch(
-              searchStatus: searchStatus,
-              productListingStatus: productListingStatus,
-            )
-          : null,
       elevation: elevation,
     );
   }

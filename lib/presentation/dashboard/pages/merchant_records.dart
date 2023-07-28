@@ -70,7 +70,7 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                   ? TransactionTab(
                       tabType: TransactionTabs.cart,
                       orderStream:
-                          transactionRepositoryInstance.getOrderStream(),
+                      receiptsRepositoryInstance.getReceiptsStream(),
                       ordersStore: widget.pendingOrdersStore,
                     )
                   : TransactionTab(

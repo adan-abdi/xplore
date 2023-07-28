@@ -9,6 +9,9 @@ import 'package:rxdart/subjects.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/application/redux/states/app_state.dart';
 import 'package:shamiri/application/singletons/button_status.dart';
+import 'package:get/get.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/components/phone_input_page_content.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/screens/phone_input_page.dart';
 
 class ActionButton extends StatefulWidget {
   final String widgetText;
@@ -64,12 +67,7 @@ class _ActionButtonState extends State<ActionButton> {
                     },
                   ),
                   onPressed: () {
-                    (widget.onTapCallback == null)
-                        ? StoreProvider.dispatch<AppState>(
-                            context,
-                            NavigateAction.pushNamed(widget.nextRoute),
-                          )
-                        : widget.onTapCallback!();
+                    Get.to(() => PhoneInputPageContent());
                   },
                 ),
               );
