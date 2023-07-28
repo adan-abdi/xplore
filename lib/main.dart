@@ -15,6 +15,7 @@ import 'package:get/get.dart';
 
 // Project imports:
 import 'package:shamiri/application/redux/states/app_state.dart';
+import 'package:shamiri/di/controllers_di.dart';
 import 'package:shamiri/di/locator.dart';
 import 'package:shamiri/domain/value_objects/app_global_constants.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/screens/landing_page.dart';
@@ -30,6 +31,7 @@ void main() async {
 
   await Firebase.initializeApp();
   invokeDependencies();
+  initializeControllers();
 
   runApp(MyApp());
 
