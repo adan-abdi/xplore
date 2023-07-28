@@ -7,7 +7,7 @@ class AuthRepositoryImpl implements AuthRepository {
   final auth = locator.get<FirebaseAuth>();
 
   @override
-  void signInWithPhone(
+  Future<void> signInWithPhone(
       {required String phoneNumber,
       required Function(String verificationId) onCodeSent}) async {
     try {
