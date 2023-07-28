@@ -59,7 +59,7 @@ class _PhoneLoginFieldState extends State<PhoneLoginField> {
                   keyboardType: TextInputType.none,
                   decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: '+(254) 700 000 000',
+                      hintText: '+(254) 7 xx xxx xxx',
                       hintStyle:
                           TextStyle(color: XploreColors.deepBlue.withOpacity(.6)),
                       fillColor: XploreColors.white),

@@ -15,6 +15,7 @@ import 'package:get/get.dart';
 
 // Project imports:
 import 'package:shamiri/application/redux/states/app_state.dart';
+import 'package:shamiri/di/locator.dart';
 import 'package:shamiri/domain/value_objects/app_global_constants.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/screens/landing_page.dart';
 import 'package:shamiri/infrastructure/local_repository/database_state_persistor.dart';
@@ -28,6 +29,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
+  invokeDependencies();
 
   runApp(MyApp());
 
