@@ -29,4 +29,25 @@ class AuthRepositoryImpl implements AuthRepository {
       throw Exception(error.code);
     }
   }
+
+  @override
+  Future<void> verifyOtp(
+      {required String verificationId,
+      required String userOtp,
+      required Function(User user) onSuccess}) async {
+    try {
+      //  get login credentials
+      final PhoneAuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: verificationId, smsCode: userOtp);
+
+      final User? user = (await auth.signInWithCredential(credential)).user!;
+
+      if (user != null) {
+        onSuccess(user);
+      }
+
+    } on FirebaseAuthException catch (error) {
+      throw Exception(error);
+    }
+  }
 }
