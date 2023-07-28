@@ -27,7 +27,7 @@ class AppRouterGenerator {
             builder: (_) => PhoneInputPage());
       case verifyPhonePageRoute:
         return MaterialPageRoute<PhoneVerifyPage>(
-            builder: (_) => PhoneVerifyPage());
+            builder: (_) => PhoneVerifyPage(verificationId: "",));
       //
       case dashPageRoute:
         return MaterialPageRoute<XploreDashboard>(

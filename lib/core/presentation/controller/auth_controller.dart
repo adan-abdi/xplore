@@ -8,7 +8,11 @@ class AuthController extends GetxController {
   /// sign in with phone
   Future<void> signInWithPhone(
           {required String phoneNumber,
-          required Function(String verificationId) onCodeSent}) async =>
-      await authUseCases.signInWithPhone
-          .call(phoneNumber: phoneNumber, onCodeSent: onCodeSent);
+          required Function(String verificationId) onCodeSent}) async {
+
+    var formattedPhoneNumber = '+254${phoneNumber.trim()}';
+
+    await authUseCases.signInWithPhone
+          .call(phoneNumber: formattedPhoneNumber, onCodeSent: onCodeSent);
+  }
 }

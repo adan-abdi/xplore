@@ -12,6 +12,7 @@ class AuthRepositoryImpl implements AuthRepository {
       required Function(String verificationId) onCodeSent}) async {
     try {
       await auth.verifyPhoneNumber(
+          phoneNumber: phoneNumber,
           verificationCompleted:
               (PhoneAuthCredential phoneAuthCredential) async {
             //  when verification is complete, sign in

@@ -4,8 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/progressive_button.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/xplore_keyboard.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/screens/verify_phone_page.dart';
 
 import '../../../../application/core/services/helpers.dart';
 import '../../../../application/redux/actions/verify_phone_action.dart';
@@ -26,11 +28,13 @@ class PhoneInputPageContent extends StatefulWidget {
 class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
   late GlobalKey<FormState>? _formKey;
   late TextEditingController phoneNumberController;
+  late AuthController _authController;
 
   @override
   void initState() {
     super.initState();
 
+    _authController = Get.find<AuthController>();
     phoneNumberController = TextEditingController();
     _formKey = GlobalKey<FormState>();
   }
@@ -44,8 +48,8 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
         systemOverlayStyle: SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.dark,
             statusBarColor: XploreColors.white,
-        systemNavigationBarColor: XploreColors.white,
-        systemNavigationBarIconBrightness: Brightness.dark),
+            systemNavigationBarColor: XploreColors.white,
+            systemNavigationBarIconBrightness: Brightness.dark),
         elevation: 0,
         leading: IconButton(
             onPressed: () => Get.back(),
@@ -100,14 +104,22 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                 onPressed: () {
                   if (phoneNumberController.text.length >= 10 &&
                       (phoneNumberController.text.startsWith('+254') ||
-                          phoneNumberController.text.startsWith('07'))) {
-                    phoneLoginProgressInstance.btnStatus.add(ButtonState.loading);
-                    StoreProvider.dispatch<AppState>(
-                      context,
-                      VerifyPhoneAction(
-                          phoneNumber: phoneNumberController.text,
-                          context: context),
-                    );
+                          phoneNumberController.text.startsWith('07') ||
+                          phoneNumberController.text.startsWith('7'))) {
+                    _authController.signInWithPhone(
+                        phoneNumber: phoneNumberController.text,
+                        onCodeSent: (verificationId) {
+                          Get.to(() =>
+                              PhoneVerifyPage(verificationId: verificationId));
+                        });
+
+                    // phoneLoginProgressInstance.btnStatus.add(ButtonState.loading);
+                    // StoreProvider.dispatch<AppState>(
+                    //   context,
+                    //   VerifyPhoneAction(
+                    //       phoneNumber: phoneNumberController.text,
+                    //       context: context),
+                    // );
                   } else {
                     ScaffoldMessenger.of(context)
                       ..hideCurrentSnackBar()
@@ -125,7 +137,10 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
               vSize40SizedBox,
 
               //  keyboard
-              Expanded(child: XploreKeyboard(phoneController: phoneNumberController,))
+              Expanded(
+                  child: XploreKeyboard(
+                phoneController: phoneNumberController,
+              ))
             ],
           ),
         ),
