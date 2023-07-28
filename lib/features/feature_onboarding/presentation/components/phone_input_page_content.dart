@@ -42,8 +42,10 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
       appBar: AppBar(
         backgroundColor: XploreColors.white,
         systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarBrightness: Brightness.light,
-            statusBarColor: XploreColors.white),
+            statusBarIconBrightness: Brightness.dark,
+            statusBarColor: XploreColors.white,
+        systemNavigationBarColor: XploreColors.white,
+        systemNavigationBarIconBrightness: Brightness.dark),
         elevation: 0,
         leading: IconButton(
             onPressed: () => Get.back(),
@@ -72,7 +74,7 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                 title: 'Enter your \n',
               ),
 
-              vSize10SizedBox,
+              vSize40SizedBox,
 
               //  phone number input field
               Form(
@@ -91,7 +93,7 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                 ),
               ),
 
-              vSize10SizedBox,
+              vSize40SizedBox,
 
               //  verify button
               ProgressiveButton(
@@ -120,10 +122,10 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                 progressiveBtnStoreInstance: phoneLoginProgressInstance,
               ),
 
-              vSize10SizedBox,
+              vSize40SizedBox,
 
               //  keyboard
-              Expanded(child: XploreKeyboard())
+              Expanded(child: XploreKeyboard(phoneController: phoneNumberController,))
             ],
           ),
         ),

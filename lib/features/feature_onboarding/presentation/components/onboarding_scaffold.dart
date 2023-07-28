@@ -1,9 +1,12 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Project imports:
 import 'package:shamiri/features/feature_onboarding/presentation/components/circles.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/diagonal_circles.dart';
+
+import '../../../../application/core/themes/colors.dart';
 
 class OnboardingScaffold extends StatelessWidget {
   final Widget childWidgets;
@@ -27,25 +30,32 @@ class OnboardingScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => canPop,
-      child: Scaffold(
-        body: Stack(
-          children: <Widget>[
-            ...circles(context),
-            ...diagonalCircles(context),
-            Positioned(
-              top: 70,
-              left: 0,
-              right: 0,
-              bottom: 30,
-              child: childWidgets,
-            ),
-            Positioned(
-              left: 0,
-              bottom: 0,
-              right: 0,
-              child: trailingWidget,
-            ),
-          ],
+      child: AnnotatedRegion(
+        value: SystemUiOverlayStyle(
+            statusBarIconBrightness: Brightness.dark,
+            statusBarColor: Colors.transparent,
+            systemNavigationBarColor: Colors.transparent,
+            systemNavigationBarIconBrightness: Brightness.dark),
+        child: Scaffold(
+          body: Stack(
+            children: <Widget>[
+              ...circles(context),
+              ...diagonalCircles(context),
+              Positioned(
+                top: 70,
+                left: 0,
+                right: 0,
+                bottom: 30,
+                child: childWidgets,
+              ),
+              Positioned(
+                left: 0,
+                bottom: 0,
+                right: 0,
+                child: trailingWidget,
+              ),
+            ],
+          ),
         ),
       ),
     );

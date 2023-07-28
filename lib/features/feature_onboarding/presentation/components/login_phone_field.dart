@@ -67,7 +67,7 @@ class _PhoneLoginFieldState extends State<PhoneLoginField> {
                   showCursor: true,
                   cursorColor: XploreColors.orange,
                   autofocus: true,
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 20, letterSpacing: 4),
                   onChanged: widget.onChanged!,
                 ),
               ),

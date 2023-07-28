@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 
 class XploreKeyboard extends StatelessWidget {
-  const XploreKeyboard({super.key});
+
+  final TextEditingController phoneController;
+
+  const XploreKeyboard({super.key, required this.phoneController});
 
   @override
   Widget build(BuildContext context) {
@@ -49,16 +52,28 @@ class XploreKeyboard extends StatelessWidget {
           {required String value,
           bool visible = true,
           bool isDeleteIcon = false}) =>
-      Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-              color: visible ? XploreColors.xploreOrange : Colors.transparent,
-              borderRadius: BorderRadius.circular(100)),
-          child: Center(
-            child: isDeleteIcon ? Center(child: Icon(Icons.backspace_rounded, color: XploreColors.black,)) : Text(
-              value,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-          ));
+      InkWell(
+        onTap: (){
+          //  add phone number based on the clicked number
+          if (!isDeleteIcon) {
+            phoneController.text += value;
+            phoneController.selection = TextSelection.collapsed(offset: phoneController.text.length);
+          } else {
+            phoneController.text = phoneController.text.substring(0, phoneController.text.length - 1);
+            phoneController.selection = TextSelection.collapsed(offset: phoneController.text.length);
+          }
+        },
+        borderRadius: BorderRadius.circular(100),
+        child: Ink(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100)),
+            child: Center(
+              child: isDeleteIcon ? Center(child: Icon(Icons.backspace_rounded, color: XploreColors.black,)) : Text(
+                value,
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            )),
+      );
 }
