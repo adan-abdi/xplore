@@ -55,7 +55,10 @@ class _HomePageState extends State<HomePage> {
         ],
         elevation: 0,
       ),
-      body: SafeArea(child: Text("Hello")),
+      body: SafeArea(child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text("Hello"),
+      )),
     );
   }
 }
