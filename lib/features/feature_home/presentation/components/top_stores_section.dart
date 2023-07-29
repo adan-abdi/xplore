@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class TopStoresSection extends StatefulWidget {
@@ -13,6 +14,7 @@ class TopStoresSection extends StatefulWidget {
 class _TopStoresSectionState extends State<TopStoresSection> {
 
   late final CarouselController _carouselController;
+  late final List<>
 
   @override
   void initState() {
@@ -36,16 +38,14 @@ class _TopStoresSectionState extends State<TopStoresSection> {
                   initialPage: 0,
                   enlargeCenterPage: true,
                   enableInfiniteScroll: true,
-                  viewportFraction: 0.9,
+                  viewportFraction: 0.8,
                   scrollPhysics:
                   const BouncingScrollPhysics(),
                   onPageChanged: (index, reason) {
 
                   })),
 
-          const SizedBox(
-            height: 8,
-          ),
+          vSize10SizedBox,
 
           //  carousel indicators
           AnimatedSmoothIndicator(
