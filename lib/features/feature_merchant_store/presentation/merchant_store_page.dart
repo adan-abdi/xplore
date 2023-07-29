@@ -29,12 +29,13 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Column(
-              children: [
-                MyLottie(lottie: xploreLoader),
-                Text("Add Products to see them here.")
-              ],
-            )
+            // Column(
+            //   children: [
+            //     MyLottie(lottie: xploreLoader),
+            //     Text("Add Products to see them here.")
+            //   ],
+            // )
+
           ],
         ),
       ),
