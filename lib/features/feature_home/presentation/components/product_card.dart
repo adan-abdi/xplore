@@ -8,7 +8,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return UnconstrainedBox(
       child: Container(
-        width: 155,
+        width: 150,
         height: 220,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
         child: Column(
@@ -33,14 +33,14 @@ class ProductCard extends StatelessWidget {
 
             //  pricing and add to card
             Expanded(
-                flex: 3,
+                flex: 4,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Nike Airmax"),
+                      Text("Nike Airmax", style: TextStyle(fontSize: 16), maxLines: 1, overflow: TextOverflow.ellipsis,),
                       Text("Ksh. 8000"),
                       Align(
                         alignment: AlignmentDirectional.center,

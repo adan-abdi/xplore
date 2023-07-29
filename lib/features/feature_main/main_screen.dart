@@ -60,66 +60,88 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarIconBrightness: Brightness.dark,
-            statusBarColor: XploreColors.white,
-            systemNavigationBarColor: XploreColors.white,
-            systemNavigationBarIconBrightness: Brightness.dark),
-        backgroundColor: XploreColors.white,
-        title: Text(
-          "Sheilla K.",
-          style:
-              TextStyle(fontWeight: FontWeight.bold, color: XploreColors.black),
-        ),
-        centerTitle: true,
-        leading: HamburgerMenuBtn(
-          onTap: () {
-            //  open drawer
-          },
-        ),
-        actions: [
-          UnconstrainedBox(
-            child: Container(
-              width: 50,
-              height: 50,
-              margin: const EdgeInsets.only(right: 16),
-              decoration: BoxDecoration(
-                  color: Colors.red, borderRadius: BorderRadius.circular(100)),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.asset(
-                  'assets/general/lady.jpg',
-                  width: double.infinity,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
+    return Obx(
+      () => Scaffold(
+        appBar: AppBar(
+          systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarIconBrightness: Brightness.dark,
+              statusBarColor: XploreColors.white,
+              systemNavigationBarColor: XploreColors.white,
+              systemNavigationBarIconBrightness: Brightness.dark),
+          backgroundColor: XploreColors.white,
+          title: Text(
+            _homeController.activeBottomBarIndex.value == 0
+                ? "Sheilla K."
+                : _homeController.activeBottomBarIndex.value == 1
+                    ? "Merchant Store"
+                    : "My Cart",
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: XploreColors.black),
+          ),
+          centerTitle: true,
+          leading: HamburgerMenuBtn(
+            onTap: () {
+              //  open drawer
+            },
+          ),
+          actions: [
+            Obx(
+              () => Visibility(
+                visible: _homeController.activeBottomBarIndex.value == 0,
+                child: UnconstrainedBox(
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    margin: const EdgeInsets.only(right: 16),
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(100)),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.asset(
+                        'assets/general/lady.jpg',
+                        width: double.infinity,
+                        height: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-          )
-        ],
-        elevation: 0,
-      ),
-      body: Obx(
-        () => IndexedStack(
-          children: _pages,
-          index: _homeController.activeBottomBarIndex.value,
+
+            //  MY STORE PAGE
+            Obx(() => Visibility(
+                visible: _homeController.activeBottomBarIndex.value == 1,
+                child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.qr_code_scanner_rounded,
+                      color: XploreColors.deepBlue,
+                    ))))
+          ],
+          elevation: 0,
         ),
-      ),
-      bottomNavigationBar: Container(
-        color: XploreColors.white,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: GNav(
-            tabs: _bottomBarTabs,
-            onTabChange: _homeController.setActiveBottomBarIndex,
-            backgroundColor: XploreColors.white,
-            color: XploreColors.deepBlue,
-            activeColor: XploreColors.xploreOrange,
-            tabBackgroundColor: XploreColors.xploreOrange.withOpacity(0.1),
-            padding: const EdgeInsets.all(16),
-            gap: 8,
+        body: Obx(
+          () => IndexedStack(
+            children: _pages,
+            index: _homeController.activeBottomBarIndex.value,
+          ),
+        ),
+        bottomNavigationBar: Container(
+          color: XploreColors.white,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: GNav(
+              tabs: _bottomBarTabs,
+              onTabChange: _homeController.setActiveBottomBarIndex,
+              backgroundColor: XploreColors.white,
+              color: XploreColors.deepBlue,
+              activeColor: XploreColors.xploreOrange,
+              tabBackgroundColor: XploreColors.xploreOrange.withOpacity(0.1),
+              padding: const EdgeInsets.all(16),
+              gap: 8,
+            ),
           ),
         ),
       ),
