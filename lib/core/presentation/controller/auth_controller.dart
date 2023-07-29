@@ -28,4 +28,8 @@ class AuthController extends GetxController {
           this.user.value = user;
         });
   }
+
+  /// Check if user exists
+  Future<bool> checkUserExists({required String uid}) async =>
+      await authUseCases.checkUserExists.call(uid: uid);
 }
