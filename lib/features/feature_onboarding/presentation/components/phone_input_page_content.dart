@@ -31,6 +31,7 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
   late GlobalKey<FormState>? _formKey;
   late TextEditingController phoneNumberController;
   late AuthController _authController;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -103,7 +104,11 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                       child: SubmitButton(
                           iconData: Icons.send_rounded,
                           text: "Verify",
-                          onTap: () {
+                          isLoading: isLoading,
+                          onTap: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
                             if (phoneNumberController.text.length >= 10 &&
                                 (phoneNumberController.text.startsWith(
                                     '+254') ||
@@ -111,14 +116,21 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                                         '07') ||
                                     phoneNumberController.text.startsWith(
                                         '7'))) {
-                              _authController.signInWithPhone(
+                              await _authController.signInWithPhone(
                                   phoneNumber: phoneNumberController.text,
                                   onCodeSent: (verificationId) {
                                     Get.to(() =>
                                         PhoneVerifyPage(
                                             verificationId: verificationId));
                                   });
+
+                              setState(() {
+                                isLoading = false;
+                              });
                             } else {
+                              setState(() {
+                                isLoading = false;
+                              });
                               WidgetsBinding.instance.addPostFrameCallback((_) {
                                 showSnackbar(title: "Invalid Phone Number",
                                     message: 'Please enter a valid phone number',
