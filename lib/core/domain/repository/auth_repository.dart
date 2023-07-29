@@ -14,4 +14,5 @@ abstract class AuthRepository {
 
   /// Check if User Exists
   Future<bool> checkUserExists({required String uid});
+
 }
