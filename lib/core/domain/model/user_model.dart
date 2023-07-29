@@ -31,7 +31,7 @@ extension UserModelExtensions on UserModel {
   Map<String, dynamic> toMap() => {
         'userId': userId,
         'userName': userName,
-        'userProfilePicUr': userProfilePicUrl,
+        'userProfilePicUrl': userProfilePicUrl,
         'userEmail': userEmail,
         'userPhoneNumber': userPhoneNumber,
         'createdAt': createdAt

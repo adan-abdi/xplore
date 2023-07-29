@@ -69,7 +69,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => _authController.user.value == null
+      () {
+        return _authController.user.value == null
           ? Container(
               width: double.infinity,
               height: double.infinity,
@@ -90,7 +91,7 @@ class _MainScreenState extends State<MainScreen> {
                 backgroundColor: XploreColors.white,
                 title: Text(
                   _homeController.activeBottomBarIndex.value == 0
-                      ? "Sheilla K."
+                      ? _authController.user.value!.userName!
                       : _homeController.activeBottomBarIndex.value == 1
                           ? "Merchant Store"
                           : "My Cart",
@@ -117,8 +118,8 @@ class _MainScreenState extends State<MainScreen> {
                               borderRadius: BorderRadius.circular(100)),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(100),
-                            child: Image.asset(
-                              'assets/general/lady.jpg',
+                            child: Image.network(
+                              _authController.user.value!.userProfilePicUrl!,
                               width: double.infinity,
                               height: double.infinity,
                               fit: BoxFit.cover,
@@ -165,7 +166,8 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
               ),
-            ),
+            );
+      },
     );
   }
 }
