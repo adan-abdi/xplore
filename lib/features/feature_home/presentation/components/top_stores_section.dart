@@ -30,17 +30,21 @@ class _TopStoresSectionState extends State<TopStoresSection> {
     return SliverToBoxAdapter(
       child: Column(
         children: [
+          Text("Top Stores", style: TextStyle(fontSize: 24),),
+
+          vSize20SizedBox,
+
           //  top stores carousel
           CarouselSlider.builder(
               itemCount: 3,
               itemBuilder: (context, index, realIndex) => TopStoreCard(),
               carouselController: _carouselController,
               options: CarouselOptions(
-                  height: 200,
+                  height: 150,
                   initialPage: 0,
-                  enlargeCenterPage: true,
+                  enlargeCenterPage: false,
                   enableInfiniteScroll: true,
-                  viewportFraction: 0.8,
+                  viewportFraction: 0.85,
                   scrollPhysics: const BouncingScrollPhysics(),
                   onPageChanged: (index, reason) {})),
 

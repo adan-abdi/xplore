@@ -10,6 +10,7 @@ class TopStoreCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
           color: XploreColors.xploreOrange.withOpacity(0.1),
           borderRadius: BorderRadius.circular(16)),

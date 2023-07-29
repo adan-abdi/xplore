@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/presentation/components/hamburger.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/features/feature_home/presentation/components/all_products_section.dart';
 import 'package:shamiri/features/feature_home/presentation/components/top_stores_section.dart';
 
 import '../../../core/presentation/components/custom_textfield.dart';
@@ -45,8 +46,14 @@ class _HomePageState extends State<HomePage> {
                   ),
 
                   SliverToBoxAdapter(child: vSize30SizedBox),
+
                   //  top stores section
-                  TopStoresSection()
+                  TopStoresSection(),
+
+                  SliverToBoxAdapter(child: vSize30SizedBox),
+
+                  //  all products toggle pill buttons
+                  AllProductsSection()
                 ],
               ))),
     );
