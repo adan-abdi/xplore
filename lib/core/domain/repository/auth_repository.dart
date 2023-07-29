@@ -22,7 +22,7 @@ abstract class AuthRepository {
   /// Save User to Firestore
   Future<void> saveUserDataToFirestore(
       {required UserModel userModel,
-      required File userProfilePic,
+      required File? userProfilePic,
       required Function onSuccess});
 
   Future<String> storeFileToFirebaseStorage(
