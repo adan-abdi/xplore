@@ -44,4 +44,9 @@ class AuthController extends GetxController {
           userModel: userModel,
           userProfilePic: userProfilePic,
           onSuccess: onSuccess);
+
+  /// Get User Data from Firestore
+  Future<void> getUserDataFromFirestore(
+          {required Function(UserModel user) onSuccess}) async =>
+      await authUseCases.getUserDataFromFirestore.call(onSuccess: onSuccess);
 }
