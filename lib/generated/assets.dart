@@ -38,6 +38,7 @@ class Assets {
   static const String appIconPlaystore = 'assets/appIcon/playstore.png';
   static const String assetsAppIconPlaystore = 'assets/appIcon/playstore.png';
   static const String assetsGeneralXploreLoader = 'assets/general/xplore_loader.json';
+  static const String generalLoading = 'assets/general/loading.json';
   static const String generalLogo = 'assets/general/logo.svg';
   static const String generalProfile = 'assets/general/profile.svg';
   static const String generalSupaloaf = 'assets/general/supaloaf.jpg';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
 
 void showSnackbar(
         {required String title,
@@ -10,15 +11,15 @@ void showSnackbar(
       titleText: Text(
         title,
         style: TextStyle(
-            fontWeight: Theme.of(Get.context!).textTheme.bodyMedium?.fontWeight,
-            fontSize: Theme.of(Get.context!).textTheme.bodyMedium?.fontSize,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
             color: Colors.white),
       ),
       messageText: Text(
         message,
         style: TextStyle(
-            fontWeight: Theme.of(Get.context!).textTheme.bodySmall?.fontWeight,
-            fontSize: Theme.of(Get.context!).textTheme.bodySmall?.fontSize,
+            fontWeight: FontWeight.normal,
+            fontSize: 16,
             color: Colors.white),
       ),
       icon: Icon(
@@ -26,6 +27,7 @@ void showSnackbar(
         size: 16,
         color: iconColor,
       ),
+      backgroundColor: XploreColors.deepBlue,
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
       duration: const Duration(seconds: 3),

@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/core/presentation/components/show_snackbar.dart';
+import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/progressive_button.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/xplore_keyboard.dart';
@@ -68,71 +70,74 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ...titles(
-                context: context,
-                extraHeading:
-                    'We will send you a confirmation code to verify you.',
-                subtitle: 'mobile number',
-                title: 'Enter your \n',
-              ),
+              Expanded(
+                flex: 5,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ...titles(
+                      context: context,
+                      extraHeading:
+                      'We will send you a confirmation code to verify you.',
+                      subtitle: 'mobile number',
+                      title: 'Enter your \n',
+                    ),
 
-              vSize40SizedBox,
+                    vSize40SizedBox,
 
-              //  phone number input field
-              Form(
-                key: _formKey,
-                child: PhoneLoginField(
-                  phoneNumberController: phoneNumberController,
-                  onChanged: (String v) {},
+                    //  phone number input field
+                    Form(
+                      key: _formKey,
+                      child: PhoneLoginField(
+                        phoneNumberController: phoneNumberController,
+                        onChanged: (String v) {},
+                      ),
+                    ),
+
+                    vSize40SizedBox,
+
+                    //  verify button
+                    Align(
+                      alignment: AlignmentDirectional.center,
+                      child: SubmitButton(
+                          iconData: Icons.send_rounded,
+                          text: "Verify",
+                          onTap: () {
+                            if (phoneNumberController.text.length >= 10 &&
+                                (phoneNumberController.text.startsWith(
+                                    '+254') ||
+                                    phoneNumberController.text.startsWith(
+                                        '07') ||
+                                    phoneNumberController.text.startsWith(
+                                        '7'))) {
+                              _authController.signInWithPhone(
+                                  phoneNumber: phoneNumberController.text,
+                                  onCodeSent: (verificationId) {
+                                    Get.to(() =>
+                                        PhoneVerifyPage(
+                                            verificationId: verificationId));
+                                  });
+                            } else {
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                showSnackbar(title: "Invalid Phone Number",
+                                    message: 'Please enter a valid phone number',
+                                    iconData: Icons.phone_rounded,
+                                    iconColor: XploreColors.lightOrange);
+                              });
+                            }
+                          }),
+                    ),
+                  ],
                 ),
               ),
 
-              vSize40SizedBox,
-
-              //  verify button
-              ProgressiveButton(
-                onPressed: () {
-                  if (phoneNumberController.text.length >= 10 &&
-                      (phoneNumberController.text.startsWith('+254') ||
-                          phoneNumberController.text.startsWith('07') ||
-                          phoneNumberController.text.startsWith('7'))) {
-                    _authController.signInWithPhone(
-                        phoneNumber: phoneNumberController.text,
-                        onCodeSent: (verificationId) {
-                          Get.to(() =>
-                              PhoneVerifyPage(verificationId: verificationId));
-                        });
-
-                    // phoneLoginProgressInstance.btnStatus.add(ButtonState.loading);
-                    // StoreProvider.dispatch<AppState>(
-                    //   context,
-                    //   VerifyPhoneAction(
-                    //       phoneNumber: phoneNumberController.text,
-                    //       context: context),
-                    // );
-                  } else {
-                    ScaffoldMessenger.of(context)
-                      ..hideCurrentSnackBar()
-                      ..showSnackBar(
-                        snackbar(
-                          content: invalidPhoneNumberPrompt,
-                          label: okText,
-                        ),
-                      );
-                  }
-                },
-                progressiveBtnStoreInstance: phoneLoginProgressInstance,
-              ),
-
-              vSize40SizedBox,
-
               //  keyboard
               Expanded(
+                  flex: 4,
                   child: XploreKeyboard(
-                phoneController: phoneNumberController,
-              ))
+                    phoneController: phoneNumberController,
+                  ))
             ],
           ),
         ),
