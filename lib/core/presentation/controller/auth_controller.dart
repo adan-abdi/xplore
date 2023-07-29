@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/core/domain/use_cases/auth_use_cases.dart';
 import 'package:shamiri/di/locator.dart';
+
+import '../../domain/model/user_model.dart';
 
 class AuthController extends GetxController {
   final authUseCases = locator.get<AuthUseCases>();
@@ -30,4 +34,14 @@ class AuthController extends GetxController {
   /// Check if user exists
   Future<bool> checkUserExists({required String uid}) async =>
       await authUseCases.checkUserExists.call(uid: uid);
+
+  /// Save User Data to Firestore
+  Future<void> saveUserDataToFirestore(
+          {required UserModel userModel,
+          required File? userProfilePic,
+          required Function onSuccess}) async =>
+      await authUseCases.saveUserDataToFirestore.call(
+          userModel: userModel,
+          userProfilePic: userProfilePic,
+          onSuccess: onSuccess);
 }

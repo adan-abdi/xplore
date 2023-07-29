@@ -12,21 +12,24 @@ class SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UnconstrainedBox(
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-        decoration: BoxDecoration(
-          color: XploreColors.deepBlue,
-          borderRadius: BorderRadius.circular(8)
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(iconData, color: XploreColors.white,),
-            hSize20SizedBox,
-            Text(text, style: TextStyle(fontSize: 20, color: XploreColors.white, fontWeight: FontWeight.bold),)
-          ],
+    return GestureDetector(
+      onTap: onTap,
+      child: UnconstrainedBox(
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+          decoration: BoxDecoration(
+            color: XploreColors.deepBlue,
+            borderRadius: BorderRadius.circular(8)
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(iconData, color: XploreColors.white,),
+              hSize20SizedBox,
+              Text(text, style: TextStyle(fontSize: 20, color: XploreColors.white, fontWeight: FontWeight.bold),)
+            ],
+          ),
         ),
       ),
     );

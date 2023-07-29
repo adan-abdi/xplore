@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
+import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/presentation/controller/core_controller.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,6 +25,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
   late final TextEditingController _userNameController;
   late final TextEditingController _emailController;
   late final CoreController _coreController;
+  late final AuthController _authController;
 
   @override
   void initState() {
@@ -31,6 +34,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
     _userNameController = TextEditingController();
     _emailController = TextEditingController();
     _coreController = Get.find<CoreController>();
+    _authController = Get.find<AuthController>();
   }
 
   @override
@@ -112,7 +116,21 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                       child: SubmitButton(
                           iconData: Icons.done_rounded,
                           text: "Submit",
-                          onTap: () {}))
+                          onTap: () async {
+                            await _authController.saveUserDataToFirestore(
+                                userModel: UserModel(
+                                    userId: "",
+                                    userName: _userNameController.text,
+                                    userProfilePicUrl: "",
+                                    userEmail: _emailController.text,
+                                    userPhoneNumber: "",
+                                    createdAt: ""),
+                                userProfilePic:
+                                    _coreController.userProfilePic.value,
+                                onSuccess: () {
+                                  print("-----------YEEEEEEEYYY!!");
+                                });
+                          }))
                 ],
               ),
             ),
