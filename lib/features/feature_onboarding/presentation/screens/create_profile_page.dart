@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -16,12 +17,14 @@ class CreateProfilePage extends StatefulWidget {
 
 class _CreateProfilePageState extends State<CreateProfilePage> {
   late final TextEditingController _userNameController;
+  late final TextEditingController _emailController;
 
   @override
   void initState() {
     super.initState();
 
     _userNameController = TextEditingController();
+    _emailController = TextEditingController();
   }
 
   @override
@@ -33,44 +36,60 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
           padding: const EdgeInsets.all(16.0),
           child: Container(
             width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ...titles(
-                  context: context,
-                  extraHeading: "Let's create your new profile!",
-                  subtitle: 'Create Profile',
-                  title: 'Welcome! \n',
-                ),
-                vSize40SizedBox,
-                Align(
-                  alignment: AlignmentDirectional.center,
-                  child: Container(
-                    width: 150,
-                    height: 150,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(200),
-                      color: XploreColors.deepBlue,
-                    ),
-                    child: SvgPicture.asset(
-                      "assets/general/profile.svg",
-                      width: 60,
-                      height: 60,
-                      fit: BoxFit.cover,
-                      colorFilter:
-                          ColorFilter.mode(XploreColors.white, BlendMode.srcIn),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ...titles(
+                    context: context,
+                    extraHeading: "Let's create your new profile!",
+                    subtitle: 'Create Profile',
+                    title: 'Welcome! \n',
+                  ),
+                  vSize40SizedBox,
+                  Align(
+                    alignment: AlignmentDirectional.center,
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(200),
+                        color: XploreColors.deepBlue,
+                      ),
+                      child: SvgPicture.asset(
+                        "assets/general/profile.svg",
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.cover,
+                        colorFilter:
+                            ColorFilter.mode(XploreColors.white, BlendMode.srcIn),
+                      ),
                     ),
                   ),
-                ),
-                vSize40SizedBox,
-                CustomTextField(
-                    hint: "Full Name",
-                    iconData: Icons.person_rounded,
-                    textStyle: TextStyle(fontSize: 18),
-                    controller: _userNameController,
-                    onChanged: (value){})
-              ],
+                  vSize40SizedBox,
+                  CustomTextField(
+                      hint: "Full Name",
+                      iconData: Icons.person_rounded,
+                      textStyle: TextStyle(fontSize: 18),
+                      controller: _userNameController,
+                      onChanged: (value) {}),
+                  vSize30SizedBox,
+                  CustomTextField(
+                      hint: "Email Address",
+                      iconData: Icons.email_rounded,
+                      textStyle: TextStyle(fontSize: 18),
+                      controller: _emailController,
+                      onChanged: (value) {}),
+                  vSize40SizedBox,
+                  Align(
+                      alignment: AlignmentDirectional.center,
+                      child: SubmitButton(
+                          iconData: Icons.done_rounded,
+                          text: "Submit",
+                          onTap: () {}))
+                ],
+              ),
             ),
           ),
         ),

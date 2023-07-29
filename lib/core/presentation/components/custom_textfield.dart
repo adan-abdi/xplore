@@ -7,6 +7,8 @@ class CustomTextField extends StatelessWidget {
   final IconData iconData;
   final TextStyle textStyle;
   final int? maxLines;
+  final bool isObscured;
+  final bool isEnabled;
   final TextEditingController controller;
   final Function(String text) onChanged;
 
@@ -16,6 +18,8 @@ class CustomTextField extends StatelessWidget {
       required this.iconData,
       required this.textStyle,
       this.maxLines = 1,
+      this.isObscured = false,
+      this.isEnabled = true,
       required this.controller,
       required this.onChanged});
 
@@ -24,21 +28,23 @@ class CustomTextField extends StatelessWidget {
     return TextField(
       autofocus: false,
       controller: controller,
+      enabled: isEnabled,
+      obscureText: isObscured,
       keyboardType: TextInputType.text,
       maxLines: maxLines,
       textInputAction: TextInputAction.done,
-      style: Theme.of(context).textTheme.bodyLarge,
-      cursorColor: Theme.of(context).primaryColor,
+      style: TextStyle(fontSize: 18, color: XploreColors.black),
+      cursorColor: XploreColors.deepBlue,
       decoration: InputDecoration(
           hintText: hint,
           hintStyle: textStyle,
           icon: Icon(
             iconData,
-            color: Theme.of(context).primaryColor,
+            color: XploreColors.xploreOrange,
           ),
           contentPadding: const EdgeInsets.all(16),
           filled: true,
-          fillColor: XploreColors.xploreOrange.withOpacity(0.3),
+          fillColor: XploreColors.deepBlue.withOpacity(0.1),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
               borderSide: BorderSide.none)),
