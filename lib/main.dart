@@ -19,6 +19,7 @@ import 'package:shamiri/di/controllers_di.dart';
 import 'package:shamiri/di/locator.dart';
 import 'package:shamiri/domain/value_objects/app_global_constants.dart';
 import 'package:shamiri/features/feature_home/presentation/home_page.dart';
+import 'package:shamiri/features/feature_main/main_screen.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/screens/landing_page.dart';
 import 'package:shamiri/infrastructure/local_repository/database_state_persistor.dart';
 import 'package:shamiri/presentation/core/pages/dashboard.dart';
@@ -58,7 +59,7 @@ class _MyAppState extends State<MyApp> {
     FlutterNativeSplash.remove();
 
     return GetMaterialApp(
-      home: HomePage(),
+      home: MainScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
