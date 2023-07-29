@@ -20,13 +20,11 @@ class AuthController extends GetxController {
 
   /// Verify Otp
   Future<void> verifyOtp(
-      {required String verificationId, required String userOtp}) async {
+      {required String verificationId,
+      required String userOtp,
+      required Function(User user) onSuccess}) async {
     await authUseCases.verifyOtp.call(
-        verificationId: verificationId,
-        userOtp: userOtp,
-        onSuccess: (user) {
-          this.user.value = user;
-        });
+        verificationId: verificationId, userOtp: userOtp, onSuccess: onSuccess);
   }
 
   /// Check if user exists

@@ -105,7 +105,18 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                 onCompleted: (otp) {
                   _authController.verifyOtp(
-                      verificationId: widget.verificationId, userOtp: otp);
+                      verificationId: widget.verificationId,
+                      userOtp: otp,
+                      onSuccess: (user) async {
+                        //  check whether user exists in the database
+                        await _authController.checkUserExists(uid: user.uid).then((exists) {
+                          if (exists) {
+                            //  existing user go to home page
+                          } else {
+                            //  new user go to info page
+                          }
+                        });
+                      });
                 },
                 onSubmitted: (value) {
                   setState(() {

@@ -58,13 +58,7 @@ class AuthRepositoryImpl implements AuthRepository {
     final DocumentSnapshot snapshot =
         await firestore.collection(Constants.USER_COLLECTION).doc(uid).get();
 
-    if (snapshot.exists) {
-      print("-----------USER EXISTS!");
-      return true;
-    } else {
-      print("-----------NEW USER!");
-      return false;
-    }
+    return snapshot.exists ? true : false;
   }
 }
 
