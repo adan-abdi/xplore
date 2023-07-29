@@ -25,5 +25,6 @@ abstract class AuthRepository {
       required File userProfilePic,
       required Function onSuccess});
 
-  Future<String> storeFileToFirebaseStorage({required String ref, required File file});
+  Future<String> storeFileToFirebaseStorage(
+      {required String ref, required File file});
 }

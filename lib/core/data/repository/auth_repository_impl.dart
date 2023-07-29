@@ -71,18 +71,35 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> saveUserDataToFirestore(
       {required UserModel userModel,
       required File userProfilePic,
-      required Function onSuccess}) {
+      required Function onSuccess}) async {
     try {
-
       //  upload image to firebase storage
+      await storeFileToFirebaseStorage(
+              ref: 'profilePics/${uid}', file: userProfilePic)
+          .then((downloadUrl) {
+        userModel.userProfilePicUrl = downloadUrl;
+        userModel.createdAt = DateTime.now().toString();
+        userModel.userPhoneNumber = auth.currentUser!.phoneNumber;
+        userModel.userId = auth.currentUser!.uid;
+      });
+
+      await firestore
+          .collection(Constants.USER_COLLECTION)
+          .doc(auth.currentUser!.uid)
+          .set(userModel.toMap()).then((value) => onSuccess());
+
     } on FirebaseAuthException catch (error) {
       throw Exception(error);
     }
   }
 
   @override
-  Future<String> storeFileToFirebaseStorage({required String ref, required File file}) async {
-    // TODO: implement storeFileToFirebaseStorage
-    throw UnimplementedError();
+  Future<String> storeFileToFirebaseStorage(
+      {required String ref, required File file}) async {
+    final UploadTask uploadTask = storage.ref().child(ref).putFile(file);
+    final TaskSnapshot taskSnapshot = await uploadTask;
+
+    final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+    return downloadUrl;
   }
 }

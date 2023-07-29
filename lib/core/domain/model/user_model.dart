@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  final String? userId;
+  String? userId;
   final String? userName;
-  final String? userProfilePicUrl;
+  String? userProfilePicUrl;
   final String? userEmail;
-  final String? userPhoneNumber;
-  final Timestamp? createdAt;
+  String? userPhoneNumber;
+  String? createdAt;
 
   UserModel(
       {this.userId,
