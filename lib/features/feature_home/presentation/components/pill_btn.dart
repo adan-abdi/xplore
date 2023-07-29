@@ -21,7 +21,7 @@ class PillBtn extends StatelessWidget {
             borderRadius: BorderRadius.circular(100)
           ),
           child: Center(child: Text(text, style: TextStyle(
-            fontSize: 18,
+            fontSize: 14,
             color: isActive ? XploreColors.white : XploreColors.black
           ),)),
         ),
