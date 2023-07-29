@@ -6,7 +6,7 @@ class UserModel {
   final String? userProfilePicUrl;
   final String? userEmail;
   final String? userPhoneNumber;
-  final Timestamp? timestamp;
+  final Timestamp? createdAt;
 
   UserModel(
       {this.userId,
@@ -14,7 +14,7 @@ class UserModel {
       this.userProfilePicUrl,
       this.userEmail,
       this.userPhoneNumber,
-      this.timestamp});
+      this.createdAt});
 
   //  From Map
   factory UserModel.fromMap(Map<String, dynamic> map) => UserModel(
@@ -23,7 +23,7 @@ class UserModel {
       userProfilePicUrl: map['userProfilePicUrl'] ?? '',
       userEmail: map['userEmail'] ?? '',
       userPhoneNumber: map['userPhoneNumber'] ?? '',
-      timestamp: map['timestamp'] ?? '');
+      createdAt: map['createdAt'] ?? '');
 }
 
 extension UserModelExtensions on UserModel {
@@ -34,6 +34,6 @@ extension UserModelExtensions on UserModel {
         'userProfilePicUr': userProfilePicUrl,
         'userEmail': userEmail,
         'userPhoneNumber': userPhoneNumber,
-        'timestamp': timestamp
+        'createdAt': createdAt
       };
 }
