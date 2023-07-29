@@ -1,8 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/core/domain/model/product_model.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/features/feature_home/presentation/components/top_store_card.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../../../../core/domain/model/store_model.dart';
 
 class TopStoresSection extends StatefulWidget {
   const TopStoresSection({super.key});
@@ -12,9 +16,7 @@ class TopStoresSection extends StatefulWidget {
 }
 
 class _TopStoresSectionState extends State<TopStoresSection> {
-
   late final CarouselController _carouselController;
-  late final List<>
 
   @override
   void initState() {
@@ -31,7 +33,7 @@ class _TopStoresSectionState extends State<TopStoresSection> {
           //  top stores carousel
           CarouselSlider.builder(
               itemCount: 3,
-              itemBuilder: (context, index, realIndex) => Container(color: Colors.red,),
+              itemBuilder: (context, index, realIndex) => TopStoreCard(),
               carouselController: _carouselController,
               options: CarouselOptions(
                   height: 200,
@@ -39,11 +41,8 @@ class _TopStoresSectionState extends State<TopStoresSection> {
                   enlargeCenterPage: true,
                   enableInfiniteScroll: true,
                   viewportFraction: 0.8,
-                  scrollPhysics:
-                  const BouncingScrollPhysics(),
-                  onPageChanged: (index, reason) {
-
-                  })),
+                  scrollPhysics: const BouncingScrollPhysics(),
+                  onPageChanged: (index, reason) {})),
 
           vSize10SizedBox,
 
