@@ -18,8 +18,12 @@ import 'package:shamiri/application/redux/states/app_state.dart';
 import 'package:shamiri/di/controllers_di.dart';
 import 'package:shamiri/di/locator.dart';
 import 'package:shamiri/domain/value_objects/app_global_constants.dart';
+import 'package:shamiri/features/feature_home/presentation/home_page.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/screens/landing_page.dart';
 import 'package:shamiri/infrastructure/local_repository/database_state_persistor.dart';
+import 'package:shamiri/presentation/core/pages/dashboard.dart';
+import 'package:shamiri/presentation/core/pages/dashboard_scaffold.dart';
+import 'package:shamiri/presentation/core/pages/user_profile_page.dart';
 import 'package:shamiri/presentation/core/widgets/unrecoverable_error_widget.dart';
 import 'package:shamiri/xplore_app.dart';
 
@@ -34,46 +38,6 @@ void main() async {
   initializeControllers();
 
   runApp(MyApp());
-
-  // await runZonedGuarded<Future<void>>(() async {
-  //   NavigateAction.setNavigatorKey(globalAppNavigatorKey);
-  //
-  //   final XploreStateDatabase stateDB =
-  //       XploreStateDatabase(dataBaseName: xploreDBName);
-  //
-  //   await stateDB.init();
-  //
-  //   final AppState initialState = await stateDB.readState();
-  //
-  //   if (initialState == AppState.initial()) {
-  //     await stateDB.saveInitialState(initialState);
-  //   }
-  //
-  //   final Store<AppState> store = Store<AppState>(
-  //     initialState: initialState,
-  //     persistor: PersistorPrinterDecorator<AppState>(stateDB),
-  //     defaultDistinct: true,
-  //   );
-  //
-  //   ErrorWidget.builder = (FlutterErrorDetails details) {
-  //     if (!kReleaseMode) {
-  //       return ErrorWidget(details.exception);
-  //     } else {
-  //       return UnrecoverableErrorWidget();
-  //     }
-  //   };
-  //
-  //   FlutterError.onError = (FlutterErrorDetails detail) {
-  //     FirebaseCrashlytics.instance.recordFlutterError(detail);
-  //   };
-  //
-  //   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  // }, (Object exception, StackTrace stackTrace) {
-  //   if (!kReleaseMode) {
-  //     print("$exception -=- $stackTrace");
-  //   }
-  //   FirebaseCrashlytics.instance.recordError(exception, stackTrace);
-  // });
 }
 
 class MyApp extends StatefulWidget {
@@ -84,7 +48,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void initState() {
     super.initState();
@@ -95,7 +58,7 @@ class _MyAppState extends State<MyApp> {
     FlutterNativeSplash.remove();
 
     return GetMaterialApp(
-      home: LandingPage(),
+      home: HomePage(),
       debugShowCheckedModeBanner: false,
     );
   }

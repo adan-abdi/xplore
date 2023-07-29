@@ -64,43 +64,44 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
       child: Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: true,
-        // appBar: XploreAppBar(
-        //   productListingStatus: widget.productListingStatus,
-        //   searchStatus: widget.searchStatus,
-        //   leadingIcon: XploreIconCard(
-        //     icon: Icons.menu,
-        //     iconOnPress: () {},
-        //   ),
-        //   centerTitle: true,
-        //   automaticallyImplyLeading: false,
-        //   title: appBarTitle,
-        //   firstAction: XploreIconCard(
-        //     icon: Icons.qr_code_scanner,
-        //     iconOnPress: () {
-        //       ScaffoldMessenger.of(context).showSnackBar(snackbar(
-        //         content: comingSoonText,
-        //       ));
-        //     },
-        //   ),
-        //   lastAction: isAppbarExpanded
-        //       ? XploreIconCard(
-        //           icon: Icons.unfold_less,
-        //           iconOnPress: () {
-        //             ScaffoldMessenger.of(context).showSnackBar(snackbar(
-        //               content: comingSoonText,
-        //             ));
-        //           },
-        //         )
-        //       : XploreIconCard(
-        //           icon: Icons.unfold_more,
-        //           iconOnPress: () {
-        //             ScaffoldMessenger.of(context).showSnackBar(snackbar(
-        //               content: comingSoonText,
-        //             ));
-        //           },
-        //         ),
-        //   expanded: isAppbarExpanded,
-        // ),
+        appBar: XploreBar(
+          productListingStatus: widget.productListingStatus,
+          searchStatus: widget.searchStatus,
+          leadingIcon: XploreIconCard(
+            icon: Icons.menu,
+            iconOnPress: () {},
+          ),
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          title: appBarTitle,
+          firstAction: XploreIconCard(
+            icon: Icons.qr_code_scanner,
+            iconOnPress: () {
+              ScaffoldMessenger.of(context).showSnackBar(snackbar(
+                content: comingSoonText,
+              ));
+            },
+          ),
+          lastAction: isAppbarExpanded
+              ? XploreIconCard(
+                  icon: Icons.unfold_less,
+                  iconOnPress: () {
+                    ScaffoldMessenger.of(context).showSnackBar(snackbar(
+                      content: comingSoonText,
+                    ));
+                  },
+                )
+              : XploreIconCard(
+                  icon: Icons.unfold_more,
+                  iconOnPress: () {
+                    ScaffoldMessenger.of(context).showSnackBar(snackbar(
+                      content: comingSoonText,
+                    ));
+                  },
+                ),
+          expanded: isAppbarExpanded,
+          isWidgetActive: false,
+        ),
         body: widget.tabs[widget.dashboardIndexStatusStore.currentIndex.value],
         floatingActionButton: DashboardTabActionFAB(
           actionIcon: activeTab == 0 ? Icons.add_circle : Icons.receipt,
