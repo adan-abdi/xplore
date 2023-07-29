@@ -1,13 +1,18 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:shamiri/core/domain/repository/auth_repository.dart';
 import 'package:shamiri/core/utils/constants.dart';
 
 import '../../../di/locator.dart';
+import '../../domain/model/user_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final auth = locator.get<FirebaseAuth>();
   final firestore = locator.get<FirebaseFirestore>();
+  final storage = locator.get<FirebaseStorage>();
 
   @override
   Future<void> signInWithPhone(
@@ -60,16 +65,24 @@ class AuthRepositoryImpl implements AuthRepository {
 
     return snapshot.exists ? true : false;
   }
+
+  /// FIRESTORE
+  @override
+  Future<void> saveUserDataToFirestore(
+      {required UserModel userModel,
+      required File userProfilePic,
+      required Function onSuccess}) {
+    try {
+
+      //  upload image to firebase storage
+    } on FirebaseAuthException catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  @override
+  Future<String> storeFileToFirebaseStorage({required String ref, required File file}) async {
+    // TODO: implement storeFileToFirebaseStorage
+    throw UnimplementedError();
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
