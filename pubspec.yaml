@@ -38,6 +38,7 @@ dependencies:
   hive_flutter: ^1.1.0
   image_picker: ^1.0.0
   pinput: ^2.3.0
+  flutter_svg: ^2.0.7
 
 
 dev_dependencies:
@@ -61,5 +62,6 @@ flutter:
   assets:
     - assets/
     - assets/onboarding/
+    - assets/general/
     - assets/appIcon/playstore.png
     - assets/general/xplore_loader.json

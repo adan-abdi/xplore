@@ -14,6 +14,7 @@ import 'package:pinput/pinput.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/application/singletons/button_status.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/screens/create_profile_page.dart';
 import 'package:shamiri/infrastructure/remote_repository/users/firebase_auth.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/login_title.dart';
 
@@ -114,6 +115,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                             //  existing user go to home page
                           } else {
                             //  new user go to info page
+                            Get.offAll(CreateProfilePage());
                           }
                         });
                       });
