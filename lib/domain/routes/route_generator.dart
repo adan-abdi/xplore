@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/presentation/core/pages/user_profile_page.dart';
 import 'package:shamiri/presentation/core/widgets/unrecoverable_error_widget.dart';
-import 'package:shamiri/presentation/dashboard/pages/add_product_page.dart';
 import 'package:shamiri/presentation/dashboard/pages/edit_product_page.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/screens/landing_page.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/screens/phone_input_page.dart';
@@ -27,12 +26,7 @@ class AppRouterGenerator {
       case verifyPhonePageRoute:
         return MaterialPageRoute<PhoneVerifyPage>(
             builder: (_) => PhoneVerifyPage(verificationId: "",));
-      //
-      case addProductPageRoute:
-        return MaterialPageRoute<AddProductPage>(
-            builder: (_) => AddProductPage(
-                  productRepoInstance: args,
-                ));
+
       case editProductPageRoute:
         return MaterialPageRoute<EditProducts>(
             builder: (_) => EditProducts(

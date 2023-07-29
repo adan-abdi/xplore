@@ -29,10 +29,10 @@ class SubmitButton extends StatelessWidget {
           : UnconstrainedBox(
               child: Container(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                 decoration: BoxDecoration(
                     color: XploreColors.deepBlue,
-                    borderRadius: BorderRadius.circular(8)),
+                    borderRadius: BorderRadius.circular(16)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,

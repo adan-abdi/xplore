@@ -1,5 +1,3 @@
-// Dart imports:
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -12,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:shamiri/di/controllers_di.dart';
 import 'package:shamiri/di/locator.dart';
 import 'package:shamiri/features/feature_main/main_screen.dart';
-import 'package:shamiri/presentation/dashboard/pages/add_product_page.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +42,7 @@ class _MyAppState extends State<MyApp> {
     FlutterNativeSplash.remove();
 
     return GetMaterialApp(
-      home: AddProductPage(),
+      home: MainScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
