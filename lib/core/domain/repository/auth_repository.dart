@@ -25,6 +25,9 @@ abstract class AuthRepository {
       required File? userProfilePic,
       required Function onSuccess});
 
+  /// Get User Data From Firebase
+  Future<void> getUserDataFromFirestore({required Function(UserModel user) onSuccess});
+
   Future<String> storeFileToFirebaseStorage(
       {required String ref, required File file});
 }
