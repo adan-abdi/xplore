@@ -10,18 +10,19 @@ class HamburgerMenuBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        width: 35,
-        height: 35,
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            HamburgerBtn(width: 30),
-            HamburgerBtn(width: 20),
-            HamburgerBtn(width: 10),
-          ],
+      child: UnconstrainedBox(
+        child: Container(
+          width: 30,
+          height: 30,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              HamburgerBtn(width: 25),
+              HamburgerBtn(width: 15),
+              HamburgerBtn(width: 8),
+            ],
+          ),
         ),
       ),
     );

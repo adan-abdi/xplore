@@ -41,9 +41,9 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                   children: [
                     Center(
                         child: Text(
-                          "Add Products",
-                          style: TextStyle(fontSize: 24),
-                        )),
+                      "Add Products",
+                      style: TextStyle(fontSize: 24),
+                    )),
 
                     vSize30SizedBox,
 
@@ -51,11 +51,14 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                       width: 150,
                       height: 150,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: XploreColors.deepBlue
-                      ),
+                          borderRadius: BorderRadius.circular(16),
+                          color: XploreColors.deepBlue),
                       child: Center(
-                        child: Icon(Icons.image_rounded, color: XploreColors.white, size: 80,),
+                        child: Icon(
+                          Icons.image_rounded,
+                          color: XploreColors.white,
+                          size: 80,
+                        ),
                       ),
                     ),
 
@@ -67,7 +70,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                         iconData: Icons.description,
                         textStyle: TextStyle(fontSize: 16),
                         controller: _productNameController,
-                        onChanged: (value){}),
+                        onChanged: (value) {}),
 
                     vSize20SizedBox,
                     //  product unit
@@ -76,7 +79,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                         iconData: Icons.description,
                         textStyle: TextStyle(fontSize: 16),
                         controller: _productNameController,
-                        onChanged: (value){}),
+                        onChanged: (value) {}),
 
                     vSize20SizedBox,
                     //  product stock count
@@ -85,7 +88,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                         iconData: Icons.description,
                         textStyle: TextStyle(fontSize: 16),
                         controller: _productNameController,
-                        onChanged: (value){}),
+                        onChanged: (value) {}),
 
                     vSize20SizedBox,
                     //  product category
@@ -94,9 +97,11 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                         iconData: Icons.description,
                         textStyle: TextStyle(fontSize: 16),
                         controller: _productNameController,
-                        onChanged: (value){}),
+                        onChanged: (value) {}),
 
-                    const SizedBox(height: 100,)
+                    const SizedBox(
+                      height: 100,
+                    )
                   ],
                 )),
 
@@ -105,10 +110,14 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
               alignment: AlignmentDirectional.bottomEnd,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: SubmitButton(iconData: Icons.done_rounded, text: "Add Product", onTap: (){
-                  //  TODO: ADD PRODUCT TO DATABASE
-                  Get.back();
-                }),
+                child: SubmitButton(
+                    iconData: Icons.done_rounded,
+                    isLoading: false,
+                    text: "Add Product",
+                    onTap: () {
+                      //  TODO: ADD PRODUCT TO DATABASE
+                      Get.back();
+                    }),
               ),
             )
           ],
