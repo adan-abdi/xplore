@@ -12,11 +12,11 @@ class TopStoreCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
-          color: XploreColors.xploreOrange.withOpacity(0.1),
+          color: XploreColors.deepBlue,
           borderRadius: BorderRadius.circular(16)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -25,7 +25,6 @@ class TopStoreCard extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                    color: Colors.red,
                     borderRadius: BorderRadius.circular(100)),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
@@ -40,7 +39,7 @@ class TopStoreCard extends StatelessWidget {
               hSize20SizedBox,
               Text(
                 "Phoenix Stores",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: XploreColors.white),
               ),
             ],
           ),
@@ -52,16 +51,16 @@ class TopStoreCard extends StatelessWidget {
                 TextSpan(
                     text: "300",
                     style: TextStyle(
-                        fontSize: 38,
+                        fontSize: 28,
                         fontWeight: FontWeight.bold,
-                        color: XploreColors.deepBlue)),
+                        color: XploreColors.white)),
                 TextSpan(
                     text: " sales",
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: XploreColors.xploreOrange)),
               ])),
               //  trend icon
-              Icon(Icons.trending_up_rounded, color: XploreColors.deepBlue, size: 48,)
+              Icon(Icons.trending_up_rounded, color: XploreColors.orange, size: 48,)
             ],
           )
         ],

@@ -40,7 +40,7 @@ class _TopStoresSectionState extends State<TopStoresSection> {
               itemBuilder: (context, index, realIndex) => TopStoreCard(),
               carouselController: _carouselController,
               options: CarouselOptions(
-                  height: 150,
+                  height: 170,
                   initialPage: 0,
                   enlargeCenterPage: false,
                   enableInfiniteScroll: true,

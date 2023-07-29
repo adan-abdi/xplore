@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shamiri/features/feature_home/presentation/components/pill_btn.dart';
 
 class AllProductsSection extends StatefulWidget {
   const AllProductsSection({super.key});
@@ -14,6 +15,23 @@ class _AllProductsSectionState extends State<AllProductsSection> {
       child: Column(
         children: [
           //  all products pill buttons
+          Container(
+              height: 50,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                itemCount: 10,
+                itemBuilder: (context, index) => index == 0
+                    ? PillBtn(
+                        text: "All",
+                        isActive: true,
+                        onTap: () {},
+                      )
+                    : PillBtn(text: "All", onTap: () {}),
+                separatorBuilder: (context, index) => const SizedBox(
+                  width: 8,
+                ),
+              ))
 
           //  all products
         ],
