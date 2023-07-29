@@ -7,6 +7,7 @@ import 'package:shamiri/features/feature_home/presentation/components/all_produc
 import 'package:shamiri/features/feature_home/presentation/components/top_stores_section.dart';
 
 import '../../../core/presentation/components/custom_textfield.dart';
+import 'components/pill_btn.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -49,6 +50,30 @@ class _HomePageState extends State<HomePage> {
 
                   //  top stores section
                   TopStoresSection(),
+
+                  SliverToBoxAdapter(child: vSize30SizedBox),
+
+                  SliverToBoxAdapter(
+                    child: //  all products pill buttons
+                        Container(
+                            height: 50,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: 10,
+                              itemBuilder: (context, index) => index == 0
+                                  ? PillBtn(
+                                      text: "All",
+                                      isActive: true,
+                                      onTap: () {},
+                                    )
+                                  : PillBtn(text: "All", onTap: () {}),
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(
+                                width: 8,
+                              ),
+                            )),
+                  ),
 
                   SliverToBoxAdapter(child: vSize30SizedBox),
 
