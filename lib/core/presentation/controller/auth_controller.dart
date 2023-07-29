@@ -10,7 +10,7 @@ import '../../domain/model/user_model.dart';
 class AuthController extends GetxController {
   final authUseCases = locator.get<AuthUseCases>();
 
-  final user = Rxn<User>();
+  final user = Rxn<UserModel>();
 
   /// sign in with phone
   Future<void> signInWithPhone(
@@ -46,7 +46,9 @@ class AuthController extends GetxController {
           onSuccess: onSuccess);
 
   /// Get User Data from Firestore
-  Future<void> getUserDataFromFirestore(
-          {required Function(UserModel user) onSuccess}) async =>
-      await authUseCases.getUserDataFromFirestore.call(onSuccess: onSuccess);
+  Future<void> getUserDataFromFirestore() async {
+    await authUseCases.getUserDataFromFirestore.call(onSuccess: (user) {
+      this.user.value = user;
+    });
+  }
 }
