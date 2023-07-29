@@ -17,6 +17,7 @@ import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/infrastructure/remote_repository/users/firebase_auth.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/login_title.dart';
 
+import '../../../../core/presentation/controller/auth_controller.dart';
 import '../components/xplore_keyboard.dart';
 
 class PhoneVerifyPage extends StatefulWidget {
@@ -34,13 +35,14 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
   StreamController errorAnimationController = StreamController();
   FocusNode otpPinCodeFocusNode = new FocusNode();
   ButtonStatusStore otpBtnStore = ButtonStatusStore();
+  late AuthController _authController;
   String? otpCode;
 
   @override
   void initState() {
     super.initState();
 
-    print("VERIFICATION ID : ${widget.verificationId}");
+    _authController = Get.find<AuthController>();
   }
 
   @override
@@ -50,7 +52,6 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: XploreColors.white,
       appBar: AppBar(
@@ -82,8 +83,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
             children: [
               ...titles(
                 context: context,
-                extraHeading:
-                'We sent it to ${0717446607}',
+                extraHeading: 'We sent it to ${0717446607}',
                 subtitle: 'to your number.',
                 title: 'Enter code sent \n',
               ),
@@ -96,15 +96,18 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                 showCursor: true,
                 controller: otpPinCodeFieldController,
                 defaultPinTheme: PinTheme(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: XploreColors.xploreOrange.withOpacity(0.3)
-                  ),
-                  textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)
-                ),
-                onSubmitted: (value){
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: XploreColors.xploreOrange.withOpacity(0.3)),
+                    textStyle:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                onCompleted: (otp) {
+                  _authController.verifyOtp(
+                      verificationId: widget.verificationId, userOtp: otp);
+                },
+                onSubmitted: (value) {
                   setState(() {
                     otpCode = value;
                   });
@@ -116,8 +119,8 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
               //  keyboard
               Expanded(
                   child: XploreKeyboard(
-                    phoneController: otpPinCodeFieldController,
-                  ))
+                phoneController: otpPinCodeFieldController,
+              ))
             ],
           ),
         ),

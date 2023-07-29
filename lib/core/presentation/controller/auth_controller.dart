@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/core/domain/use_cases/auth_use_cases.dart';
 import 'package:shamiri/di/locator.dart';
@@ -5,14 +6,26 @@ import 'package:shamiri/di/locator.dart';
 class AuthController extends GetxController {
   final authUseCases = locator.get<AuthUseCases>();
 
+  final user = Rxn<User>();
+
   /// sign in with phone
   Future<void> signInWithPhone(
-          {required String phoneNumber,
-          required Function(String verificationId) onCodeSent}) async {
-
+      {required String phoneNumber,
+      required Function(String verificationId) onCodeSent}) async {
     var formattedPhoneNumber = '+254${phoneNumber.trim()}';
 
     await authUseCases.signInWithPhone
-          .call(phoneNumber: formattedPhoneNumber, onCodeSent: onCodeSent);
+        .call(phoneNumber: formattedPhoneNumber, onCodeSent: onCodeSent);
+  }
+
+  /// Verify Otp
+  Future<void> verifyOtp(
+      {required String verificationId, required String userOtp}) async {
+    await authUseCases.verifyOtp.call(
+        verificationId: verificationId,
+        userOtp: userOtp,
+        onSuccess: (user) {
+          this.user.value = user;
+        });
   }
 }

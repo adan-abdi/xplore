@@ -11,4 +11,7 @@ abstract class AuthRepository {
       {required String verificationId,
       required String userOtp,
       required Function(User user) onSuccess});
+
+  /// Check if User Exists
+  Future<bool> checkUserExists({required String uid});
 }

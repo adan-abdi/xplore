@@ -85,15 +85,7 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                 key: _formKey,
                 child: PhoneLoginField(
                   phoneNumberController: phoneNumberController,
-                  onChanged: (String v) {
-                    // setState(() {
-                    //   phoneNumberController.text = v;
-                    //   if (phoneNumberController.text.length >= 10) {
-                    //     actionButtonState.phoneLoginColorStream
-                    //         .add(ButtonStatus.active.color);
-                    //   }
-                    // });
-                  },
+                  onChanged: (String v) {},
                 ),
               ),
 
