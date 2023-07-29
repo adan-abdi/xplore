@@ -75,7 +75,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       //  upload image to firebase storage
       await storeFileToFirebaseStorage(
-              ref: 'profilePics/${uid}', file: userProfilePic)
+              ref: 'profilePics/${auth.currentUser!.uid}', file: userProfilePic)
           .then((downloadUrl) {
         userModel.userProfilePicUrl = downloadUrl;
         userModel.createdAt = DateTime.now().toString();
