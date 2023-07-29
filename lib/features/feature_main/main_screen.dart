@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_home/presentation/home_page.dart';
-import 'package:shamiri/presentation/core/pages/dashboard.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/merchant_store_page.dart';
 
 import '../../application/core/themes/colors.dart';
 import '../../core/presentation/components/hamburger.dart';
@@ -53,7 +53,7 @@ class _MainScreenState extends State<MainScreen> {
 
     _pages = [
       HomePage(),
-      XploreDashboard(),
+      MerchantStorePage(),
       HomePage(),
     ];
   }

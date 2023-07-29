@@ -13,9 +13,9 @@ import 'package:shamiri/infrastructure/remote_repository/users/firebase_auth.dar
 import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
 
 class AddProductPage extends StatefulWidget {
-  final ProductRepository productRepoInstance;
+  final ProductRepository? productRepoInstance;
 
-  const AddProductPage({Key? key, required this.productRepoInstance})
+  const AddProductPage({Key? key, this.productRepoInstance})
       : super(key: key);
 
   @override
@@ -266,18 +266,18 @@ class _AddProductPageState extends State<AddProductPage> {
                               'https://cdn.mos.cms.futurecdn.net/6t8Zh249QiFmVnkQdCCtHK.jpg',
                             ]);
 
-                        _addNewProduct(newProduct).whenComplete(() {
-                          ScaffoldMessenger.of(context)
-                            ..hideCurrentSnackBar()
-                            ..showSnackBar(
-                              snackbar(
-                                content: productAddedSuccess,
-                                label: okText,
-                              ),
-                            );
-                          Navigator.pushReplacementNamed(
-                              context, dashPageRoute);
-                        });
+                        // _addNewProduct(newProduct).whenComplete(() {
+                        //   ScaffoldMessenger.of(context)
+                        //     ..hideCurrentSnackBar()
+                        //     ..showSnackBar(
+                        //       snackbar(
+                        //         content: productAddedSuccess,
+                        //         label: okText,
+                        //       ),
+                        //     );
+                        //   Navigator.pushReplacementNamed(
+                        //       context, dashPageRoute);
+                        // });
                       } else {
                         ScaffoldMessenger.of(context)
                           ..hideCurrentSnackBar()
@@ -299,9 +299,9 @@ class _AddProductPageState extends State<AddProductPage> {
     );
   }
 
-  Future<void> _addNewProduct(Product newProduct) async {
-    await widget.productRepoInstance.addProduct(newProduct).then((docRef) {
-      widget.productRepoInstance.updateProductefId(docRef.id);
-    });
-  }
+  // Future<void> _addNewProduct(Product newProduct) async {
+  //   await widget.productRepoInstance.addProduct(newProduct).then((docRef) {
+  //     widget.productRepoInstance.updateProductefId(docRef.id);
+  //   });
+  // }
 }
