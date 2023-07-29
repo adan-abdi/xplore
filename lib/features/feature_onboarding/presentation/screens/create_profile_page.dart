@@ -10,6 +10,7 @@ import 'package:shamiri/core/presentation/controller/core_controller.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:shamiri/features/feature_main/main_screen.dart';
 
 import '../../../../core/presentation/components/custom_textfield.dart';
 import '../components/login_title.dart';
@@ -128,7 +129,8 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                 userProfilePic:
                                     _coreController.userProfilePic.value,
                                 onSuccess: () {
-                                  print("-----------YEEEEEEEYYY!!");
+                                  //  navigate to Main Screen
+                                  Get.to(() => MainScreen());
                                 });
                           }))
                 ],

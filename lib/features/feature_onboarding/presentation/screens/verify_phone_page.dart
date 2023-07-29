@@ -19,6 +19,7 @@ import 'package:shamiri/infrastructure/remote_repository/users/firebase_auth.dar
 import 'package:shamiri/features/feature_onboarding/presentation/components/login_title.dart';
 
 import '../../../../core/presentation/controller/auth_controller.dart';
+import '../../../feature_main/main_screen.dart';
 import '../components/xplore_keyboard.dart';
 
 class PhoneVerifyPage extends StatefulWidget {
@@ -113,6 +114,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                         await _authController.checkUserExists(uid: user.uid).then((exists) {
                           if (exists) {
                             //  existing user go to home page
+                            Get.offAll(() => MainScreen());
                           } else {
                             //  new user go to info page
                             Get.offAll(CreateProfilePage());

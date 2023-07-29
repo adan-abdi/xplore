@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:shamiri/di/controllers_di.dart';
 import 'package:shamiri/di/locator.dart';
 import 'package:shamiri/features/feature_main/main_screen.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/screens/landing_page.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +43,7 @@ class _MyAppState extends State<MyApp> {
     FlutterNativeSplash.remove();
 
     return GetMaterialApp(
-      home: MainScreen(),
+      home: LandingPage(),
       debugShowCheckedModeBanner: false,
     );
   }

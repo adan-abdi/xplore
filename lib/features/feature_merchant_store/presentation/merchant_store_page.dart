@@ -7,6 +7,7 @@ import 'package:shamiri/core/presentation/components/product_card_alt.dart';
 import 'package:shamiri/domain/value_objects/app_asset_strings.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/add_product_bottom_sheet.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/components/store_overview_card.dart';
 import 'package:shamiri/presentation/core/widgets/molecular/dashboard_tab_action_button.dart';
 
 class MerchantStorePage extends StatefulWidget {
@@ -32,6 +33,12 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
         body: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
+
+            //  store overview
+            StoreOverViewCard(),
+
+            SliverToBoxAdapter(child: vSize20SizedBox,),
+
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverToBoxAdapter(

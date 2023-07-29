@@ -69,7 +69,7 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                             borderRadius: BorderRadius.circular(100),
                             color: XploreColors.deepBlue,
                           ),
-                          child: Center(child: Icon(Icons.remove_rounded, color: XploreColors.xploreOrange,),),
+                          child: Center(child: Icon(Icons.remove_rounded, color: XploreColors.white,),),
                         ),
                         hSize10SizedBox,
                         Text("1", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
@@ -81,7 +81,7 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                             borderRadius: BorderRadius.circular(100),
                             color: XploreColors.deepBlue,
                           ),
-                          child: Center(child: Icon(Icons.add_rounded, color: XploreColors.xploreOrange,),),
+                          child: Center(child: Icon(Icons.add_rounded, color: XploreColors.white,),),
                         ),
                       ],
                     )
