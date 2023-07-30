@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class XploreColors {
   static const Color white = Colors.white;
-  static const Color whiteSmoke = Colors.white70;
+  static const Color whiteSmoke = Color(0xffe8e8e8);
   static const Color black = Colors.black;
   static const Color deepBlue = Color(0xff3F3D56);
   static const Color xploreOrange = Color(0xfff57c00);

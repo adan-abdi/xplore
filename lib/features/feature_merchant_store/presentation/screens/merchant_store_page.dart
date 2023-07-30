@@ -9,6 +9,7 @@ import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/add_product_bottom_sheet.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/store_overview_card.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/screens/merchant_transactions.dart';
 import 'package:shamiri/presentation/core/widgets/molecular/dashboard_tab_action_button.dart';
 import 'package:get/get.dart';
 
@@ -46,6 +47,50 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
           slivers: [
             //  store overview
             StoreOverViewCard(),
+
+            SliverToBoxAdapter(
+              child: vSize20SizedBox,
+            ),
+
+            //  store transactions
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(16),
+                  onTap: () {
+                    //  open transactions page
+                    Get.to(() => MerchantTransactions());
+                    print("Hello");
+                  },
+                  child: Ink(
+                    width: double.infinity,
+                    height: 60,
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: XploreColors.deepBlue),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.receipt_rounded,
+                                color: XploreColors.white),
+                            hSize20SizedBox,
+                            Text("My Transactions",
+                                style: TextStyle(color: XploreColors.white)),
+                          ],
+                        ),
+                        Icon(Icons.chevron_right_rounded,
+                            color: XploreColors.white)
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
 
             SliverToBoxAdapter(
               child: vSize20SizedBox,
