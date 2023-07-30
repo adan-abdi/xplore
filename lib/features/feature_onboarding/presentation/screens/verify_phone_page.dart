@@ -16,7 +16,6 @@ import 'package:shamiri/application/singletons/button_status.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/screens/create_profile_page.dart';
-import 'package:shamiri/infrastructure/remote_repository/users/firebase_auth.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/login_title.dart';
 
 import '../../../../core/domain/model/response_state.dart';

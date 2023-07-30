@@ -6,8 +6,6 @@ import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/models/categories/category.dart';
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
-import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
-import 'package:shamiri/infrastructure/remote_repository/users/firebase_auth.dart';
 import 'package:shamiri/presentation/core/widgets/xplore_snackbar.dart';
 
 class EditProducts extends StatefulWidget {
@@ -29,7 +27,7 @@ class _EditProductsState extends State<EditProducts> {
   TextEditingController _units = TextEditingController();
   TextEditingController _qty = TextEditingController();
   TextEditingController _cat = TextEditingController();
-  var remoteProductRepoInstance = ProductRepository();
+  // var remoteProductRepoInstance = ProductRepository();
 
   @override
   void initState() {
@@ -57,9 +55,9 @@ class _EditProductsState extends State<EditProducts> {
         actions: <Widget>[
           IconButton(
               onPressed: () {
-                remoteProductRepoInstance
-                    .deleteProduct(widget.product.productRefID)
-                    .whenComplete(() => Navigator.of(context).pop());
+                // remoteProductRepoInstance
+                //     .deleteProduct(widget.product.productRefID)
+                //     .whenComplete(() => Navigator.of(context).pop());
               },
               icon: Icon(
                 Icons.delete,
@@ -244,39 +242,39 @@ class _EditProductsState extends State<EditProducts> {
                   children: <Widget>[
                     ElevatedButton(
                         onPressed: () {
-                          var buisinessID =
-                              globalFirebaseAuthInstance.currentUser!.uid;
+                          // var buisinessID =
+                          //     globalFirebaseAuthInstance.currentUser!.uid;
 
-                          final Product newProduct = Product(
-                              businessUID: buisinessID,
-                              productRefID: widget.product.productRefID,
-                              name: _name.text,
-                              buyingPrice: _bp.text,
-                              sellingPrice: _sp.text,
-                              quantityInStock: _qty.text,
-                              quantityOrdered: '0',
-                              metricUnit: _units.text,
-                              categories: [
-                                Category(
-                                    name: _cat.text, businessUID: buisinessID),
-                              ],
-                              imageList: [
-                                widget.product.imageList!.first,
-                              ]);
+                          // final Product newProduct = Product(
+                          //     businessUID: buisinessID,
+                          //     productRefID: widget.product.productRefID,
+                          //     name: _name.text,
+                          //     buyingPrice: _bp.text,
+                          //     sellingPrice: _sp.text,
+                          //     quantityInStock: _qty.text,
+                          //     quantityOrdered: '0',
+                          //     metricUnit: _units.text,
+                          //     categories: [
+                          //       Category(
+                          //           name: _cat.text, businessUID: buisinessID),
+                          //     ],
+                          //     imageList: [
+                          //       widget.product.imageList!.first,
+                          //     ]);
 
-                          remoteProductRepoInstance
-                              .updateProduct(newProduct)
-                              .whenComplete(() {
-                            ScaffoldMessenger.of(context)
-                              ..hideCurrentSnackBar()
-                              ..showSnackBar(
-                                snackbar(
-                                  content: productDetailsUpdated,
-                                  label: okText,
-                                ),
-                              );
-                            Navigator.of(context).pop();
-                          });
+                          // remoteProductRepoInstance
+                          //     .updateProduct(newProduct)
+                          //     .whenComplete(() {
+                          //   ScaffoldMessenger.of(context)
+                          //     ..hideCurrentSnackBar()
+                          //     ..showSnackBar(
+                          //       snackbar(
+                          //         content: productDetailsUpdated,
+                          //         label: okText,
+                          //       ),
+                          //     );
+                          //   Navigator.of(context).pop();
+                          // });
                         },
                         // style: ButtonStyle(backgroundColor: XploreColors.deepBlue),
                         child: Text('Update Product')),

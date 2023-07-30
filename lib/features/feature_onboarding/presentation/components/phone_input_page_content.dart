@@ -1,23 +1,15 @@
-import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:progress_state_button/progress_button.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/domain/model/response_state.dart';
 import 'package:shamiri/core/presentation/components/show_snackbar.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
-import 'package:shamiri/features/feature_onboarding/presentation/components/progressive_button.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/xplore_keyboard.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/screens/verify_phone_page.dart';
 
-import '../../../../application/core/services/helpers.dart';
-import '../../../../application/redux/actions/verify_phone_action.dart';
-import '../../../../application/redux/states/app_state.dart';
 import '../../../../domain/value_objects/app_spaces.dart';
-import '../../../../domain/value_objects/app_strings.dart';
-import '../../../../presentation/core/widgets/xplore_snackbar.dart';
 import 'login_phone_field.dart';
 import 'login_title.dart';
 

@@ -15,8 +15,6 @@ import 'package:shamiri/domain/value_objects/app_constants.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
-import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
-import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_order.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({Key? key, required this.product}) : super(key: key);
@@ -28,8 +26,8 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
-  ProductRepository productRepositoryInstance = ProductRepository();
-  TransactionRepository transactionRepositoryInstance = TransactionRepository();
+  // ProductRepository productRepositoryInstance = ProductRepository();
+  // TransactionRepository transactionRepositoryInstance = TransactionRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +153,7 @@ class _ProductCardState extends State<ProductCard> {
                         date: date,
                       );
 
-                      productRepositoryInstance.updateProduct(newProduct);
+                      // productRepositoryInstance.updateProduct(newProduct);
                       // _addNewTransaction(newOrder).whenComplete(() {
                       //   setState(() {
                       //     ScaffoldMessenger.of(context)
