@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
-import 'package:shamiri/core/domain/model/product_model.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
 class ProductCardAlt extends StatefulWidget {

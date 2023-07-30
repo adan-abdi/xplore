@@ -1,12 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
-import 'package:shamiri/core/domain/model/product_model.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_home/presentation/components/top_store_card.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../../core/domain/model/store_model.dart';
+import '../../../feature_merchant_store/domain/model/store_model.dart';
 
 class TopStoresSection extends StatefulWidget {
   const TopStoresSection({super.key});

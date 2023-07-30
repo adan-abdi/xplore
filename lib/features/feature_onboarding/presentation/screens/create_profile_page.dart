@@ -69,7 +69,10 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                     child: GestureDetector(
                       onTap: () async {
                         await _coreController.pickImage(
-                            source: ImageSource.gallery);
+                            source: ImageSource.gallery,
+                            imageFile: (file) {
+                              _coreController.setProfilePic(file: file);
+                            });
                       },
                       child: Obx(
                         () => Container(

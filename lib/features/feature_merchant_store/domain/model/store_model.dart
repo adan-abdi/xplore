@@ -1,4 +1,4 @@
-import 'package:shamiri/core/domain/model/product_model.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 
 class StoreModel {
   String? storeId;
