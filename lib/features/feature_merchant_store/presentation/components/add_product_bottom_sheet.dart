@@ -168,65 +168,68 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
               alignment: AlignmentDirectional.bottomEnd,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: SubmitButton(
-                    iconData: Icons.done_rounded,
-                    isLoading: false,
-                    text: "Add Product",
-                    onTap: () async {
-                      var productModel = ProductModel(
-                          productId: '',
-                          productName: _productNameController.text,
-                          productImageUrl: '',
-                          productUnit: _productUnitController.text,
-                          productBuyingPrice:
-                              _productBuyingPriceController.text,
-                          productSellingPrice:
-                              _productSellingPriceController.text,
-                          productCategoryId: _productCategoryController.text,
-                          productCreatedAt: DateTime.now().toString(),
-                          productStockCount: _productStockCountController.text);
+                child: Obx(
+                  () => SubmitButton(
+                      iconData: Icons.done_rounded,
+                      isLoading: _merchantController.uploadButtonLoading.value,
+                      text: "Add Product",
+                      onTap: () async {
+                        var productModel = ProductModel(
+                            productId: '',
+                            productName: _productNameController.text,
+                            productImageUrl: '',
+                            productUnit: _productUnitController.text,
+                            productBuyingPrice:
+                                _productBuyingPriceController.text,
+                            productSellingPrice:
+                                _productSellingPriceController.text,
+                            productCategoryId: _productCategoryController.text,
+                            productCreatedAt: DateTime.now().toString(),
+                            productStockCount:
+                                _productStockCountController.text);
 
-                      await _merchantController.addProductToFirestore(
-                          product: productModel,
-                          productPic: _merchantController.productPic.value,
-                          response: (state) {
-                            switch (state) {
-                              case ResponseState.success:
-                                _merchantController.setUploadButtonLoading(
-                                    isLoading: false);
-                                break;
-                              case ResponseState.loading:
-                                _merchantController.setUploadButtonLoading(
-                                    isLoading: true);
-                                break;
-                              case ResponseState.failure:
-                                _merchantController.setUploadButtonLoading(
-                                    isLoading: false);
+                        await _merchantController.addProductToFirestore(
+                            product: productModel,
+                            productPic: _merchantController.productPic.value,
+                            response: (state) {
+                              switch (state) {
+                                case ResponseState.success:
+                                  _merchantController.setUploadButtonLoading(
+                                      isLoading: false);
+                                  break;
+                                case ResponseState.loading:
+                                  _merchantController.setUploadButtonLoading(
+                                      isLoading: true);
+                                  break;
+                                case ResponseState.failure:
+                                  _merchantController.setUploadButtonLoading(
+                                      isLoading: false);
 
-                                WidgetsBinding.instance
-                                    .addPostFrameCallback((_) {
-                                  showSnackbar(
-                                      title: "Error uploading product",
-                                      message:
-                                          "Something went wrong. please try again",
-                                      iconData: Icons.login_rounded,
-                                      iconColor: XploreColors.xploreOrange);
-                                });
-                                break;
-                            }
-                          },
-                          onSuccess: () {
-                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                              showSnackbar(
-                                  title: "Product uploaded!",
-                                  message: "Product uploaded successfully!",
-                                  iconData: Icons.library_books_rounded,
-                                  iconColor: XploreColors.xploreOrange);
+                                  WidgetsBinding.instance
+                                      .addPostFrameCallback((_) {
+                                    showSnackbar(
+                                        title: "Error uploading product",
+                                        message:
+                                            "Something went wrong. please try again",
+                                        iconData: Icons.login_rounded,
+                                        iconColor: XploreColors.xploreOrange);
+                                  });
+                                  break;
+                              }
+                            },
+                            onSuccess: () {
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                showSnackbar(
+                                    title: "Product uploaded!",
+                                    message: "Product uploaded successfully!",
+                                    iconData: Icons.library_books_rounded,
+                                    iconColor: XploreColors.xploreOrange);
+                              });
+
+                              Get.back();
                             });
-
-                            Get.back();
-                          });
-                    }),
+                      }),
+                ),
               ),
             )
           ],

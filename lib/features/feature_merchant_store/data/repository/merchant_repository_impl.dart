@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/src/widgets/async.dart';
 import 'package:hive/hive.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/repository/merchant_repository.dart';
 
@@ -31,7 +32,8 @@ class MerchantRepositoryImpl implements MerchantRepository {
     try {
       if (productPic != null) {
         await storeFileToFirebaseStorage(
-                ref: 'productPics/${auth.currentUser!.uid}/${productId}', file: productPic)
+                ref: 'productPics/${auth.currentUser!.uid}/${productId}',
+                file: productPic)
             .then((downloadUrl) => product.productImageUrl = downloadUrl);
       }
 
@@ -61,4 +63,12 @@ class MerchantRepositoryImpl implements MerchantRepository {
     final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
     return downloadUrl;
   }
+
+  /// Get Merchant Products
+  @override
+  Stream<QuerySnapshot> getMerchantProducts() => firestore
+      .collection(Constants.USER_COLLECTION)
+      .doc(auth.currentUser!.uid)
+      .collection(Constants.PRODUCTS_COLLECTION)
+      .snapshots();
 }

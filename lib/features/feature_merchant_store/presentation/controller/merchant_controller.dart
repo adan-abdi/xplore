@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/di/locator.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/use_cases/merchant_use_cases.dart';
@@ -29,4 +30,6 @@ class MerchantController extends GetxController {
         response: response,
         onSuccess: onSuccess);
   }
+
+  Stream<QuerySnapshot> getMerchantProducts() => useCases.getMerchantProducts();
 }
