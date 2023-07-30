@@ -4,7 +4,6 @@ import 'package:shamiri/features/feature_merchant_store/domain/model/product_mod
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
 class ProductCardAlt extends StatefulWidget {
-
   final ProductModel product;
 
   const ProductCardAlt({super.key, required this.product});
@@ -21,9 +20,7 @@ class _ProductCardAltState extends State<ProductCardAlt> {
       height: 100,
       padding: const EdgeInsets.all(8),
       margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24)
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
       child: Row(
         children: [
           //  image
@@ -32,12 +29,11 @@ class _ProductCardAltState extends State<ProductCardAlt> {
             height: double.infinity,
             decoration: BoxDecoration(
                 color: XploreColors.deepBlue,
-                borderRadius: BorderRadius.circular(24)
-            ),
+                borderRadius: BorderRadius.circular(24)),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(24),
-              child: Image.asset(
-                'assets/general/shoe.jpg',
+              child: Image.network(
+                widget.product.productImageUrl!,
                 width: double.infinity,
                 height: double.infinity,
                 fit: BoxFit.cover,
@@ -53,11 +49,14 @@ class _ProductCardAltState extends State<ProductCardAlt> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text("Superloaf Bread", style: TextStyle(fontSize: 18),),
+                Text(
+                  widget.product.productName!,
+                  style: TextStyle(fontSize: 18),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Ksh. 47.00"),
+                    Text(widget.product.productSellingPrice!),
 
                     //  increment stock button
                     Row(
@@ -69,10 +68,19 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                             borderRadius: BorderRadius.circular(100),
                             color: XploreColors.deepBlue,
                           ),
-                          child: Center(child: Icon(Icons.remove_rounded, color: XploreColors.white,),),
+                          child: Center(
+                            child: Icon(
+                              Icons.remove_rounded,
+                              color: XploreColors.white,
+                            ),
+                          ),
                         ),
                         hSize10SizedBox,
-                        Text("1", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                        Text(
+                          widget.product.productStockCount!,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
                         hSize10SizedBox,
                         Container(
                           width: 35,
@@ -81,7 +89,12 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                             borderRadius: BorderRadius.circular(100),
                             color: XploreColors.deepBlue,
                           ),
-                          child: Center(child: Icon(Icons.add_rounded, color: XploreColors.white,),),
+                          child: Center(
+                            child: Icon(
+                              Icons.add_rounded,
+                              color: XploreColors.white,
+                            ),
+                          ),
                         ),
                       ],
                     )
