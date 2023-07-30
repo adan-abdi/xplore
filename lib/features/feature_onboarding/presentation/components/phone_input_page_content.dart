@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/core/domain/model/response_state.dart';
 import 'package:shamiri/core/presentation/components/show_snackbar.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
@@ -108,7 +109,6 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                             isLoading:
                                 _authController.isVerifyButtonLoading.value,
                             onTap: () async {
-                              _authController.setVerifyButtonLoading(isLoading: true);
                               if (phoneNumberController.text.length >= 10 &&
                                   (phoneNumberController.text
                                           .startsWith('+254') ||
@@ -118,12 +118,23 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                                           .startsWith('7'))) {
                                 await _authController.signInWithPhone(
                                     phoneNumber: phoneNumberController.text,
+                                    response: (state){
+                                      switch (state) {
+                                        case ResponseState.success:
+                                          _authController.setVerifyButtonLoading(isLoading: false);
+                                          break;
+                                        case ResponseState.loading:
+                                          _authController.setVerifyButtonLoading(isLoading: true);
+                                          break;
+                                        case ResponseState.failure:
+                                          _authController.setVerifyButtonLoading(isLoading: false);
+                                          break;
+                                      }
+                                    },
                                     onCodeSent: (verificationId) {
                                       Get.to(() => PhoneVerifyPage(
                                           verificationId: verificationId));
                                     });
-
-                                _authController.setVerifyButtonLoading(isLoading: false);
                               } else {
                                 WidgetsBinding.instance
                                     .addPostFrameCallback((_) {
