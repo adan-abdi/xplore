@@ -21,6 +21,7 @@ import 'package:shamiri/features/feature_onboarding/presentation/screens/create_
 import 'package:shamiri/features/feature_onboarding/presentation/components/login_title.dart';
 
 import '../../../../core/domain/model/response_state.dart';
+import '../../../../core/presentation/components/show_snackbar.dart';
 import '../../../../core/presentation/controller/auth_controller.dart';
 import '../../../feature_main/main_screen.dart';
 import '../components/xplore_keyboard.dart';
@@ -134,6 +135,18 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                                 case ResponseState.failure:
                                   _authController.setVerifyOtpLoading(
                                       isLoading: false);
+
+                                  WidgetsBinding.instance
+                                      .addPostFrameCallback((_) {
+                                    showSnackbar(
+                                        title: "Could not verify Otp",
+                                        message:
+                                        "Something went wrong. please try again",
+                                        iconData: Icons.onetwothree_rounded,
+                                        iconColor:
+                                        XploreColors.xploreOrange);
+                                  });
+
                                   break;
                               }
                             },

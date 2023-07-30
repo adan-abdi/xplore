@@ -53,7 +53,6 @@ class AuthRepositoryImpl implements AuthRepository {
       required String userOtp,
       required Function(ResponseState response) response,
       required Function(User user) onSuccess}) async {
-
     response(ResponseState.loading);
 
     try {
@@ -110,7 +109,10 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> saveUserDataToFirestore(
       {required UserModel userModel,
       required File? userProfilePic,
+      required Function(ResponseState response) response,
       required Function onSuccess}) async {
+    response(ResponseState.loading);
+
     try {
       //  upload image to firebase storage
       if (userProfilePic != null) {
@@ -133,8 +135,12 @@ class AuthRepositoryImpl implements AuthRepository {
           .collection(Constants.USER_COLLECTION)
           .doc(auth.currentUser!.uid)
           .set(userModel.toMap())
-          .then((value) => onSuccess());
+          .then((value) {
+        response(ResponseState.success);
+        onSuccess();
+      });
     } on FirebaseAuthException catch (error) {
+      response(ResponseState.failure);
       throw Exception(error);
     }
   }

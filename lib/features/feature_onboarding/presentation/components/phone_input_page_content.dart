@@ -110,23 +110,43 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                                           .startsWith('7'))) {
                                 await _authController.signInWithPhone(
                                     phoneNumber: phoneNumberController.text,
-                                    response: (state){
+                                    response: (state) {
                                       switch (state) {
                                         case ResponseState.success:
-                                          _authController.setVerifyButtonLoading(isLoading: false);
+                                          _authController
+                                              .setVerifyButtonLoading(
+                                                  isLoading: false);
                                           break;
                                         case ResponseState.loading:
-                                          _authController.setVerifyButtonLoading(isLoading: true);
+                                          _authController
+                                              .setVerifyButtonLoading(
+                                                  isLoading: true);
                                           break;
                                         case ResponseState.failure:
-                                          _authController.setVerifyButtonLoading(isLoading: false);
+                                          _authController
+                                              .setVerifyButtonLoading(
+                                                  isLoading: false);
+
+                                          WidgetsBinding.instance
+                                              .addPostFrameCallback((_) {
+                                            showSnackbar(
+                                                title: "Could not sign in",
+                                                message:
+                                                    "Something went wrong. please try again",
+                                                iconData: Icons.login_rounded,
+                                                iconColor:
+                                                    XploreColors.xploreOrange);
+                                          });
+
                                           break;
                                       }
                                     },
                                     onCodeSent: (verificationId) {
                                       Get.to(() => PhoneVerifyPage(
-                                          verificationId: verificationId,
-                                      phoneNumber: phoneNumberController.text,));
+                                            verificationId: verificationId,
+                                            phoneNumber:
+                                                phoneNumberController.text,
+                                          ));
                                     });
                               } else {
                                 WidgetsBinding.instance

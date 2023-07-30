@@ -1,11 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hive/hive.dart';
 
+/// flutter packages pub run build_runner build
+part 'user_model.g.dart';
+
+@HiveType(typeId: 1)
 class UserModel {
+
+  @HiveField(0, defaultValue: '')
   String? userId;
+
+  @HiveField(1, defaultValue: '')
   final String? userName;
+
+  @HiveField(2, defaultValue: '')
   String? userProfilePicUrl;
+
+  @HiveField(3, defaultValue: '')
   final String? userEmail;
+
+  @HiveField(4, defaultValue: '')
   String? userPhoneNumber;
+
+  @HiveField(5, defaultValue: '')
   String? createdAt;
 
   UserModel(

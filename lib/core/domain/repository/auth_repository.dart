@@ -17,7 +17,7 @@ abstract class AuthRepository {
   Future<void> verifyOtp(
       {required String verificationId,
       required String userOtp,
-        required Function(ResponseState response) response,
+      required Function(ResponseState response) response,
       required Function(User user) onSuccess});
 
   /// Check if User Exists
@@ -27,6 +27,7 @@ abstract class AuthRepository {
   Future<void> saveUserDataToFirestore(
       {required UserModel userModel,
       required File? userProfilePic,
+      required Function(ResponseState response) response,
       required Function onSuccess});
 
   /// Get User Data From Firebase

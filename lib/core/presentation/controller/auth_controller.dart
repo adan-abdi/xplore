@@ -19,12 +19,16 @@ class AuthController extends GetxController {
 
   final isVerifyButtonLoading = false.obs;
   final isVerifyOtpLoading = false.obs;
+  final isCreateProfileLoading = false.obs;
 
   void setVerifyButtonLoading({required bool isLoading}) =>
       isVerifyButtonLoading.value = isLoading;
 
   void setVerifyOtpLoading({required bool isLoading}) =>
       isVerifyOtpLoading.value = isLoading;
+
+  void setCreateProfileLoading({required bool isLoading}) =>
+      isCreateProfileLoading.value = isLoading;
 
   void setUserLoggedIn({required bool isLoggedIn}) =>
       isUserLoggedIn.value = isLoggedIn;
@@ -66,10 +70,12 @@ class AuthController extends GetxController {
   Future<void> saveUserDataToFirestore(
           {required UserModel userModel,
           required File? userProfilePic,
+            required Function(ResponseState response) response,
           required Function onSuccess}) async =>
       await authUseCases.saveUserDataToFirestore.call(
           userModel: userModel,
           userProfilePic: userProfilePic,
+          response: response,
           onSuccess: onSuccess);
 
   /// Get User Data from Firestore
