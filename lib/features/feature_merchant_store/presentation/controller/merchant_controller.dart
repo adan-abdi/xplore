@@ -11,8 +11,12 @@ class MerchantController extends GetxController {
   final useCases = locator.get<MerchantUseCases>();
 
   final productPic = Rxn<File>();
+  final uploadButtonLoading = false.obs;
 
   void setProductPic({required File file}) => productPic.value = file;
+
+  void setUploadButtonLoading({required bool isLoading}) =>
+      uploadButtonLoading.value = isLoading;
 
   Future<void> addProductToFirestore(
       {required ProductModel product,

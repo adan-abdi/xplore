@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/presentation/components/custom_textfield.dart';
+import 'package:shamiri/core/presentation/components/show_snackbar.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/core/presentation/controller/core_controller.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:get/get.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
+
+import '../../../../core/domain/model/response_state.dart';
 
 class AddProductBottomSheet extends StatefulWidget {
   const AddProductBottomSheet({super.key});
@@ -19,6 +23,11 @@ class AddProductBottomSheet extends StatefulWidget {
 
 class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
   late final TextEditingController _productNameController;
+  late final TextEditingController _productUnitController;
+  late final TextEditingController _productStockCountController;
+  late final TextEditingController _productBuyingPriceController;
+  late final TextEditingController _productSellingPriceController;
+  late final TextEditingController _productCategoryController;
   late final MerchantController _merchantController;
   late final CoreController _coreController;
 
@@ -27,6 +36,11 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
     super.initState();
 
     _productNameController = TextEditingController();
+    _productUnitController = TextEditingController();
+    _productStockCountController = TextEditingController();
+    _productBuyingPriceController = TextEditingController();
+    _productSellingPriceController = TextEditingController();
+    _productCategoryController = TextEditingController();
     _coreController = Get.find<CoreController>();
     _merchantController = Get.find<MerchantController>();
   }
@@ -101,10 +115,28 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                     vSize20SizedBox,
                     //  product unit
                     CustomTextField(
+                        hint: "Product Buying Price",
+                        iconData: Icons.monetization_on_rounded,
+                        textStyle: TextStyle(fontSize: 16),
+                        controller: _productBuyingPriceController,
+                        onChanged: (value) {}),
+
+                    vSize20SizedBox,
+                    //  product unit
+                    CustomTextField(
+                        hint: "Product Selling Price",
+                        iconData: Icons.monetization_on_rounded,
+                        textStyle: TextStyle(fontSize: 16),
+                        controller: _productSellingPriceController,
+                        onChanged: (value) {}),
+
+                    vSize20SizedBox,
+                    //  product unit
+                    CustomTextField(
                         hint: "Product Unit",
                         iconData: Icons.description,
                         textStyle: TextStyle(fontSize: 16),
-                        controller: _productNameController,
+                        controller: _productUnitController,
                         onChanged: (value) {}),
 
                     vSize20SizedBox,
@@ -113,7 +145,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                         hint: "Product Stock count",
                         iconData: Icons.description,
                         textStyle: TextStyle(fontSize: 16),
-                        controller: _productNameController,
+                        controller: _productStockCountController,
                         onChanged: (value) {}),
 
                     vSize20SizedBox,
@@ -122,7 +154,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                         hint: "Product Category",
                         iconData: Icons.description,
                         textStyle: TextStyle(fontSize: 16),
-                        controller: _productNameController,
+                        controller: _productCategoryController,
                         onChanged: (value) {}),
 
                     const SizedBox(
@@ -140,12 +172,60 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                     iconData: Icons.done_rounded,
                     isLoading: false,
                     text: "Add Product",
-                    onTap: () {
-                      //  TODO: ADD PRODUCT TO DATABASE
+                    onTap: () async {
+                      var productModel = ProductModel(
+                          productId: '',
+                          productName: _productNameController.text,
+                          productImageUrl: '',
+                          productUnit: _productUnitController.text,
+                          productBuyingPrice:
+                              _productBuyingPriceController.text,
+                          productSellingPrice:
+                              _productSellingPriceController.text,
+                          productCategoryId: _productCategoryController.text,
+                          productCreatedAt: DateTime.now().toString(),
+                          productStockCount: _productStockCountController.text);
 
-                      // var productModel
+                      await _merchantController.addProductToFirestore(
+                          product: productModel,
+                          productPic: _merchantController.productPic.value,
+                          response: (state) {
+                            switch (state) {
+                              case ResponseState.success:
+                                _merchantController.setUploadButtonLoading(
+                                    isLoading: false);
+                                break;
+                              case ResponseState.loading:
+                                _merchantController.setUploadButtonLoading(
+                                    isLoading: true);
+                                break;
+                              case ResponseState.failure:
+                                _merchantController.setUploadButtonLoading(
+                                    isLoading: false);
 
-                      Get.back();
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((_) {
+                                  showSnackbar(
+                                      title: "Error uploading product",
+                                      message:
+                                          "Something went wrong. please try again",
+                                      iconData: Icons.login_rounded,
+                                      iconColor: XploreColors.xploreOrange);
+                                });
+                                break;
+                            }
+                          },
+                          onSuccess: () {
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              showSnackbar(
+                                  title: "Product uploaded!",
+                                  message: "Product uploaded successfully!",
+                                  iconData: Icons.library_books_rounded,
+                                  iconColor: XploreColors.xploreOrange);
+                            });
+
+                            Get.back();
+                          });
                     }),
               ),
             )

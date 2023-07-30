@@ -26,14 +26,16 @@ class MerchantRepositoryImpl implements MerchantRepository {
       required Function onSuccess}) async {
     response(ResponseState.loading);
 
+    final productId = "${product.productName!}-${product.productCreatedAt!}";
+
     try {
       if (productPic != null) {
         await storeFileToFirebaseStorage(
-                ref: 'productPics/${auth.currentUser!.uid}', file: productPic)
+                ref: 'productPics/${auth.currentUser!.uid}/${productId}', file: productPic)
             .then((downloadUrl) => product.productImageUrl = downloadUrl);
       }
 
-      final productId = "${product.productName!}-${product.productCreatedAt!}";
+      product.productId = productId;
 
       await firestore
           .collection(Constants.USER_COLLECTION)
