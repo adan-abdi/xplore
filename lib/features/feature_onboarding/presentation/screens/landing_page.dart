@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/application/singletons/button_status.dart';
-import 'package:shamiri/domain/routes/routes.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/onboarding_scaffold.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/action_button.dart';
@@ -34,7 +33,6 @@ class LandingPage extends StatelessWidget {
                 flex: 1,
                 child: ActionButton(
                   widgetText: getStartedText,
-                  nextRoute: phoneInputPageRoute,
                   colorStream: ButtonStatusStore().landingColorStream,
                   statusStream: ButtonStatusStore().landingStatusStream,
                 ),

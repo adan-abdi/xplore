@@ -10,8 +10,6 @@ import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/models/categories/category.dart';
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/domain/models/transactions/order.dart';
-import 'package:shamiri/domain/routes/routes.dart';
-import 'package:shamiri/domain/value_objects/app_constants.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
@@ -69,21 +67,20 @@ class _ProductCardState extends State<ProductCard> {
                     color: XploreColors.deepBlueAccent,
                   ),
                   onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      editProductPageRoute,
-                      arguments: Product(
-                        name: prodName,
-                        quantityInStock: prodQtyInStock,
-                        quantityOrdered: quantityOrdered,
-                        sellingPrice: prodSp,
-                        buyingPrice: prodBp,
-                        metricUnit: productUnit,
-                        categories: [Category(name: category)],
-                        imageList: [prodImag],
-                        productRefID: productRef,
-                      ),
-                    );
+                    // Navigator.pushNamed(
+                    //   context,
+                    //   arguments: Product(
+                    //     name: prodName,
+                    //     quantityInStock: prodQtyInStock,
+                    //     quantityOrdered: quantityOrdered,
+                    //     sellingPrice: prodSp,
+                    //     buyingPrice: prodBp,
+                    //     metricUnit: productUnit,
+                    //     categories: [Category(name: category)],
+                    //     imageList: [prodImag],
+                    //     productRefID: productRef,
+                    //   ),
+                    // );
                   }),
             ),
           ),

@@ -9,5 +9,9 @@ class UserPrefs {
   @HiveField(0, defaultValue: false)
   final bool? isLoggedIn;
 
-  UserPrefs({this.isLoggedIn});
+  /// Is Profile created
+  @HiveField(1, defaultValue: false)
+  final bool? isProfileCreated;
+
+  UserPrefs({this.isLoggedIn, this.isProfileCreated});
 }

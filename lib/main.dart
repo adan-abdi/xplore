@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shamiri/core/domain/model/user_prefs.dart';
+import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/utils/constants.dart';
 
 // Project imports:
@@ -47,9 +48,26 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  late final AuthController _authController;
+
   @override
   void initState() {
     super.initState();
+
+    _authController = Get.find<AuthController>();
+
+    initializeUserprefs();
+  }
+
+  void initializeUserprefs() async {
+    final userPrefsBox =
+        await Hive.box(Constants.USER_PREFS_BOX).get('userPrefs') as UserPrefs?;
+
+    _authController.setUserLoggedIn(
+        isLoggedIn: userPrefsBox?.isLoggedIn ?? false);
+
+    _authController.setUserProfileCreated(
+        isProfileCreated: userPrefsBox?.isProfileCreated ?? false);
   }
 
   @override

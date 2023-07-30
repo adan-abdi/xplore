@@ -13,7 +13,9 @@ import 'package:pinput/pinput.dart';
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/application/singletons/button_status.dart';
+import 'package:shamiri/core/domain/model/user_prefs.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
+import 'package:shamiri/core/presentation/controller/user_prefs_controller.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/screens/create_profile_page.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/login_title.dart';
@@ -40,7 +42,8 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
   StreamController errorAnimationController = StreamController();
   FocusNode otpPinCodeFocusNode = new FocusNode();
   ButtonStatusStore otpBtnStore = ButtonStatusStore();
-  late AuthController _authController;
+  late final AuthController _authController;
+  late final UserPrefsController _userPrefsController;
   String? otpCode;
 
   @override
@@ -48,6 +51,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
     super.initState();
 
     _authController = Get.find<AuthController>();
+    _userPrefsController = Get.find<UserPrefsController>();
   }
 
   @override
@@ -137,11 +141,21 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                               //  check whether user exists in the database
                               await _authController
                                   .checkUserExists(uid: user.uid)
-                                  .then((exists) {
+                                  .then((exists) async {
                                 if (exists) {
                                   //  existing user go to home page
                                   Get.offAll(() => MainScreen());
+
+                                  //  add logged in status to true
+                                  await _userPrefsController.updateUserPrefs(
+                                      userPrefs: UserPrefs(
+                                          isLoggedIn: true,
+                                          isProfileCreated: true));
                                 } else {
+                                  await _userPrefsController.updateUserPrefs(
+                                      userPrefs: UserPrefs(
+                                          isLoggedIn: true,
+                                          isProfileCreated: false));
                                   //  new user go to info page
                                   Get.offAll(CreateProfilePage());
                                 }

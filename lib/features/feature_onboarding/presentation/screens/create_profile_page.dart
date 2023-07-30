@@ -12,7 +12,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/features/feature_main/main_screen.dart';
 
+import '../../../../core/domain/model/user_prefs.dart';
 import '../../../../core/presentation/components/custom_textfield.dart';
+import '../../../../core/presentation/controller/user_prefs_controller.dart';
 import '../components/login_title.dart';
 
 class CreateProfilePage extends StatefulWidget {
@@ -27,6 +29,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
   late final TextEditingController _emailController;
   late final CoreController _coreController;
   late final AuthController _authController;
+  late final UserPrefsController _userPrefsController;
 
   @override
   void initState() {
@@ -36,6 +39,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
     _emailController = TextEditingController();
     _coreController = Get.find<CoreController>();
     _authController = Get.find<AuthController>();
+    _userPrefsController = Get.find<UserPrefsController>();
   }
 
   @override
@@ -128,9 +132,14 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                     createdAt: ""),
                                 userProfilePic:
                                     _coreController.userProfilePic.value,
-                                onSuccess: () {
+                                onSuccess: () async {
                                   //  navigate to Main Screen
                                   Get.to(() => MainScreen());
+                                  //  add logged in status to true
+                                  await _userPrefsController.updateUserPrefs(
+                                      userPrefs: UserPrefs(
+                                          isLoggedIn: true,
+                                          isProfileCreated: true));
                                 });
                           }))
                 ],

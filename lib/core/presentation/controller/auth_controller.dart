@@ -14,6 +14,9 @@ class AuthController extends GetxController {
 
   final user = Rxn<UserModel>();
 
+  final isUserLoggedIn = false.obs;
+  final isUserProfileCreated = false.obs;
+
   final isVerifyButtonLoading = false.obs;
   final isVerifyOtpLoading = false.obs;
 
@@ -22,6 +25,12 @@ class AuthController extends GetxController {
 
   void setVerifyOtpLoading({required bool isLoading}) =>
       isVerifyOtpLoading.value = isLoading;
+
+  void setUserLoggedIn({required bool isLoggedIn}) =>
+      isUserLoggedIn.value = isLoggedIn;
+
+  void setUserProfileCreated({required bool isProfileCreated}) =>
+      isUserProfileCreated.value = isProfileCreated;
 
   /// sign in with phone
   Future<void> signInWithPhone(

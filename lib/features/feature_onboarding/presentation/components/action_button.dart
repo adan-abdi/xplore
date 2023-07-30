@@ -15,7 +15,6 @@ import 'package:shamiri/features/feature_onboarding/presentation/screens/phone_i
 
 class ActionButton extends StatefulWidget {
   final String widgetText;
-  final String nextRoute;
   final Function? onTapCallback;
   final BehaviorSubject<Color>? colorStream;
   final BehaviorSubject<bool>? statusStream;
@@ -23,7 +22,6 @@ class ActionButton extends StatefulWidget {
   const ActionButton({
     Key? key,
     required this.widgetText,
-    required this.nextRoute,
     required this.statusStream,
     required this.colorStream,
     this.onTapCallback,
