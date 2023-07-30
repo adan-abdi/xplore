@@ -18,15 +18,18 @@ class UserPrefsAdapter extends TypeAdapter<UserPrefs> {
     };
     return UserPrefs(
       isLoggedIn: fields[0] == null ? false : fields[0] as bool?,
+      isProfileCreated: fields[1] == null ? false : fields[1] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserPrefs obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.isLoggedIn);
+      ..write(obj.isLoggedIn)
+      ..writeByte(1)
+      ..write(obj.isProfileCreated);
   }
 
   @override

@@ -9,6 +9,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shamiri/core/domain/model/user_prefs.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
+import 'package:shamiri/core/presentation/controller/user_prefs_controller.dart';
 import 'package:shamiri/core/utils/constants.dart';
 
 // Project imports:
@@ -17,6 +18,8 @@ import 'package:shamiri/di/locator.dart';
 import 'package:shamiri/features/feature_main/main_screen.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/screens/landing_page.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
+
+import 'features/feature_onboarding/presentation/screens/create_profile_page.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -49,12 +52,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late final AuthController _authController;
+  late final UserPrefsController _userPrefsController;
 
   @override
   void initState() {
     super.initState();
 
     _authController = Get.find<AuthController>();
+    _userPrefsController = Get.find<UserPrefsController>();
 
     initializeUserprefs();
   }
@@ -62,6 +67,11 @@ class _MyAppState extends State<MyApp> {
   void initializeUserprefs() async {
     final userPrefsBox =
         await Hive.box(Constants.USER_PREFS_BOX).get('userPrefs') as UserPrefs?;
+
+    if (userPrefsBox == null) {
+      _userPrefsController.addUserPrefs(
+          userPrefs: UserPrefs(isLoggedIn: false, isProfileCreated: false));
+    }
 
     _authController.setUserLoggedIn(
         isLoggedIn: userPrefsBox?.isLoggedIn ?? false);
@@ -74,9 +84,17 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     FlutterNativeSplash.remove();
 
-    return GetMaterialApp(
-      home: LandingPage(),
-      debugShowCheckedModeBanner: false,
+    return Obx(
+      () => GetMaterialApp(
+        home: _authController.isUserLoggedIn.value &&
+                _authController.isUserProfileCreated.value
+            ? MainScreen()
+            : _authController.isUserLoggedIn.value &&
+                    !_authController.isUserProfileCreated.value
+                ? CreateProfilePage()
+                : LandingPage(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

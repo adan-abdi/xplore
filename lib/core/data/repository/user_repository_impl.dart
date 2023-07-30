@@ -21,11 +21,11 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<void> updateUserPrefs({required UserPrefs userPrefs}) async {
-    var oldUser = await userBox.get('userPrefs') as UserPrefs;
+    var oldUser = await userBox.get('userPrefs') as UserPrefs?;
     var newUser = UserPrefs(
-        isLoggedIn: userPrefs.isLoggedIn ?? oldUser.isLoggedIn,
+        isLoggedIn: userPrefs.isLoggedIn ?? oldUser?.isLoggedIn,
         isProfileCreated:
-            userPrefs.isProfileCreated ?? oldUser.isProfileCreated);
+            userPrefs.isProfileCreated ?? oldUser?.isProfileCreated);
 
     await userBox.put('userPrefs', newUser);
   }
