@@ -80,7 +80,7 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                     ...titles(
                       context: context,
                       extraHeading:
-                      'We will send you a confirmation code to verify you.',
+                          'We will send you a confirmation code to verify you.',
                       subtitle: 'mobile number',
                       title: 'Enter your \n',
                     ),
@@ -101,44 +101,42 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                     //  verify button
                     Align(
                       alignment: AlignmentDirectional.center,
-                      child: SubmitButton(
-                          iconData: Icons.send_rounded,
-                          text: "Verify",
-                          isLoading: isLoading,
-                          onTap: () async {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            if (phoneNumberController.text.length >= 10 &&
-                                (phoneNumberController.text.startsWith(
-                                    '+254') ||
-                                    phoneNumberController.text.startsWith(
-                                        '07') ||
-                                    phoneNumberController.text.startsWith(
-                                        '7'))) {
-                              await _authController.signInWithPhone(
-                                  phoneNumber: phoneNumberController.text,
-                                  onCodeSent: (verificationId) {
-                                    Get.to(() =>
-                                        PhoneVerifyPage(
-                                            verificationId: verificationId));
-                                  });
+                      child: Obx(
+                        () => SubmitButton(
+                            iconData: Icons.send_rounded,
+                            text: "Verify",
+                            isLoading:
+                                _authController.isVerifyButtonLoading.value,
+                            onTap: () async {
+                              _authController.setVerifyButtonLoading(isLoading: true);
+                              if (phoneNumberController.text.length >= 10 &&
+                                  (phoneNumberController.text
+                                          .startsWith('+254') ||
+                                      phoneNumberController.text
+                                          .startsWith('07') ||
+                                      phoneNumberController.text
+                                          .startsWith('7'))) {
+                                await _authController.signInWithPhone(
+                                    phoneNumber: phoneNumberController.text,
+                                    onCodeSent: (verificationId) {
+                                      Get.to(() => PhoneVerifyPage(
+                                          verificationId: verificationId));
+                                    });
 
-                              setState(() {
-                                isLoading = false;
-                              });
-                            } else {
-                              setState(() {
-                                isLoading = false;
-                              });
-                              WidgetsBinding.instance.addPostFrameCallback((_) {
-                                showSnackbar(title: "Invalid Phone Number",
-                                    message: 'Please enter a valid phone number',
-                                    iconData: Icons.phone_rounded,
-                                    iconColor: XploreColors.lightOrange);
-                              });
-                            }
-                          }),
+                                _authController.setVerifyButtonLoading(isLoading: false);
+                              } else {
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((_) {
+                                  showSnackbar(
+                                      title: "Invalid Phone Number",
+                                      message:
+                                          'Please enter a valid phone number',
+                                      iconData: Icons.phone_rounded,
+                                      iconColor: XploreColors.lightOrange);
+                                });
+                              }
+                            }),
+                      ),
                     ),
                   ],
                 ),

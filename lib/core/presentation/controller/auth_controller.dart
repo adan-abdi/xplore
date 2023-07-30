@@ -12,6 +12,10 @@ class AuthController extends GetxController {
 
   final user = Rxn<UserModel>();
 
+  final isVerifyButtonLoading = false.obs;
+
+  void setVerifyButtonLoading({required bool isLoading}) => isVerifyButtonLoading.value = isLoading;
+
   /// sign in with phone
   Future<void> signInWithPhone(
       {required String phoneNumber,
