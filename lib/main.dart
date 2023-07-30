@@ -5,12 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shamiri/core/domain/model/user_prefs.dart';
+import 'package:shamiri/core/utils/constants.dart';
 
 // Project imports:
 import 'package:shamiri/di/controllers_di.dart';
 import 'package:shamiri/di/locator.dart';
 import 'package:shamiri/features/feature_main/main_screen.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/screens/landing_page.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +24,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
+
+  final appDocumentDirectory =
+      await path_provider.getApplicationDocumentsDirectory();
+
+  await Hive.initFlutter(appDocumentDirectory.path);
+
+  Hive.registerAdapter(UserPrefsAdapter());
+  await Hive.openBox(Constants.USER_PREFS_BOX);
+
   invokeDependencies();
   initializeControllers();
 
