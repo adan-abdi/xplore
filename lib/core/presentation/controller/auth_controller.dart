@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/core/domain/use_cases/auth_use_cases.dart';
 import 'package:shamiri/di/locator.dart';
@@ -14,9 +15,13 @@ class AuthController extends GetxController {
   final user = Rxn<UserModel>();
 
   final isVerifyButtonLoading = false.obs;
+  final isVerifyOtpLoading = false.obs;
 
   void setVerifyButtonLoading({required bool isLoading}) =>
       isVerifyButtonLoading.value = isLoading;
+
+  void setVerifyOtpLoading({required bool isLoading}) =>
+      isVerifyOtpLoading.value = isLoading;
 
   /// sign in with phone
   Future<void> signInWithPhone(
@@ -35,9 +40,13 @@ class AuthController extends GetxController {
   Future<void> verifyOtp(
       {required String verificationId,
       required String userOtp,
+      required Function(ResponseState response) response,
       required Function(User user) onSuccess}) async {
     await authUseCases.verifyOtp.call(
-        verificationId: verificationId, userOtp: userOtp, onSuccess: onSuccess);
+        verificationId: verificationId,
+        userOtp: userOtp,
+        response: response,
+        onSuccess: onSuccess);
   }
 
   /// Check if user exists

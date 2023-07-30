@@ -16,16 +16,6 @@ class AppRouterGenerator {
     final dynamic args = settings?.arguments;
 
     switch (settings?.name) {
-      //
-      case landingPageRoute:
-        return MaterialPageRoute<LandingPage>(builder: (_) => LandingPage());
-      //
-      case phoneInputPageRoute:
-        return MaterialPageRoute<PhoneInputPage>(
-            builder: (_) => PhoneInputPage());
-      case verifyPhonePageRoute:
-        return MaterialPageRoute<PhoneVerifyPage>(
-            builder: (_) => PhoneVerifyPage(verificationId: "",));
 
       case editProductPageRoute:
         return MaterialPageRoute<EditProducts>(

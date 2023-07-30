@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:shamiri/core/domain/model/response_state.dart';
 
 import '../model/user_model.dart';
@@ -16,6 +17,7 @@ abstract class AuthRepository {
   Future<void> verifyOtp(
       {required String verificationId,
       required String userOtp,
+        required Function(ResponseState response) response,
       required Function(User user) onSuccess});
 
   /// Check if User Exists

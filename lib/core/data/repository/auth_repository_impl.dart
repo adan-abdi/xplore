@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:pinput/pinput.dart';
 import 'package:shamiri/core/domain/repository/auth_repository.dart';
 import 'package:shamiri/core/utils/constants.dart';
 
@@ -21,7 +23,6 @@ class AuthRepositoryImpl implements AuthRepository {
       required Function(ResponseState response) response,
       required Function(String verificationId) onCodeSent}) async {
     try {
-
       response(ResponseState.loading);
 
       await auth.verifyPhoneNumber(
@@ -50,7 +51,11 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> verifyOtp(
       {required String verificationId,
       required String userOtp,
+      required Function(ResponseState response) response,
       required Function(User user) onSuccess}) async {
+
+    response(ResponseState.loading);
+
     try {
       //  get login credentials
       final PhoneAuthCredential credential = PhoneAuthProvider.credential(
@@ -59,9 +64,11 @@ class AuthRepositoryImpl implements AuthRepository {
       final User? user = (await auth.signInWithCredential(credential)).user!;
 
       if (user != null) {
+        response(ResponseState.success);
         onSuccess(user);
       }
     } on FirebaseAuthException catch (error) {
+      response(ResponseState.failure);
       throw Exception(error);
     }
   }

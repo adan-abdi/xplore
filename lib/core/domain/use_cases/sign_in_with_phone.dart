@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shamiri/core/domain/repository/auth_repository.dart';
 
 import '../../../di/locator.dart';
@@ -11,5 +12,7 @@ class SignInWithPhone {
           required Function(ResponseState response) response,
           required Function(String verificationId) onCodeSent}) async =>
       await repository.signInWithPhone(
-          phoneNumber: phoneNumber, response: response, onCodeSent: onCodeSent);
+          phoneNumber: phoneNumber,
+          response: response,
+          onCodeSent: onCodeSent);
 }

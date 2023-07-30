@@ -133,7 +133,8 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                                     },
                                     onCodeSent: (verificationId) {
                                       Get.to(() => PhoneVerifyPage(
-                                          verificationId: verificationId));
+                                          verificationId: verificationId,
+                                      phoneNumber: phoneNumberController.text,));
                                     });
                               } else {
                                 WidgetsBinding.instance
@@ -158,6 +159,7 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                   flex: 4,
                   child: XploreKeyboard(
                     phoneController: phoneNumberController,
+                    isLoading: false,
                   ))
             ],
           ),
