@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:shamiri/core/domain/model/user_model.dart';
 
 /// flutter packages pub run build_runner build
 part 'user_prefs.g.dart';
@@ -13,5 +14,9 @@ class UserPrefs {
   @HiveField(1, defaultValue: false)
   final bool? isProfileCreated;
 
-  UserPrefs({this.isLoggedIn, this.isProfileCreated});
+  /// User Data
+  @HiveField(2, defaultValue: null)
+  final UserModel? userModel;
+
+  UserPrefs({this.isLoggedIn, this.isProfileCreated, this.userModel});
 }
