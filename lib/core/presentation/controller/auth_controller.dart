@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:shamiri/core/domain/use_cases/auth_use_cases.dart';
 import 'package:shamiri/di/locator.dart';
 
+import '../../domain/model/response_state.dart';
 import '../../domain/model/user_model.dart';
 
 class AuthController extends GetxController {
@@ -14,16 +15,20 @@ class AuthController extends GetxController {
 
   final isVerifyButtonLoading = false.obs;
 
-  void setVerifyButtonLoading({required bool isLoading}) => isVerifyButtonLoading.value = isLoading;
+  void setVerifyButtonLoading({required bool isLoading}) =>
+      isVerifyButtonLoading.value = isLoading;
 
   /// sign in with phone
   Future<void> signInWithPhone(
       {required String phoneNumber,
+      required Function(ResponseState response) response,
       required Function(String verificationId) onCodeSent}) async {
     var formattedPhoneNumber = '+254${phoneNumber.trim()}';
 
-    await authUseCases.signInWithPhone
-        .call(phoneNumber: formattedPhoneNumber, onCodeSent: onCodeSent);
+    await authUseCases.signInWithPhone.call(
+        phoneNumber: formattedPhoneNumber,
+        response: response,
+        onCodeSent: onCodeSent);
   }
 
   /// Verify Otp

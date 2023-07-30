@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shamiri/core/domain/model/response_state.dart';
 
 import '../model/user_model.dart';
 
@@ -8,6 +9,7 @@ abstract class AuthRepository {
   /// Sign In with phone
   Future<void> signInWithPhone(
       {required String phoneNumber,
+      required Function(ResponseState response) response,
       required Function(String verificationId) onCodeSent});
 
   /// Verify OTP
@@ -26,7 +28,8 @@ abstract class AuthRepository {
       required Function onSuccess});
 
   /// Get User Data From Firebase
-  Future<void> getUserDataFromFirestore({required Function(UserModel user) onSuccess});
+  Future<void> getUserDataFromFirestore(
+      {required Function(UserModel user) onSuccess});
 
   Future<String> storeFileToFirebaseStorage(
       {required String ref, required File file});
