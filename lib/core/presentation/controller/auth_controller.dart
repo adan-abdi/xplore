@@ -36,6 +36,8 @@ class AuthController extends GetxController {
   void setUserProfileCreated({required bool isProfileCreated}) =>
       isUserProfileCreated.value = isProfileCreated;
 
+  void setUser({required UserModel? user}) => this.user.value = user;
+
   /// sign in with phone
   Future<void> signInWithPhone(
       {required String phoneNumber,
@@ -70,7 +72,7 @@ class AuthController extends GetxController {
   Future<void> saveUserDataToFirestore(
           {required UserModel userModel,
           required File? userProfilePic,
-            required Function(ResponseState response) response,
+          required Function(ResponseState response) response,
           required Function onSuccess}) async =>
       await authUseCases.saveUserDataToFirestore.call(
           userModel: userModel,

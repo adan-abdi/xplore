@@ -7,6 +7,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/domain/model/user_prefs.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/presentation/controller/user_prefs_controller.dart';
@@ -35,6 +36,7 @@ void main() async {
   await Hive.initFlutter(appDocumentDirectory.path);
 
   Hive.registerAdapter(UserPrefsAdapter());
+  Hive.registerAdapter(UserModelAdapter());
   await Hive.openBox(Constants.USER_PREFS_BOX);
 
   invokeDependencies();
@@ -78,6 +80,8 @@ class _MyAppState extends State<MyApp> {
 
     _authController.setUserProfileCreated(
         isProfileCreated: userPrefsBox?.isProfileCreated ?? false);
+
+    _authController.setUser(user: userPrefsBox?.userModel);
   }
 
   @override
@@ -87,7 +91,7 @@ class _MyAppState extends State<MyApp> {
     return Obx(
       () => GetMaterialApp(
         home: _authController.isUserLoggedIn.value &&
-                _authController.isUserProfileCreated.value
+                _authController.isUserProfileCreated.value && _authController.user.value != null
             ? MainScreen()
             : _authController.isUserLoggedIn.value &&
                     !_authController.isUserProfileCreated.value

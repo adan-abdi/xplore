@@ -4,7 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:hive/hive.dart';
 import 'package:pinput/pinput.dart';
+import 'package:shamiri/core/domain/model/user_prefs.dart';
 import 'package:shamiri/core/domain/repository/auth_repository.dart';
 import 'package:shamiri/core/utils/constants.dart';
 
@@ -13,6 +15,7 @@ import '../../domain/model/response_state.dart';
 import '../../domain/model/user_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
+  final userPrefsBox = Hive.box(Constants.USER_PREFS_BOX);
   final auth = locator.get<FirebaseAuth>();
   final firestore = locator.get<FirebaseFirestore>();
   final storage = locator.get<FirebaseStorage>();
@@ -135,7 +138,16 @@ class AuthRepositoryImpl implements AuthRepository {
           .collection(Constants.USER_COLLECTION)
           .doc(auth.currentUser!.uid)
           .set(userModel.toMap())
-          .then((value) {
+          .then((value) async {
+
+        //  save data locally to hive
+        await userPrefsBox.put(
+            'userPrefs',
+            UserPrefs(
+                isLoggedIn: true,
+                isProfileCreated: true,
+                userModel: userModel));
+
         response(ResponseState.success);
         onSuccess();
       });
