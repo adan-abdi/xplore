@@ -37,6 +37,7 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
 
             SliverToBoxAdapter(child: vSize20SizedBox,),
 
+            //  my products header
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverToBoxAdapter(
@@ -45,6 +46,7 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
 
             SliverToBoxAdapter(child: vSize20SizedBox,),
 
+            //  All Products
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverList(
