@@ -12,7 +12,7 @@ class SaveUserDataToFirestore {
   Future<void> call(
           {required UserModel userModel,
           required File? userProfilePic,
-            required Function(ResponseState response) response,
+            required Function(ResponseState response, String? error) response,
           required Function onSuccess}) async =>
       await repository.saveUserDataToFirestore(
           userModel: userModel,

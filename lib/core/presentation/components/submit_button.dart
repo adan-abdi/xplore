@@ -7,6 +7,7 @@ class SubmitButton extends StatelessWidget {
   final IconData iconData;
   final String text;
   final bool isLoading;
+  final Color backgroundColor;
   final VoidCallback? onTap;
 
   const SubmitButton(
@@ -14,6 +15,7 @@ class SubmitButton extends StatelessWidget {
       required this.iconData,
       required this.text,
       this.isLoading = false,
+      this.backgroundColor = XploreColors.deepBlue,
       required this.onTap});
 
   @override
@@ -29,9 +31,9 @@ class SubmitButton extends StatelessWidget {
           : UnconstrainedBox(
               child: Container(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                    const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
                 decoration: BoxDecoration(
-                    color: XploreColors.deepBlue,
+                    color: backgroundColor,
                     borderRadius: BorderRadius.circular(16)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

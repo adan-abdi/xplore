@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shamiri/features/feature_cart/presentation/components/cart_item_card.dart';
 
 import '../../../../application/core/themes/colors.dart';
 
@@ -15,8 +16,9 @@ class _AllCartProductsState extends State<AllCartProducts> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: XploreColors.whiteSmoke,
+      color: XploreColors.white,
       child: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: [
 
           //  All Cart Products
@@ -24,9 +26,11 @@ class _AllCartProductsState extends State<AllCartProducts> {
             padding: const EdgeInsets.all(16.0),
             sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
-                    (context, index) => Text("Hello"),
+                    (context, index) => CartItemCard(),
                     childCount: 10)),
-          )
+          ),
+
+          SliverToBoxAdapter(child: SizedBox(height: 250,))
         ],
       ),
     );

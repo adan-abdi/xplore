@@ -10,7 +10,7 @@ class VerifyOtp {
   Future<void> call(
           {required String verificationId,
           required String userOtp,
-          required Function(ResponseState response) response,
+          required Function(ResponseState response, String? error) response,
           required Function(User user) onSuccess}) async =>
       await repository.verifyOtp(
           verificationId: verificationId,

@@ -140,7 +140,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                       createdAt: ""),
                                   userProfilePic:
                                       _coreController.userProfilePic.value,
-                                  response: (state) {
+                                  response: (state, error) {
                                     switch (state) {
                                       case ResponseState.success:
                                         _authController.setCreateProfileLoading(

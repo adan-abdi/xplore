@@ -9,7 +9,7 @@ class SignInWithPhone {
 
   Future<void> call(
           {required String phoneNumber,
-          required Function(ResponseState response) response,
+          required Function(ResponseState response, String? error) response,
           required Function(String verificationId) onCodeSent}) async =>
       await repository.signInWithPhone(
           phoneNumber: phoneNumber,

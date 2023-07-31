@@ -110,7 +110,7 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                                           .startsWith('7'))) {
                                 await _authController.signInWithPhone(
                                     phoneNumber: phoneNumberController.text,
-                                    response: (state) {
+                                    response: (state, error) {
                                       switch (state) {
                                         case ResponseState.success:
                                           _authController

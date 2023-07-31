@@ -122,7 +122,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                         _authController.verifyOtp(
                             verificationId: widget.verificationId,
                             userOtp: otp,
-                            response: (state) {
+                            response: (state, error) {
                               switch (state) {
                                 case ResponseState.success:
                                   _authController.setVerifyOtpLoading(
@@ -141,7 +141,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                                     showSnackbar(
                                         title: "Could not verify Otp",
                                         message:
-                                        "Something went wrong. please try again",
+                                        error!,
                                         iconData: Icons.onetwothree_rounded,
                                         iconColor:
                                         XploreColors.xploreOrange);

@@ -23,10 +23,10 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> signInWithPhone(
       {required String phoneNumber,
-      required Function(ResponseState response) response,
+      required Function(ResponseState response, String? error) response,
       required Function(String verificationId) onCodeSent}) async {
     try {
-      response(ResponseState.loading);
+      response(ResponseState.loading, null);
 
       await auth.verifyPhoneNumber(
           phoneNumber: phoneNumber,
@@ -34,29 +34,33 @@ class AuthRepositoryImpl implements AuthRepository {
               (PhoneAuthCredential phoneAuthCredential) async {
             //  when verification is complete, sign in
             await auth.signInWithCredential(phoneAuthCredential);
-            response(ResponseState.success);
+            response(ResponseState.success, null);
           },
           verificationFailed: (error) {
-            response(ResponseState.failure);
+            response(ResponseState.failure, error.message);
             throw Exception(error.message);
           },
           codeSent: (verificationId, forceResendingToken) {
-            response(ResponseState.success);
+            response(ResponseState.success, null);
             onCodeSent(verificationId);
           },
           codeAutoRetrievalTimeout: (verificationId) {});
     } on FirebaseException catch (error) {
+      response(ResponseState.failure, error.message);
       throw Exception(error.code);
     }
   }
 
   @override
+  Future<void> signOut() async => await FirebaseAuth.instance.signOut();
+
+  @override
   Future<void> verifyOtp(
       {required String verificationId,
       required String userOtp,
-      required Function(ResponseState response) response,
+      required Function(ResponseState response, String? error) response,
       required Function(User user) onSuccess}) async {
-    response(ResponseState.loading);
+    response(ResponseState.loading, null);
 
     try {
       //  get login credentials
@@ -66,11 +70,11 @@ class AuthRepositoryImpl implements AuthRepository {
       final User? user = (await auth.signInWithCredential(credential)).user!;
 
       if (user != null) {
-        response(ResponseState.success);
+        response(ResponseState.success, null);
         onSuccess(user);
       }
     } on FirebaseAuthException catch (error) {
-      response(ResponseState.failure);
+      response(ResponseState.failure, error.message);
       throw Exception(error);
     }
   }
@@ -112,9 +116,9 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> saveUserDataToFirestore(
       {required UserModel userModel,
       required File? userProfilePic,
-      required Function(ResponseState response) response,
+      required Function(ResponseState response, String? error) response,
       required Function onSuccess}) async {
-    response(ResponseState.loading);
+    response(ResponseState.loading, null);
 
     try {
       //  upload image to firebase storage
@@ -139,7 +143,6 @@ class AuthRepositoryImpl implements AuthRepository {
           .doc(auth.currentUser!.uid)
           .set(userModel.toMap())
           .then((value) async {
-
         //  save data locally to hive
         await userPrefsBox.put(
             'userPrefs',
@@ -148,11 +151,11 @@ class AuthRepositoryImpl implements AuthRepository {
                 isProfileCreated: true,
                 userModel: userModel));
 
-        response(ResponseState.success);
+        response(ResponseState.success, null);
         onSuccess();
       });
     } on FirebaseAuthException catch (error) {
-      response(ResponseState.failure);
+      response(ResponseState.failure, error.message);
       throw Exception(error);
     }
   }
