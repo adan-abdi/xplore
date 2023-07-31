@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "928513386554-21e078l5fnf9id3ieodmoa9u0geu2ple.apps.googleusercontent.com",
+          "client_id": "928513386554-r6uokl97qapfdb60u3hc82g3i7oqsg78.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.dukalink.mobile",
-            "certificate_hash": "846971dc38083e634fa0c9b8ee74112b1d4ce051"
+            "certificate_hash": "607966dfa88962e191d8f312c6c7b68b3bcb4a4b"
           }
         },
         {
