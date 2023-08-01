@@ -193,7 +193,14 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
                   ),
-                ));
+                ),
+                mainScreenTapClose: true,
+                mainScreenScale: 0.3,
+                menuBackgroundColor: XploreColors.xploreOrange,
+                menuScreenTapClose: true,
+                angle: 0,
+                showShadow: true,
+              );
       },
     );
   }
