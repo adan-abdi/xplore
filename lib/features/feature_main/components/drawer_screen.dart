@@ -70,6 +70,41 @@ class _DrawerScreenState extends State<DrawerScreen> {
               ),
             ),
 
+            vSize20SizedBox,
+
+            //  user name
+            Text.rich(TextSpan(children: [
+              TextSpan(
+                  text: "Hello, ",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                      color: XploreColors.whiteSmoke,
+                      decoration: TextDecoration.none)),
+              TextSpan(
+                  text: _authController.user.value!.userName!,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 18,
+                      color: XploreColors.white,
+                      decoration: TextDecoration.none,
+                  overflow: TextOverflow.ellipsis)),
+            ])),
+
+            vSize30SizedBox,
+
+            //  More options
+            Container(
+              width: double.infinity,
+              height: 250,
+              decoration: BoxDecoration(
+                  color: XploreColors.deepBlue,
+                  borderRadius: BorderRadius.circular(16)),
+              child: Column(),
+            ),
+
+            vSize30SizedBox,
+
             //  logout button
             GestureDetector(
               onTap: () async {
