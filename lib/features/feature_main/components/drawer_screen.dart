@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/features/feature_main/components/drawer_option_item.dart';
 
 import '../../../application/core/themes/colors.dart';
 import 'package:get/get.dart';
@@ -88,7 +89,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       fontSize: 18,
                       color: XploreColors.white,
                       decoration: TextDecoration.none,
-                  overflow: TextOverflow.ellipsis)),
+                      overflow: TextOverflow.ellipsis)),
             ])),
 
             vSize30SizedBox,
@@ -100,43 +101,46 @@ class _DrawerScreenState extends State<DrawerScreen> {
               decoration: BoxDecoration(
                   color: XploreColors.deepBlue,
                   borderRadius: BorderRadius.circular(16)),
-              child: Column(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // profile settings
+                  DrawerOptionItem(
+                      title: "Profile",
+                      iconData: Icons.person_rounded,
+                      onTap: () {}),
+                  // my store settings
+                  DrawerOptionItem(
+                      title: "My Store",
+                      iconData: Icons.store_rounded,
+                      onTap: () {}),
+                  // transactions settings
+                  DrawerOptionItem(
+                      title: "Transactions",
+                      iconData: Icons.receipt_long_rounded,
+                      onTap: () {}),
+                  // qr code scanner settings
+                  DrawerOptionItem(
+                      title: "Qr code",
+                      iconData: Icons.qr_code_outlined,
+                      onTap: () {}),
+                ],
+              ),
             ),
 
             vSize30SizedBox,
 
-            //  logout button
-            GestureDetector(
-              onTap: () async {
-                await _authController.signOut();
+            DrawerOptionItem(
+                title: "Logout",
+                iconData: Icons.logout_rounded,
+                onTap: () async {
+                  await _authController.signOut();
 
-                _authController.setUserLoggedIn(isLoggedIn: false);
+                  _authController.setUserLoggedIn(isLoggedIn: false);
 
-                //  navigate back to landing page
-                Get.offAll(() => LandingPage());
-              },
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                    color: XploreColors.deepBlue,
-                    borderRadius: BorderRadius.circular(16)),
-                child: Row(
-                  children: [
-                    Icon(Icons.logout, color: XploreColors.whiteSmoke),
-                    hSize20SizedBox,
-                    Text(
-                      "Logout",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: XploreColors.white,
-                          decoration: TextDecoration.none),
-                    )
-                  ],
-                ),
-              ),
-            )
+                  //  navigate back to landing page
+                  Get.offAll(() => LandingPage());
+                }),
           ],
         ),
       ),
