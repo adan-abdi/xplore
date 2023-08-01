@@ -1,6 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/features/feature_home/presentation/components/pill_btn.dart';
 import 'package:shamiri/features/feature_home/presentation/components/product_card.dart';
+import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
+
+import '../../../../core/presentation/components/my_lottie.dart';
+import '../../../feature_merchant_store/domain/model/product_model.dart';
 
 class AllProductsSection extends StatefulWidget {
   const AllProductsSection({super.key});
@@ -10,11 +17,43 @@ class AllProductsSection extends StatefulWidget {
 }
 
 class _AllProductsSectionState extends State<AllProductsSection> {
+  late final HomeController _homeController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _homeController = Get.find<HomeController>();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SliverGrid(
-        delegate: SliverChildBuilderDelegate((context, index) => ProductCard(), childCount: 30),
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 180, mainAxisExtent: 220, mainAxisSpacing: 16, crossAxisSpacing: 12));
+    return StreamBuilder(
+        stream: _homeController.getAllProducts(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return SliverFillRemaining(
+                child: MyLottie(lottie: 'assets/general/loading.json'));
+          }
+
+          if (!snapshot.hasData) {
+            return SliverFillRemaining(child: Text("No Data found"));
+          }
+
+          var products = snapshot.data!.docs
+              .map((product) =>
+                  ProductModel.fromMap(product.data() as Map<String, dynamic>))
+              .toList();
+
+          return SliverGrid(
+              delegate: SliverChildBuilderDelegate(
+                  (context, index) => ProductCard(),
+                  childCount: products.length),
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 180,
+                  mainAxisExtent: 220,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 12));
+        });
   }
 }
