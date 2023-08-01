@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:shamiri/features/feature_cart/presentation/cart_screen.dart';
@@ -111,6 +112,7 @@ class _MainScreenState extends State<MainScreen> {
                     centerTitle: true,
                     leading: DrawerIcon(),
                     actions: [
+                      //  profile image
                       Obx(
                         () => Visibility(
                           visible:
@@ -121,17 +123,31 @@ class _MainScreenState extends State<MainScreen> {
                               height: 50,
                               margin: const EdgeInsets.only(right: 16),
                               decoration: BoxDecoration(
-                                  color: Colors.red,
+                                  color: XploreColors.deepBlue,
                                   borderRadius: BorderRadius.circular(100)),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(100),
-                                child: Image.network(
-                                  _authController
-                                      .user.value!.userProfilePicUrl!,
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
+                                child: _authController.user.value!
+                                                .userProfilePicUrl !=
+                                            null &&
+                                        _authController.user.value!
+                                            .userProfilePicUrl!.isNotEmpty
+                                    ? Image.network(
+                                        _authController
+                                            .user.value!.userProfilePicUrl!,
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : SvgPicture.asset(
+                                        "assets/general/profile.svg",
+                                        width: 35,
+                                        height: 35,
+                                        fit: BoxFit.cover,
+                                        colorFilter: ColorFilter.mode(
+                                            XploreColors.white,
+                                            BlendMode.srcIn),
+                                      ),
                               ),
                             ),
                           ),
