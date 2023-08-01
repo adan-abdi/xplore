@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "928513386554-r6uokl97qapfdb60u3hc82g3i7oqsg78.apps.googleusercontent.com",
+          "client_id": "928513386554-4ne7sfvvcr6sls6scjvsjdiaga81hqus.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dukalink.mobile",
+            "certificate_hash": "51249132ff9eba7e4ec7f89013ca00e874fc65bf"
+          }
+        },
+        {
+          "client_id": "928513386554-lri3apv69eoig8dpih3lbcqaaamimtes.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.dukalink.mobile",
