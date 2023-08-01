@@ -164,17 +164,6 @@ class _MainScreenState extends State<MainScreen> {
                                 Icons.qr_code_scanner_rounded,
                                 color: XploreColors.deepBlue,
                               )))),
-
-                      IconButton(
-                          onPressed: () async {
-                            await _authController.signOut();
-
-                            _authController.setUserLoggedIn(isLoggedIn: false);
-                          },
-                          icon: Icon(
-                            Icons.logout_rounded,
-                            color: Colors.black,
-                          ))
                     ],
                     elevation: 0,
                   ),
@@ -213,7 +202,7 @@ class _MainScreenState extends State<MainScreen> {
                 mainScreenTapClose: true,
                 mainScreenScale: 0.3,
                 menuBackgroundColor: XploreColors.xploreOrange,
-                menuScreenTapClose: true,
+                menuScreenTapClose: false,
                 angle: 0,
                 showShadow: true,
               );
