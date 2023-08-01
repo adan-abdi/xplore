@@ -24,27 +24,29 @@ class ProductCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       color: product.productImageUrl != null &&
-                          product.productImageUrl!.isNotEmpty ? XploreColors.white : XploreColors.deepBlue,
+                              product.productImageUrl!.isNotEmpty
+                          ? XploreColors.white
+                          : XploreColors.deepBlue,
                     ),
                     child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: product.productImageUrl != null &&
-                              product.productImageUrl!.isNotEmpty
-                          ? Image.network(
-                              product.productImageUrl!,
-                              fit: BoxFit.cover,
-                            )
-                          : Icon(
-                              Icons.shopping_cart_checkout_rounded,
-                              color: XploreColors.white,
-                        size: 32,
-                            ),
-                    )
-                  ],
-                ))),
+                      fit: StackFit.expand,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: product.productImageUrl != null &&
+                                  product.productImageUrl!.isNotEmpty
+                              ? Image.network(
+                                  product.productImageUrl!,
+                                  fit: BoxFit.cover,
+                                )
+                              : Icon(
+                                  Icons.shopping_cart_checkout_rounded,
+                                  color: XploreColors.white,
+                                  size: 32,
+                                ),
+                        )
+                      ],
+                    ))),
 
             //  pricing and add to card
             Expanded(
@@ -56,12 +58,16 @@ class ProductCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Nike Airmax",
+                        product.productName!,
                         style: TextStyle(fontSize: 16),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      Text("Ksh. 8000"),
+                      Text(
+                        "Ksh. ${product.productSellingPrice!}",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                       Align(
                         alignment: AlignmentDirectional.center,
                         child: Container(
