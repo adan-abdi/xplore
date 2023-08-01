@@ -5,6 +5,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:shamiri/features/feature_cart/presentation/cart_screen.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_home/presentation/home_page.dart';
+import 'package:shamiri/features/feature_main/components/drawer_icon.dart';
 import 'package:shamiri/features/feature_main/components/drawer_screen.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/screens/merchant_store_page.dart';
 
@@ -108,15 +109,7 @@ class _MainScreenState extends State<MainScreen> {
                           color: XploreColors.black),
                     ),
                     centerTitle: true,
-                    leading: HamburgerMenuBtn(
-                      onTap: () {
-                        //  open drawer
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          ZoomDrawer.of(Get.context!)?.toggle();
-                          print("Hamburger clicked");
-                        });
-                      },
-                    ),
+                    leading: DrawerIcon(),
                     actions: [
                       Obx(
                         () => Visibility(
