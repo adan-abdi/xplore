@@ -10,6 +10,10 @@ class DrawerScreen extends StatefulWidget {
 class _DrawerScreenState extends State<DrawerScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      color: Colors.red,
+    );
   }
 }

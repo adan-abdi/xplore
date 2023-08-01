@@ -62,7 +62,7 @@ class XploreKeyboard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _keyboardCircle(value: "", visible: false),
+                  _keyboardCircle(value: "+", visible: false, textColor: XploreColors.xploreOrange),
                   _keyboardCircle(value: "0"),
                   _keyboardCircle(value: "", isDeleteIcon: true),
                 ],
@@ -74,6 +74,7 @@ class XploreKeyboard extends StatelessWidget {
   Widget _keyboardCircle(
           {required String value,
           bool visible = true,
+            Color? textColor,
           bool isDeleteIcon = false}) =>
       InkWell(
         onTap: () {
@@ -99,12 +100,12 @@ class XploreKeyboard extends StatelessWidget {
                   ? Center(
                       child: Icon(
                       Icons.backspace_rounded,
-                      color: XploreColors.black,
+                      color: XploreColors.xploreOrange,
                     ))
                   : Text(
                       value,
                       style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: textColor ?? XploreColors.black),
                     ),
             )),
       );

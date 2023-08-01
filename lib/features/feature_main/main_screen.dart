@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:shamiri/features/feature_cart/presentation/cart_screen.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_home/presentation/home_page.dart';
+import 'package:shamiri/features/feature_main/components/drawer_screen.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/screens/merchant_store_page.dart';
 
 import '../../application/core/themes/colors.dart';
@@ -82,108 +84,123 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
               )
-            : Scaffold(
-                appBar: AppBar(
-                  systemOverlayStyle: SystemUiOverlayStyle(
-                      statusBarIconBrightness: Brightness.dark,
-                      statusBarColor: XploreColors.white,
-                      systemNavigationBarColor:
-                          _homeController.activeBottomBarIndex.value == 2
-                              ? XploreColors.deepBlue
-                              : XploreColors.white,
-                      systemNavigationBarIconBrightness: Brightness.dark),
-                  backgroundColor: XploreColors.white,
-                  title: Text(
-                    _homeController.activeBottomBarIndex.value == 0
-                        ? _authController.user.value!.userName!
-                        : _homeController.activeBottomBarIndex.value == 1
-                            ? "Merchant Store"
-                            : "My Cart",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: XploreColors.black),
-                  ),
-                  centerTitle: true,
-                  leading: HamburgerMenuBtn(
-                    onTap: () {
-                      //  open drawer
-                    },
-                  ),
-                  actions: [
-                    Obx(
-                      () => Visibility(
-                        visible:
-                            _homeController.activeBottomBarIndex.value == 0,
-                        child: UnconstrainedBox(
-                          child: Container(
-                            width: 50,
-                            height: 50,
-                            margin: const EdgeInsets.only(right: 16),
-                            decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(100)),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: Image.network(
-                                _authController.user.value!.userProfilePicUrl!,
-                                width: double.infinity,
-                                height: double.infinity,
-                                fit: BoxFit.cover,
+            : ZoomDrawer(
+                menuScreen: DrawerScreen(),
+                mainScreen: Scaffold(
+                  appBar: AppBar(
+                    systemOverlayStyle: SystemUiOverlayStyle(
+                        statusBarIconBrightness: Brightness.dark,
+                        statusBarColor: XploreColors.white,
+                        systemNavigationBarColor:
+                            _homeController.activeBottomBarIndex.value == 2
+                                ? XploreColors.deepBlue
+                                : XploreColors.white,
+                        systemNavigationBarIconBrightness: Brightness.dark),
+                    backgroundColor: XploreColors.white,
+                    title: Text(
+                      _homeController.activeBottomBarIndex.value == 0
+                          ? _authController.user.value!.userName!
+                          : _homeController.activeBottomBarIndex.value == 1
+                              ? "Merchant Store"
+                              : "My Cart",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: XploreColors.black),
+                    ),
+                    centerTitle: true,
+                    leading: HamburgerMenuBtn(
+                      onTap: () {
+                        //  open drawer
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          ZoomDrawer.of(Get.context!)?.toggle();
+                          print("Hamburger clicked");
+                        });
+                      },
+                    ),
+                    actions: [
+                      Obx(
+                        () => Visibility(
+                          visible:
+                              _homeController.activeBottomBarIndex.value == 0,
+                          child: UnconstrainedBox(
+                            child: Container(
+                              width: 50,
+                              height: 50,
+                              margin: const EdgeInsets.only(right: 16),
+                              decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(100)),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.network(
+                                  _authController
+                                      .user.value!.userProfilePicUrl!,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                    ),
 
-                    //  MY STORE PAGE
-                    Obx(() => Visibility(
-                        visible:
-                            _homeController.activeBottomBarIndex.value == 1,
-                        child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.qr_code_scanner_rounded,
-                              color: XploreColors.deepBlue,
-                            )))),
-                    
-                    IconButton(onPressed: (){
-                      _authController.setUserLoggedIn(isLoggedIn: false);
-                    }, icon: Icon(Icons.logout_rounded,  color: Colors.black,))
-                  ],
-                  elevation: 0,
-                ),
-                body: Obx(
-                  () => IndexedStack(
-                    children: _pages,
-                    index: _homeController.activeBottomBarIndex.value,
+                      //  MY STORE PAGE
+                      Obx(() => Visibility(
+                          visible:
+                              _homeController.activeBottomBarIndex.value == 1,
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.qr_code_scanner_rounded,
+                                color: XploreColors.deepBlue,
+                              )))),
+
+                      IconButton(
+                          onPressed: () async {
+                            await _authController.signOut();
+
+                            _authController.setUserLoggedIn(isLoggedIn: false);
+                          },
+                          icon: Icon(
+                            Icons.logout_rounded,
+                            color: Colors.black,
+                          ))
+                    ],
+                    elevation: 0,
                   ),
-                ),
-                bottomNavigationBar: Container(
-                  color: _homeController.activeBottomBarIndex.value == 2
-                      ? XploreColors.deepBlue
-                      : XploreColors.white,
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: GNav(
-                      tabs: _bottomBarTabs,
-                      onTabChange: _homeController.setActiveBottomBarIndex,
-                      backgroundColor:
-                          _homeController.activeBottomBarIndex.value == 2
-                              ? XploreColors.deepBlue
-                              : XploreColors.white,
-                      color: _homeController.activeBottomBarIndex.value == 2
-                          ? XploreColors.white
-                          : XploreColors.deepBlue,
-                      activeColor: XploreColors.xploreOrange,
-                      tabBackgroundColor:
-                          XploreColors.xploreOrange.withOpacity(0.1),
-                      padding: const EdgeInsets.all(16),
-                      gap: 8,
+                  body: Obx(
+                    () => IndexedStack(
+                      children: _pages,
+                      index: _homeController.activeBottomBarIndex.value,
                     ),
                   ),
-                ),
-              );
+                  bottomNavigationBar: Container(
+                    color: _homeController.activeBottomBarIndex.value == 2
+                        ? XploreColors.deepBlue
+                        : XploreColors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      child: GNav(
+                        tabs: _bottomBarTabs,
+                        onTabChange: _homeController.setActiveBottomBarIndex,
+                        backgroundColor:
+                            _homeController.activeBottomBarIndex.value == 2
+                                ? XploreColors.deepBlue
+                                : XploreColors.white,
+                        color: _homeController.activeBottomBarIndex.value == 2
+                            ? XploreColors.white
+                            : XploreColors.deepBlue,
+                        activeColor: XploreColors.xploreOrange,
+                        tabBackgroundColor:
+                            XploreColors.xploreOrange.withOpacity(0.1),
+                        padding: const EdgeInsets.all(16),
+                        gap: 8,
+                      ),
+                    ),
+                  ),
+                ));
       },
     );
   }

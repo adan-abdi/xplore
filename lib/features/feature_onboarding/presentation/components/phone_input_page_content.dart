@@ -102,6 +102,7 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                                 _authController.isVerifyButtonLoading.value,
                             onTap: () async {
                               if (phoneNumberController.text.length >= 10 &&
+                                  phoneNumberController.text.length <= 14 &&
                                   (phoneNumberController.text
                                           .startsWith('+254') ||
                                       phoneNumberController.text
@@ -131,8 +132,7 @@ class _PhoneInputPageContentState extends State<PhoneInputPageContent> {
                                               .addPostFrameCallback((_) {
                                             showSnackbar(
                                                 title: "Could not sign in",
-                                                message:
-                                                    "Something went wrong. please try again",
+                                                message: error!.toString(),
                                                 iconData: Icons.login_rounded,
                                                 iconColor:
                                                     XploreColors.xploreOrange);

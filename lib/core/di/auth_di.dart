@@ -6,6 +6,7 @@ import 'package:shamiri/core/domain/use_cases/check_user_exists.dart';
 import 'package:shamiri/core/domain/use_cases/get_user_data_from_firestore.dart';
 import 'package:shamiri/core/domain/use_cases/save_user_data_to_firestore.dart';
 import 'package:shamiri/core/domain/use_cases/sign_in_with_phone.dart';
+import 'package:shamiri/core/domain/use_cases/sign_out.dart';
 import 'package:shamiri/core/domain/use_cases/verify_otp.dart';
 
 void authDI({required GetIt locator}) {
@@ -15,6 +16,7 @@ void authDI({required GetIt locator}) {
   /// Auth Use Cases
   locator.registerLazySingleton<AuthUseCases>(() => AuthUseCases(
       signInWithPhone: SignInWithPhone(),
+      signOut: SignOut(),
       verifyOtp: VerifyOtp(),
       checkUserExists: CheckUserExists(),
       saveUserDataToFirestore: SaveUserDataToFirestore(),

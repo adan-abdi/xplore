@@ -1,8 +1,10 @@
 // Flutter imports:
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -16,9 +18,11 @@ import 'package:shamiri/core/utils/constants.dart';
 // Project imports:
 import 'package:shamiri/di/controllers_di.dart';
 import 'package:shamiri/di/locator.dart';
+import 'package:shamiri/features/feature_home/presentation/home_page.dart';
 import 'package:shamiri/features/feature_main/main_screen.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/screens/landing_page.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:shamiri/features/feature_onboarding/presentation/screens/verify_phone_page.dart';
 
 import 'features/feature_onboarding/presentation/screens/create_profile_page.dart';
 
@@ -29,6 +33,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
+  await FirebaseAppCheck.instance.activate();
 
   final appDocumentDirectory =
       await path_provider.getApplicationDocumentsDirectory();
@@ -41,6 +46,8 @@ void main() async {
 
   invokeDependencies();
   initializeControllers();
+
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(MyApp());
 }

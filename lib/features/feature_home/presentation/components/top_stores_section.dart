@@ -30,7 +30,9 @@ class _TopStoresSectionState extends State<TopStoresSection> {
     return SliverToBoxAdapter(
       child: Column(
         children: [
-          Text("Top Stores", style: TextStyle(fontSize: 24),),
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+              child: Text("Top Stores", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)),
 
           vSize20SizedBox,
 
@@ -48,7 +50,7 @@ class _TopStoresSectionState extends State<TopStoresSection> {
                   scrollPhysics: const BouncingScrollPhysics(),
                   onPageChanged: (index, reason) {})),
 
-          vSize10SizedBox,
+          vSize20SizedBox,
 
           //  carousel indicators
           AnimatedSmoothIndicator(

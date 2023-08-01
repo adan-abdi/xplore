@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:pinput/pinput.dart';
 
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
@@ -23,6 +24,8 @@ class _PhoneLoginFieldState extends State<PhoneLoginField> {
   @override
   void initState() {
     super.initState();
+
+    widget.phoneNumberController.setText("+254");
   }
 
   @override
@@ -37,42 +40,24 @@ class _PhoneLoginFieldState extends State<PhoneLoginField> {
         alignment: Alignment.center,
         width: double.infinity,
         height: double.infinity,
-        child: Row(
-          children: [
-            Container(
-              width: 70,
-              height: double.infinity,
-              decoration: BoxDecoration(
-                  color: XploreColors.xploreOrange,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      bottomLeft: Radius.circular(8))),
-              child: Center(child: Text("+254", style: TextStyle(fontSize: 20, color: XploreColors.white),)),
-            ),
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                color: XploreColors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: TextField(
-                  controller: widget.phoneNumberController,
-                  keyboardType: TextInputType.none,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: '+(254) 7xx xxx xxx',
-                      hintStyle:
-                          TextStyle(color: XploreColors.deepBlue.withOpacity(.6)),
-                      fillColor: XploreColors.white),
-                  readOnly: true,
-                  showCursor: true,
-                  cursorColor: XploreColors.orange,
-                  autofocus: true,
-                  style: TextStyle(fontSize: 20, letterSpacing: 4),
-                  onChanged: widget.onChanged!,
-                ),
-              ),
-            ),
-          ],
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: TextField(
+            controller: widget.phoneNumberController,
+            keyboardType: TextInputType.none,
+            decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: '+(254) 7xx xxx xxx',
+                hintStyle:
+                    TextStyle(color: XploreColors.deepBlue.withOpacity(.6))),
+            readOnly: true,
+            showCursor: true,
+            cursorColor: XploreColors.orange,
+            autofocus: true,
+            style: TextStyle(fontSize: 28, letterSpacing: 4),
+            onChanged: widget.onChanged!,
+          ),
         ),
       ),
     );

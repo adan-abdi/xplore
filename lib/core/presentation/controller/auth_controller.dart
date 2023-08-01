@@ -36,17 +36,15 @@ class AuthController extends GetxController {
   void setUserLoggedIn({required bool isLoggedIn}) {
     isUserLoggedIn.value = isLoggedIn;
 
-    userController.updateUserPrefs(userPrefs: UserPrefs(
-      isLoggedIn: isLoggedIn
-    ));
+    userController.updateUserPrefs(
+        userPrefs: UserPrefs(isLoggedIn: isLoggedIn));
   }
 
   void setUserProfileCreated({required bool isProfileCreated}) {
     isUserProfileCreated.value = isProfileCreated;
 
-    userController.updateUserPrefs(userPrefs: UserPrefs(
-        isProfileCreated: isProfileCreated
-    ));
+    userController.updateUserPrefs(
+        userPrefs: UserPrefs(isProfileCreated: isProfileCreated));
   }
 
   void setUser({required UserModel? user}) => this.user.value = user;
@@ -56,13 +54,15 @@ class AuthController extends GetxController {
       {required String phoneNumber,
       required Function(ResponseState response, String? error) response,
       required Function(String verificationId) onCodeSent}) async {
-    var formattedPhoneNumber = '+254${phoneNumber.trim()}';
 
     await authUseCases.signInWithPhone.call(
-        phoneNumber: formattedPhoneNumber,
+        phoneNumber: phoneNumber.trim(),
         response: response,
         onCodeSent: onCodeSent);
   }
+
+  /// Sign Out
+  Future<void> signOut() async => await authUseCases.signOut();
 
   /// Verify Otp
   Future<void> verifyOtp(

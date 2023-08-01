@@ -53,8 +53,9 @@ class _HomePageState extends State<HomePage> {
 
                   SliverToBoxAdapter(child: vSize30SizedBox),
 
+                  //  all products pill buttons
                   SliverToBoxAdapter(
-                    child: //  all products pill buttons
+                    child:
                         Container(
                             height: 50,
                             child: ListView.separated(

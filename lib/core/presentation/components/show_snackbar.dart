@@ -31,6 +31,6 @@ void showSnackbar(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
       duration: const Duration(seconds: 3),
-      borderRadius: 16,
+      borderRadius: 4,
       isDismissible: true,
     ));

@@ -30,11 +30,12 @@ class SubmitButton extends StatelessWidget {
             )
           : UnconstrainedBox(
               child: Container(
+                width: 200,
                 padding:
-                    const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+                    const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
                 decoration: BoxDecoration(
                     color: backgroundColor,
-                    borderRadius: BorderRadius.circular(16)),
+                    borderRadius: BorderRadius.circular(4)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,12 +43,13 @@ class SubmitButton extends StatelessWidget {
                     Icon(
                       iconData,
                       color: XploreColors.white,
+                      size: 16,
                     ),
                     hSize20SizedBox,
                     Text(
                       text,
                       style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 16,
                           color: XploreColors.white,
                           fontWeight: FontWeight.bold),
                     )

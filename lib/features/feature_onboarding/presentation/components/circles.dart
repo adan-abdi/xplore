@@ -16,7 +16,7 @@ List<Widget> circles(BuildContext context, {Color? circleColor}) {
         height: circleSize,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: circleColor ?? XploreColors.whiteSmoke,
+          color: circleColor ?? XploreColors.whiteSmoke.withOpacity(0.5),
         ),
       ),
     ),
