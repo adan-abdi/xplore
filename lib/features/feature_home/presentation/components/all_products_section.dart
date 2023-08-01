@@ -47,7 +47,8 @@ class _AllProductsSectionState extends State<AllProductsSection> {
 
           return SliverGrid(
               delegate: SliverChildBuilderDelegate(
-                  (context, index) => ProductCard(),
+                  (context, index) =>
+                      ProductCard(product: products[index]),
                   childCount: products.length),
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 180,

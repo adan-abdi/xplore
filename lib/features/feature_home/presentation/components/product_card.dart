@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  final ProductModel product;
+
+  const ProductCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +21,29 @@ class ProductCard extends StatelessWidget {
             Expanded(
                 flex: 4,
                 child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: product.productImageUrl != null &&
+                          product.productImageUrl!.isNotEmpty ? XploreColors.white : XploreColors.whiteSmoke,
+                    ),
                     child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Image.asset(
-                            "assets/general/shoe.jpg",
-                            fit: BoxFit.cover,
-                          ),
-                        )
-                      ],
-                    ))),
+                  fit: StackFit.expand,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: product.productImageUrl != null &&
+                              product.productImageUrl!.isNotEmpty
+                          ? Image.network(
+                              product.productImageUrl!,
+                              fit: BoxFit.cover,
+                            )
+                          : Icon(
+                              Icons.shopping_cart_checkout_rounded,
+                              color: XploreColors.deepBlue,
+                            ),
+                    )
+                  ],
+                ))),
 
             //  pricing and add to card
             Expanded(
@@ -40,7 +54,12 @@ class ProductCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Nike Airmax", style: TextStyle(fontSize: 16), maxLines: 1, overflow: TextOverflow.ellipsis,),
+                      Text(
+                        "Nike Airmax",
+                        style: TextStyle(fontSize: 16),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                       Text("Ksh. 8000"),
                       Align(
                         alignment: AlignmentDirectional.center,
@@ -51,7 +70,10 @@ class ProductCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(16),
                             color: XploreColors.xploreOrange,
                           ),
-                          child: Text("Order", style: TextStyle(color: XploreColors.white),),
+                          child: Text(
+                            "Order",
+                            style: TextStyle(color: XploreColors.white),
+                          ),
                         ),
                       )
                     ],

@@ -32,12 +32,15 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                 borderRadius: BorderRadius.circular(24)),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(24),
-              child: Image.network(
-                widget.product.productImageUrl!,
+              child: widget.product.productImageUrl !=
+                  null && widget.product.productImageUrl!.isNotEmpty
+                  ? Image.network(
+                widget.product.productImageUrl
+                !,
                 width: double.infinity,
                 height: double.infinity,
                 fit: BoxFit.cover,
-              ),
+              ) : Icon(Icons.add_shopping_cart_rounded, color: XploreColors.white,),
             ),
           ),
 
@@ -103,8 +106,10 @@ class _ProductCardAltState extends State<ProductCardAlt> {
               ],
             ),
           )
-        ],
-      ),
+        ]
+        ,
+      )
+      ,
     );
   }
 }
