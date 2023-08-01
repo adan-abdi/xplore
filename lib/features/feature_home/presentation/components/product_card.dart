@@ -24,7 +24,7 @@ class ProductCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       color: product.productImageUrl != null &&
-                          product.productImageUrl!.isNotEmpty ? XploreColors.white : XploreColors.whiteSmoke,
+                          product.productImageUrl!.isNotEmpty ? XploreColors.white : XploreColors.deepBlue,
                     ),
                     child: Stack(
                   fit: StackFit.expand,
@@ -39,7 +39,8 @@ class ProductCard extends StatelessWidget {
                             )
                           : Icon(
                               Icons.shopping_cart_checkout_rounded,
-                              color: XploreColors.deepBlue,
+                              color: XploreColors.white,
+                        size: 32,
                             ),
                     )
                   ],
