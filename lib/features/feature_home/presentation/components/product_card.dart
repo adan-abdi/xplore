@@ -13,7 +13,7 @@ class ProductCard extends StatelessWidget {
       child: Container(
         width: 150,
         height: 220,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: XploreColors.white),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

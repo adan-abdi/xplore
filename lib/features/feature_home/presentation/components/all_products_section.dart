@@ -33,7 +33,7 @@ class _AllProductsSectionState extends State<AllProductsSection> {
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return SliverFillRemaining(
-                child: MyLottie(lottie: 'assets/general/loading.json'));
+                child: MyLottie(lottie: 'assets/general/loading.json', width: 50, height: 50,));
           }
 
           if (!snapshot.hasData) {
@@ -50,8 +50,8 @@ class _AllProductsSectionState extends State<AllProductsSection> {
                   (context, index) =>
                       ProductCard(product: products[index]),
                   childCount: products.length),
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 180,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
                   mainAxisExtent: 220,
                   mainAxisSpacing: 16,
                   crossAxisSpacing: 12));
