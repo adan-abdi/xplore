@@ -87,8 +87,6 @@ class _MyAppState extends State<MyApp> {
 
     _authController.setUserProfileCreated(
         isProfileCreated: userPrefsBox?.isProfileCreated ?? false);
-
-    _authController.setUser(user: userPrefsBox?.userModel);
   }
 
   @override
@@ -98,7 +96,7 @@ class _MyAppState extends State<MyApp> {
     return Obx(
       () => GetMaterialApp(
         home: _authController.isUserLoggedIn.value &&
-                _authController.isUserProfileCreated.value && _authController.user.value != null
+                _authController.isUserProfileCreated.value
             ? MainScreen()
             : _authController.isUserLoggedIn.value &&
                     !_authController.isUserProfileCreated.value

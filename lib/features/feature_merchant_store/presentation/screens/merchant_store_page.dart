@@ -116,7 +116,7 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                         child: MyLottie(lottie: 'assets/general/loading.json'));
                   }
 
-                  if (!snapshot.hasData) {
+                  if (snapshot.data == null || !snapshot.hasData) {
                     return SliverFillRemaining(child: Text("No Data found"));
                   }
 
