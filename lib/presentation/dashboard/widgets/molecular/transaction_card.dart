@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/models/products/product.dart';
-import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
-import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_order.dart';
 
 // ignore: must_be_immutable
 class Transactioncard extends StatefulWidget {
@@ -34,9 +32,6 @@ class _TransactioncardState extends State<Transactioncard> {
     super.initState();
     _getOrderProducts(widget.ref);
   }
-
-  TransactionRepository transactionRepositoryInstance = TransactionRepository();
-  ProductRepository productRepositoryInstance = ProductRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -205,9 +200,9 @@ class _TransactioncardState extends State<Transactioncard> {
       imageList: [],
     );
 
-    await productRepositoryInstance.updateProduct(newProduct);
-    await transactionRepositoryInstance.updateorderQty(
-        orderRefId: transactionRefId, newQTy: newOrderedQty.toString());
+    // await productRepositoryInstance.updateProduct(newProduct);
+    // await transactionRepositoryInstance.updateorderQty(
+    //     orderRefId: transactionRefId, newQTy: newOrderedQty.toString());
     return newOrderedQty.toString();
   }
 
@@ -228,17 +223,17 @@ class _TransactioncardState extends State<Transactioncard> {
         imageList: [],
       );
 
-      await productRepositoryInstance.updateProduct(newProduct);
-      await transactionRepositoryInstance.updateorderQty(
-          orderRefId: transactionRefId, newQTy: newOrderedQty.toString());
+      // await productRepositoryInstance.updateProduct(newProduct);
+      // await transactionRepositoryInstance.updateorderQty(
+      //     orderRefId: transactionRefId, newQTy: newOrderedQty.toString());
 
       return newOrderedQty.toString();
     }
     return currentQty.toString();
   }
 
-  Future<Product> _getOrderProducts(String ref) async {
-    product = await productRepositoryInstance.getProductByRef(ref);
-    return Future.value(product);
+  Future<Product?> _getOrderProducts(String ref) async {
+    // product = await productRepositoryInstance.getProductByRef(ref);
+    return null;
   }
 }

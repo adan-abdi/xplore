@@ -12,9 +12,6 @@ import 'package:shamiri/domain/value_objects/app_enums.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
 import 'package:shamiri/domain/value_objects/app_widget_keys.dart';
-import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
-import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_order.dart';
-import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_receipts.dart';
 import 'package:shamiri/presentation/dashboard/widgets/layout/sliding_tab.dart';
 import 'package:shamiri/presentation/dashboard/widgets/layout/transaction_tab.dart';
 
@@ -29,14 +26,14 @@ class MerchantRecords extends StatefulWidget {
 }
 
 class _MerchantRecordsState extends State<MerchantRecords> {
-  ProductRepository productRepository = ProductRepository();
+  // ProductRepository productRepository = ProductRepository();
   SlidingTabStatusStore slidingTabStatusStore = SlidingTabStatusStore();
 
   @override
   Widget build(BuildContext context) {
-    TransactionRepository transactionRepositoryInstance =
-        TransactionRepository();
-    ReceiptsRepository receiptsRepositoryInstance = ReceiptsRepository();
+    // TransactionRepository transactionRepositoryInstance =
+    //     TransactionRepository();
+    // ReceiptsRepository receiptsRepositoryInstance = ReceiptsRepository();
 
     return StoreConnector<AppState, _ViewModel>(
       converter: (store) => _ViewModel.fromState(store.state),
@@ -66,19 +63,19 @@ class _MerchantRecordsState extends State<MerchantRecords> {
                 ),
               ),
               vSize10SizedBox,
-              (activeTab)
-                  ? TransactionTab(
-                      tabType: TransactionTabs.cart,
-                      orderStream:
-                          transactionRepositoryInstance.getOrderStream(),
-                      ordersStore: widget.pendingOrdersStore,
-                    )
-                  : TransactionTab(
-                      tabType: TransactionTabs.receipts,
-                      orderStream:
-                          receiptsRepositoryInstance.getReceiptsStream(),
-                      ordersStore: widget.pendingOrdersStore,
-                    )
+              // (activeTab)
+              //     ? TransactionTab(
+              //         tabType: TransactionTabs.cart,
+              //         orderStream:
+              //         receiptsRepositoryInstance.getReceiptsStream(),
+              //         ordersStore: widget.pendingOrdersStore,
+              //       )
+              //     : TransactionTab(
+              //         tabType: TransactionTabs.receipts,
+              //         orderStream:
+              //             receiptsRepositoryInstance.getReceiptsStream(),
+              //         ordersStore: widget.pendingOrdersStore,
+              //       )
             ],
           ),
         );

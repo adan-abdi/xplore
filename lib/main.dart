@@ -1,75 +1,111 @@
-// Dart imports:
-import 'dart:async';
-
 // Flutter imports:
-import 'package:flutter/foundation.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 // Package imports:
-import 'package:async_redux/async_redux.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shamiri/core/domain/model/user_model.dart';
+import 'package:shamiri/core/domain/model/user_prefs.dart';
+import 'package:shamiri/core/presentation/controller/auth_controller.dart';
+import 'package:shamiri/core/presentation/controller/user_prefs_controller.dart';
+import 'package:shamiri/core/utils/constants.dart';
 
 // Project imports:
-import 'package:shamiri/application/redux/states/app_state.dart';
-import 'package:shamiri/domain/value_objects/app_global_constants.dart';
-import 'package:shamiri/infrastructure/local_repository/database_state_persistor.dart';
-import 'package:shamiri/presentation/core/widgets/unrecoverable_error_widget.dart';
-import 'package:shamiri/xplore_app.dart';
+import 'package:shamiri/di/controllers_di.dart';
+import 'package:shamiri/di/locator.dart';
+import 'package:shamiri/features/feature_home/presentation/home_page.dart';
+import 'package:shamiri/features/feature_main/main_screen.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/screens/landing_page.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:shamiri/features/feature_onboarding/presentation/screens/verify_phone_page.dart';
+
+import 'features/feature_onboarding/presentation/screens/create_profile_page.dart';
 
 void main() async {
-  await runZonedGuarded<Future<void>>(() async {
-    WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-    FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-    WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
-    await Firebase.initializeApp();
+  await Firebase.initializeApp();
+  await FirebaseAppCheck.instance.activate();
 
-    NavigateAction.setNavigatorKey(globalAppNavigatorKey);
+  final appDocumentDirectory =
+      await path_provider.getApplicationDocumentsDirectory();
 
-    final XploreStateDatabase stateDB =
-        XploreStateDatabase(dataBaseName: xploreDBName);
+  await Hive.initFlutter(appDocumentDirectory.path);
 
-    await stateDB.init();
+  Hive.registerAdapter(UserPrefsAdapter());
+  Hive.registerAdapter(UserModelAdapter());
+  await Hive.openBox(Constants.USER_PREFS_BOX);
 
-    final AppState initialState = await stateDB.readState();
+  invokeDependencies();
+  initializeControllers();
 
-    if (initialState == AppState.initial()) {
-      await stateDB.saveInitialState(initialState);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late final AuthController _authController;
+  late final UserPrefsController _userPrefsController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _authController = Get.find<AuthController>();
+    _userPrefsController = Get.find<UserPrefsController>();
+
+    initializeUserprefs();
+  }
+
+  void initializeUserprefs() async {
+    final userPrefsBox =
+        await Hive.box(Constants.USER_PREFS_BOX).get('userPrefs') as UserPrefs?;
+
+    if (userPrefsBox == null) {
+      _userPrefsController.addUserPrefs(
+          userPrefs: UserPrefs(isLoggedIn: false, isProfileCreated: false));
     }
 
-    final Store<AppState> store = Store<AppState>(
-      initialState: initialState,
-      persistor: PersistorPrinterDecorator<AppState>(stateDB),
-      defaultDistinct: true,
-    );
+    _authController.setUserLoggedIn(
+        isLoggedIn: userPrefsBox?.isLoggedIn ?? false);
 
-    ErrorWidget.builder = (FlutterErrorDetails details) {
-      if (!kReleaseMode) {
-        return ErrorWidget(details.exception);
-      } else {
-        return UnrecoverableErrorWidget();
-      }
-    };
+    _authController.setUserProfileCreated(
+        isProfileCreated: userPrefsBox?.isProfileCreated ?? false);
 
-    FlutterError.onError = (FlutterErrorDetails detail) {
-      FirebaseCrashlytics.instance.recordFlutterError(detail);
-    };
+    _authController.setUser(user: userPrefsBox?.userModel);
+  }
 
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  @override
+  Widget build(BuildContext context) {
+    FlutterNativeSplash.remove();
 
-    runApp(
-      XploreApp(
-        store: store,
+    return Obx(
+      () => GetMaterialApp(
+        home: _authController.isUserLoggedIn.value &&
+                _authController.isUserProfileCreated.value && _authController.user.value != null
+            ? MainScreen()
+            : _authController.isUserLoggedIn.value &&
+                    !_authController.isUserProfileCreated.value
+                ? CreateProfilePage()
+                : LandingPage(),
+        debugShowCheckedModeBanner: false,
       ),
     );
-  }, (Object exception, StackTrace stackTrace) {
-    if (!kReleaseMode) {
-      print("$exception -=- $stackTrace");
-    }
-    FirebaseCrashlytics.instance.recordError(exception, stackTrace);
-  });
+  }
 }

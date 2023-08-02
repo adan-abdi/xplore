@@ -4,6 +4,9 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus_windows
+  file_selector_windows
+  firebase_core
+  smart_auth
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "928513386554",
+    "project_id": "xplore-161a8",
+    "storage_bucket": "xplore-161a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928513386554:android:1336e952745f71cca8ad03",
+        "android_client_info": {
+          "package_name": "com.dukalink.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928513386554-4ne7sfvvcr6sls6scjvsjdiaga81hqus.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dukalink.mobile",
+            "certificate_hash": "51249132ff9eba7e4ec7f89013ca00e874fc65bf"
+          }
+        },
+        {
+          "client_id": "928513386554-lri3apv69eoig8dpih3lbcqaaamimtes.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dukalink.mobile",
+            "certificate_hash": "607966dfa88962e191d8f312c6c7b68b3bcb4a4b"
+          }
+        },
+        {
+          "client_id": "928513386554-v4qhqpromtc53pobg6vem93neekmlph7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz2ZEHAnbMssALhe6kDAM02itp01-KfBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "928513386554-v4qhqpromtc53pobg6vem93neekmlph7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

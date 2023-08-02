@@ -10,13 +10,9 @@ import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/models/categories/category.dart';
 import 'package:shamiri/domain/models/products/product.dart';
 import 'package:shamiri/domain/models/transactions/order.dart';
-import 'package:shamiri/domain/routes/routes.dart';
-import 'package:shamiri/domain/value_objects/app_constants.dart';
 import 'package:shamiri/domain/value_objects/app_enums.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/domain/value_objects/app_strings.dart';
-import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_product.dart';
-import 'package:shamiri/infrastructure/remote_repository/inventory/firestore_order.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({Key? key, required this.product}) : super(key: key);
@@ -28,8 +24,8 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
-  ProductRepository productRepositoryInstance = ProductRepository();
-  TransactionRepository transactionRepositoryInstance = TransactionRepository();
+  // ProductRepository productRepositoryInstance = ProductRepository();
+  // TransactionRepository transactionRepositoryInstance = TransactionRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -71,21 +67,20 @@ class _ProductCardState extends State<ProductCard> {
                     color: XploreColors.deepBlueAccent,
                   ),
                   onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      editProductPageRoute,
-                      arguments: Product(
-                        name: prodName,
-                        quantityInStock: prodQtyInStock,
-                        quantityOrdered: quantityOrdered,
-                        sellingPrice: prodSp,
-                        buyingPrice: prodBp,
-                        metricUnit: productUnit,
-                        categories: [Category(name: category)],
-                        imageList: [prodImag],
-                        productRefID: productRef,
-                      ),
-                    );
+                    // Navigator.pushNamed(
+                    //   context,
+                    //   arguments: Product(
+                    //     name: prodName,
+                    //     quantityInStock: prodQtyInStock,
+                    //     quantityOrdered: quantityOrdered,
+                    //     sellingPrice: prodSp,
+                    //     buyingPrice: prodBp,
+                    //     metricUnit: productUnit,
+                    //     categories: [Category(name: category)],
+                    //     imageList: [prodImag],
+                    //     productRefID: productRef,
+                    //   ),
+                    // );
                   }),
             ),
           ),
@@ -155,22 +150,22 @@ class _ProductCardState extends State<ProductCard> {
                         date: date,
                       );
 
-                      productRepositoryInstance.updateProduct(newProduct);
-                      _addNewTransaction(newOrder).whenComplete(() {
-                        setState(() {
-                          ScaffoldMessenger.of(context)
-                            ..hideCurrentSnackBar()
-                            ..showSnackBar(
-                              SnackBar(
-                                content: Text(orderAdded),
-                                duration: const Duration(
-                                    seconds: kShortSnackBarDuration),
-                                action: dismissSnackBar(
-                                    okText, XploreColors.white, context),
-                              ),
-                            );
-                        });
-                      });
+                      // productRepositoryInstance.updateProduct(newProduct);
+                      // _addNewTransaction(newOrder).whenComplete(() {
+                      //   setState(() {
+                      //     ScaffoldMessenger.of(context)
+                      //       ..hideCurrentSnackBar()
+                      //       ..showSnackBar(
+                      //         SnackBar(
+                      //           content: Text(orderAdded),
+                      //           duration: const Duration(
+                      //               seconds: kShortSnackBarDuration),
+                      //           action: dismissSnackBar(
+                      //               okText, XploreColors.white, context),
+                      //         ),
+                      //       );
+                      //   });
+                      // });
                     },
                   ),
                 ],
@@ -182,11 +177,11 @@ class _ProductCardState extends State<ProductCard> {
     );
   }
 
-  Future<void> _addNewTransaction(Order newOrder) async {
-    await transactionRepositoryInstance
-        .recordOrder(newOrder)
-        .then((newOrderRef) {
-      transactionRepositoryInstance.updateOrderRef(newOrderRef.id);
-    });
-  }
+  // Future<void> _addNewTransaction(Order newOrder) async {
+  //   await transactionRepositoryInstance
+  //       .recordOrder(newOrder)
+  //       .then((newOrderRef) {
+  //     transactionRepositoryInstance.updateOrderRef(newOrderRef.id);
+  //   });
+  // }
 }

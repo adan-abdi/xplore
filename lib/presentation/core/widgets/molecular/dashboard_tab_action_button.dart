@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
 
-class DashboardTabActionFAB extends StatelessWidget {
+class MerchantStoreFAB extends StatelessWidget {
   final IconData actionIcon;
   final String actionLabel;
   final void Function()? onPressed;
 
-  const DashboardTabActionFAB({
+  const MerchantStoreFAB({
     Key? key,
     required this.actionIcon,
     required this.actionLabel,
