@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:shamiri/core/utils/string_extensions.dart';
 
 // Package imports:
 
@@ -42,14 +43,15 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
 
     phoneNumberController.addListener(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _authController.checkIsPhoneNumberValid(phone: phoneNumberController.text);
+        _authController.setIsPhoneNumberValid(
+            isValid: phoneNumberController.text.checkIsPhoneNumberValid());
       });
     });
   }
 
   @override
   void dispose() {
-    phoneNumberController.removeListener(() { });
+    phoneNumberController.removeListener(() {});
     super.dispose();
   }
 
@@ -102,9 +104,7 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
                         key: _formKey,
                         child: PhoneLoginField(
                           phoneNumberController: phoneNumberController,
-                          onChanged: (String phone) {
-
-                          },
+                          onChanged: (String phone) {},
                         ),
                       ),
 

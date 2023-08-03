@@ -41,6 +41,9 @@ class AuthController extends GetxController {
         userPrefs: UserPrefs(isLoggedIn: isLoggedIn));
   }
 
+  void setIsPhoneNumberValid({required bool isValid}) =>
+      this.isPhoneNumberValid.value = isValid;
+
   void setUserProfileCreated({required bool isProfileCreated}) {
     isUserProfileCreated.value = isProfileCreated;
 
@@ -49,24 +52,6 @@ class AuthController extends GetxController {
   }
 
   void setUser({required UserModel? user}) => this.user.value = user;
-
-  void checkIsPhoneNumberValid({required String phone}) {
-    final startWith7 = phone.startsWith('7');
-    final startWith0 = phone.startsWith('0');
-    final startWith1 = phone.startsWith('1');
-    final startWith254 = phone.startsWith('254');
-    final startWithPlus254 = phone.startsWith('+254');
-
-    if (((startWith7 || startWith1) && phone.length == 9) ||
-        (startWith0 && phone.length == 10) ||
-        (startWith254 && phone[3] == 0 && phone.length == 13) ||
-        (startWith254 && phone[3] != 0 && phone.length == 12) ||
-        (startWithPlus254 && (phone.length == 13 || phone.length == 14))) {
-      isPhoneNumberValid.value = true;
-    } else {
-      isPhoneNumberValid.value = false;
-    }
-  }
 
   /// sign in with phone
   Future<void> signInWithPhone(
