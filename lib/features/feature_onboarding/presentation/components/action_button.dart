@@ -10,7 +10,6 @@ import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/application/redux/states/app_state.dart';
 import 'package:shamiri/application/singletons/button_status.dart';
 import 'package:get/get.dart';
-import 'package:shamiri/features/feature_onboarding/presentation/components/phone_input_page_content.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/screens/phone_input_page.dart';
 
 class ActionButton extends StatefulWidget {
@@ -65,7 +64,7 @@ class _ActionButtonState extends State<ActionButton> {
                     },
                   ),
                   onPressed: () {
-                    Get.to(() => PhoneInputPageContent());
+                    Get.to(() => PhoneInputPage());
                   },
                 ),
               );
