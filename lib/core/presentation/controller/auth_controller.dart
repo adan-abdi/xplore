@@ -20,6 +20,7 @@ class AuthController extends GetxController {
   final isUserLoggedIn = false.obs;
   final isUserProfileCreated = false.obs;
 
+  final isPhoneNumberValid = false.obs;
   final isVerifyButtonLoading = false.obs;
   final isVerifyOtpLoading = false.obs;
   final isCreateProfileLoading = false.obs;
@@ -49,12 +50,23 @@ class AuthController extends GetxController {
 
   void setUser({required UserModel? user}) => this.user.value = user;
 
+  void checkIsPhoneNumberValid({required String phone}) {
+    if (((phone.startsWith('7') ||
+            (phone.startsWith('1')) && phone.length == 9) ||
+        (phone.startsWith('0') && phone.length == 10) ||
+        (phone.startsWith('+254') &&
+            (phone.length == 13 || phone.length == 14)))) {
+      isPhoneNumberValid.value = true;
+    } else {
+      isPhoneNumberValid.value = false;
+    }
+  }
+
   /// sign in with phone
   Future<void> signInWithPhone(
       {required String phoneNumber,
       required Function(ResponseState response, String? error) response,
       required Function(String verificationId) onCodeSent}) async {
-
     await authUseCases.signInWithPhone.call(
         phoneNumber: phoneNumber.trim(),
         response: response,
