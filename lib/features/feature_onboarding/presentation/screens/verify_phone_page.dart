@@ -198,6 +198,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                           SubmitButton(
                               iconData: Icons.sync_rounded,
                               text: "Resend Code",
+                              isValid: false,
                               onTap: () {
                                 //  resend OTP code
                               })

@@ -129,6 +129,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                             text: "Submit",
                             isLoading:
                                 _authController.isCreateProfileLoading.value,
+                            isValid: false,
                             onTap: () async {
                               await _authController.saveUserDataToFirestore(
                                   userModel: UserModel(

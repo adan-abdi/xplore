@@ -62,6 +62,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
               iconData: Icons.shopping_bag_rounded,
               text: "Checkout",
               backgroundColor: XploreColors.xploreOrange,
+              isValid: true,
               onTap: () {})
         ],
       ),

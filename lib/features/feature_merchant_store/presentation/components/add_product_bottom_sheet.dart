@@ -172,6 +172,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                   () => SubmitButton(
                       iconData: Icons.done_rounded,
                       isLoading: _merchantController.uploadButtonLoading.value,
+                      isValid: false,
                       text: "Add Product",
                       onTap: () async {
                         var productModel = ProductModel(
