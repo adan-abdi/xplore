@@ -10,9 +10,10 @@ extension StringExtensions on String {
 
     if (((startWith7 || startWith1) && length == 9) ||
         (startWith0 && length == 10) ||
-        (startWith254 && [3] == 0 && length == 13) ||
-        (startWith254 && [3] != 0 && length == 12) ||
-        (startWithPlus254 && (length == 13 || length == 14))) {
+        (startWith254 && this[3] == 0.toString() && length == 13) ||
+        (startWith254 && this[3] != 0.toString() && length == 12) ||
+        (startWithPlus254 && this[4] == 0.toString() && length == 14) ||
+        (startWithPlus254 && this[4] != 0.toString() && length == 13)) {
       return true;
     } else {
       return false;

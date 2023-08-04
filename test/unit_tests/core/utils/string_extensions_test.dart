@@ -93,6 +93,7 @@ void main() {
     });
 
     group('Phone numbers starting with 254', () {
+
       test('Phone numbers starting with 254, have a zero after 254 and are 13 digits long are valid', () {
         //  setup
         final phone = '2540717446607';
@@ -141,7 +142,58 @@ void main() {
         //  assert
         expect(isValid, false);
       });
+
     });
-    group('Phone numbers starting with +254', () { });
+
+    group('Phone numbers starting with +254', () {
+      test('Phone numbers starting with +254, have a zero after +254 and are 14 digits long are valid', () {
+        //  setup
+        final phone = '+2540717446607';
+        //  act
+        final isValid = phone.checkIsPhoneNumberValid();
+        //  assert
+        expect(isValid, true);
+      });
+      test('Phone numbers starting with +254, have a zero after +254 and are 13 digits long are invalid', () {
+        //  setup
+        final phone = '+254071744660';
+        //  act
+        final isValid = phone.checkIsPhoneNumberValid();
+        //  assert
+        expect(isValid, false);
+      });
+      test('Phone numbers starting with +254, have a zero after +254 and are 15 digits long are invalid', () {
+        //  setup
+        final phone = '+25407174466077';
+        //  act
+        final isValid = phone.checkIsPhoneNumberValid();
+        //  assert
+        expect(isValid, false);
+      });
+      test('Phone numbers starting with +254, do not have a zero after +254 and are 13 digits long are valid', () {
+        //  setup
+        final phone = '+254717446607';
+        //  act
+        final isValid = phone.checkIsPhoneNumberValid();
+        //  assert
+        expect(isValid, true);
+      });
+      test('Phone numbers starting with +254, do not have a zero after +254 and are 12 digits long are invalid', () {
+        //  setup
+        final phone = '+25471744660';
+        //  act
+        final isValid = phone.checkIsPhoneNumberValid();
+        //  assert
+        expect(isValid, false);
+      });
+      test('Phone numbers starting with +254, do not have a zero after +254 and are 14 digits long are invalid', () {
+        //  setup
+        final phone = '+2547174466078';
+        //  act
+        final isValid = phone.checkIsPhoneNumberValid();
+        //  assert
+        expect(isValid, false);
+      });
+    });
   });
 }
