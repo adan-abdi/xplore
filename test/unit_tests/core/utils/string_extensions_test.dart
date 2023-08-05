@@ -273,6 +273,14 @@ void main() {
       //  assert
       expect(formattedPhone, '+$phone');
     });
+    test('Add prefix to numbers with leading zero and starting with 254xxxx', () {
+      //  setup
+      final phone = '2540717446607';
+      //  act
+      final formattedPhone = phone.add254Prefix;
+      //  assert
+      expect(formattedPhone, '+254717446607');
+    });
     test('Add prefix to numbers starting with +254xxxx', () {
       //  setup
       final phone = '+254717446607';
@@ -280,6 +288,14 @@ void main() {
       final formattedPhone = phone.add254Prefix;
       //  assert
       expect(formattedPhone, '$phone');
+    });
+    test('Add prefix to numbers with leading zero and starting with +254xxxx', () {
+      //  setup
+      final phone = '+2540717446607';
+      //  act
+      final formattedPhone = phone.add254Prefix;
+      //  assert
+      expect(formattedPhone, '+254717446607');
     });
   });
 }

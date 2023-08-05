@@ -25,8 +25,12 @@ extension StringExtensions on String {
       return '+254$this';
     } else if (this.startsWith('0')) {
       return '+254${this.substring(1)}';
-    } else if (this.startsWith('254')) {
+    } else if (this.startsWith('254') && this[3] == '0') {
+      return '+${this.replaceFirst(RegExp('0'), '')}';
+    } else if (this.startsWith('254') && this[3] != '0') {
       return '+$this';
+    } else if (this.startsWith('+254') && this[4] == '0') {
+      return '${this.replaceFirst(RegExp('0'), '')}';
     } else {
       return this;
     }
