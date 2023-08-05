@@ -12,6 +12,8 @@ class Constants {
   /// Product Categories
   static List<ProductCategory> productCategories = <ProductCategory>[
     ProductCategory(
+        categoryName: 'All', categoryIcon: Icons.shopping_basket_rounded),
+    ProductCategory(
         categoryName: 'Entertainment', categoryIcon: Icons.tv_rounded),
     ProductCategory(
         categoryName: 'Food & Drinks', categoryIcon: Icons.fastfood_rounded),
@@ -22,5 +24,7 @@ class Constants {
         categoryIcon: Icons.health_and_safety_rounded),
     ProductCategory(
         categoryName: 'Computing', categoryIcon: Icons.computer_rounded),
+    ProductCategory(
+        categoryName: 'Other', categoryIcon: Icons.phone_android_rounded),
   ];
 }
