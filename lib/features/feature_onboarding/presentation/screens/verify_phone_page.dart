@@ -108,6 +108,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                     Pinput(
                       length: 6,
                       showCursor: true,
+                      useNativeKeyboard: false,
                       controller: otpPinCodeFieldController,
                       androidSmsAutofillMethod: AndroidSmsAutofillMethod.none,
                       defaultPinTheme: PinTheme(
