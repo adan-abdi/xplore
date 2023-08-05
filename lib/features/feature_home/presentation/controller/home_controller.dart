@@ -11,10 +11,15 @@ class HomeController extends GetxController {
   /// Active Bottom Bar Index
   final activeBottomBarIndex = 0.obs;
 
+  /// Active Carousel Index
+  final activeCarouselIndex = 0.obs;
+
   /// Check Whether drawer is open
   final isDrawerOpen = false.obs;
 
   void setActiveBottomBarIndex(int index) => activeBottomBarIndex.value = index;
+
+  void setActiveCarouselIndex(int index) => activeCarouselIndex.value = index;
 
   void setIsDrawerOpen(bool isOpen) => isDrawerOpen.value = isOpen;
 

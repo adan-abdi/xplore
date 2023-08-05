@@ -68,39 +68,41 @@ class _TopStoresSectionState extends State<TopStoresSection> {
 
                 return //  top stores carousel
                     Column(
-                      children: [
-                        CarouselSlider.builder(
-                            itemCount: stores.length,
-                            itemBuilder: (context, index, realIndex) =>
-                                TopStoreCard(),
-                            carouselController: _carouselController,
-                            options: CarouselOptions(
-                                height: 170,
-                                initialPage: 0,
-                                enlargeCenterPage: false,
-                                enableInfiniteScroll: true,
-                                viewportFraction: 0.85,
-                                scrollPhysics: const BouncingScrollPhysics(),
-                                onPageChanged: (index, reason) {})),
+                  children: [
+                    CarouselSlider.builder(
+                        itemCount: stores.length,
+                        itemBuilder: (context, index, realIndex) =>
+                            TopStoreCard(),
+                        carouselController: _carouselController,
+                        options: CarouselOptions(
+                            height: 170,
+                            initialPage: 0,
+                            enlargeCenterPage: false,
+                            enableInfiniteScroll: false,
+                            viewportFraction: 0.85,
+                            scrollPhysics: const BouncingScrollPhysics(),
+                            onPageChanged: (index, reason) =>
+                                _homeController.setActiveCarouselIndex(index))),
 
-                        vSize20SizedBox,
+                    vSize20SizedBox,
 
-                        //  carousel indicators
-                        AnimatedSmoothIndicator(
-                          activeIndex: 0,
-                          count: stores.length,
-                          effect: ExpandingDotsEffect(
-                              dotHeight: 8,
-                              dotWidth: 8,
-                              activeDotColor: XploreColors.xploreOrange,
-                              dotColor: XploreColors.deepBlue.withOpacity(0.2)),
-                          onDotClicked: (index) {
-                            _carouselController.animateToPage(index);
-                          },
-                        ),
-
-                      ],
-                    );
+                    //  carousel indicators
+                    Obx(
+                      () => AnimatedSmoothIndicator(
+                        activeIndex: _homeController.activeCarouselIndex.value,
+                        count: stores.length,
+                        effect: ExpandingDotsEffect(
+                            dotHeight: 8,
+                            dotWidth: 8,
+                            activeDotColor: XploreColors.xploreOrange,
+                            dotColor: XploreColors.deepBlue.withOpacity(0.2)),
+                        onDotClicked: (index) {
+                          _carouselController.animateToPage(index);
+                        },
+                      ),
+                    ),
+                  ],
+                );
               }),
           //  top stores carousel indicators
         ],
