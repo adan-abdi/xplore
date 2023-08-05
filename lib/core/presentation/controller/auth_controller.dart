@@ -21,6 +21,9 @@ class AuthController extends GetxController {
   final isUserProfileCreated = false.obs;
 
   final isPhoneNumberValid = false.obs;
+  final isFullNameValid = false.obs;
+  final isEmailValid = false.obs;
+
   final isVerifyButtonLoading = false.obs;
   final isVerifyOtpLoading = false.obs;
   final isCreateProfileLoading = false.obs;
@@ -43,6 +46,12 @@ class AuthController extends GetxController {
 
   void setIsPhoneNumberValid({required bool isValid}) =>
       this.isPhoneNumberValid.value = isValid;
+
+  void setIsFullNameValid({required bool isValid}) =>
+      this.isFullNameValid.value = isValid;
+
+  void setIsEmailValid({required bool isValid}) =>
+      this.isEmailValid.value = isValid;
 
   void setUserProfileCreated({required bool isProfileCreated}) {
     isUserProfileCreated.value = isProfileCreated;

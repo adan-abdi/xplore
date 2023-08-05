@@ -114,14 +114,18 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                       iconData: Icons.person_rounded,
                       textStyle: TextStyle(fontSize: 18),
                       controller: _userNameController,
-                      onChanged: (value) {}),
+                      onChanged: (value) {
+                        _authController.setIsFullNameValid(isValid: value.isNotEmpty);
+                      }),
                   vSize30SizedBox,
                   CustomTextField(
                       hint: "Email Address*",
                       iconData: Icons.email_rounded,
                       textStyle: TextStyle(fontSize: 18),
                       controller: _emailController,
-                      onChanged: (value) {}),
+                      onChanged: (value) {
+                        _authController.setIsEmailValid(isValid: value.isNotEmpty);
+                      }),
                   vSize30SizedBox,
                   CustomTextField(
                       hint: "Store location (optional)",
@@ -138,7 +142,8 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                             text: "Submit",
                             isLoading:
                                 _authController.isCreateProfileLoading.value,
-                            isValid: false,
+                            isValid: _authController.isEmailValid.value &&
+                                _authController.isFullNameValid.value,
                             onTap: () async {
                               await _authController.saveUserDataToFirestore(
                                   userModel: UserModel(
