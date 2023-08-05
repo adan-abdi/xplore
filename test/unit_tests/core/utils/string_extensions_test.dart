@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shamiri/core/utils/string_extensions.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 
 void main() {
   /// Phone Number Validity

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:shamiri/core/utils/string_extensions.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 
 // Package imports:
 
