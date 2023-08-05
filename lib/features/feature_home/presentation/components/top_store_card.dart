@@ -50,7 +50,7 @@ class TopStoreCard extends StatelessWidget {
               ),
               hSize20SizedBox,
               Text(
-                "Phoenix Stores",
+                store.userName!,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,

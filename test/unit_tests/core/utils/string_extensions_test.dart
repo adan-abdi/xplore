@@ -273,7 +273,8 @@ void main() {
       //  assert
       expect(formattedPhone, '+$phone');
     });
-    test('Add prefix to numbers with leading zero and starting with 254xxxx', () {
+    test('Add prefix to numbers with leading zero and starting with 254xxxx',
+        () {
       //  setup
       final phone = '2540717446607';
       //  act
@@ -289,7 +290,8 @@ void main() {
       //  assert
       expect(formattedPhone, '$phone');
     });
-    test('Add prefix to numbers with leading zero and starting with +254xxxx', () {
+    test('Add prefix to numbers with leading zero and starting with +254xxxx',
+        () {
       //  setup
       final phone = '+2540717446607';
       //  act
@@ -297,5 +299,42 @@ void main() {
       //  assert
       expect(formattedPhone, '+254717446607');
     });
+  });
+
+  /// Trim User Name
+  group('Trim User Name', () {
+
+    test(
+        'user name with 1 word returns the word with no spaces',
+            () {
+          //  arrange
+          final userName = 'Ken    ';
+          //  act
+          final trimmedName = userName.trimUserName;
+          //  assert
+          expect(trimmedName, 'Ken');
+        });
+
+    test(
+        'user name with 2 words returns one word and first letter of second word',
+        () {
+      //  arrange
+      final userName = 'Ken Starry';
+      //  act
+      final trimmedName = userName.trimUserName;
+      //  assert
+      expect(trimmedName, 'Ken S.');
+    });
+
+    test(
+        'user name with 3 words returns one word and first letter of second word',
+            () {
+          //  arrange
+          final userName = 'Ken Starry Njoroge';
+          //  act
+          final trimmedName = userName.trimUserName;
+          //  assert
+          expect(trimmedName, 'Ken S.');
+        });
   });
 }

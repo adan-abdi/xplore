@@ -1,5 +1,5 @@
 extension StringExtensions on String {
-  //  Check whether given phone number is valid
+  ///  Check whether given phone number is valid
   bool get checkIsPhoneNumberValid {
     final startWith7 = startsWith('7');
     final startWith0 = startsWith('0');
@@ -19,7 +19,7 @@ extension StringExtensions on String {
     }
   }
 
-  //  add +254 prefix
+  ///  add +254 prefix
   String get add254Prefix {
     if (this.startsWith('1') || this.startsWith('7')) {
       return '+254$this';
@@ -34,5 +34,15 @@ extension StringExtensions on String {
     } else {
       return this;
     }
+  }
+
+  /// Trim User Name
+  String get trimUserName {
+    return '';
+  }
+
+  /// User's store
+  String get getStoreName {
+    return '';
   }
 }
