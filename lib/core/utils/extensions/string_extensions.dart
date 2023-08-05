@@ -38,7 +38,12 @@ extension StringExtensions on String {
 
   /// Trim User Name
   String get trimUserName {
-    return '';
+    final words = this.trim().split(" ").toList();
+    if (words.length > 1) {
+      return '${words[0]} ${words[1][0]}.';
+    } else {
+      return words[0];
+    }
   }
 
   /// User's store

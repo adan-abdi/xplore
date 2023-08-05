@@ -308,7 +308,7 @@ void main() {
         'user name with 1 word returns the word with no spaces',
             () {
           //  arrange
-          final userName = 'Ken    ';
+          final userName = '     Ken    ';
           //  act
           final trimmedName = userName.trimUserName;
           //  assert
