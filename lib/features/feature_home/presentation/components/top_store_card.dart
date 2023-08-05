@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
 class TopStoreCard extends StatelessWidget {
@@ -50,7 +51,7 @@ class TopStoreCard extends StatelessWidget {
               ),
               hSize20SizedBox,
               Text(
-                store.userName!,
+                store.userName!.getStoreName,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -58,6 +59,25 @@ class TopStoreCard extends StatelessWidget {
               ),
             ],
           ),
+
+          //  store location
+          Row(
+            children: [
+              Icon(Icons.location_on_rounded,
+                  color: XploreColors.whiteSmoke, size: 16),
+              hSize10SizedBox,
+              Text(
+                store.storeLocation!.isNotEmpty
+                    ? '${store.storeLocation!}'
+                    : 'No location',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    color: XploreColors.white),
+              ),
+            ],
+          ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
