@@ -18,6 +18,9 @@ class HomeController extends GetxController {
 
   void setIsDrawerOpen(bool isOpen) => isDrawerOpen.value = isOpen;
 
+  /// All Stores
+  Stream<QuerySnapshot> getAllStores() => useCases.getAllStores();
+
   /// All Products
   Stream<QuerySnapshot> getAllProducts() => useCases.getAllProducts();
 }

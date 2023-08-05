@@ -32,7 +32,7 @@ class _AllProductsSectionState extends State<AllProductsSection> {
         stream: _homeController.getAllProducts(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return SliverFillRemaining(
+            return SliverToBoxAdapter(
                 child: MyLottie(
               lottie: 'assets/general/loading.json',
               width: 50,

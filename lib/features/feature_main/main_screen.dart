@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:shamiri/core/presentation/components/my_lottie.dart';
 import 'package:shamiri/features/feature_cart/presentation/cart_screen.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_home/presentation/home_page.dart';
@@ -81,8 +82,10 @@ class _MainScreenState extends State<MainScreen> {
                 height: double.infinity,
                 color: XploreColors.white,
                 child: Center(
-                  child: CircularProgressIndicator(
-                    color: XploreColors.xploreOrange,
+                  child: MyLottie(
+                    lottie: 'assets/general/loading.json',
+                    width: 50,
+                    height: 50,
                   ),
                 ),
               )
