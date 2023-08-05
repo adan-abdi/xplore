@@ -1,7 +1,7 @@
 extension StringExtensions on String {
 
   //  Check whether given phone number is valid
-  bool checkIsPhoneNumberValid() {
+  bool get checkIsPhoneNumberValid {
     final startWith7 = startsWith('7');
     final startWith0 = startsWith('0');
     final startWith1 = startsWith('1');
@@ -18,5 +18,10 @@ extension StringExtensions on String {
     } else {
       return false;
     }
+  }
+
+  //  add +254 prefix
+  String get add254Prefix {
+    return "";
   }
 }

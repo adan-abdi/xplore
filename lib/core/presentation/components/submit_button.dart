@@ -23,7 +23,7 @@ class SubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: isValid ? onTap : null,
       child: isLoading
           ? MyLottie(
               lottie: 'assets/general/loading.json',

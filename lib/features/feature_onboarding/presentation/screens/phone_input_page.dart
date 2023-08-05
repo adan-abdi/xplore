@@ -44,7 +44,7 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
     phoneNumberController.addListener(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _authController.setIsPhoneNumberValid(
-            isValid: phoneNumberController.text.checkIsPhoneNumberValid());
+            isValid: phoneNumberController.text.checkIsPhoneNumberValid);
       });
     });
   }
@@ -121,64 +121,48 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
                                   _authController.isVerifyButtonLoading.value,
                               isValid: _authController.isPhoneNumberValid.value,
                               onTap: () async {
-                                if (phoneNumberController.text.length >= 10 &&
-                                    phoneNumberController.text.length <= 14 &&
-                                    (phoneNumberController.text
-                                            .startsWith('+254') ||
-                                        phoneNumberController.text
-                                            .startsWith('07') ||
-                                        phoneNumberController.text
-                                            .startsWith('7'))) {
-                                  await _authController.signInWithPhone(
-                                      phoneNumber: phoneNumberController.text,
-                                      response: (state, error) {
-                                        switch (state) {
-                                          case ResponseState.success:
-                                            _authController
-                                                .setVerifyButtonLoading(
-                                                    isLoading: false);
-                                            break;
-                                          case ResponseState.loading:
-                                            _authController
-                                                .setVerifyButtonLoading(
-                                                    isLoading: true);
-                                            break;
-                                          case ResponseState.failure:
-                                            _authController
-                                                .setVerifyButtonLoading(
-                                                    isLoading: false);
 
-                                            WidgetsBinding.instance
-                                                .addPostFrameCallback((_) {
-                                              showSnackbar(
-                                                  title: "Could not sign in",
-                                                  message: error!.toString(),
-                                                  iconData: Icons.login_rounded,
-                                                  iconColor: XploreColors
-                                                      .xploreOrange);
-                                            });
+                                print("PHONE : ${phoneNumberController.text}");
 
-                                            break;
-                                        }
-                                      },
-                                      onCodeSent: (verificationId) {
-                                        Get.to(() => PhoneVerifyPage(
-                                              verificationId: verificationId,
-                                              phoneNumber:
-                                                  phoneNumberController.text,
-                                            ));
-                                      });
-                                } else {
-                                  WidgetsBinding.instance
-                                      .addPostFrameCallback((_) {
-                                    showSnackbar(
-                                        title: "Invalid Phone Number",
-                                        message:
-                                            'Please enter a valid phone number',
-                                        iconData: Icons.phone_rounded,
-                                        iconColor: XploreColors.lightOrange);
-                                  });
-                                }
+                                // await _authController.signInWithPhone(
+                                //     phoneNumber: phoneNumberController.text,
+                                //     response: (state, error) {
+                                //       switch (state) {
+                                //         case ResponseState.success:
+                                //           _authController
+                                //               .setVerifyButtonLoading(
+                                //               isLoading: false);
+                                //           break;
+                                //         case ResponseState.loading:
+                                //           _authController
+                                //               .setVerifyButtonLoading(
+                                //               isLoading: true);
+                                //           break;
+                                //         case ResponseState.failure:
+                                //           _authController
+                                //               .setVerifyButtonLoading(
+                                //               isLoading: false);
+                                //
+                                //           WidgetsBinding.instance
+                                //               .addPostFrameCallback((_) {
+                                //             showSnackbar(
+                                //                 title: "Could not sign in",
+                                //                 message: error!.toString(),
+                                //                 iconData: Icons.login_rounded,
+                                //                 iconColor: XploreColors
+                                //                     .xploreOrange);
+                                //           });
+                                //
+                                //           break;
+                                //       }
+                                //     },
+                                //     onCodeSent: (verificationId) {
+                                //       Get.to(() => PhoneVerifyPage(
+                                //         verificationId: verificationId,
+                                //         phoneNumber:
+                                //         phoneNumberController.text,
+                                //       ));
+                                //     });
                               }),
                         ),
                       ),

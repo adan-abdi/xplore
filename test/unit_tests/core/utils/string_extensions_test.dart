@@ -2,6 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shamiri/core/utils/string_extensions.dart';
 
 void main() {
+
+  /// Phone Number Validity
   group('Testing Phone number validity', () {
 
     group('Phone numbers starting with 0', () {
@@ -9,7 +11,7 @@ void main() {
         //  setup
         final phone = '0717446607';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, true);
       });
@@ -18,7 +20,7 @@ void main() {
         //  setup
         final phone = '071744660';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, false);
       });
@@ -27,7 +29,7 @@ void main() {
         //  setup
         final phone = '07174466078';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, false);
       });
@@ -38,7 +40,7 @@ void main() {
         //  setup
         final phone = '113134534';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, true);
       });
@@ -47,7 +49,7 @@ void main() {
         //  setup
         final phone = '11313453';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, false);
       });
@@ -56,7 +58,7 @@ void main() {
         //  setup
         final phone = '1131345344';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, false);
       });
@@ -68,7 +70,7 @@ void main() {
         //  setup
         final phone = '717446607';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, true);
       });
@@ -77,7 +79,7 @@ void main() {
         //  setup
         final phone = '71744660';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, false);
       });
@@ -86,7 +88,7 @@ void main() {
         //  setup
         final phone = '7174466070';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, false);
       });
@@ -98,7 +100,7 @@ void main() {
         //  setup
         final phone = '2540717446607';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, true);
       });
@@ -106,7 +108,7 @@ void main() {
         //  setup
         final phone = '254071744660';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, false);
       });
@@ -114,7 +116,7 @@ void main() {
         //  setup
         final phone = '25407174466077';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, false);
       });
@@ -122,7 +124,7 @@ void main() {
         //  setup
         final phone = '254717446607';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, true);
       });
@@ -130,7 +132,7 @@ void main() {
         //  setup
         final phone = '25471744660';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, false);
       });
@@ -138,7 +140,7 @@ void main() {
         //  setup
         final phone = '2547174466078';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, false);
       });
@@ -150,7 +152,7 @@ void main() {
         //  setup
         final phone = '+2540717446607';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, true);
       });
@@ -158,7 +160,7 @@ void main() {
         //  setup
         final phone = '+254071744660';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, false);
       });
@@ -166,7 +168,7 @@ void main() {
         //  setup
         final phone = '+25407174466077';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, false);
       });
@@ -174,7 +176,7 @@ void main() {
         //  setup
         final phone = '+254717446607';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, true);
       });
@@ -182,7 +184,7 @@ void main() {
         //  setup
         final phone = '+25471744660';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, false);
       });
@@ -190,10 +192,15 @@ void main() {
         //  setup
         final phone = '+2547174466078';
         //  act
-        final isValid = phone.checkIsPhoneNumberValid();
+        final isValid = phone.checkIsPhoneNumberValid;
         //  assert
         expect(isValid, false);
       });
     });
+  });
+
+  /// Add Prefix to Phone Number
+  group('+254 Prefix to phone number', () {
+
   });
 }
