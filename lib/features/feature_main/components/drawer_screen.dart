@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_main/components/drawer_option_item.dart';
 
@@ -76,7 +77,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       color: XploreColors.whiteSmoke,
                       decoration: TextDecoration.none)),
               TextSpan(
-                  text: _authController.user.value!.userName!,
+                  text: _authController.user.value!.userName!.trimUserName,
                   style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 18,

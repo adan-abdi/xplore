@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
+import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
@@ -23,12 +24,14 @@ class TopStoresSection extends StatefulWidget {
 class _TopStoresSectionState extends State<TopStoresSection> {
   late final CarouselController _carouselController;
   late final HomeController _homeController;
+  late final AuthController _authController;
 
   @override
   void initState() {
     super.initState();
 
     _homeController = Get.find();
+    _authController = Get.find();
     _carouselController = CarouselController();
   }
 
@@ -64,6 +67,8 @@ class _TopStoresSectionState extends State<TopStoresSection> {
                 var stores = snapshot.data!.docs
                     .map((store) => UserModel.fromJson(
                         store.data() as Map<String, dynamic>))
+                    .where((store) =>
+                        store.userId! != _authController.user.value!.userId)
                     .toList();
 
                 return //  top stores carousel
@@ -72,7 +77,7 @@ class _TopStoresSectionState extends State<TopStoresSection> {
                     CarouselSlider.builder(
                         itemCount: stores.length,
                         itemBuilder: (context, index, realIndex) =>
-                            TopStoreCard(store: stores[index],),
+                            TopStoreCard(store: stores[index]),
                         carouselController: _carouselController,
                         options: CarouselOptions(
                             height: 170,

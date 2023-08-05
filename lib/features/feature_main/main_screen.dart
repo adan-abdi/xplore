@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:shamiri/core/presentation/components/my_lottie.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/features/feature_cart/presentation/cart_screen.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_home/presentation/home_page.dart';
@@ -104,7 +105,7 @@ class _MainScreenState extends State<MainScreen> {
                     backgroundColor: XploreColors.white,
                     title: Text(
                       _homeController.activeBottomBarIndex.value == 0
-                          ? _authController.user.value!.userName!
+                          ? _authController.user.value!.userName!.trimUserName
                           : _homeController.activeBottomBarIndex.value == 1
                               ? "Merchant Store"
                               : "My Cart",
