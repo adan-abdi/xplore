@@ -303,17 +303,14 @@ void main() {
 
   /// Trim User Name
   group('Trim User Name', () {
-
-    test(
-        'user name with 1 word returns the word with no spaces',
-            () {
-          //  arrange
-          final userName = '     Ken    ';
-          //  act
-          final trimmedName = userName.trimUserName;
-          //  assert
-          expect(trimmedName, 'Ken');
-        });
+    test('user name with 1 word returns the word with no spaces', () {
+      //  arrange
+      final userName = '     Ken    ';
+      //  act
+      final trimmedName = userName.trimUserName;
+      //  assert
+      expect(trimmedName, 'Ken');
+    });
 
     test(
         'user name with 2 words returns one word and first letter of second word',
@@ -328,13 +325,35 @@ void main() {
 
     test(
         'user name with 3 words returns one word and first letter of second word',
+        () {
+      //  arrange
+      final userName = 'Ken Starry Njoroge';
+      //  act
+      final trimmedName = userName.trimUserName;
+      //  assert
+      expect(trimmedName, 'Ken S.');
+    });
+  });
+
+  /// Get Store name
+  group('Get Store Name from username', () {
+    test('Username longer than 1 word returns first name with apostrophe s',
+        () {
+      //  arrange
+      final username = 'Ken Starry';
+      //  act
+      final storeName = username.getStoreName;
+      //  assert
+      expect(storeName, "Ken's Store");
+    });
+    test('Username with 1 word returns word with apostrophe s',
             () {
           //  arrange
-          final userName = 'Ken Starry Njoroge';
+          final username = '  Ken       ';
           //  act
-          final trimmedName = userName.trimUserName;
+          final storeName = username.getStoreName;
           //  assert
-          expect(trimmedName, 'Ken S.');
+          expect(storeName, "Ken's Store");
         });
   });
 }
