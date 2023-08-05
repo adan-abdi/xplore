@@ -102,6 +102,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                       extraHeading: 'We sent it to ${widget.phoneNumber}',
                       subtitle: 'to your number.',
                       title: 'Enter code sent \n',
+                      canExtraHeading: true
                     ),
                     //  pin input field
                     Pinput(

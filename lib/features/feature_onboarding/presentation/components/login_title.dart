@@ -11,6 +11,7 @@ List<Widget> titles({
   required String title,
   required String subtitle,
   required String extraHeading,
+  bool canExtraHeading = false,
   double? titleFontSize,
   double? headingFontSize,
 }) {
@@ -35,15 +36,48 @@ List<Widget> titles({
         ],
       ),
     ),
-    vSize10SizedBox,
-    Text(
-      extraHeading,
-      style: TextStyle(
-        color: XploreColors.deepBlue,
-        fontSize: headingFontSize ?? defaultFontSize,
-        fontWeight: FontWeight.normal,
-      ),
-      textAlign: TextAlign.start,
-    ),
+    canExtraHeading
+        ? Row(
+            children: [
+              Text(
+                extraHeading,
+                style: TextStyle(
+                  color: XploreColors.deepBlue,
+                  fontSize: headingFontSize ?? defaultFontSize,
+                  fontWeight: FontWeight.normal,
+                ),
+                textAlign: TextAlign.start,
+              ),
+              hSize20SizedBox,
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: XploreColors.deepBlue),
+                child: Row(
+                  children: [
+                    Icon(Icons.edit_rounded, color: XploreColors.white, size: 16),
+                    hSize10SizedBox,
+                    Text("Edit",
+                        style: TextStyle(
+                          color: XploreColors.white,
+                          fontSize: headingFontSize ?? defaultFontSize,
+                          fontWeight: FontWeight.normal,
+                        )),
+                  ],
+                ),
+              )
+            ],
+          )
+        : Text(
+            extraHeading,
+            style: TextStyle(
+              color: XploreColors.deepBlue,
+              fontSize: headingFontSize ?? defaultFontSize,
+              fontWeight: FontWeight.normal,
+            ),
+            textAlign: TextAlign.start,
+          ),
   ];
 }
