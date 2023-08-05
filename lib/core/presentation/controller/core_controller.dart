@@ -10,7 +10,7 @@ class CoreController extends GetxController {
 
   final userProfilePic = Rxn<File>();
 
-  void setProfilePic({required File file}) => userProfilePic.value = file;
+  void setProfilePic({required File? file}) => userProfilePic.value = file;
 
   Future pickImage(
       {required ImageSource source, required Function(File file) imageFile}) async {

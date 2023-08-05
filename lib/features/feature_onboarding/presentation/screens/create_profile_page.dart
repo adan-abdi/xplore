@@ -70,89 +70,100 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                   vSize40SizedBox,
                   Align(
                     alignment: AlignmentDirectional.center,
-                    child: GestureDetector(
-                      onTap: () async {
-                        await _coreController.pickImage(
-                            source: ImageSource.gallery,
-                            imageFile: (file) {
-                              _coreController.setProfilePic(file: file);
-                            });
-                      },
-                      child: Obx(
-                        () => Container(
-                            width: 150,
-                            height: 150,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(200),
-                              color: XploreColors.deepBlue,
-                            ),
-                            child: Stack(
-                              fit: StackFit.expand,
-                              children: [
-                                _coreController.userProfilePic.value != null
-                                    ? Align(
-                                        alignment: AlignmentDirectional.center,
-                                        child: UnconstrainedBox(
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(200),
-                                            child: Image.file(
-                                              File(_coreController
-                                                  .userProfilePic.value!.path),
-                                              fit: BoxFit.cover,
-                                              width: double.infinity,
-                                              height: double.infinity,
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    : Icon(
+                    child: Obx(
+                      () => Container(
+                          width: 150,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(200),
+                            color: XploreColors.deepBlue,
+                          ),
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              _coreController.userProfilePic.value != null
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(200),
+                                      child: Image.file(
+                                        File(_coreController
+                                            .userProfilePic.value!.path),
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                      ),
+                                    )
+                                  : Align(
+                                      alignment: AlignmentDirectional.center,
+                                      child: Icon(
                                         Icons.person_rounded,
                                         color: XploreColors.white,
                                         size: 48,
                                       ),
+                                    ),
 
-                                //  edit icon
-                                Align(
-                                  alignment: AlignmentDirectional.bottomEnd,
-                                  child: UnconstrainedBox(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        //  open edit bottom sheet
-                                        openBottomSheet(
-                                            content: ImagePickerBottomSheet(
-                                              onCameraTap: (){},
-                                              onGalleryTap: (){},
-                                              onRemoveTap: (){},
-                                            ),
-                                            height: 100,
-                                            onComplete: () {});
-                                      },
-                                      child: Container(
-                                        width: 45,
-                                        height: 45,
-                                        margin: const EdgeInsets.all(4),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(100),
-                                            border: Border.all(
-                                                color: XploreColors.white,
-                                                width: 5),
-                                            color: XploreColors.deepBlue),
-                                        child: Center(
-                                          child: Icon(
-                                            Icons.edit_rounded,
-                                            color: XploreColors.white,
-                                            size: 24,
+                              //  edit icon
+                              Align(
+                                alignment: AlignmentDirectional.bottomEnd,
+                                child: UnconstrainedBox(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      //  open edit bottom sheet
+                                      openBottomSheet(
+                                          content: ImagePickerBottomSheet(
+                                            onCameraTap: () async {
+                                              await _coreController.pickImage(
+                                                  source: ImageSource.camera,
+                                                  imageFile: (file) {
+                                                    _coreController
+                                                        .setProfilePic(
+                                                            file: file);
+                                                  });
+                                              Get.back();
+                                            },
+                                            onGalleryTap: () async {
+                                              await _coreController.pickImage(
+                                                  source: ImageSource.gallery,
+                                                  imageFile: (file) {
+                                                    _coreController
+                                                        .setProfilePic(
+                                                            file: file);
+                                                  });
+                                              Get.back();
+                                            },
+                                            onRemoveTap: () {
+                                              _coreController.setProfilePic(
+                                                  file: null);
+
+                                              Get.back();
+                                            },
                                           ),
+                                          height: 100,
+                                          onComplete: () {});
+                                    },
+                                    child: Container(
+                                      width: 45,
+                                      height: 45,
+                                      margin: const EdgeInsets.all(4),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          border: Border.all(
+                                              color: XploreColors.white,
+                                              width: 5),
+                                          color: XploreColors.deepBlue),
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.edit_rounded,
+                                          color: XploreColors.white,
+                                          size: 24,
                                         ),
                                       ),
                                     ),
                                   ),
-                                )
-                              ],
-                            )),
-                      ),
+                                ),
+                              )
+                            ],
+                          )),
                     ),
                   ),
                   vSize40SizedBox,
