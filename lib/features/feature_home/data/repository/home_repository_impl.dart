@@ -10,6 +10,10 @@ class HomeRepositoryImpl implements HomeRepository {
   final firestore = locator.get<FirebaseFirestore>();
 
   @override
+  Stream<QuerySnapshot<Object?>> getAllStores() =>
+      firestore.collection(Constants.USER_COLLECTION).snapshots();
+
+  @override
   Stream<QuerySnapshot<Object?>> getAllProducts() =>
       firestore.collectionGroup(Constants.PRODUCTS_COLLECTION).snapshots();
 }
