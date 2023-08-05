@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/presentation/components/hamburger.dart';
 import 'package:shamiri/core/utils/constants.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_home/presentation/components/all_products_section.dart';
 import 'package:shamiri/features/feature_home/presentation/components/top_stores_section.dart';
+import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 
 import '../../../core/presentation/components/custom_textfield.dart';
 import 'components/pill_btn.dart';
+import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,11 +22,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final TextEditingController _searchController;
+  late final HomeController _homeController;
 
   @override
   void initState() {
     super.initState();
 
+    _homeController = Get.find<HomeController>();
     _searchController = TextEditingController();
   }
 
@@ -62,13 +67,17 @@ class _HomePageState extends State<HomePage> {
                           scrollDirection: Axis.horizontal,
                           physics: const BouncingScrollPhysics(),
                           itemCount: Constants.productCategories.length,
-                          itemBuilder: (context, index) => PillBtn(
-                            text:
-                                Constants.productCategories[index].categoryName,
-                            iconData:
-                                Constants.productCategories[index].categoryIcon,
-                            isActive: true,
-                            onTap: () {},
+                          itemBuilder: (context, index) => Obx(
+                            () => PillBtn(
+                              text: Constants
+                                  .productCategories[index].categoryName,
+                              iconData: Constants
+                                  .productCategories[index].categoryIcon,
+                              isActive: _homeController.activeCategory.value ==
+                                  Constants.productCategories[index],
+                              onTap: () => _homeController.setActiveCategory(
+                                  Constants.productCategories[index]),
+                            ),
                           ),
                           separatorBuilder: (context, index) => const SizedBox(
                             width: 8,

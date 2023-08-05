@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:shamiri/core/presentation/model/product_category.dart';
 import 'package:shamiri/di/locator.dart';
 import 'package:shamiri/features/feature_home/domain/use_cases/home_use_cases.dart';
 
+import '../../../../core/utils/constants.dart';
 import '../../../feature_merchant_store/domain/model/product_model.dart';
 
 class HomeController extends GetxController {
@@ -14,12 +16,18 @@ class HomeController extends GetxController {
   /// Active Carousel Index
   final activeCarouselIndex = 0.obs;
 
+  /// Active Category
+  final activeCategory = Constants.productCategories[0].obs;
+
   /// Check Whether drawer is open
   final isDrawerOpen = false.obs;
 
   void setActiveBottomBarIndex(int index) => activeBottomBarIndex.value = index;
 
   void setActiveCarouselIndex(int index) => activeCarouselIndex.value = index;
+
+  void setActiveCategory(ProductCategory category) =>
+      activeCategory.value = category;
 
   void setIsDrawerOpen(bool isOpen) => isDrawerOpen.value = isOpen;
 
