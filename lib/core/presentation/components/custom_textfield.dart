@@ -44,10 +44,14 @@ class CustomTextField extends StatelessWidget {
           ),
           contentPadding: const EdgeInsets.all(16),
           filled: true,
-          fillColor: XploreColors.deepBlue.withOpacity(0.1),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide.none)),
+          fillColor: XploreColors.white,
+          focusedBorder: UnderlineInputBorder(
+              borderSide:
+                  BorderSide(width: 2, color: XploreColors.xploreOrange)),
+          enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(width: 2, color: XploreColors.deepBlue)),
+          border: UnderlineInputBorder(
+              borderSide: BorderSide(width: 2, color: XploreColors.deepBlue))),
       cursorOpacityAnimates: true,
       onChanged: onChanged,
     );
