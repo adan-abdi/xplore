@@ -49,9 +49,9 @@ class CustomTextField extends StatelessWidget {
               borderSide:
                   BorderSide(width: 2, color: XploreColors.xploreOrange)),
           enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(width: 2, color: XploreColors.deepBlue)),
+              borderSide: BorderSide(width: 2, color: XploreColors.deepBlue.withOpacity(0.1))),
           border: UnderlineInputBorder(
-              borderSide: BorderSide(width: 2, color: XploreColors.deepBlue))),
+              borderSide: BorderSide(width: 2, color: XploreColors.deepBlue.withOpacity(0.1)))),
       cursorOpacityAnimates: true,
       onChanged: onChanged,
     );

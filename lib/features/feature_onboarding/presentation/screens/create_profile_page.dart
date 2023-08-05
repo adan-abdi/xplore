@@ -29,6 +29,7 @@ class CreateProfilePage extends StatefulWidget {
 class _CreateProfilePageState extends State<CreateProfilePage> {
   late final TextEditingController _userNameController;
   late final TextEditingController _emailController;
+  late final TextEditingController _locationController;
   late final CoreController _coreController;
   late final AuthController _authController;
   late final UserPrefsController _userPrefsController;
@@ -39,6 +40,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
 
     _userNameController = TextEditingController();
     _emailController = TextEditingController();
+    _locationController = TextEditingController();
     _coreController = Get.find<CoreController>();
     _authController = Get.find<AuthController>();
     _userPrefsController = Get.find<UserPrefsController>();
@@ -108,17 +110,24 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                   ),
                   vSize40SizedBox,
                   CustomTextField(
-                      hint: "Full Name",
+                      hint: "Full Name*",
                       iconData: Icons.person_rounded,
                       textStyle: TextStyle(fontSize: 18),
                       controller: _userNameController,
                       onChanged: (value) {}),
                   vSize30SizedBox,
                   CustomTextField(
-                      hint: "Email Address",
+                      hint: "Email Address*",
                       iconData: Icons.email_rounded,
                       textStyle: TextStyle(fontSize: 18),
                       controller: _emailController,
+                      onChanged: (value) {}),
+                  vSize30SizedBox,
+                  CustomTextField(
+                      hint: "Store location (optional)",
+                      iconData: Icons.location_on_rounded,
+                      textStyle: TextStyle(fontSize: 18),
+                      controller: _locationController,
                       onChanged: (value) {}),
                   vSize40SizedBox,
                   Align(
