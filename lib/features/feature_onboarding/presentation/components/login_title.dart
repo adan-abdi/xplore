@@ -1,5 +1,7 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 // Project imports:
 import 'package:shamiri/application/core/themes/colors.dart';
@@ -49,23 +51,26 @@ List<Widget> titles({
                 textAlign: TextAlign.start,
               ),
               hSize20SizedBox,
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: XploreColors.deepBlue),
-                child: Row(
-                  children: [
-                    Icon(Icons.edit_rounded, color: XploreColors.white, size: 16),
-                    hSize10SizedBox,
-                    Text("Edit",
-                        style: TextStyle(
-                          color: XploreColors.white,
-                          fontSize: headingFontSize ?? defaultFontSize,
-                          fontWeight: FontWeight.normal,
-                        )),
-                  ],
+              GestureDetector(
+                onTap: () => Get.back(),
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: XploreColors.deepBlue),
+                  child: Row(
+                    children: [
+                      Icon(Icons.edit_rounded, color: XploreColors.white, size: 16),
+                      hSize10SizedBox,
+                      Text("Edit",
+                          style: TextStyle(
+                            color: XploreColors.white,
+                            fontSize: headingFontSize ?? defaultFontSize,
+                            fontWeight: FontWeight.normal,
+                          )),
+                    ],
+                  ),
                 ),
               )
             ],
