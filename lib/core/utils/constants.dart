@@ -6,4 +6,7 @@ class Constants {
 
   /// Hive
   static const USER_PREFS_BOX = 'user_prefs';
+
+  /// Product Categories
+  static const productCategories = [];
 }
