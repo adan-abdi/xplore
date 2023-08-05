@@ -247,7 +247,7 @@ void main() {
       //  act
       final formattedPhone = phone.add254Prefix;
       //  assert
-      expect(formattedPhone, '+254$phone');
+      expect(formattedPhone, '+254717446607');
     });
     test('Add prefix to numbers starting with 1xxxx', () {
       //  setup
@@ -263,7 +263,7 @@ void main() {
       //  act
       final formattedPhone = phone.add254Prefix;
       //  assert
-      expect(formattedPhone, '+254$phone');
+      expect(formattedPhone, '+254113132658');
     });
     test('Add prefix to numbers starting with 254xxxx', () {
       //  setup

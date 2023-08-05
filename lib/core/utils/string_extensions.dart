@@ -21,8 +21,10 @@ extension StringExtensions on String {
 
   //  add +254 prefix
   String get add254Prefix {
-    if (this.startsWith('0') || this.startsWith('1') || this.startsWith('7')) {
+    if (this.startsWith('1') || this.startsWith('7')) {
       return '+254$this';
+    } else if (this.startsWith('0')) {
+      return '+254${this.substring(1)}';
     } else if (this.startsWith('254')) {
       return '+$this';
     } else {
