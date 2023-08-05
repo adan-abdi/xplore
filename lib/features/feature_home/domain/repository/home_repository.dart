@@ -7,4 +7,7 @@ abstract class HomeRepository {
 
   /// Get All Products
   Stream<QuerySnapshot> getAllProducts();
+
+  /// Get User Products
+  Stream<QuerySnapshot> getStoreProducts({required String userId});
 }

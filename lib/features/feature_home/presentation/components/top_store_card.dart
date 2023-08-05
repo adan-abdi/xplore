@@ -70,7 +70,7 @@ class TopStoreCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: XploreColors.white)),
                 TextSpan(
-                    text: " sales",
+                    text: " products",
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,

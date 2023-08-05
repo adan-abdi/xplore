@@ -16,4 +16,12 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Stream<QuerySnapshot<Object?>> getAllProducts() =>
       firestore.collectionGroup(Constants.PRODUCTS_COLLECTION).snapshots();
+
+  @override
+  Stream<QuerySnapshot<Object?>> getStoreProducts({required String userId}) =>
+      firestore
+          .collection(Constants.USER_COLLECTION)
+          .doc(userId)
+          .collection(Constants.PRODUCTS_COLLECTION)
+          .snapshots();
 }
