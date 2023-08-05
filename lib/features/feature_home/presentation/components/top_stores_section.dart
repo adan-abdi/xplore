@@ -72,7 +72,7 @@ class _TopStoresSectionState extends State<TopStoresSection> {
                     CarouselSlider.builder(
                         itemCount: stores.length,
                         itemBuilder: (context, index, realIndex) =>
-                            TopStoreCard(),
+                            TopStoreCard(store: stores[index],),
                         carouselController: _carouselController,
                         options: CarouselOptions(
                             height: 170,

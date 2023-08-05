@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
 class TopStoreCard extends StatelessWidget {
-  const TopStoreCard({super.key});
+  final UserModel store;
+
+  const TopStoreCard({super.key, required this.store});
 
   @override
   Widget build(BuildContext context) {
@@ -25,21 +28,33 @@ class TopStoreCard extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100)),
+                    borderRadius: BorderRadius.circular(100),
+                    color: XploreColors.deepBlue),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
-                  child: Image.asset(
-                    'assets/general/lady.jpg',
-                    width: double.infinity,
-                    height: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
+                  child: store.userProfilePicUrl != null &&
+                          store.userProfilePicUrl!.isNotEmpty
+                      ? Image.network(
+                          store.userProfilePicUrl!,
+                          width: double.infinity,
+                          height: double.infinity,
+                          fit: BoxFit.cover,
+                        )
+                      : Center(
+                          child: Icon(
+                            Icons.person_rounded,
+                            color: XploreColors.white,
+                          ),
+                        ),
                 ),
               ),
               hSize20SizedBox,
               Text(
                 "Phoenix Stores",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: XploreColors.white),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: XploreColors.white),
               ),
             ],
           ),
@@ -56,11 +71,17 @@ class TopStoreCard extends StatelessWidget {
                         color: XploreColors.white)),
                 TextSpan(
                     text: " sales",
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: XploreColors.xploreOrange)),
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: XploreColors.xploreOrange)),
               ])),
               //  trend icon
-              Icon(Icons.trending_up_rounded, color: XploreColors.orange, size: 48,)
+              Icon(
+                Icons.trending_up_rounded,
+                color: XploreColors.orange,
+                size: 48,
+              )
             ],
           )
         ],
