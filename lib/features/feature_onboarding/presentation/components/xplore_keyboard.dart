@@ -4,11 +4,11 @@ import 'package:shamiri/core/presentation/components/my_lottie.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
 class XploreKeyboard extends StatelessWidget {
-  final TextEditingController phoneController;
+  final TextEditingController controller;
   final bool isLoading;
 
   const XploreKeyboard(
-      {super.key, required this.phoneController, required this.isLoading});
+      {super.key, required this.controller, required this.isLoading});
 
   @override
   Widget build(BuildContext context) {
@@ -80,14 +80,20 @@ class XploreKeyboard extends StatelessWidget {
         onTap: () {
           //  add phone number based on the clicked number
           if (!isDeleteIcon) {
-            phoneController.text += value;
-            phoneController.selection =
-                TextSelection.collapsed(offset: phoneController.text.length);
+            controller.text += value;
+            controller.selection =
+                TextSelection.collapsed(offset: controller.text.length);
           } else {
-            phoneController.text = phoneController.text
-                .substring(0, phoneController.text.length - 1);
-            phoneController.selection =
-                TextSelection.collapsed(offset: phoneController.text.length);
+            controller.text = controller.text
+                .substring(0, controller.text.length - 1);
+            controller.selection =
+                TextSelection.collapsed(offset: controller.text.length);
+          }
+        },
+        onLongPress: () {
+          if (isDeleteIcon) {
+            //  clear whole text
+            controller.clear();
           }
         },
         borderRadius: BorderRadius.circular(100),

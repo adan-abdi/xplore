@@ -216,7 +216,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                   flex: 4,
                   child: Obx(
                     () => XploreKeyboard(
-                      phoneController: otpPinCodeFieldController,
+                      controller: otpPinCodeFieldController,
                       isLoading: _authController.isVerifyOtpLoading.value,
                     ),
                   ))

@@ -177,7 +177,7 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
                 Expanded(
                     flex: 4,
                     child: XploreKeyboard(
-                      phoneController: phoneNumberController,
+                      controller: phoneNumberController,
                       isLoading: false,
                     ))
               ],
