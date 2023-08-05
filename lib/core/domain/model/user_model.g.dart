@@ -23,13 +23,14 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       userEmail: fields[3] == null ? '' : fields[3] as String?,
       userPhoneNumber: fields[4] == null ? '' : fields[4] as String?,
       createdAt: fields[5] == null ? '' : fields[5] as String?,
+      storeLocation: fields[6] == null ? '' : fields[6] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.userId)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(4)
       ..write(obj.userPhoneNumber)
       ..writeByte(5)
-      ..write(obj.createdAt);
+      ..write(obj.createdAt)
+      ..writeByte(6)
+      ..write(obj.storeLocation);
   }
 
   @override
@@ -54,3 +57,27 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
+      userId: json['userId'] as String?,
+      userName: json['userName'] as String?,
+      userProfilePicUrl: json['userProfilePicUrl'] as String?,
+      userEmail: json['userEmail'] as String?,
+      userPhoneNumber: json['userPhoneNumber'] as String?,
+      createdAt: json['createdAt'] as String?,
+      storeLocation: json['storeLocation'] as String?,
+    );
+
+Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
+      'userId': instance.userId,
+      'userName': instance.userName,
+      'userProfilePicUrl': instance.userProfilePicUrl,
+      'userEmail': instance.userEmail,
+      'userPhoneNumber': instance.userPhoneNumber,
+      'createdAt': instance.createdAt,
+      'storeLocation': instance.storeLocation,
+    };

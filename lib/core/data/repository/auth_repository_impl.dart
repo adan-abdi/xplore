@@ -102,7 +102,7 @@ class AuthRepositoryImpl implements AuthRepository {
         final data = document.data();
 
         if (data != null) {
-          onSuccess(UserModel.fromMap(data));
+          onSuccess(UserModel.fromJson(data));
         } else {
           print("NO DATA FOUND!!");
         }
@@ -141,7 +141,7 @@ class AuthRepositoryImpl implements AuthRepository {
       await firestore
           .collection(Constants.USER_COLLECTION)
           .doc(auth.currentUser!.uid)
-          .set(userModel.toMap())
+          .set(userModel.toJson())
           .then((value) async {
         //  save data locally to hive
         await userPrefsBox.put(

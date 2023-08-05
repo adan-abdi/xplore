@@ -1,29 +1,41 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 /// flutter packages pub run build_runner build
 part 'user_model.g.dart';
 
+@JsonSerializable()
 @HiveType(typeId: 1)
 class UserModel {
 
+  @JsonKey(name: 'userId')
   @HiveField(0, defaultValue: '')
   String? userId;
 
+  @JsonKey(name: 'userName')
   @HiveField(1, defaultValue: '')
   final String? userName;
 
+  @JsonKey(name: 'userProfilePicUrl')
   @HiveField(2, defaultValue: '')
   String? userProfilePicUrl;
 
+  @JsonKey(name: 'userEmail')
   @HiveField(3, defaultValue: '')
   final String? userEmail;
 
+  @JsonKey(name: 'userPhoneNumber')
   @HiveField(4, defaultValue: '')
   String? userPhoneNumber;
 
+  @JsonKey(name: 'createdAt')
   @HiveField(5, defaultValue: '')
   String? createdAt;
+
+  @JsonKey(name: 'storeLocation')
+  @HiveField(6, defaultValue: '')
+  String? storeLocation;
 
   UserModel(
       {this.userId,
@@ -31,26 +43,11 @@ class UserModel {
       this.userProfilePicUrl,
       this.userEmail,
       this.userPhoneNumber,
-      this.createdAt});
+      this.createdAt,
+      this.storeLocation});
 
-  //  From Map
-  factory UserModel.fromMap(Map<String, dynamic> map) => UserModel(
-      userId: map['userId'] ?? '',
-      userName: map['userName'] ?? '',
-      userProfilePicUrl: map['userProfilePicUrl'] ?? '',
-      userEmail: map['userEmail'] ?? '',
-      userPhoneNumber: map['userPhoneNumber'] ?? '',
-      createdAt: map['createdAt'] ?? '');
-}
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
 
-extension UserModelExtensions on UserModel {
-  //  To Map
-  Map<String, dynamic> toMap() => {
-        'userId': userId,
-        'userName': userName,
-        'userProfilePicUrl': userProfilePicUrl,
-        'userEmail': userEmail,
-        'userPhoneNumber': userPhoneNumber,
-        'createdAt': createdAt
-      };
+  Map<String, dynamic> toJson() => _$UserModelToJson(this);
 }
