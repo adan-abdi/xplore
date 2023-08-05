@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
+import 'package:shamiri/core/presentation/components/open_bottom_sheet.dart';
 import 'package:shamiri/core/presentation/components/show_snackbar.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
@@ -114,22 +115,28 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                 Align(
                                   alignment: AlignmentDirectional.bottomEnd,
                                   child: UnconstrainedBox(
-                                    child: Container(
-                                      width: 45,
-                                      height: 45,
-                                      margin: const EdgeInsets.all(4),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                          border: Border.all(
-                                              color: XploreColors.white,
-                                              width: 5),
-                                          color: XploreColors.deepBlue),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.edit_rounded,
-                                          color: XploreColors.white,
-                                          size: 24,
+                                    child: GestureDetector(
+                                      onTap: (){
+                                        //  open edit bottom sheet
+                                        openBottomSheet(content: content, onComplete: (){});
+                                      },
+                                      child: Container(
+                                        width: 45,
+                                        height: 45,
+                                        margin: const EdgeInsets.all(4),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            border: Border.all(
+                                                color: XploreColors.white,
+                                                width: 5),
+                                            color: XploreColors.deepBlue),
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.edit_rounded,
+                                            color: XploreColors.white,
+                                            size: 24,
+                                          ),
                                         ),
                                       ),
                                     ),
