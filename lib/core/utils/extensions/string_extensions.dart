@@ -48,6 +48,12 @@ extension StringExtensions on String {
 
   /// User's store
   String get getStoreName {
-    return '';
+    final words = this.trim().split(" ").toList();
+
+    if (words.length > 1) {
+      return "${words[0]}'s Store";
+    } else {
+      return "${this.trim()}'s Store";
+    }
   }
 }
