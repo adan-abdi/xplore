@@ -13,6 +13,7 @@ import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/features/feature_main/main_screen.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/components/image_picker_bottom_sheet.dart';
 
 import '../../../../core/domain/model/response_state.dart';
 import '../../../../core/domain/model/user_prefs.dart';
@@ -116,9 +117,16 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                   alignment: AlignmentDirectional.bottomEnd,
                                   child: UnconstrainedBox(
                                     child: GestureDetector(
-                                      onTap: (){
+                                      onTap: () {
                                         //  open edit bottom sheet
-                                        openBottomSheet(content: content, onComplete: (){});
+                                        openBottomSheet(
+                                            content: ImagePickerBottomSheet(
+                                              onCameraTap: (){},
+                                              onGalleryTap: (){},
+                                              onRemoveTap: (){},
+                                            ),
+                                            height: 100,
+                                            onComplete: () {});
                                       },
                                       child: Container(
                                         width: 45,
