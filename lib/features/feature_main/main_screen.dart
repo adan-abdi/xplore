@@ -119,8 +119,8 @@ class _MainScreenState extends State<MainScreen> {
                               _homeController.activeBottomBarIndex.value == 0,
                           child: UnconstrainedBox(
                             child: Container(
-                              width: 50,
-                              height: 50,
+                              width: 35,
+                              height: 35,
                               margin: const EdgeInsets.only(right: 16),
                               decoration: BoxDecoration(
                                   color: XploreColors.deepBlue,
@@ -139,15 +139,7 @@ class _MainScreenState extends State<MainScreen> {
                                         height: double.infinity,
                                         fit: BoxFit.cover,
                                       )
-                                    : SvgPicture.asset(
-                                        "assets/general/profile.svg",
-                                        width: 35,
-                                        height: 35,
-                                        fit: BoxFit.cover,
-                                        colorFilter: ColorFilter.mode(
-                                            XploreColors.white,
-                                            BlendMode.srcIn),
-                                      ),
+                                    : Icon(Icons.person_rounded, color: XploreColors.white, size: 24,)
                               ),
                             ),
                           ),
