@@ -121,51 +121,46 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
                                   _authController.isVerifyButtonLoading.value,
                               isValid: _authController.isPhoneNumberValid.value,
                               onTap: () async {
-                                Get.to(() => PhoneVerifyPage(
-                                  verificationId: '12345',
-                                  phoneNumber:
-                                  phoneNumberController.text.add254Prefix,
-                                ));
-                                // await _authController.signInWithPhone(
-                                //     phoneNumber:
-                                //         phoneNumberController.text.add254Prefix,
-                                //     response: (state, error) {
-                                //       switch (state) {
-                                //         case ResponseState.success:
-                                //           _authController
-                                //               .setVerifyButtonLoading(
-                                //                   isLoading: false);
-                                //           break;
-                                //         case ResponseState.loading:
-                                //           _authController
-                                //               .setVerifyButtonLoading(
-                                //                   isLoading: true);
-                                //           break;
-                                //         case ResponseState.failure:
-                                //           _authController
-                                //               .setVerifyButtonLoading(
-                                //                   isLoading: false);
-                                //
-                                //           WidgetsBinding.instance
-                                //               .addPostFrameCallback((_) {
-                                //             showSnackbar(
-                                //                 title: "Could not sign in",
-                                //                 message: error!.toString(),
-                                //                 iconData: Icons.login_rounded,
-                                //                 iconColor:
-                                //                     XploreColors.xploreOrange);
-                                //           });
-                                //
-                                //           break;
-                                //       }
-                                //     },
-                                //     onCodeSent: (verificationId) {
-                                //       Get.to(() => PhoneVerifyPage(
-                                //             verificationId: verificationId,
-                                //             phoneNumber:
-                                //                 phoneNumberController.text.add254Prefix,
-                                //           ));
-                                //     });
+                                await _authController.signInWithPhone(
+                                    phoneNumber:
+                                        phoneNumberController.text.add254Prefix,
+                                    response: (state, error) {
+                                      switch (state) {
+                                        case ResponseState.success:
+                                          _authController
+                                              .setVerifyButtonLoading(
+                                                  isLoading: false);
+                                          break;
+                                        case ResponseState.loading:
+                                          _authController
+                                              .setVerifyButtonLoading(
+                                                  isLoading: true);
+                                          break;
+                                        case ResponseState.failure:
+                                          _authController
+                                              .setVerifyButtonLoading(
+                                                  isLoading: false);
+
+                                          WidgetsBinding.instance
+                                              .addPostFrameCallback((_) {
+                                            showSnackbar(
+                                                title: "Could not sign in",
+                                                message: error!.toString(),
+                                                iconData: Icons.login_rounded,
+                                                iconColor:
+                                                    XploreColors.xploreOrange);
+                                          });
+
+                                          break;
+                                      }
+                                    },
+                                    onCodeSent: (verificationId) {
+                                      Get.to(() => PhoneVerifyPage(
+                                            verificationId: verificationId,
+                                            phoneNumber:
+                                                phoneNumberController.text.add254Prefix,
+                                          ));
+                                    });
                               }),
                         ),
                       ),
