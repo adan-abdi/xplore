@@ -112,6 +112,14 @@ class _MainScreenState extends State<MainScreen> {
                     centerTitle: true,
                     leading: DrawerIcon(),
                     actions: [
+
+                      IconButton(
+                          onPressed: () => Get.to(() => CartScreen()),
+                          icon: Icon(
+                            Icons.shopping_cart_rounded,
+                            color: XploreColors.deepBlue,
+                          )),
+
                       //  profile image
                       Obx(
                         () => Visibility(

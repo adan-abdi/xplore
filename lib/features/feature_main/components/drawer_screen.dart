@@ -32,7 +32,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       child: Container(
         width: double.infinity,
         height: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 12),
         color: XploreColors.xploreOrange,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -59,14 +59,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               height: double.infinity,
                               fit: BoxFit.cover,
                             )
-                          : SvgPicture.asset(
-                              "assets/general/profile.svg",
-                              width: 35,
-                              height: 35,
-                              fit: BoxFit.cover,
-                              colorFilter: ColorFilter.mode(
-                                  XploreColors.white, BlendMode.srcIn),
-                            ),
+                          : Icon(Icons.person_rounded, color: XploreColors.white, size: 48,)
                 ),
               ),
             ),
