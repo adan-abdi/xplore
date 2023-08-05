@@ -121,7 +121,7 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                   }
 
                   var products = snapshot.data!.docs
-                      .map((product) => ProductModel.fromMap(
+                      .map((product) => ProductModel.fromJson(
                           product.data() as Map<String, dynamic>))
                       .toList();
 

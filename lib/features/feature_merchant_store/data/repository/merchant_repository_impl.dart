@@ -44,7 +44,7 @@ class MerchantRepositoryImpl implements MerchantRepository {
           .doc(auth.currentUser!.uid)
           .collection(Constants.PRODUCTS_COLLECTION)
           .doc(productId)
-          .set(product.toMap())
+          .set(product.toJson())
           .then((value) {
         response(ResponseState.success);
         onSuccess();

@@ -42,7 +42,7 @@ class _AllProductsSectionState extends State<AllProductsSection> {
 
           var products = snapshot.data!.docs
               .map((product) =>
-                  ProductModel.fromMap(product.data() as Map<String, dynamic>))
+                  ProductModel.fromJson(product.data() as Map<String, dynamic>))
               .toList();
 
           return SliverGrid(
