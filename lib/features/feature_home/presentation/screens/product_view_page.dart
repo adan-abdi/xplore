@@ -151,13 +151,56 @@ class _ProductViewPageState extends State<ProductViewPage> {
                   children: [
                     Expanded(
                         child: Container(
-                      decoration: BoxDecoration(
-                          color: XploreColors.orange,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(100),
-                              bottomLeft: Radius.circular(100))),
-                    )),
-
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(100),
+                                    bottomLeft: Radius.circular(100))),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 35,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: XploreColors.white, width: 4),
+                                    borderRadius: BorderRadius.circular(100),
+                                    color: XploreColors.deepBlue,
+                                  ),
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.remove_rounded,
+                                      color: XploreColors.white,
+                                    ),
+                                  ),
+                                ),
+                                hSize10SizedBox,
+                                Text(
+                                  '1',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: XploreColors.white),
+                                ),
+                                hSize10SizedBox,
+                                Container(
+                                  width: 35,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: XploreColors.white, width: 4),
+                                    borderRadius: BorderRadius.circular(100),
+                                    color: XploreColors.deepBlue,
+                                  ),
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.add_rounded,
+                                      color: XploreColors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ))),
                     Expanded(
                         child: Container(
                       decoration: BoxDecoration(
