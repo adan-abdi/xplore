@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/features/feature_home/presentation/components/pill_btn.dart';
 import 'package:shamiri/features/feature_home/presentation/components/product_card.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
+import 'package:shamiri/features/feature_home/presentation/screens/product_view_page.dart';
 
 import '../../../../core/presentation/components/my_lottie.dart';
 import '../../../feature_merchant_store/domain/model/product_model.dart';
@@ -55,7 +56,11 @@ class _AllProductsSectionState extends State<AllProductsSection> {
                 )
               : SliverGrid(
                   delegate: SliverChildBuilderDelegate(
-                      (context, index) => ProductCard(product: products[index]),
+                      (context, index) => ProductCard(
+                            product: products[index],
+                            onTap: () => Get.to(() =>
+                                ProductViewPage(product: products[index])),
+                          ),
                       childCount: products.length),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,

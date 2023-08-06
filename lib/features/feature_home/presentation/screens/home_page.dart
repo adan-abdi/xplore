@@ -9,8 +9,8 @@ import 'package:shamiri/features/feature_home/presentation/components/all_produc
 import 'package:shamiri/features/feature_home/presentation/components/top_stores_section.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 
-import '../../../core/presentation/components/custom_textfield.dart';
-import 'components/pill_btn.dart';
+import '../../../../core/presentation/components/custom_textfield.dart';
+import '../components/pill_btn.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {

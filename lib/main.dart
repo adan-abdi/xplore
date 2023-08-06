@@ -18,7 +18,7 @@ import 'package:shamiri/core/utils/constants.dart';
 // Project imports:
 import 'package:shamiri/di/controllers_di.dart';
 import 'package:shamiri/di/locator.dart';
-import 'package:shamiri/features/feature_home/presentation/home_page.dart';
+import 'package:shamiri/features/feature_home/presentation/screens/home_page.dart';
 import 'package:shamiri/features/feature_main/main_screen.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/screens/landing_page.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
