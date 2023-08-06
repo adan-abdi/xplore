@@ -111,4 +111,10 @@ class AuthController extends GetxController {
       this.user.value = user;
     });
   }
+
+  /// Update User Data In Firestore
+  Future<void> updateUserDataInFirestore({required UserModel newUser}) async {
+    await authUseCases.updateUserDataInFirestore
+        .call(oldUser: user.value!, newUser: newUser);
+  }
 }
