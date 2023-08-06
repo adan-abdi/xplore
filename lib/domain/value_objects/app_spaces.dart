@@ -18,6 +18,7 @@ Widget hHalf(BuildContext context) {
 
 // Horizontal (h)Prefix
 Widget hSize5SizedBox = const SizedBox(width: 5);
+Widget hSize8SizedBox = const SizedBox(width: 8);
 Widget hSize10SizedBox = const SizedBox(width: 10);
 Widget hSize20SizedBox = const SizedBox(width: 20);
 Widget hSize30SizedBox = const SizedBox(width: 30);

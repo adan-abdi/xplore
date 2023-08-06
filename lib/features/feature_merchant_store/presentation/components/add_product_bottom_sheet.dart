@@ -6,6 +6,7 @@ import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/presentation/components/custom_textfield.dart';
 import 'package:shamiri/core/presentation/components/show_snackbar.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
+import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/presentation/controller/core_controller.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:get/get.dart';
@@ -30,6 +31,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
   late final TextEditingController _productCategoryController;
   late final MerchantController _merchantController;
   late final CoreController _coreController;
+  late final AuthController _authController;
 
   @override
   void initState() {
@@ -42,6 +44,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
     _productSellingPriceController = TextEditingController();
     _productCategoryController = TextEditingController();
     _coreController = Get.find<CoreController>();
+    _authController = Get.find<AuthController>();
     _merchantController = Get.find<MerchantController>();
   }
 
@@ -98,8 +101,11 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                     ),
                                   )
                                 : Center(
-                                    child:
-                                        Icon(Icons.image_rounded, size: 48, color: XploreColors.white,))),
+                                    child: Icon(
+                                    Icons.image_rounded,
+                                    size: 48,
+                                    color: XploreColors.white,
+                                  ))),
                       ),
                     ),
 
@@ -177,6 +183,8 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                       text: "Add Product",
                       onTap: () async {
                         var productModel = ProductModel(
+                            sellerName: _authController.user.value!.userName,
+                            sellerId: _authController.user.value!.userId,
                             productId: '',
                             productName: _productNameController.text,
                             productImageUrl: '',
