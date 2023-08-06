@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
 
 void openBottomSheet(
         {required Widget content,
@@ -13,7 +14,7 @@ void openBottomSheet(
       isScrollControlled: true,
       backgroundColor: isElevated
           ? Colors.transparent
-          : Theme.of(Get.context!).scaffoldBackgroundColor,
+          : XploreColors.white,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(24), topRight: Radius.circular(24))),
@@ -26,7 +27,7 @@ void openBottomSheet(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24),
-                color: Theme.of(context).scaffoldBackgroundColor,
+                color: XploreColors.white,
               ),
               child: content,
             )

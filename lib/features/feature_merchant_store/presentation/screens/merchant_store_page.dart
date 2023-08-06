@@ -34,7 +34,7 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: XploreColors.white,
-        floatingActionButton: MerchantStoreFAB(
+        floatingActionButton: CustomFAB(
             actionIcon: Icons.add_circle_rounded,
             actionLabel: "Add Products",
             onPressed: () {
@@ -42,6 +42,7 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
               openBottomSheet(
                   content: AddProductBottomSheet(), onComplete: () {});
             }),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [

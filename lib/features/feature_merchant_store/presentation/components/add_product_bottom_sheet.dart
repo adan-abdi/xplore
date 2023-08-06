@@ -55,6 +55,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
           right: 16),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.75,
+        color: XploreColors.white,
         child: Stack(
           fit: StackFit.expand,
           children: [
@@ -98,7 +99,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                   )
                                 : Center(
                                     child:
-                                        Icon(Icons.image_rounded, size: 48))),
+                                        Icon(Icons.image_rounded, size: 48, color: XploreColors.white,))),
                       ),
                     ),
 

@@ -3,6 +3,7 @@ import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/presentation/components/profile_pic.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:get/get.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
 class StoreOverViewCard extends StatefulWidget {
@@ -51,7 +52,7 @@ class _StoreOverViewCardState extends State<StoreOverViewCard> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                                 color: XploreColors.white)),
-                        Text(_authController.user.value!.userName!,
+                        Text(_authController.user.value!.userName!.trimUserName,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 24,
