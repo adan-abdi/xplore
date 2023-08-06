@@ -29,7 +29,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: XploreColors.white,
+      backgroundColor: XploreColors.whiteSmoke,
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.dark,
@@ -44,8 +44,10 @@ class _ProductViewPageState extends State<ProductViewPage> {
             onPressed: () => Get.back(),
             icon: Icon(Icons.arrow_back_rounded, color: XploreColors.deepBlue)),
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.shopping_cart_rounded,
-              color: XploreColors.deepBlue)),
+          IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.shopping_cart_rounded,
+                  color: XploreColors.deepBlue)),
           //  favourites
           UnconstrainedBox(
             child: Container(
@@ -63,6 +65,59 @@ class _ProductViewPageState extends State<ProductViewPage> {
           )
         ],
         elevation: 0,
+      ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          //  image
+          Align(
+            alignment: AlignmentDirectional.topCenter,
+            child: UnconstrainedBox(
+                child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 350,
+                    color: Colors.red,
+                    child: widget.product.productImageUrl != null &&
+                            widget.product.productImageUrl!.isNotEmpty
+                        ? Image.network(
+                            widget.product.productImageUrl!,
+                            fit: BoxFit.cover,
+                          )
+                        : Icon(
+                            Icons.shopping_cart_checkout_rounded,
+                            color: XploreColors.white,
+                            size: 32,
+                          ))),
+          ),
+
+          //  content
+          Align(
+            alignment: AlignmentDirectional.bottomCenter,
+            child: UnconstrainedBox(
+                child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.55,
+                    decoration: BoxDecoration(
+                        color: XploreColors.white,
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(24),
+                            topLeft: Radius.circular(24))))),
+          ),
+          //  add to cart button
+          Align(
+            alignment: AlignmentDirectional.bottomCenter,
+            child: UnconstrainedBox(
+              child: Container(
+                width: 300,
+                height: 60,
+                margin: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                    color: XploreColors.deepBlue,
+                    borderRadius: BorderRadius.circular(24)),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
