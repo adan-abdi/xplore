@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'cart_model.dart';
+
 /// flutter packages pub run build_runner build
 part 'user_model.g.dart';
 
@@ -37,6 +39,10 @@ class UserModel {
   @HiveField(6, defaultValue: '')
   String? storeLocation;
 
+  @JsonKey(name: 'itemsInCart')
+  @HiveField(7, defaultValue: '')
+  List<CartModel>? itemsInCart;
+
   UserModel(
       {this.userId,
       this.userName,
@@ -44,7 +50,8 @@ class UserModel {
       this.userEmail,
       this.userPhoneNumber,
       this.createdAt,
-      this.storeLocation});
+      this.storeLocation,
+      this.itemsInCart});
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
