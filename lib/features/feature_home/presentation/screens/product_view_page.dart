@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
 import '../../../feature_merchant_store/domain/model/product_model.dart';
 import '../controller/home_controller.dart';
@@ -76,7 +77,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                 child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: 350,
-                    color: Colors.red,
+                    color: XploreColors.deepBlue,
                     child: widget.product.productImageUrl != null &&
                             widget.product.productImageUrl!.isNotEmpty
                         ? Image.network(
@@ -86,7 +87,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                         : Icon(
                             Icons.shopping_cart_checkout_rounded,
                             color: XploreColors.white,
-                            size: 32,
+                            size: 72,
                           ))),
           ),
 
@@ -95,13 +96,43 @@ class _ProductViewPageState extends State<ProductViewPage> {
             alignment: AlignmentDirectional.bottomCenter,
             child: UnconstrainedBox(
                 child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.55,
-                    decoration: BoxDecoration(
-                        color: XploreColors.white,
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(24),
-                            topLeft: Radius.circular(24))))),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.55,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                  color: XploreColors.white,
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(24),
+                      topLeft: Radius.circular(24))),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //  product name
+                    Container(
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //  product name
+                          Text(
+                            widget.product.productName!,
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                          ),
+                          vSize10SizedBox,
+                          //  product price
+                          Text(
+                            'Ksh. ${widget.product.productSellingPrice!}',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )),
           ),
           //  add to cart button
           Align(
