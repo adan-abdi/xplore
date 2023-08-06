@@ -25,7 +25,7 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       createdAt: fields[5] == null ? '' : fields[5] as String?,
       storeLocation: fields[6] == null ? '' : fields[6] as String?,
       itemsInCart:
-          fields[7] == null ? '' : (fields[7] as List?)?.cast<CartModel>(),
+          fields[7] == null ? [] : (fields[7] as List?)?.cast<CartModel>(),
     );
   }
 

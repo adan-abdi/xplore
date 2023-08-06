@@ -40,7 +40,7 @@ class UserModel {
   String? storeLocation;
 
   @JsonKey(name: 'itemsInCart')
-  @HiveField(7, defaultValue: '')
+  @HiveField(7, defaultValue: [])
   List<CartModel>? itemsInCart;
 
   UserModel(

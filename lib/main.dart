@@ -9,6 +9,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shamiri/core/domain/model/cart_model.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/domain/model/user_prefs.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
@@ -42,6 +43,7 @@ void main() async {
 
   Hive.registerAdapter(UserPrefsAdapter());
   Hive.registerAdapter(UserModelAdapter());
+  Hive.registerAdapter(CartModelAdapter());
   await Hive.openBox(Constants.USER_PREFS_BOX);
 
   invokeDependencies();
