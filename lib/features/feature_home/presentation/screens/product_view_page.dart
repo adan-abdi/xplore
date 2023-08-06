@@ -197,13 +197,54 @@ class _ProductViewPageState extends State<ProductViewPage> {
                               Icons.description_rounded,
                               color: XploreColors.deepBlue,
                             ),
+                            hSize10SizedBox,
                             Text(
                               "Description",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 20),
                             ),
                           ],
-                        )
+                        ),
+
+                        vSize20SizedBox,
+
+                        //  description
+                        Text(
+                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 16),
+                        ),
+                      ],
+                    ),
+
+                    vSize40SizedBox,
+
+                    //  product reviews
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.comment_rounded,
+                              color: XploreColors.deepBlue,
+                            ),
+                            hSize10SizedBox,
+                            Text(
+                              "Reviews",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
+                          ],
+                        ),
+
+                        vSize20SizedBox,
+
+                        //  description
+                        Text(
+                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 16),
+                        ),
                       ],
                     )
                   ],
