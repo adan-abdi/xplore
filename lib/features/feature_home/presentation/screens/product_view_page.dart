@@ -172,6 +172,39 @@ class _ProductViewPageState extends State<ProductViewPage> {
                           ),
                         ],
                       ),
+                    ),
+
+                    vSize20SizedBox,
+
+                    //  product units left
+                    Text.rich(TextSpan(children: [
+                      TextSpan(
+                          text: widget.product.productStockCount!.toString(),
+                          style: TextStyle(
+                              color: XploreColors.xploreOrange,
+                              fontWeight: FontWeight.bold)),
+                      TextSpan(text: ' units remaining.', style: TextStyle()),
+                    ])),
+
+                    vSize40SizedBox,
+
+                    //  product description
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.description_rounded,
+                              color: XploreColors.deepBlue,
+                            ),
+                            Text(
+                              "Description",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
+                          ],
+                        )
+                      ],
                     )
                   ],
                 ),
