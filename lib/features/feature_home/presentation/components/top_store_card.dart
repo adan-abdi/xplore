@@ -4,6 +4,8 @@ import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
+import '../../../../core/presentation/components/profile_pic.dart';
+
 class TopStoreCard extends StatelessWidget {
   final UserModel store;
 
@@ -25,29 +27,9 @@ class TopStoreCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: XploreColors.deepBlue),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: store.userProfilePicUrl != null &&
-                          store.userProfilePicUrl!.isNotEmpty
-                      ? Image.network(
-                          store.userProfilePicUrl!,
-                          width: double.infinity,
-                          height: double.infinity,
-                          fit: BoxFit.cover,
-                        )
-                      : Center(
-                          child: Icon(
-                            Icons.person_rounded,
-                            color: XploreColors.white,
-                          ),
-                        ),
-                ),
+              ProfilePic(
+                imageUrl: store.userProfilePicUrl,
+                imageSize: 40,
               ),
               hSize20SizedBox,
               Text(
@@ -64,7 +46,7 @@ class TopStoreCard extends StatelessWidget {
           Row(
             children: [
               Icon(Icons.location_on_rounded,
-                  color: XploreColors.whiteSmoke, size: 16),
+                  color: XploreColors.xploreOrange, size: 16),
               hSize10SizedBox,
               Text(
                 store.storeLocation!.isNotEmpty
@@ -99,7 +81,7 @@ class TopStoreCard extends StatelessWidget {
               //  trend icon
               Icon(
                 Icons.trending_up_rounded,
-                color: XploreColors.orange,
+                color: XploreColors.xploreOrange,
                 size: 48,
               )
             ],

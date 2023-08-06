@@ -13,7 +13,6 @@ class ProfilePic extends StatelessWidget {
     return Container(
       width: imageSize,
       height: imageSize,
-      margin: const EdgeInsets.only(right: 16),
       decoration: BoxDecoration(
           color: XploreColors.deepBlue,
           border: imageUrl == null || imageUrl!.isEmpty

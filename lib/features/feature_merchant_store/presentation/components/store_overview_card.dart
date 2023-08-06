@@ -43,6 +43,7 @@ class _StoreOverViewCardState extends State<StoreOverViewCard> {
                 children: [
                   Obx(() => ProfilePic(
                       imageUrl: _authController.user.value!.userProfilePicUrl)),
+                  hSize20SizedBox,
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
