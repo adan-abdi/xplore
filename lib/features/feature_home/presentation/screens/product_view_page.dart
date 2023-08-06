@@ -20,6 +20,7 @@ class ProductViewPage extends StatefulWidget {
 
 class _ProductViewPageState extends State<ProductViewPage> {
   late HomeController _homeController;
+  int itemCount = 1;
 
   @override
   void initState() {
@@ -276,26 +277,33 @@ class _ProductViewPageState extends State<ProductViewPage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Container(
-                                  width: 35,
-                                  height: 35,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: XploreColors.white, width: 4),
-                                    borderRadius: BorderRadius.circular(100),
-                                    color: XploreColors.deepBlue,
-                                  ),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.remove_rounded,
-                                      color: XploreColors.white,
+                                GestureDetector(
+                                  onTap: () => setState(() {
+                                    if (itemCount > 1) {
+                                      itemCount -= 1;
+                                    }
+                                  }),
+                                  child: Container(
+                                    width: 35,
+                                    height: 35,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: XploreColors.white, width: 4),
+                                      borderRadius: BorderRadius.circular(100),
+                                      color: XploreColors.deepBlue,
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.remove_rounded,
+                                        color: XploreColors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
                                 Expanded(
                                   child: Center(
                                     child: Text(
-                                      '1',
+                                      itemCount.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
@@ -304,19 +312,25 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  width: 35,
-                                  height: 35,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: XploreColors.white, width: 4),
-                                    borderRadius: BorderRadius.circular(100),
-                                    color: XploreColors.deepBlue,
-                                  ),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.add_rounded,
-                                      color: XploreColors.white,
+                                GestureDetector(
+                                  onTap: () => setState(() {
+                                    if (itemCount < int.parse(widget.product.productStockCount!))
+                                    itemCount += 1;
+                                  }),
+                                  child: Container(
+                                    width: 35,
+                                    height: 35,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: XploreColors.white, width: 4),
+                                      borderRadius: BorderRadius.circular(100),
+                                      color: XploreColors.deepBlue,
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.add_rounded,
+                                        color: XploreColors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
