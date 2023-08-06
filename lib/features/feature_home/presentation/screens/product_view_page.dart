@@ -118,13 +118,15 @@ class _ProductViewPageState extends State<ProductViewPage> {
                           //  product name
                           Text(
                             widget.product.productName!,
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 24),
                           ),
                           vSize10SizedBox,
                           //  product price
                           Text(
                             'Ksh. ${widget.product.productSellingPrice!}',
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                         ],
                       ),
@@ -139,12 +141,54 @@ class _ProductViewPageState extends State<ProductViewPage> {
             alignment: AlignmentDirectional.bottomCenter,
             child: UnconstrainedBox(
               child: Container(
-                width: 300,
+                width: 320,
                 height: 60,
                 margin: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                     color: XploreColors.deepBlue,
-                    borderRadius: BorderRadius.circular(24)),
+                    borderRadius: BorderRadius.circular(100)),
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                      decoration: BoxDecoration(
+                          color: XploreColors.orange,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(100),
+                              bottomLeft: Radius.circular(100))),
+                    )),
+
+                    Expanded(
+                        child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(100),
+                              bottomRight: Radius.circular(100))),
+                      child: UnconstrainedBox(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: XploreColors.xploreOrange,
+                              borderRadius: BorderRadius.circular(100)),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
+                          child: Row(
+                            children: [
+                              Icon(Icons.add_circle_rounded,
+                                  color: XploreColors.white),
+                              hSize10SizedBox,
+                              Text(
+                                "Add to cart",
+                                style: TextStyle(
+                                    color: XploreColors.white,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    )),
+                  ],
+                ),
               ),
             ),
           )
