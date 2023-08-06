@@ -171,17 +171,26 @@ class AuthRepositoryImpl implements AuthRepository {
         userEmail: newUser.userEmail ?? oldUser.userEmail,
         userPhoneNumber: newUser.userPhoneNumber ?? oldUser.userPhoneNumber,
         createdAt: newUser.createdAt ?? oldUser.createdAt,
-        storeLocation: newUser.storeLocation ?? oldUser.storeLocation,
-        itemsInCart: newUser.itemsInCart ?? oldUser.itemsInCart);
+        storeLocation: newUser.storeLocation ?? oldUser.storeLocation);
 
     try {
-
       await firestore
           .collection(Constants.USER_COLLECTION)
           .doc(auth.currentUser!.uid)
-          .set(updatedUser.toJson());
-
-    } on FirebaseException catch(error) {
+          .update({
+        "userId": auth.currentUser!.uid,
+        "userName": newUser.userName ?? oldUser.userName,
+        "userProfilePicUrl":
+            newUser.userProfilePicUrl ?? oldUser.userProfilePicUrl,
+        "userEmail": newUser.userEmail ?? oldUser.userEmail,
+        "userPhoneNumber": newUser.userPhoneNumber ?? oldUser.userPhoneNumber,
+        "createdAt": newUser.createdAt ?? oldUser.createdAt,
+        "storeLocation": newUser.storeLocation ?? oldUser.storeLocation,
+        "itemsInCart":
+            newUser.itemsInCart?.map((item) => item.toJson()).toList() ??
+                oldUser.itemsInCart?.map((item) => item.toJson()).toList()
+      }).then((value) => print("SUCCESS!!!"));
+    } on FirebaseException catch (error) {
       throw Exception(error.message);
     }
   }

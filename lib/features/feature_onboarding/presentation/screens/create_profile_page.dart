@@ -213,7 +213,8 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                       userEmail: _emailController.text,
                                       userPhoneNumber: "",
                                       createdAt: "",
-                                      storeLocation: _locationController.text),
+                                      storeLocation: _locationController.text,
+                                      itemsInCart: []),
                                   userProfilePic:
                                       _coreController.userProfilePic.value,
                                   response: (state, error) {

@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/core/domain/model/cart_model.dart';
+import 'package:shamiri/core/domain/model/user_model.dart';
+import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
@@ -19,7 +22,8 @@ class ProductViewPage extends StatefulWidget {
 }
 
 class _ProductViewPageState extends State<ProductViewPage> {
-  late HomeController _homeController;
+  late final HomeController _homeController;
+  late final AuthController _authController;
   int itemCount = 1;
 
   @override
@@ -27,6 +31,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
     super.initState();
 
     _homeController = Get.find<HomeController>();
+    _authController = Get.find<AuthController>();
   }
 
   @override
@@ -51,7 +56,6 @@ class _ProductViewPageState extends State<ProductViewPage> {
               onPressed: () {},
               icon: Icon(Icons.shopping_cart_rounded,
                   color: XploreColors.deepBlue)),
-
           IconButton(
               onPressed: () {},
               icon: Icon(Icons.favorite_outline_rounded,
@@ -304,8 +308,10 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                 ),
                                 GestureDetector(
                                   onTap: () => setState(() {
-                                    if (itemCount < int.parse(widget.product.productStockCount!))
-                                    itemCount += 1;
+                                    if (itemCount <
+                                        int.parse(
+                                            widget.product.productStockCount!))
+                                      itemCount += 1;
                                   }),
                                   child: Container(
                                     width: 35,
@@ -332,25 +338,50 @@ class _ProductViewPageState extends State<ProductViewPage> {
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(100),
                               bottomRight: Radius.circular(100))),
-                      child: UnconstrainedBox(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: XploreColors.xploreOrange,
-                              borderRadius: BorderRadius.circular(100)),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 8),
-                          child: Row(
-                            children: [
-                              Icon(Icons.add_circle_rounded,
-                                  color: XploreColors.white),
-                              hSize10SizedBox,
-                              Text(
-                                "Add to cart",
-                                style: TextStyle(
-                                    color: XploreColors.white,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
+                      child: GestureDetector(
+                        onTap: () async {
+                          //  get initial cart items
+                          final List<CartModel> itemsInCart =
+                              _authController.user.value!.itemsInCart!;
+                          //  update the list
+                          if (itemsInCart
+                              .map((item) => item.cartProductId)
+                              .toList()
+                              .contains(widget.product.productId!)) {
+                            //  remove item from list
+                            itemsInCart.remove(CartModel(
+                                cartProductId: widget.product.productId!,
+                                cartProductCount: itemCount));
+                          } else {
+                            //  Add item to list
+                            itemsInCart.add(CartModel(
+                                cartProductId: widget.product.productId!,
+                                cartProductCount: itemCount));
+                          }
+                          //  update items in cart
+                          _authController.updateUserDataInFirestore(
+                              newUser: UserModel(itemsInCart: itemsInCart));
+                        },
+                        child: UnconstrainedBox(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: XploreColors.xploreOrange,
+                                borderRadius: BorderRadius.circular(100)),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 8),
+                            child: Row(
+                              children: [
+                                Icon(Icons.add_circle_rounded,
+                                    color: XploreColors.white),
+                                hSize10SizedBox,
+                                Text(
+                                  "Add to cart",
+                                  style: TextStyle(
+                                      color: XploreColors.white,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
