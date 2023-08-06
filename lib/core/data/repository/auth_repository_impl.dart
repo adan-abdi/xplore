@@ -89,24 +89,15 @@ class AuthRepositoryImpl implements AuthRepository {
 
   /// FIRESTORE
   @override
-  Future<void> getUserDataFromFirestore(
-      {required Function(UserModel user) onSuccess}) async {
+  Stream<DocumentSnapshot> getUserDataFromFirestore() {
     try {
       final uid = auth.currentUser!.uid;
 
-      await firestore
+      return firestore
           .collection(Constants.USER_COLLECTION)
           .doc(uid)
-          .get()
-          .then((document) {
-        final data = document.data();
+          .snapshots();
 
-        if (data != null) {
-          onSuccess(UserModel.fromJson(data));
-        } else {
-          print("NO DATA FOUND!!");
-        }
-      });
     } on FirebaseAuthException catch (error) {
       throw Exception(error);
     }

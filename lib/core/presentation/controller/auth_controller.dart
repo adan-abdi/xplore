@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -106,11 +107,8 @@ class AuthController extends GetxController {
           onSuccess: onSuccess);
 
   /// Get User Data from Firestore
-  Future<void> getUserDataFromFirestore() async {
-    await authUseCases.getUserDataFromFirestore.call(onSuccess: (user) {
-      this.user.value = user;
-    });
-  }
+  Stream<DocumentSnapshot> getUserDataFromFirestore() =>
+      authUseCases.getUserDataFromFirestore();
 
   /// Update User Data In Firestore
   Future<void> updateUserDataInFirestore({required UserModel newUser}) async {

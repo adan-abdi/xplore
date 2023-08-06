@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shamiri/core/domain/model/response_state.dart';
@@ -34,8 +35,7 @@ abstract class AuthRepository {
       required Function onSuccess});
 
   /// Get User Data From Firebase
-  Future<void> getUserDataFromFirestore(
-      {required Function(UserModel user) onSuccess});
+  Stream<DocumentSnapshot> getUserDataFromFirestore();
 
   /// Update User Data In Firestore
   Future<void> updateUserDataInFirestore(

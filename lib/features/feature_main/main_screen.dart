@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/presentation/components/my_lottie.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/features/feature_cart/presentation/cart_screen.dart';
@@ -38,7 +39,12 @@ class _MainScreenState extends State<MainScreen> {
     _homeController = Get.find<HomeController>();
     _authController = Get.find<AuthController>();
 
-    getUserData();
+    _authController.getUserDataFromFirestore().listen((user) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _authController.setUser(
+            user: UserModel.fromJson(user.data() as Map<String, dynamic>));
+      });
+    });
 
     _bottomBarTabs = [
       GButton(
@@ -70,8 +76,6 @@ class _MainScreenState extends State<MainScreen> {
       CartScreen(),
     ];
   }
-
-  void getUserData() async => await _authController.getUserDataFromFirestore();
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +120,6 @@ class _MainScreenState extends State<MainScreen> {
                     centerTitle: true,
                     leading: DrawerIcon(),
                     actions: [
-
                       IconButton(
                           onPressed: () => Get.to(() => CartScreen()),
                           icon: Icon(
@@ -138,21 +141,24 @@ class _MainScreenState extends State<MainScreen> {
                                   color: XploreColors.deepBlue,
                                   borderRadius: BorderRadius.circular(100)),
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: _authController.user.value!
-                                                .userProfilePicUrl !=
-                                            null &&
-                                        _authController.user.value!
-                                            .userProfilePicUrl!.isNotEmpty
-                                    ? Image.network(
-                                        _authController
-                                            .user.value!.userProfilePicUrl!,
-                                        width: double.infinity,
-                                        height: double.infinity,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : Icon(Icons.person_rounded, color: XploreColors.white, size: 24,)
-                              ),
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: _authController.user.value!
+                                                  .userProfilePicUrl !=
+                                              null &&
+                                          _authController.user.value!
+                                              .userProfilePicUrl!.isNotEmpty
+                                      ? Image.network(
+                                          _authController
+                                              .user.value!.userProfilePicUrl!,
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Icon(
+                                          Icons.person_rounded,
+                                          color: XploreColors.white,
+                                          size: 24,
+                                        )),
                             ),
                           ),
                         ),

@@ -53,11 +53,15 @@ class _StoreOverViewCardState extends State<StoreOverViewCard> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                                 color: XploreColors.white)),
-                        Text(_authController.user.value!.userName!.trimUserName,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                                color: XploreColors.white)),
+                        Obx(
+                          () => Text(
+                              _authController
+                                  .user.value!.userName!.trimUserName,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24,
+                                  color: XploreColors.white)),
+                        ),
                       ],
                     ),
                   )
