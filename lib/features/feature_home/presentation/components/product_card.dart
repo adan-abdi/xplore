@@ -12,14 +12,14 @@ class ProductCard extends StatelessWidget {
     return UnconstrainedBox(
       child: Container(
         width: 150,
-        height: 220,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: XploreColors.white),
+        height: 200,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: XploreColors.orange),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //  image
             Expanded(
-                flex: 4,
+                flex: 5,
                 child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
@@ -59,30 +59,26 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Text(
                         product.productName!,
+                        style: TextStyle(fontSize: 14),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            product.productName!,
+                            style: TextStyle(fontSize: 14),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                      Text(
+                        "Ksh. ${product.productSellingPrice!}",
                         style: TextStyle(fontSize: 16),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      Text(
-                        "Ksh. ${product.productSellingPrice!}",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Align(
-                        alignment: AlignmentDirectional.center,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: XploreColors.xploreOrange,
-                          ),
-                          child: Text(
-                            "Order",
-                            style: TextStyle(color: XploreColors.white),
-                          ),
-                        ),
-                      )
                     ],
                   ),
                 )),

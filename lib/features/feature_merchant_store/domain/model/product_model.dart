@@ -5,9 +5,11 @@ part 'product_model.g.dart';
 
 @JsonSerializable()
 class ProductModel {
-
   @JsonKey(name: 'sellerId')
   String? sellerId;
+
+  @JsonKey(name: 'sellerName')
+  String? sellerName;
 
   @JsonKey(name: 'productId')
   String? productId;
@@ -37,7 +39,9 @@ class ProductModel {
   String? productCreatedAt;
 
   ProductModel(
-      {this.productId,
+      {this.sellerId,
+      this.sellerName,
+      this.productId,
       this.productName,
       this.productUnit,
       this.productStockCount,
