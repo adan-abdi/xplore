@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
 import '../../../feature_merchant_store/domain/model/product_model.dart';
@@ -123,10 +124,51 @@ class _ProductViewPageState extends State<ProductViewPage> {
                           ),
                           vSize10SizedBox,
                           //  product price
-                          Text(
-                            'Ksh. ${widget.product.productSellingPrice!}',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Ksh. ${widget.product.productSellingPrice!}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Seller : ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        color: XploreColors.deepBlue),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.store_rounded,
+                                          color: XploreColors.xploreOrange,
+                                          size: 16,
+                                        ),
+                                        hSize10SizedBox,
+                                        Text(
+                                          widget
+                                              .product.sellerName!.getStoreName,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 16,
+                                              color: XploreColors.white),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -136,6 +178,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
               ),
             )),
           ),
+
           //  add to cart button
           Align(
             alignment: AlignmentDirectional.bottomCenter,
@@ -151,6 +194,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                   children: [
                     Expanded(
                         child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(100),
@@ -174,15 +218,18 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                     ),
                                   ),
                                 ),
-                                hSize10SizedBox,
-                                Text(
-                                  '1',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: XploreColors.white),
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                      '1',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: XploreColors.white,
+                                          overflow: TextOverflow.ellipsis),
+                                    ),
+                                  ),
                                 ),
-                                hSize10SizedBox,
                                 Container(
                                   width: 35,
                                   height: 35,
