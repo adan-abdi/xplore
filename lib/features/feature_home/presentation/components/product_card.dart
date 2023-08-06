@@ -16,7 +16,7 @@ class ProductCard extends StatelessWidget {
       onTap: onTap,
       child: UnconstrainedBox(
         child: Container(
-          width: 160,
+          width: 150,
           height: 200,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16), color: XploreColors.white),
@@ -61,12 +61,12 @@ class ProductCard extends StatelessWidget {
                         alignment: AlignmentDirectional.topEnd,
                         child: UnconstrainedBox(
                           child: Container(
-                            width: 40,
-                            height: 40,
+                            width: 30,
+                            height: 30,
                             decoration: BoxDecoration(
                                 color: XploreColors.deepBlue,
                                 border: Border.all(
-                                    color: XploreColors.white, width: 5),
+                                    color: XploreColors.white, width: 4, strokeAlign: BorderSide.strokeAlignOutside),
                                 borderRadius: BorderRadius.circular(100)),
                             child: Center(
                               child: Icon(

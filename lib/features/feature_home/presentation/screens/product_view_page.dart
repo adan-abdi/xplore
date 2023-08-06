@@ -51,21 +51,11 @@ class _ProductViewPageState extends State<ProductViewPage> {
               onPressed: () {},
               icon: Icon(Icons.shopping_cart_rounded,
                   color: XploreColors.deepBlue)),
-          //  favourites
-          UnconstrainedBox(
-            child: Container(
-              width: 40,
-              height: 40,
-              margin: const EdgeInsets.only(right: 16),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: XploreColors.deepBlue),
-              child: Center(
-                child: Icon(Icons.favorite_outline_rounded,
-                    color: XploreColors.xploreOrange),
-              ),
-            ),
-          )
+
+          IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.favorite_outline_rounded,
+                  color: XploreColors.deepBlue)),
         ],
         elevation: 0,
       ),
