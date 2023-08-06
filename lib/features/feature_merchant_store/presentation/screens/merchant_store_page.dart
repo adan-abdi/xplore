@@ -112,8 +112,8 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                 stream: _merchantController.getMerchantProducts(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return SliverFillRemaining(
-                        child: MyLottie(lottie: 'assets/general/loading.json'));
+                    return SliverToBoxAdapter(
+                        child: MyLottie(lottie: 'assets/general/loading.json', width: 35, height: 35,));
                   }
 
                   if (snapshot.data == null || !snapshot.hasData) {
@@ -125,14 +125,25 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                           product.data() as Map<String, dynamic>))
                       .toList();
 
-                  return SliverPadding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    sliver: SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                            (context, index) => ProductCardAlt(
-                                product: products.elementAt(index)),
-                            childCount: products.length)),
-                  );
+                  return products.isNotEmpty
+                      ? SliverPadding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          sliver: SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                                  (context, index) => ProductCardAlt(
+                                      product: products.elementAt(index)),
+                                  childCount: products.length)),
+                        )
+                      : SliverToBoxAdapter(
+                          child: Center(
+                            child: Column(
+                              children: [
+                                MyLottie(lottie: 'assets/general/xplore_loader.json'),
+                                Text("No Products yet")
+                              ],
+                            ),
+                          ),
+                        );
                 }),
           ],
         ));
