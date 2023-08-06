@@ -166,14 +166,14 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
 
             //  submit button
             Align(
-              alignment: AlignmentDirectional.bottomEnd,
+              alignment: AlignmentDirectional.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Obx(
                   () => SubmitButton(
                       iconData: Icons.done_rounded,
                       isLoading: _merchantController.uploadButtonLoading.value,
-                      isValid: false,
+                      isValid: true,
                       text: "Add Product",
                       onTap: () async {
                         var productModel = ProductModel(
