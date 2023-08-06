@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/core/presentation/components/profile_pic.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
@@ -39,25 +40,8 @@ class _StoreOverViewCardState extends State<StoreOverViewCard> {
             children: [
               Row(
                 children: [
-                  Obx(
-                    () => Container(
-                      width: 60,
-                      height: 60,
-                      margin: const EdgeInsets.only(right: 16),
-                      decoration: BoxDecoration(
-                          color: XploreColors.xploreOrange,
-                          borderRadius: BorderRadius.circular(100)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: Image.network(
-                          _authController.user.value!.userProfilePicUrl!,
-                          width: double.infinity,
-                          height: double.infinity,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
+                  Obx(() => ProfilePic(
+                      imageUrl: _authController.user.value!.userProfilePicUrl)),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
