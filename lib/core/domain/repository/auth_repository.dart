@@ -37,6 +37,10 @@ abstract class AuthRepository {
   Future<void> getUserDataFromFirestore(
       {required Function(UserModel user) onSuccess});
 
+  /// Update User Data In Firestore
+  Future<void> updateUserDataInFirestore(
+      {required UserModel oldUser, required UserModel newUser});
+
   Future<String> storeFileToFirebaseStorage(
       {required String ref, required File file});
 }

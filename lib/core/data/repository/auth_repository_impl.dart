@@ -161,6 +161,32 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<void> updateUserDataInFirestore(
+      {required UserModel oldUser, required UserModel newUser}) async {
+    final updatedUser = UserModel(
+        userId: auth.currentUser!.uid,
+        userName: newUser.userName ?? oldUser.userName,
+        userProfilePicUrl:
+            newUser.userProfilePicUrl ?? oldUser.userProfilePicUrl,
+        userEmail: newUser.userEmail ?? oldUser.userEmail,
+        userPhoneNumber: newUser.userPhoneNumber ?? oldUser.userPhoneNumber,
+        createdAt: newUser.createdAt ?? oldUser.createdAt,
+        storeLocation: newUser.storeLocation ?? oldUser.storeLocation,
+        itemsInCart: newUser.itemsInCart ?? oldUser.itemsInCart);
+
+    try {
+
+      await firestore
+          .collection(Constants.USER_COLLECTION)
+          .doc(auth.currentUser!.uid)
+          .set(updatedUser.toJson());
+
+    } on FirebaseException catch(error) {
+      throw Exception(error.message);
+    }
+  }
+
+  @override
   Future<String> storeFileToFirebaseStorage(
       {required String ref, required File file}) async {
     final UploadTask uploadTask = storage.ref().child(ref).putFile(file);
