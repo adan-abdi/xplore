@@ -41,7 +41,10 @@ class _AllCartProductsState extends State<AllCartProducts> {
             () {
               final allProducts = _homeController.products;
 
-              return allProducts.isNotEmpty
+              return allProducts.isNotEmpty && _authController
+                  .user
+                  .value!
+                  .itemsInCart!.isNotEmpty
                   ? SliverPadding(
                       padding: const EdgeInsets.all(16.0),
                       sliver: SliverList(

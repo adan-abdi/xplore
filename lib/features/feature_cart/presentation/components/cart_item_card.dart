@@ -24,20 +24,25 @@ class CartItemCard extends StatelessWidget {
           //  image
           Container(
             width: 90,
-            height: 90,
-            decoration: BoxDecoration(
-                color: XploreColors.deepBlue,
-                borderRadius: BorderRadius.circular(24)),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(24),
-              child: Image.asset(
-                'assets/general/shoe.jpg',
-                width: double.infinity,
-                height: double.infinity,
-                fit: BoxFit.cover,
+              height: 90,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                color: XploreColors.deepBlue
               ),
-            ),
-          ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+                child: product.productImageUrl != null &&
+                    product.productImageUrl!.isNotEmpty
+                    ? Image.network(
+                  product.productImageUrl!,
+                  fit: BoxFit.cover,
+                )
+                    : Icon(
+                  Icons.shopping_cart_checkout_rounded,
+                  color: XploreColors.white,
+                  size: 32,
+                ),
+              )),
 
           hSize10SizedBox,
 
@@ -45,14 +50,14 @@ class CartItemCard extends StatelessWidget {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       product.productName!,
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     IconButton(
                         onPressed: () {},
@@ -67,7 +72,7 @@ class CartItemCard extends StatelessWidget {
                   children: [
                     Text('Ksh. ${product.productSellingPrice!}'),
 
-                    //  increment stock button
+                    //  increment cart button
                     Row(
                       children: [
                         Container(
