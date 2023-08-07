@@ -126,34 +126,9 @@ class _CartItemCardState extends State<CartItemCard> {
                     Text(
                       widget.product.productName!,
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    IconButton(
-                        onPressed: () async {
-                          //  get initial cart items
-                          final List<CartModel> itemsInCart =
-                          _authController
-                              .user.value!.itemsInCart!;
-                          //  remove item from list
-                          itemsInCart.removeWhere((item) =>
-                          item.cartProductId! ==
-                              widget.product.productId!);
-
-                          //  update items in cart
-                          await _authController
-                              .updateUserDataInFirestore(
-                              newUser: UserModel(
-                                  itemsInCart: itemsInCart));
-                        },
-                        icon: Icon(
-                          Icons.delete_rounded,
-                          color: XploreColors.xploreOrange,
-                        ))
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Ksh. ${widget.product.productSellingPrice!}'),
 
                     //  increment cart button
                     Row(
@@ -201,6 +176,36 @@ class _CartItemCardState extends State<CartItemCard> {
                         ),
                       ],
                     )
+                  ],
+                ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Ksh. ${widget.product.productSellingPrice!}'),
+
+                    //  delete icon
+                    IconButton(
+                        onPressed: () async {
+                          //  get initial cart items
+                          final List<CartModel> itemsInCart =
+                          _authController
+                              .user.value!.itemsInCart!;
+                          //  remove item from list
+                          itemsInCart.removeWhere((item) =>
+                          item.cartProductId! ==
+                              widget.product.productId!);
+
+                          //  update items in cart
+                          await _authController
+                              .updateUserDataInFirestore(
+                              newUser: UserModel(
+                                  itemsInCart: itemsInCart));
+                        },
+                        icon: Icon(
+                          Icons.delete_rounded,
+                          color: XploreColors.xploreOrange,
+                        ))
                   ],
                 ),
               ],
