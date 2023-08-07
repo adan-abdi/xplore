@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
 
 import '../../../../application/core/themes/colors.dart';
+import '../../../../core/presentation/controller/auth_controller.dart';
+import '../../../feature_home/presentation/controller/home_controller.dart';
 
 class CheckoutCard extends StatefulWidget {
   const CheckoutCard({super.key});
@@ -11,6 +15,37 @@ class CheckoutCard extends StatefulWidget {
 }
 
 class _CheckoutCardState extends State<CheckoutCard> {
+  late final AuthController _authController;
+  late final HomeController _homeController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _authController = Get.find();
+    _homeController = Get.find();
+  }
+
+  int getTotalAmount() {
+
+    if (_homeController.products.isEmpty){
+      return 0;
+    }
+
+    final itemsInCart = _authController.user.value!.itemsInCart!;
+    var total = 0;
+
+    itemsInCart.forEach((item) {
+      total += item.cartProductCount! *
+          _homeController.products
+              .firstWhere(
+                  (product) => product.productId! == item.cartProductId!)
+              .productSellingPrice!;
+    });
+
+    return total;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,11 +68,13 @@ class _CheckoutCardState extends State<CheckoutCard> {
                       fontSize: 18,
                       color: XploreColors.whiteSmoke,
                       fontWeight: FontWeight.bold)),
-              Text("Ksh. 350",
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: XploreColors.white,
-                      fontWeight: FontWeight.bold)),
+              Obx(
+                  () => Text("Ksh. ${getTotalAmount()}",
+                    style: TextStyle(
+                        fontSize: 24,
+                        color: XploreColors.white,
+                        fontWeight: FontWeight.bold)),
+              ),
             ],
           ),
 
@@ -49,11 +86,13 @@ class _CheckoutCardState extends State<CheckoutCard> {
                       fontSize: 18,
                       color: XploreColors.white,
                       fontWeight: FontWeight.bold)),
-              Text("Ksh. 350",
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: XploreColors.white,
-                      fontWeight: FontWeight.bold)),
+              Obx(
+                  () => Text("Ksh. ${getTotalAmount()}",
+                    style: TextStyle(
+                        fontSize: 24,
+                        color: XploreColors.white,
+                        fontWeight: FontWeight.bold)),
+              ),
             ],
           ),
 
