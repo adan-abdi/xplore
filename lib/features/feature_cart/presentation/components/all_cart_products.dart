@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/cart_item_card.dart';
+import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 
 import '../../../../application/core/themes/colors.dart';
 import 'package:get/get.dart';
@@ -15,12 +16,15 @@ class AllCartProducts extends StatefulWidget {
 
 class _AllCartProductsState extends State<AllCartProducts> {
   late final AuthController _authController;
+  late final HomeController _homeController;
 
   @override
   void initState() {
     super.initState();
 
     _authController = Get.find();
+    _homeController = Get.find();
+
   }
 
   @override
@@ -38,7 +42,17 @@ class _AllCartProductsState extends State<AllCartProducts> {
               padding: const EdgeInsets.all(16.0),
               sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
-                      (context, index) => CartItemCard(),
+                      (context, index) => Obx(
+                            () => CartItemCard(
+                              product: _homeController.products.firstWhere(
+                                  (product) =>
+                                      product.productId ==
+                                      _authController.user.value!
+                                          .itemsInCart![index].cartProductId),
+                              cartQuantity: _authController.user.value!
+                                  .itemsInCart![index].cartProductCount!,
+                            ),
+                          ),
                       childCount:
                           _authController.user.value!.itemsInCart!.length)),
             ),

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 
 import '../../../../application/core/themes/colors.dart';
 import '../../../../domain/value_objects/app_spaces.dart';
 
 class CartItemCard extends StatelessWidget {
-  const CartItemCard({super.key});
+  final ProductModel product;
+  final int cartQuantity;
+
+  const CartItemCard({super.key, required this.product, required this.cartQuantity});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +17,8 @@ class CartItemCard extends StatelessWidget {
       height: 120,
       padding: const EdgeInsets.all(8),
       margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), color: XploreColors.white),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24), color: XploreColors.white),
       child: Row(
         children: [
           //  image
@@ -46,16 +51,21 @@ class CartItemCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Superloaf White',
+                      product.productName!,
                       style: TextStyle(fontSize: 18),
                     ),
-                    IconButton(onPressed: (){}, icon: Icon(Icons.delete_rounded, color: XploreColors.xploreOrange,))
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.delete_rounded,
+                          color: XploreColors.xploreOrange,
+                        ))
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Ksh. 175'),
+                    Text('Ksh. ${product.productSellingPrice!}'),
 
                     //  increment stock button
                     Row(
@@ -76,7 +86,7 @@ class CartItemCard extends StatelessWidget {
                         ),
                         hSize10SizedBox,
                         Text(
-                          '1',
+                          '$cartQuantity',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
