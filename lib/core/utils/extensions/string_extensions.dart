@@ -56,4 +56,12 @@ extension StringExtensions on String {
       return "${this.trim()}'s Store";
     }
   }
+
+  /// Add commas
+  String get addCommas {
+    final regExp = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
+    String Function(Match) mathFunc = (Match match) => '${match[1]}';
+
+    return this.replaceAllMapped(regExp, mathFunc);
+  }
 }
