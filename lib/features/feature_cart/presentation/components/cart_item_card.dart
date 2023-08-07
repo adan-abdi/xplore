@@ -1,14 +1,81 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 
 import '../../../../application/core/themes/colors.dart';
+import '../../../../core/domain/model/user_model.dart';
+import '../../../../core/presentation/controller/auth_controller.dart';
 import '../../../../domain/value_objects/app_spaces.dart';
+import '../../../feature_home/presentation/controller/home_controller.dart';
 
-class CartItemCard extends StatelessWidget {
+class CartItemCard extends StatefulWidget {
   final ProductModel product;
   final int cartQuantity;
 
   const CartItemCard({super.key, required this.product, required this.cartQuantity});
+
+  @override
+  State<CartItemCard> createState() => _CartItemCardState();
+}
+
+class _CartItemCardState extends State<CartItemCard> {
+
+  late final HomeController _homeController;
+  late final AuthController _authController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _homeController = Get.find<HomeController>();
+    _authController = Get.find<AuthController>();
+  }
+
+  void decrementCount() {
+    var cartItem = _authController.user.value!.itemsInCart!.firstWhere(
+            (item) => item.cartProductId == widget.product.productId!);
+
+    var currentCartCount = cartItem.cartProductCount!;
+
+    if (currentCartCount > 1) {
+      currentCartCount -= 1;
+
+      _authController
+          .user
+          .value!
+          .itemsInCart![_authController.user.value!.itemsInCart!.indexWhere(
+              (item) => item.cartProductId! == widget.product.productId!)]
+          .cartProductCount = currentCartCount;
+
+      //  update items in cart
+      _authController.updateUserDataInFirestore(
+          newUser: UserModel(
+              itemsInCart: _authController.user.value!.itemsInCart!));
+    }
+  }
+
+  void incrementCount() {
+    var cartItem = _authController.user.value!.itemsInCart!.firstWhere(
+            (item) => item.cartProductId == widget.product.productId!);
+
+    var currentCartCount = cartItem.cartProductCount!;
+
+    if (currentCartCount < widget.product.productStockCount!) {
+      currentCartCount += 1;
+
+      _authController
+          .user
+          .value!
+          .itemsInCart![_authController.user.value!.itemsInCart!.indexWhere(
+              (item) => item.cartProductId! == widget.product.productId!)]
+          .cartProductCount = currentCartCount;
+
+      //  update items in cart
+      _authController.updateUserDataInFirestore(
+          newUser: UserModel(
+              itemsInCart: _authController.user.value!.itemsInCart!));
+  }}
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +98,10 @@ class CartItemCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(24),
-                child: product.productImageUrl != null &&
-                    product.productImageUrl!.isNotEmpty
+                child: widget.product.productImageUrl != null &&
+                    widget.product.productImageUrl!.isNotEmpty
                     ? Image.network(
-                  product.productImageUrl!,
+                  widget.product.productImageUrl!,
                   fit: BoxFit.cover,
                 )
                     : Icon(
@@ -56,7 +123,7 @@ class CartItemCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      product.productName!,
+                      widget.product.productName!,
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     IconButton(
@@ -70,43 +137,49 @@ class CartItemCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Ksh. ${product.productSellingPrice!}'),
+                    Text('Ksh. ${widget.product.productSellingPrice!}'),
 
                     //  increment cart button
                     Row(
                       children: [
-                        Container(
-                          width: 35,
-                          height: 35,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: XploreColors.deepBlue,
-                          ),
-                          child: Center(
-                            child: Icon(
-                              Icons.remove_rounded,
-                              color: XploreColors.white,
+                        GestureDetector(
+                          onTap: () => decrementCount(),
+                          child: Container(
+                            width: 35,
+                            height: 35,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: XploreColors.deepBlue,
+                            ),
+                            child: Center(
+                              child: Icon(
+                                Icons.remove_rounded,
+                                color: XploreColors.white,
+                              ),
                             ),
                           ),
                         ),
                         hSize10SizedBox,
                         Text(
-                          '$cartQuantity',
+                          '${widget.cartQuantity}',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         hSize10SizedBox,
-                        Container(
-                          width: 35,
-                          height: 35,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: XploreColors.deepBlue,
-                          ),
-                          child: Center(
-                            child: Icon(
-                              Icons.add_rounded,
-                              color: XploreColors.white,
+                        GestureDetector(
+                          onTap: () => incrementCount(),
+                          child: Container(
+                            width: 35,
+                            height: 35,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: XploreColors.deepBlue,
+                            ),
+                            child: Center(
+                              child: Icon(
+                                Icons.add_rounded,
+                                color: XploreColors.white,
+                              ),
                             ),
                           ),
                         ),

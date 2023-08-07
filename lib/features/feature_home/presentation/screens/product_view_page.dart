@@ -330,7 +330,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                           .contains(widget.product.productId!);
 
                       return Container(
-                        width: isInCart ? 330 : 320,
+                        width: 320,
                         height: 60,
                         margin: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
