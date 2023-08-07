@@ -10,6 +10,8 @@ import '../../../feature_merchant_store/domain/model/product_model.dart';
 class HomeController extends GetxController {
   final useCases = locator.get<HomeUseCases>();
 
+  final products = <ProductModel>[].obs;
+
   /// Active Bottom Bar Index
   final activeBottomBarIndex = 0.obs;
 
@@ -21,6 +23,9 @@ class HomeController extends GetxController {
 
   /// Check Whether drawer is open
   final isDrawerOpen = false.obs;
+
+  void setProducts({required List<ProductModel> products}) =>
+      this.products.value = products;
 
   void setActiveBottomBarIndex(int index) => activeBottomBarIndex.value = index;
 

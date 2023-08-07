@@ -50,6 +50,10 @@ class _AllProductsSectionState extends State<AllProductsSection> {
                   ProductModel.fromJson(product.data() as Map<String, dynamic>))
               .toList();
 
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _homeController.setProducts(products: products);
+          });
+
           return products.isEmpty
               ? SliverFillRemaining(
                   child: Center(child: Text('No products yet')),

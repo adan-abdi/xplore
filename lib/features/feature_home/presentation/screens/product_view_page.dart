@@ -43,9 +43,9 @@ class _ProductViewPageState extends State<ProductViewPage> {
             statusBarIconBrightness: Brightness.dark,
             statusBarColor: XploreColors.white,
             systemNavigationBarColor:
-                _homeController.activeBottomBarIndex.value == 2
-                    ? XploreColors.deepBlue
-                    : XploreColors.white,
+            _homeController.activeBottomBarIndex.value == 2
+                ? XploreColors.deepBlue
+                : XploreColors.white,
             systemNavigationBarIconBrightness: Brightness.dark),
         backgroundColor: XploreColors.white,
         leading: IconButton(
@@ -71,20 +71,23 @@ class _ProductViewPageState extends State<ProductViewPage> {
             alignment: AlignmentDirectional.topCenter,
             child: UnconstrainedBox(
                 child: Container(
-                    width: MediaQuery.of(context).size.width,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
                     height: 350,
                     color: XploreColors.deepBlue,
                     child: widget.product.productImageUrl != null &&
-                            widget.product.productImageUrl!.isNotEmpty
+                        widget.product.productImageUrl!.isNotEmpty
                         ? Image.network(
-                            widget.product.productImageUrl!,
-                            fit: BoxFit.cover,
-                          )
+                      widget.product.productImageUrl!,
+                      fit: BoxFit.cover,
+                    )
                         : Icon(
-                            Icons.shopping_cart_checkout_rounded,
-                            color: XploreColors.white,
-                            size: 72,
-                          ))),
+                      Icons.shopping_cart_checkout_rounded,
+                      color: XploreColors.white,
+                      size: 72,
+                    ))),
           ),
 
           //  content
@@ -92,160 +95,174 @@ class _ProductViewPageState extends State<ProductViewPage> {
             alignment: AlignmentDirectional.bottomCenter,
             child: UnconstrainedBox(
                 child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.55,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                  color: XploreColors.white,
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(24),
-                      topLeft: Radius.circular(24))),
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //  product name
-                    Container(
-                      width: double.infinity,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          //  product name
-                          Text(
-                            widget.product.productName!,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 24),
-                          ),
-                          vSize10SizedBox,
-                          //  product price
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.55,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                      color: XploreColors.white,
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(24),
+                          topLeft: Radius.circular(24))),
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        //  product name
+                        Container(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              //  product name
                               Text(
-                                'Ksh. ${widget.product.productSellingPrice!}',
+                                widget.product.productName!,
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
+                                    fontWeight: FontWeight.bold, fontSize: 24),
                               ),
+                              vSize10SizedBox,
+                              //  product price
                               Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Seller : ',
+                                    'Ksh. ${widget.product
+                                        .productSellingPrice!}',
                                     style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
                                   ),
-                                  Container(
-                                    padding: const EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Seller : ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
                                             BorderRadius.circular(100),
-                                        color: XploreColors.deepBlue),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.store_rounded,
-                                          color: XploreColors.xploreOrange,
-                                          size: 16,
+                                            color: XploreColors.deepBlue),
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.store_rounded,
+                                              color: XploreColors.xploreOrange,
+                                              size: 16,
+                                            ),
+                                            hSize10SizedBox,
+                                            Text(
+                                              widget
+                                                  .product.sellerName!
+                                                  .getStoreName,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16,
+                                                  color: XploreColors.white),
+                                            ),
+                                          ],
                                         ),
-                                        hSize10SizedBox,
-                                        Text(
-                                          widget
-                                              .product.sellerName!.getStoreName,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 16,
-                                              color: XploreColors.white),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-
-                    vSize20SizedBox,
-
-                    //  product units left
-                    Text.rich(TextSpan(children: [
-                      TextSpan(
-                          text: widget.product.productStockCount!.toString(),
-                          style: TextStyle(
-                              color: XploreColors.xploreOrange,
-                              fontWeight: FontWeight.bold)),
-                      TextSpan(text: ' units remaining.', style: TextStyle()),
-                    ])),
-
-                    vSize40SizedBox,
-
-                    //  product description
-                    Column(
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.description_rounded,
-                              color: XploreColors.deepBlue,
-                            ),
-                            hSize10SizedBox,
-                            Text(
-                              "Description",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                          ],
                         ),
 
                         vSize20SizedBox,
 
-                        //  description
-                        Text(
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 16),
-                        ),
-                      ],
-                    ),
-
-                    vSize40SizedBox,
-
-                    //  product reviews
-                    Column(
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.comment_rounded,
-                              color: XploreColors.deepBlue,
-                            ),
-                            hSize10SizedBox,
-                            Text(
-                              "Reviews",
+                        //  product units left
+                        Text.rich(TextSpan(children: [
+                          TextSpan(
+                              text: widget.product.productStockCount!
+                                  .toString(),
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
+                                  color: XploreColors.xploreOrange,
+                                  fontWeight: FontWeight.bold)),
+                          TextSpan(
+                              text: ' units remaining.', style: TextStyle()),
+                        ])),
+
+                        vSize40SizedBox,
+
+                        //  product description
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.description_rounded,
+                                  color: XploreColors.deepBlue,
+                                ),
+                                hSize10SizedBox,
+                                Text(
+                                  "Description",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ),
+                              ],
+                            ),
+
+                            vSize20SizedBox,
+
+                            //  description
+                            Text(
+                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
                             ),
                           ],
                         ),
 
-                        vSize20SizedBox,
+                        vSize40SizedBox,
 
-                        //  description
-                        Text(
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 16),
-                        ),
+                        //  product reviews
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.comment_rounded,
+                                  color: XploreColors.deepBlue,
+                                ),
+                                hSize10SizedBox,
+                                Text(
+                                  "Reviews",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ),
+                              ],
+                            ),
+
+                            vSize20SizedBox,
+
+                            //  description
+                            Text(
+                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                            ),
+                          ],
+                        )
                       ],
-                    )
-                  ],
-                ),
-              ),
-            )),
+                    ),
+                  ),
+                )),
           ),
 
           //  add to cart button
@@ -272,11 +289,12 @@ class _ProductViewPageState extends State<ProductViewPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 GestureDetector(
-                                  onTap: () => setState(() {
-                                    if (itemCount > 1) {
-                                      itemCount -= 1;
-                                    }
-                                  }),
+                                  onTap: () =>
+                                      setState(() {
+                                        if (itemCount > 1) {
+                                          itemCount -= 1;
+                                        }
+                                      }),
                                   child: Container(
                                     width: 35,
                                     height: 35,
@@ -307,12 +325,14 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                   ),
                                 ),
                                 GestureDetector(
-                                  onTap: () => setState(() {
-                                    if (itemCount <
-                                        int.parse(
-                                            widget.product.productStockCount!))
-                                      itemCount += 1;
-                                  }),
+                                  onTap: () =>
+                                      setState(() {
+                                        if (itemCount <
+                                            int.parse(
+                                                widget.product
+                                                    .productStockCount!))
+                                          itemCount += 1;
+                                      }),
                                   child: Container(
                                     width: 35,
                                     height: 35,
@@ -334,58 +354,68 @@ class _ProductViewPageState extends State<ProductViewPage> {
                             ))),
                     Expanded(
                         child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(100),
-                              bottomRight: Radius.circular(100))),
-                      child: GestureDetector(
-                        onTap: () async {
-                          //  get initial cart items
-                          final List<CartModel> itemsInCart =
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(100),
+                                  bottomRight: Radius.circular(100))),
+                          child: GestureDetector(
+                            onTap: () async {
+                              //  get initial cart items
+                              final List<CartModel> itemsInCart =
                               _authController.user.value!.itemsInCart!;
-                          //  update the list
-                          if (itemsInCart
-                              .map((item) => item.cartProductId)
-                              .toList()
-                              .contains(widget.product.productId!)) {
-                            //  remove item from list
-                            itemsInCart.remove(CartModel(
-                                cartProductId: widget.product.productId!,
-                                cartProductCount: itemCount));
-                          } else {
-                            //  Add item to list
-                            itemsInCart.add(CartModel(
-                                cartProductId: widget.product.productId!,
-                                cartProductCount: itemCount));
-                          }
-                          //  update items in cart
-                          _authController.updateUserDataInFirestore(
-                              newUser: UserModel(itemsInCart: itemsInCart));
-                        },
-                        child: UnconstrainedBox(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: XploreColors.xploreOrange,
-                                borderRadius: BorderRadius.circular(100)),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                            child: Row(
-                              children: [
-                                Icon(Icons.add_circle_rounded,
-                                    color: XploreColors.white),
-                                hSize10SizedBox,
-                                Text(
-                                  "Add to cart",
-                                  style: TextStyle(
-                                      color: XploreColors.white,
-                                      fontWeight: FontWeight.bold),
-                                )
-                              ],
+                              //  update the list
+                              if (itemsInCart
+                                  .map((item) => item.cartProductId)
+                                  .toList()
+                                  .contains(widget.product.productId!)) {
+                                //  remove item from list
+                                itemsInCart.remove(CartModel(
+                                    cartProductId: widget.product.productId!,
+                                    cartProductCount: itemCount));
+                              } else {
+                                //  Add item to list
+                                itemsInCart.add(CartModel(
+                                    cartProductId: widget.product.productId!,
+                                    cartProductCount: itemCount));
+                              }
+                              //  update items in cart
+                              _authController.updateUserDataInFirestore(
+                                  newUser: UserModel(itemsInCart: itemsInCart));
+                            },
+                            child: Obx(
+                                  () =>
+                                  UnconstrainedBox(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: XploreColors.xploreOrange,
+                                          borderRadius: BorderRadius.circular(
+                                              100)),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12, vertical: 8),
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.add_circle_rounded,
+                                              color: XploreColors.white),
+                                          hSize10SizedBox,
+                                          Text(
+                                            _authController.user.value!
+                                                .itemsInCart!.map((item) =>
+                                            item.cartProductId)
+                                                .toList()
+                                                .contains(
+                                                widget.product.productId!)
+                                                ? "Remove from cart" : "Add to cart",
+                                            style: TextStyle(
+                                                color: XploreColors.white,
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                             ),
                           ),
-                        ),
-                      ),
-                    )),
+                        )),
                   ],
                 ),
               ),
