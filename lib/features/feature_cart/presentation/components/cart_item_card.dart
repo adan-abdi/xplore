@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 
 import '../../../../application/core/themes/colors.dart';
@@ -182,7 +183,7 @@ class _CartItemCardState extends State<CartItemCard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Ksh. ${widget.product.productSellingPrice!}'),
+                    Text('Ksh. ${widget.product.productSellingPrice!.toString().addCommas}'),
 
                     //  delete icon
                     IconButton(

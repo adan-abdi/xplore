@@ -11,6 +11,8 @@ import 'package:shamiri/features/feature_home/presentation/controller/home_contr
 
 import '../../../../core/presentation/components/custom_textfield.dart';
 import '../../../../core/presentation/components/custom_textfield_alt.dart';
+import '../../../../core/presentation/components/open_bottom_sheet.dart';
+import '../../../../presentation/core/widgets/molecular/dashboard_tab_action_button.dart';
 import '../components/pill_btn.dart';
 import 'package:flutter/material.dart';
 
@@ -37,6 +39,14 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: XploreColors.white,
+      floatingActionButton: CustomFAB(
+          actionIcon: Icons.qr_code_scanner_rounded,
+          actionLabel: "Scan QR code",
+          onPressed: () {
+            //  open bottomsheet to add products
+
+          }),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
           child: Padding(
               padding: const EdgeInsets.all(16.0),

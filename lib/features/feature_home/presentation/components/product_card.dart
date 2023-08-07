@@ -98,7 +98,7 @@ class ProductCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          "Ksh. ${product.productSellingPrice!}",
+                          "Ksh. ${product.productSellingPrice!.toString().addCommas}",
                           style: TextStyle(fontSize: 14),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

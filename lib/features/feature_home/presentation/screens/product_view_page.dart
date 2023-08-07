@@ -186,7 +186,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                'Ksh. ${widget.product.productSellingPrice!}',
+                                'Ksh. ${widget.product.productSellingPrice!.toString().addCommas}',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 20),
                               ),
@@ -239,7 +239,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                     //  product units left
                     Text.rich(TextSpan(children: [
                       TextSpan(
-                          text: widget.product.productStockCount!.toString(),
+                          text: widget.product.productStockCount!.toString().addCommas,
                           style: TextStyle(
                               color: XploreColors.xploreOrange,
                               fontWeight: FontWeight.bold)),

@@ -189,7 +189,7 @@ class _MainScreenState extends State<MainScreen> {
                         : XploreColors.white,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8),
+                          horizontal: 16, vertical: 0),
                       child: GNav(
                         tabs: _bottomBarTabs,
                         onTabChange: _homeController.setActiveBottomBarIndex,
