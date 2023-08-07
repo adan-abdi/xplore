@@ -280,12 +280,49 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
+                                    //  minus icon
                                     GestureDetector(
-                                      onTap: () => setState(() {
-                                        if (itemCount > 1) {
-                                          itemCount -= 1;
+                                      onTap: () {
+                                        var cartItem = _authController
+                                            .user.value!.itemsInCart!
+                                            .firstWhere((item) =>
+                                                item.cartProductId ==
+                                                widget.product.productId!);
+
+                                        var currentCartCount =
+                                            cartItem.cartProductCount!;
+
+                                        if (isInCart && currentCartCount > 1) {
+                                          currentCartCount -= 1;
+
+                                          _authController
+                                              .user
+                                              .value!
+                                              .itemsInCart![_authController
+                                                  .user.value!.itemsInCart!
+                                                  .indexWhere((item) =>
+                                                      item.cartProductId! ==
+                                                      widget
+                                                          .product.productId!)]
+                                              .cartProductCount = currentCartCount;
+
+                                          //  update items in cart
+                                          _authController
+                                              .updateUserDataInFirestore(
+                                                  newUser: UserModel(
+                                                      itemsInCart:
+                                                          _authController
+                                                              .user
+                                                              .value!
+                                                              .itemsInCart!));
+                                        } else {
+                                          setState(() {
+                                            if (itemCount > 1) {
+                                              itemCount -= 1;
+                                            }
+                                          });
                                         }
-                                      }),
+                                      },
                                       child: Container(
                                         width: 35,
                                         height: 35,
@@ -307,16 +344,37 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                     ),
                                     Expanded(
                                       child: Center(
-                                        child: Text(
-                                          itemCount.toString(),
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: XploreColors.white,
-                                              overflow: TextOverflow.ellipsis),
-                                        ),
+                                        child: isInCart
+                                            ? Obx(() => Text(
+                                                  _authController
+                                                      .user.value!.itemsInCart!
+                                                      .firstWhere((item) =>
+                                                          item.cartProductId ==
+                                                          widget.product
+                                                              .productId!)
+                                                      .cartProductCount
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: XploreColors.white,
+                                                      overflow: TextOverflow
+                                                          .ellipsis),
+                                                ))
+                                            : Text(
+                                                itemCount.toString(),
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: XploreColors.white,
+                                                    overflow:
+                                                        TextOverflow.ellipsis),
+                                              ),
                                       ),
                                     ),
+
+                                    //  Add Icon
                                     GestureDetector(
                                       onTap: () => setState(() {
                                         if (itemCount <

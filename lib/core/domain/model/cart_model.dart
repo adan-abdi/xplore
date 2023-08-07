@@ -13,7 +13,7 @@ class CartModel {
 
   @JsonKey(name: 'cartProductCount')
   @HiveField(1)
-  final int? cartProductCount;
+  int? cartProductCount;
 
   CartModel({required this.cartProductId, required this.cartProductCount});
 
