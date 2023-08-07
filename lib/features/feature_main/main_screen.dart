@@ -102,7 +102,7 @@ class _MainScreenState extends State<MainScreen> {
                         statusBarIconBrightness: Brightness.dark,
                         statusBarColor: XploreColors.white,
                         systemNavigationBarColor:
-                            _homeController.activeBottomBarIndex.value == 2
+                            _homeController.activeBottomBarIndex.value == 2 && _authController.user.value!.itemsInCart!.isNotEmpty
                                 ? XploreColors.deepBlue
                                 : XploreColors.white,
                         systemNavigationBarIconBrightness: Brightness.dark),
@@ -184,7 +184,7 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                   bottomNavigationBar: Container(
-                    color: _homeController.activeBottomBarIndex.value == 2
+                    color: _homeController.activeBottomBarIndex.value == 2 && _authController.user.value!.itemsInCart!.isNotEmpty
                         ? XploreColors.deepBlue
                         : XploreColors.white,
                     child: Padding(
@@ -194,10 +194,10 @@ class _MainScreenState extends State<MainScreen> {
                         tabs: _bottomBarTabs,
                         onTabChange: _homeController.setActiveBottomBarIndex,
                         backgroundColor:
-                            _homeController.activeBottomBarIndex.value == 2
+                            _homeController.activeBottomBarIndex.value == 2 && _authController.user.value!.itemsInCart!.isNotEmpty
                                 ? XploreColors.deepBlue
                                 : XploreColors.white,
-                        color: _homeController.activeBottomBarIndex.value == 2
+                        color: _homeController.activeBottomBarIndex.value == 2 && _authController.user.value!.itemsInCart!.isNotEmpty
                             ? XploreColors.white
                             : XploreColors.deepBlue,
                         activeColor: XploreColors.xploreOrange,

@@ -112,10 +112,10 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                       controller: otpPinCodeFieldController,
                       androidSmsAutofillMethod: AndroidSmsAutofillMethod.none,
                       defaultPinTheme: PinTheme(
-                          width: 60,
-                          height: 60,
+                          width: 55,
+                          height: 55,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(100),
                               color:
                                   XploreColors.xploreOrange.withOpacity(0.3)),
                           textStyle: TextStyle(
