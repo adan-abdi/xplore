@@ -311,193 +311,204 @@ class _ProductViewPageState extends State<ProductViewPage> {
           ),
 
           //  add to cart button
-          Align(
-            alignment: AlignmentDirectional.bottomCenter,
-            child: UnconstrainedBox(
-              child: Obx(
-                () {
-                  final isInCart = _authController.user.value!.itemsInCart!
-                      .map((item) => item.cartProductId)
-                      .toList()
-                      .contains(widget.product.productId!);
+          Visibility(
+              visible: _authController.user.value!.userId! !=
+                  widget.product.sellerId!,
+              child: Align(
+                alignment: AlignmentDirectional.bottomCenter,
+                child: UnconstrainedBox(
+                  child: Obx(
+                    () {
+                      final isInCart = _authController.user.value!.itemsInCart!
+                          .map((item) => item.cartProductId)
+                          .toList()
+                          .contains(widget.product.productId!);
 
-                  return Container(
-                    width: isInCart ? 330 : 320,
-                    height: 60,
-                    margin: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                        color: XploreColors.deepBlue,
-                        borderRadius: BorderRadius.circular(100)),
-                    child: Row(
-                      children: [
-                        Expanded(
-                            flex: 5,
-                            child: Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(100),
-                                        bottomLeft: Radius.circular(100))),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    //  minus icon
-                                    GestureDetector(
-                                      onTap: () =>
-                                          decrementCount(isInCart: isInCart),
-                                      child: Container(
-                                        width: 35,
-                                        height: 35,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: XploreColors.white,
-                                              width: 4),
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                          color: XploreColors.deepBlue,
-                                        ),
-                                        child: Center(
-                                          child: Icon(
-                                            Icons.remove_rounded,
-                                            color: XploreColors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-
-                                    //  counter
-                                    Expanded(
-                                      child: Center(
-                                        child: isInCart
-                                            ? Obx(() => Text(
-                                                  _authController
-                                                      .user.value!.itemsInCart!
-                                                      .firstWhere((item) =>
-                                                          item.cartProductId ==
-                                                          widget.product
-                                                              .productId!)
-                                                      .cartProductCount
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: XploreColors.white,
-                                                      overflow: TextOverflow
-                                                          .ellipsis),
-                                                ))
-                                            : Text(
-                                                itemCount.toString(),
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: XploreColors.white,
-                                                    overflow:
-                                                        TextOverflow.ellipsis),
-                                              ),
-                                      ),
-                                    ),
-
-                                    //  Add Icon
-                                    GestureDetector(
-                                      onTap: () =>
-                                          incrementCount(isInCart: isInCart),
-                                      child: Container(
-                                        width: 35,
-                                        height: 35,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: XploreColors.white,
-                                              width: 4),
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                          color: XploreColors.deepBlue,
-                                        ),
-                                        child: Center(
-                                          child: Icon(
-                                            Icons.add_rounded,
-                                            color: XploreColors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ))),
-                        Expanded(
-                            flex: isInCart ? 6 : 5,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(100),
-                                      bottomRight: Radius.circular(100))),
-                              child: GestureDetector(
-                                onTap: () async {
-                                  //  get initial cart items
-                                  final List<CartModel> itemsInCart =
-                                      _authController.user.value!.itemsInCart!;
-                                  //  update the list
-                                  if (isInCart) {
-                                    //  remove item from list
-                                    itemsInCart.removeWhere((item) =>
-                                        item.cartProductId! ==
-                                        widget.product.productId!);
-
-                                    //  update items in cart
-                                    _authController.updateUserDataInFirestore(
-                                        newUser: UserModel(
-                                            itemsInCart: itemsInCart));
-                                  } else {
-                                    //  Add item to list
-                                    itemsInCart.add(CartModel(
-                                        cartProductId:
-                                            widget.product.productId!,
-                                        cartProductCount: itemCount));
-                                    //  update items in cart
-                                    _authController.updateUserDataInFirestore(
-                                        newUser: UserModel(
-                                            itemsInCart: itemsInCart));
-                                  }
-                                },
-                                child: UnconstrainedBox(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: isInCart
-                                            ? XploreColors.red
-                                            : XploreColors.xploreOrange,
-                                        borderRadius:
-                                            BorderRadius.circular(100)),
+                      return Container(
+                        width: isInCart ? 330 : 320,
+                        height: 60,
+                        margin: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                            color: XploreColors.deepBlue,
+                            borderRadius: BorderRadius.circular(100)),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 5,
+                                child: Container(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 12, vertical: 8),
+                                        horizontal: 16),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(100),
+                                            bottomLeft: Radius.circular(100))),
                                     child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
-                                        Icon(
-                                            isInCart
-                                                ? Icons.remove_circle_rounded
-                                                : Icons.add_circle_rounded,
-                                            color: XploreColors.white),
-                                        hSize10SizedBox,
-                                        Text(
-                                          isInCart
-                                              ? "Remove from cart"
-                                              : "Add to cart",
-                                          style: TextStyle(
-                                              color: XploreColors.white,
-                                              fontWeight: FontWeight.bold),
-                                        )
+                                        //  minus icon
+                                        GestureDetector(
+                                          onTap: () => decrementCount(
+                                              isInCart: isInCart),
+                                          child: Container(
+                                            width: 35,
+                                            height: 35,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: XploreColors.white,
+                                                  width: 4),
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                              color: XploreColors.deepBlue,
+                                            ),
+                                            child: Center(
+                                              child: Icon(
+                                                Icons.remove_rounded,
+                                                color: XploreColors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+
+                                        //  counter
+                                        Expanded(
+                                          child: Center(
+                                            child: isInCart
+                                                ? Obx(() => Text(
+                                                      _authController.user
+                                                          .value!.itemsInCart!
+                                                          .firstWhere((item) =>
+                                                              item.cartProductId ==
+                                                              widget.product
+                                                                  .productId!)
+                                                          .cartProductCount
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: XploreColors
+                                                              .white,
+                                                          overflow: TextOverflow
+                                                              .ellipsis),
+                                                    ))
+                                                : Text(
+                                                    itemCount.toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color:
+                                                            XploreColors.white,
+                                                        overflow: TextOverflow
+                                                            .ellipsis),
+                                                  ),
+                                          ),
+                                        ),
+
+                                        //  Add Icon
+                                        GestureDetector(
+                                          onTap: () => incrementCount(
+                                              isInCart: isInCart),
+                                          child: Container(
+                                            width: 35,
+                                            height: 35,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: XploreColors.white,
+                                                  width: 4),
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                              color: XploreColors.deepBlue,
+                                            ),
+                                            child: Center(
+                                              child: Icon(
+                                                Icons.add_rounded,
+                                                color: XploreColors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ],
+                                    ))),
+                            Expanded(
+                                flex: isInCart ? 6 : 5,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(100),
+                                          bottomRight: Radius.circular(100))),
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      //  get initial cart items
+                                      final List<CartModel> itemsInCart =
+                                          _authController
+                                              .user.value!.itemsInCart!;
+                                      //  update the list
+                                      if (isInCart) {
+                                        //  remove item from list
+                                        itemsInCart.removeWhere((item) =>
+                                            item.cartProductId! ==
+                                            widget.product.productId!);
+
+                                        //  update items in cart
+                                        _authController
+                                            .updateUserDataInFirestore(
+                                                newUser: UserModel(
+                                                    itemsInCart: itemsInCart));
+                                      } else {
+                                        //  Add item to list
+                                        itemsInCart.add(CartModel(
+                                            cartProductId:
+                                                widget.product.productId!,
+                                            cartProductCount: itemCount));
+                                        //  update items in cart
+                                        _authController
+                                            .updateUserDataInFirestore(
+                                                newUser: UserModel(
+                                                    itemsInCart: itemsInCart));
+                                      }
+                                    },
+                                    child: UnconstrainedBox(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: isInCart
+                                                ? XploreColors.red
+                                                : XploreColors.xploreOrange,
+                                            borderRadius:
+                                                BorderRadius.circular(100)),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 8),
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                                isInCart
+                                                    ? Icons
+                                                        .remove_circle_rounded
+                                                    : Icons.add_circle_rounded,
+                                                color: XploreColors.white),
+                                            hSize10SizedBox,
+                                            Text(
+                                              isInCart
+                                                  ? "Remove from cart"
+                                                  : "Add to cart",
+                                              style: TextStyle(
+                                                  color: XploreColors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            )),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-          )
+                                )),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ))
         ],
       ),
     );
