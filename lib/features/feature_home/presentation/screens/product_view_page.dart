@@ -212,13 +212,16 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                           size: 16,
                                         ),
                                         hSize10SizedBox,
-                                        Text(
-                                          widget
-                                              .product.sellerName!.getStoreName,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 16,
-                                              color: XploreColors.white),
+                                        Obx(
+                                          () => Text(
+                                            _authController.user.value!.userId! ==
+                                                widget.product.sellerId! ? 'My Store' : widget
+                                                .product.sellerName!.getStoreName,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16,
+                                                color: XploreColors.white),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -303,7 +306,9 @@ class _ProductViewPageState extends State<ProductViewPage> {
                               fontWeight: FontWeight.normal, fontSize: 16),
                         ),
                       ],
-                    )
+                    ),
+
+                    SizedBox(height: 100,)
                   ],
                 ),
               ),

@@ -17,7 +17,7 @@ class ProductCard extends StatelessWidget {
       child: UnconstrainedBox(
         child: Container(
           width: 150,
-          height: 200,
+          height: 180,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16), color: XploreColors.white),
           child: Column(

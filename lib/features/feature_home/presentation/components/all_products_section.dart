@@ -68,7 +68,7 @@ class _AllProductsSectionState extends State<AllProductsSection> {
                       childCount: products.length),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      mainAxisExtent: 220,
+                      mainAxisExtent: 180,
                       mainAxisSpacing: 16,
                       crossAxisSpacing: 12));
         });
