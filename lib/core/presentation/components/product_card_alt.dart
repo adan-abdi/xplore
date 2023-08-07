@@ -59,7 +59,7 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(widget.product.productSellingPrice!),
+                    Text('Ksh. ${widget.product.productSellingPrice!}'),
 
                     //  increment stock button
                     Row(
@@ -80,7 +80,7 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                         ),
                         hSize10SizedBox,
                         Text(
-                          widget.product.productStockCount!,
+                          '${widget.product.productStockCount!}',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),

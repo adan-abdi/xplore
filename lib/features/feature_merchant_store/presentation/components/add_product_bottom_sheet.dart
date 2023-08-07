@@ -190,13 +190,13 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                             productImageUrl: '',
                             productUnit: _productUnitController.text,
                             productBuyingPrice:
-                                _productBuyingPriceController.text,
+                                int.parse(_productBuyingPriceController.text),
                             productSellingPrice:
-                                _productSellingPriceController.text,
+                                int.parse(_productSellingPriceController.text),
                             productCategoryId: _productCategoryController.text,
                             productCreatedAt: DateTime.now().toString(),
                             productStockCount:
-                                _productStockCountController.text);
+                                int.parse(_productStockCountController.text));
 
                         await _merchantController.addProductToFirestore(
                             product: productModel,

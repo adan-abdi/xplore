@@ -72,7 +72,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
 
       var currentCartCount = cartItem.cartProductCount!;
 
-      if (currentCartCount < int.parse(widget.product.productStockCount!)) {
+      if (currentCartCount < widget.product.productStockCount!) {
         currentCartCount += 1;
 
         _authController
@@ -89,7 +89,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
       }
     } else {
       setState(() {
-        if (itemCount < int.parse(widget.product.productStockCount!)) {
+        if (itemCount < widget.product.productStockCount!) {
           itemCount += 1;
         }
       });

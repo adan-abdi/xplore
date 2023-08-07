@@ -21,13 +21,13 @@ class ProductModel {
   String? productUnit;
 
   @JsonKey(name: 'productStockCount')
-  String? productStockCount;
+  int? productStockCount;
 
   @JsonKey(name: 'productBuyingPrice')
-  String? productBuyingPrice;
+  int? productBuyingPrice;
 
   @JsonKey(name: 'productSellingPrice')
-  String? productSellingPrice;
+  int? productSellingPrice;
 
   @JsonKey(name: 'productCategoryId')
   String? productCategoryId;
