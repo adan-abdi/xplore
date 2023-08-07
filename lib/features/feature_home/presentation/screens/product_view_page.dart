@@ -34,6 +34,68 @@ class _ProductViewPageState extends State<ProductViewPage> {
     _authController = Get.find<AuthController>();
   }
 
+  void decrementCount({required bool isInCart}) {
+    if (isInCart) {
+      var cartItem = _authController.user.value!.itemsInCart!.firstWhere(
+          (item) => item.cartProductId == widget.product.productId!);
+
+      var currentCartCount = cartItem.cartProductCount!;
+
+      if (currentCartCount > 1) {
+        currentCartCount -= 1;
+
+        _authController
+            .user
+            .value!
+            .itemsInCart![_authController.user.value!.itemsInCart!.indexWhere(
+                (item) => item.cartProductId! == widget.product.productId!)]
+            .cartProductCount = currentCartCount;
+
+        //  update items in cart
+        _authController.updateUserDataInFirestore(
+            newUser: UserModel(
+                itemsInCart: _authController.user.value!.itemsInCart!));
+      }
+    } else {
+      setState(() {
+        if (itemCount > 1) {
+          itemCount -= 1;
+        }
+      });
+    }
+  }
+
+  void incrementCount({required bool isInCart}) {
+    if (isInCart) {
+      var cartItem = _authController.user.value!.itemsInCart!.firstWhere(
+          (item) => item.cartProductId == widget.product.productId!);
+
+      var currentCartCount = cartItem.cartProductCount!;
+
+      if (currentCartCount < int.parse(widget.product.productStockCount!)) {
+        currentCartCount += 1;
+
+        _authController
+            .user
+            .value!
+            .itemsInCart![_authController.user.value!.itemsInCart!.indexWhere(
+                (item) => item.cartProductId! == widget.product.productId!)]
+            .cartProductCount = currentCartCount;
+
+        //  update items in cart
+        _authController.updateUserDataInFirestore(
+            newUser: UserModel(
+                itemsInCart: _authController.user.value!.itemsInCart!));
+      }
+    } else {
+      setState(() {
+        if (itemCount < int.parse(widget.product.productStockCount!)) {
+          itemCount += 1;
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -282,47 +344,8 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                   children: [
                                     //  minus icon
                                     GestureDetector(
-                                      onTap: () {
-                                        var cartItem = _authController
-                                            .user.value!.itemsInCart!
-                                            .firstWhere((item) =>
-                                                item.cartProductId ==
-                                                widget.product.productId!);
-
-                                        var currentCartCount =
-                                            cartItem.cartProductCount!;
-
-                                        if (isInCart && currentCartCount > 1) {
-                                          currentCartCount -= 1;
-
-                                          _authController
-                                              .user
-                                              .value!
-                                              .itemsInCart![_authController
-                                                  .user.value!.itemsInCart!
-                                                  .indexWhere((item) =>
-                                                      item.cartProductId! ==
-                                                      widget
-                                                          .product.productId!)]
-                                              .cartProductCount = currentCartCount;
-
-                                          //  update items in cart
-                                          _authController
-                                              .updateUserDataInFirestore(
-                                                  newUser: UserModel(
-                                                      itemsInCart:
-                                                          _authController
-                                                              .user
-                                                              .value!
-                                                              .itemsInCart!));
-                                        } else {
-                                          setState(() {
-                                            if (itemCount > 1) {
-                                              itemCount -= 1;
-                                            }
-                                          });
-                                        }
-                                      },
+                                      onTap: () =>
+                                          decrementCount(isInCart: isInCart),
                                       child: Container(
                                         width: 35,
                                         height: 35,
@@ -342,6 +365,8 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                         ),
                                       ),
                                     ),
+
+                                    //  counter
                                     Expanded(
                                       child: Center(
                                         child: isInCart
@@ -376,12 +401,8 @@ class _ProductViewPageState extends State<ProductViewPage> {
 
                                     //  Add Icon
                                     GestureDetector(
-                                      onTap: () => setState(() {
-                                        if (itemCount <
-                                            int.parse(widget
-                                                .product.productStockCount!))
-                                          itemCount += 1;
-                                      }),
+                                      onTap: () =>
+                                          incrementCount(isInCart: isInCart),
                                       child: Container(
                                         width: 35,
                                         height: 35,
