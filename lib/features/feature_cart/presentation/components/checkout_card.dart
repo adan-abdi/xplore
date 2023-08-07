@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 
 import '../../../../application/core/themes/colors.dart';
 import '../../../../core/presentation/controller/auth_controller.dart';
@@ -27,8 +28,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
   }
 
   int getTotalAmount() {
-
-    if (_homeController.products.isEmpty){
+    if (_homeController.products.isEmpty) {
       return 0;
     }
 
@@ -68,13 +68,20 @@ class _CheckoutCardState extends State<CheckoutCard> {
                       fontSize: 18,
                       color: XploreColors.whiteSmoke,
                       fontWeight: FontWeight.bold)),
-              Obx(
-                  () => Text("Ksh. ${getTotalAmount()}",
-                    style: TextStyle(
-                        fontSize: 24,
-                        color: XploreColors.white,
-                        fontWeight: FontWeight.bold)),
-              ),
+              Obx(() => Text.rich(TextSpan(children: [
+                    TextSpan(
+                        text: "Ksh. ",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: XploreColors.whiteSmoke,
+                            fontWeight: FontWeight.bold)),
+                    TextSpan(
+                        text: "${getTotalAmount().toString().addCommas}",
+                        style: TextStyle(
+                            fontSize: 21,
+                            color: XploreColors.white,
+                            fontWeight: FontWeight.bold)),
+                  ]))),
             ],
           ),
 
@@ -86,13 +93,20 @@ class _CheckoutCardState extends State<CheckoutCard> {
                       fontSize: 18,
                       color: XploreColors.white,
                       fontWeight: FontWeight.bold)),
-              Obx(
-                  () => Text("Ksh. ${getTotalAmount()}",
+              Obx(() => Text.rich(TextSpan(children: [
+                TextSpan(
+                    text: "Ksh. ",
                     style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 18,
+                        color: XploreColors.whiteSmoke,
+                        fontWeight: FontWeight.bold)),
+                TextSpan(
+                    text: "${getTotalAmount().toString().addCommas}",
+                    style: TextStyle(
+                        fontSize: 21,
                         color: XploreColors.white,
                         fontWeight: FontWeight.bold)),
-              ),
+              ]))),
             ],
           ),
 
