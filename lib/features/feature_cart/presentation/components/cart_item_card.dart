@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 
 import '../../../../application/core/themes/colors.dart';
+import '../../../../core/domain/model/cart_model.dart';
 import '../../../../core/domain/model/user_model.dart';
 import '../../../../core/presentation/controller/auth_controller.dart';
 import '../../../../domain/value_objects/app_spaces.dart';
@@ -127,7 +128,22 @@ class _CartItemCardState extends State<CartItemCard> {
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          //  get initial cart items
+                          final List<CartModel> itemsInCart =
+                          _authController
+                              .user.value!.itemsInCart!;
+                          //  remove item from list
+                          itemsInCart.removeWhere((item) =>
+                          item.cartProductId! ==
+                              widget.product.productId!);
+
+                          //  update items in cart
+                          await _authController
+                              .updateUserDataInFirestore(
+                              newUser: UserModel(
+                                  itemsInCart: itemsInCart));
+                        },
                         icon: Icon(
                           Icons.delete_rounded,
                           color: XploreColors.xploreOrange,

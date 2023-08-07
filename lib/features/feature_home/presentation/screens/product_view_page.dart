@@ -457,7 +457,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                             widget.product.productId!);
 
                                         //  update items in cart
-                                        _authController
+                                        await _authController
                                             .updateUserDataInFirestore(
                                                 newUser: UserModel(
                                                     itemsInCart: itemsInCart));
@@ -468,7 +468,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                                 widget.product.productId!,
                                             cartProductCount: itemCount));
                                         //  update items in cart
-                                        _authController
+                                        await _authController
                                             .updateUserDataInFirestore(
                                                 newUser: UserModel(
                                                     itemsInCart: itemsInCart));
