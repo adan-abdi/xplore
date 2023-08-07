@@ -59,9 +59,7 @@ extension StringExtensions on String {
 
   /// Add commas
   String get addCommas {
-    final regExp = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
-    String Function(Match) mathFunc = (Match match) => '${match[1]}';
-
-    return this.replaceAllMapped(regExp, mathFunc);
+    return this.replaceAllMapped(
+        new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
   }
 }

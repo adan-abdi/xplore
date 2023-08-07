@@ -358,4 +358,36 @@ void main() {
   });
 
   /// Add Commas to prices
+  group('Add Commas to prices', () {
+    test('One digit numbers should not have any commas', () {
+      final num = 1;
+      final numFormatted = num.toString().addCommas;
+
+      expect(numFormatted, '${num}');
+    });
+    test('Two digit numbers should not have any commas', () {
+      final num = 11;
+      final numFormatted = num.toString().addCommas;
+
+      expect(numFormatted, '${num}');
+    });
+    test('Three digit numbers should not have any commas', () {
+      final num = 111;
+      final numFormatted = num.toString().addCommas;
+
+      expect(numFormatted, '${num}');
+    });
+    test('four digit numbers should have one comma', () {
+      final num = 1111;
+      final numFormatted = num.toString().addCommas;
+
+      expect(numFormatted, '1,111');
+    });
+    test('7 digit numbers should have two commas', () {
+      final num = 1111111;
+      final numFormatted = num.toString().addCommas;
+
+      expect(numFormatted, '1,111,111');
+    });
+  });
 }
