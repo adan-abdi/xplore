@@ -10,6 +10,7 @@ import 'package:shamiri/features/feature_home/presentation/components/top_stores
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 
 import '../../../../core/presentation/components/custom_textfield.dart';
+import '../../../../core/presentation/components/custom_textfield_alt.dart';
 import '../components/pill_btn.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +45,7 @@ class _HomePageState extends State<HomePage> {
                 slivers: [
                   //  Search bar
                   SliverToBoxAdapter(
-                    child: CustomTextField(
+                    child: CustomTextFieldAlt(
                         hint: "Search For Products",
                         iconData: Icons.search_rounded,
                         textStyle: TextStyle(fontSize: 16),
