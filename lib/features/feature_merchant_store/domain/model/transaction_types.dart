@@ -1,0 +1,1 @@
+enum TransactionTypes {fulfilled, pending}
