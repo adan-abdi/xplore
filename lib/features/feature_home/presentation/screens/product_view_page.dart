@@ -9,6 +9,8 @@ import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
+import '../../../../core/presentation/components/badged_icon.dart';
+import '../../../feature_cart/presentation/cart_screen.dart';
 import '../../../feature_merchant_store/domain/model/product_model.dart';
 import '../controller/home_controller.dart';
 
@@ -115,9 +117,13 @@ class _ProductViewPageState extends State<ProductViewPage> {
             icon: Icon(Icons.arrow_back_rounded, color: XploreColors.deepBlue)),
         actions: [
           IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.shopping_cart_rounded,
-                  color: XploreColors.deepBlue)),
+              onPressed: () => Get.to(() => CartScreen()),
+              icon: Obx(
+                    () => BadgeIcon(
+                    badgeCount: _authController
+                        .user.value!.itemsInCart!.length,
+                    iconData: Icons.shopping_cart_rounded),
+              )),
           IconButton(
               onPressed: () {},
               icon: Icon(Icons.favorite_outline_rounded,

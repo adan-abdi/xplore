@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
+import 'package:shamiri/core/presentation/components/badged_icon.dart';
 import 'package:shamiri/core/presentation/components/my_lottie.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/features/feature_cart/presentation/cart_screen.dart';
@@ -17,6 +18,7 @@ import 'package:shamiri/features/feature_profile/presentation/profile_page.dart'
 import '../../application/core/themes/colors.dart';
 import '../../core/presentation/components/hamburger.dart';
 import 'package:get/get.dart';
+import 'package:badges/badges.dart' as badge;
 
 import '../../core/presentation/controller/auth_controller.dart';
 
@@ -120,9 +122,11 @@ class _MainScreenState extends State<MainScreen> {
                     actions: [
                       IconButton(
                           onPressed: () => Get.to(() => CartScreen()),
-                          icon: Icon(
-                            Icons.shopping_cart_rounded,
-                            color: XploreColors.deepBlue,
+                          icon: Obx(
+                            () => BadgeIcon(
+                                badgeCount: _authController
+                                    .user.value!.itemsInCart!.length,
+                                iconData: Icons.shopping_cart_rounded),
                           )),
 
                       //  profile image
@@ -182,12 +186,13 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                   bottomNavigationBar: Container(
-                    decoration: BoxDecoration(
-                      color: XploreColors.white,
-                      boxShadow: [
-                        BoxShadow(color: Colors.black12.withOpacity(0.1), spreadRadius: 2, blurRadius: 3)
-                      ]
-                    ),
+                    decoration:
+                        BoxDecoration(color: XploreColors.white, boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12.withOpacity(0.1),
+                          spreadRadius: 2,
+                          blurRadius: 3)
+                    ]),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
@@ -195,7 +200,7 @@ class _MainScreenState extends State<MainScreen> {
                         tabs: _bottomBarTabs,
                         onTabChange: _homeController.setActiveBottomBarIndex,
                         backgroundColor: Colors.transparent,
-                        color:  XploreColors.deepBlue,
+                        color: XploreColors.deepBlue,
                         activeColor: XploreColors.xploreOrange,
                         tabBackgroundColor:
                             XploreColors.xploreOrange.withOpacity(0.1),
