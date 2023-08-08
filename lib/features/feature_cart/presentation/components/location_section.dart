@@ -94,7 +94,7 @@ class _LocationSectionState extends State<LocationSection> {
                     child: Text("Change Address")),
                 hSize10SizedBox,
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () => _cartController.setIsPaymentPast(isPast: true),
                     style: TextButton.styleFrom(
                         foregroundColor: XploreColors.xploreOrange),
                     child: Text("Next")),

@@ -40,24 +40,27 @@ class _CartScreenState extends State<CartScreen> {
           systemOverlayStyle: SystemUiOverlayStyle(
               statusBarIconBrightness: Brightness.dark,
               statusBarColor: XploreColors.white,
-              systemNavigationBarColor: XploreColors.deepBlue,
+              systemNavigationBarColor:
+                  _authController.user.value!.itemsInCart!.isEmpty
+                      ? XploreColors.white
+                      : XploreColors.deepBlue,
               systemNavigationBarIconBrightness: Brightness.dark),
           title: Text(
             "My Cart",
             style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: XploreColors.black),
+                fontWeight: FontWeight.bold, color: XploreColors.black),
           ),
           centerTitle: true,
           backgroundColor: XploreColors.white,
           leading: IconButton(
               onPressed: () => Get.back(),
-              icon: Icon(Icons.arrow_back_rounded, color: XploreColors.deepBlue)),
+              icon:
+                  Icon(Icons.arrow_back_rounded, color: XploreColors.deepBlue)),
           elevation: 0,
         ),
         body: _authController.user.value!.itemsInCart!.isNotEmpty
             ? SafeArea(
-              child: Stack(
+                child: Stack(
                   fit: StackFit.expand,
                   children: [
                     //  All Products
@@ -69,24 +72,26 @@ class _CartScreenState extends State<CartScreen> {
                         child: CheckoutCard()),
                   ],
                 ),
-            )
+              )
             : SafeArea(
-              child: Container(
+                child: Container(
                   width: double.infinity,
                   height: double.infinity,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      MyLottie(
-                        lottie: 'assets/general/cart2.json'
-                      ),
+                      MyLottie(lottie: 'assets/general/cart2.json'),
                       vSize30SizedBox,
-                      Text("No items in your cart... Happy shopping!", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)
+                      Text(
+                        "No items in your cart... Happy shopping!",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      )
                     ],
                   ),
                 ),
-            ),
+              ),
       ),
     );
   }
