@@ -9,6 +9,7 @@ class CustomTextField extends StatelessWidget {
   final int? maxLines;
   final bool isObscured;
   final bool isEnabled;
+  final TextInputType inputType;
   final TextEditingController controller;
   final Function(String text) onChanged;
 
@@ -20,6 +21,7 @@ class CustomTextField extends StatelessWidget {
       this.maxLines = 1,
       this.isObscured = false,
       this.isEnabled = true,
+      this.inputType = TextInputType.text,
       required this.controller,
       required this.onChanged});
 
@@ -30,7 +32,7 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       enabled: isEnabled,
       obscureText: isObscured,
-      keyboardType: TextInputType.text,
+      keyboardType: inputType,
       maxLines: maxLines,
       textInputAction: TextInputAction.done,
       style: TextStyle(fontSize: 18, color: XploreColors.black),
@@ -49,9 +51,11 @@ class CustomTextField extends StatelessWidget {
               borderSide:
                   BorderSide(width: 2, color: XploreColors.xploreOrange)),
           enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(width: 2, color: XploreColors.deepBlue.withOpacity(0.1))),
+              borderSide: BorderSide(
+                  width: 2, color: XploreColors.deepBlue.withOpacity(0.1))),
           border: UnderlineInputBorder(
-              borderSide: BorderSide(width: 2, color: XploreColors.deepBlue.withOpacity(0.1)))),
+              borderSide: BorderSide(
+                  width: 2, color: XploreColors.deepBlue.withOpacity(0.1)))),
       cursorOpacityAnimates: true,
       onChanged: onChanged,
     );

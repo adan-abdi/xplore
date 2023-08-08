@@ -2,12 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pinput/pinput.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/presentation/components/custom_textfield.dart';
 import 'package:shamiri/core/presentation/components/show_snackbar.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/presentation/controller/core_controller.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
@@ -122,20 +124,32 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                     vSize20SizedBox,
                     //  product unit
                     CustomTextField(
-                        hint: "Product Buying Price",
+                        hint: "Product Buying Price (Ksh)",
                         iconData: Icons.monetization_on_rounded,
                         textStyle: TextStyle(fontSize: 16),
+                        inputType: TextInputType.number,
                         controller: _productBuyingPriceController,
-                        onChanged: (value) {}),
+                        onChanged: (value) {
+                          _productBuyingPriceController.setText(
+                              _productBuyingPriceController.text
+                                  .replaceAll(",", "")
+                                  .addCommas);
+                        }),
 
                     vSize20SizedBox,
                     //  product unit
                     CustomTextField(
-                        hint: "Product Selling Price",
+                        hint: "Product Selling Price (Ksh)",
                         iconData: Icons.monetization_on_rounded,
                         textStyle: TextStyle(fontSize: 16),
+                        inputType: TextInputType.number,
                         controller: _productSellingPriceController,
-                        onChanged: (value) {}),
+                        onChanged: (value) {
+                          _productSellingPriceController.setText(
+                              _productSellingPriceController.text
+                                  .replaceAll(",", "")
+                                  .addCommas);
+                        }),
 
                     vSize20SizedBox,
                     //  product unit
@@ -152,6 +166,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                         hint: "Product Stock count",
                         iconData: Icons.description,
                         textStyle: TextStyle(fontSize: 16),
+                        inputType: TextInputType.number,
                         controller: _productStockCountController,
                         onChanged: (value) {}),
 
@@ -189,10 +204,11 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                             productName: _productNameController.text,
                             productImageUrl: '',
                             productUnit: _productUnitController.text,
-                            productBuyingPrice:
-                                int.parse(_productBuyingPriceController.text),
+                            productBuyingPrice: int.parse(
+                                _productBuyingPriceController.text
+                                    .replaceAll(",", "")),
                             productSellingPrice:
-                                int.parse(_productSellingPriceController.text),
+                                int.parse(_productSellingPriceController.text.replaceAll(",", "")),
                             productCategoryId: _productCategoryController.text,
                             productCreatedAt: DateTime.now().toString(),
                             productStockCount:
