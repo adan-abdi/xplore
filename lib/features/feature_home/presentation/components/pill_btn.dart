@@ -4,14 +4,16 @@ import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
 class PillBtn extends StatelessWidget {
   final String text;
-  final IconData iconData;
+  final IconData? iconData;
+  final String? imageAsset;
   final bool isActive;
   final VoidCallback onTap;
 
   const PillBtn(
       {super.key,
       required this.text,
-      required this.iconData,
+      this.iconData,
+      this.imageAsset,
       this.isActive = false,
       required this.onTap});
 
@@ -30,7 +32,7 @@ class PillBtn extends StatelessWidget {
           child: Center(
               child: Row(
             children: [
-              Icon(iconData,
+              iconData == null ? Image.asset(imageAsset!, width: 26, height: 26,) : Icon(iconData,
                   color: isActive ? XploreColors.white : XploreColors.black),
               hSize10SizedBox,
               Text(
