@@ -12,6 +12,7 @@ import 'package:shamiri/features/feature_home/presentation/screens/home_page.dar
 import 'package:shamiri/features/feature_main/components/drawer_icon.dart';
 import 'package:shamiri/features/feature_main/components/drawer_screen.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/screens/merchant_store_page.dart';
+import 'package:shamiri/features/feature_profile/presentation/profile_page.dart';
 
 import '../../application/core/themes/colors.dart';
 import '../../core/presentation/components/hamburger.dart';
@@ -62,10 +63,10 @@ class _MainScreenState extends State<MainScreen> {
         onPressed: () {},
       ),
       GButton(
-        key: Key("cart_screen_icon"),
-        icon: Icons.shopping_cart,
+        key: Key("profile_screen_icon"),
+        icon: Icons.account_circle_rounded,
         haptic: false,
-        text: "My Cart",
+        text: "Profile",
         onPressed: () {},
       ),
     ];
@@ -73,7 +74,7 @@ class _MainScreenState extends State<MainScreen> {
     _pages = [
       HomePage(),
       MerchantStorePage(),
-      CartScreen(),
+      ProfilePage(),
     ];
   }
 
@@ -101,10 +102,7 @@ class _MainScreenState extends State<MainScreen> {
                     systemOverlayStyle: SystemUiOverlayStyle(
                         statusBarIconBrightness: Brightness.dark,
                         statusBarColor: XploreColors.white,
-                        systemNavigationBarColor:
-                            _homeController.activeBottomBarIndex.value == 2 && _authController.user.value!.itemsInCart!.isNotEmpty
-                                ? XploreColors.deepBlue
-                                : XploreColors.white,
+                        systemNavigationBarColor: XploreColors.white,
                         systemNavigationBarIconBrightness: Brightness.dark),
                     backgroundColor: XploreColors.white,
                     title: Text(
@@ -112,7 +110,7 @@ class _MainScreenState extends State<MainScreen> {
                           ? _authController.user.value!.userName!.trimUserName
                           : _homeController.activeBottomBarIndex.value == 1
                               ? "Merchant Store"
-                              : "My Cart",
+                              : "Profile",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: XploreColors.black),
@@ -184,22 +182,20 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                   bottomNavigationBar: Container(
-                    color: _homeController.activeBottomBarIndex.value == 2 && _authController.user.value!.itemsInCart!.isNotEmpty
-                        ? XploreColors.deepBlue
-                        : XploreColors.white,
+                    decoration: BoxDecoration(
+                      color: XploreColors.white,
+                      boxShadow: [
+                        BoxShadow(color: Colors.black12.withOpacity(0.1), spreadRadius: 2, blurRadius: 3)
+                      ]
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 0),
+                          horizontal: 16, vertical: 4),
                       child: GNav(
                         tabs: _bottomBarTabs,
                         onTabChange: _homeController.setActiveBottomBarIndex,
-                        backgroundColor:
-                            _homeController.activeBottomBarIndex.value == 2 && _authController.user.value!.itemsInCart!.isNotEmpty
-                                ? XploreColors.deepBlue
-                                : XploreColors.white,
-                        color: _homeController.activeBottomBarIndex.value == 2 && _authController.user.value!.itemsInCart!.isNotEmpty
-                            ? XploreColors.white
-                            : XploreColors.deepBlue,
+                        backgroundColor: Colors.transparent,
+                        color:  XploreColors.deepBlue,
                         activeColor: XploreColors.xploreOrange,
                         tabBackgroundColor:
                             XploreColors.xploreOrange.withOpacity(0.1),
