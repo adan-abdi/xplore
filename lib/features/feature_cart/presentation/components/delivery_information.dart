@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_home/presentation/components/pill_btn.dart';
 
@@ -34,11 +35,21 @@ class DeliveryInformation extends StatelessWidget {
                   isActive: true),
               hSize20SizedBox,
               PillBtn(
-                  text: "Normal",
-                  iconData: Icons.payment_rounded,
+                  text: "Pick up",
+                  iconData: Icons.shopping_basket_rounded,
                   onTap: () {},
                   isActive: false)
             ],
+          ),
+
+          //  proceed button
+          Align(
+            alignment: AlignmentDirectional.bottomEnd,
+            child: TextButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                    foregroundColor: XploreColors.xploreOrange),
+                child: Text("Next")),
           )
         ],
       ),
