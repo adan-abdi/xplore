@@ -6,6 +6,7 @@ import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/checkout_tile.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/delivery_section.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/location_section.dart';
+import 'package:shamiri/features/feature_cart/presentation/components/order_confirmed_section.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/payment_section.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/login_title.dart';
 
@@ -89,7 +90,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       isLast: true,
                       isPast: false,
                       iconData: Icons.done_rounded,
-                      content: Text("data"))
+                      content: OrderConfirmedSection())
                 ],
               ),
             ),

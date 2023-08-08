@@ -5,8 +5,14 @@ class MyLottie extends StatefulWidget {
   final String lottie;
   final double width;
   final double height;
+  final bool repeat;
 
-  const MyLottie({super.key, required this.lottie, this.width = 250, this.height = 250});
+  const MyLottie(
+      {super.key,
+      required this.lottie,
+      this.width = 250,
+      this.height = 250,
+      this.repeat = true});
 
   @override
   State<MyLottie> createState() => _MyLottieState();
@@ -33,13 +39,15 @@ class _MyLottieState extends State<MyLottie> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Lottie.asset(widget.lottie,
         animate: true,
-        reverse: true,
+        reverse: widget.repeat,
         width: widget.width,
         height: widget.height,
         controller: _lottieController, onLoaded: (composition) {
       _lottieController.duration = composition.duration;
       _lottieController.forward();
-      _lottieController.repeat();
+      if (widget.repeat) {
+        _lottieController.repeat();
+      }
     });
   }
 }

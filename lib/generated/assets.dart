@@ -45,6 +45,7 @@ class Assets {
   static const String generalMpesa = 'assets/general/mpesa.png';
   static const String generalProfile = 'assets/general/profile.svg';
   static const String generalShoe = 'assets/general/shoe.jpg';
+  static const String generalSuccess = 'assets/general/success.json';
   static const String generalSupaloaf = 'assets/general/supaloaf.jpg';
   static const String generalXploreKe = 'assets/general/xplore_ke.png';
   static const String generalXploreLoader = 'assets/general/xplore_loader.json';
