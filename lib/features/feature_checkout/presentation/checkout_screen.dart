@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/features/feature_cart/domain/model/delivery_types.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/checkout_tile.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/delivery_section.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/location_section.dart';
@@ -11,6 +12,7 @@ import 'package:shamiri/features/feature_cart/presentation/components/payment_se
 import 'package:shamiri/features/feature_onboarding/presentation/components/login_title.dart';
 
 import '../../../application/core/themes/colors.dart';
+import '../../feature_cart/presentation/controller/cart_controller.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
@@ -20,6 +22,15 @@ class CheckoutScreen extends StatefulWidget {
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
+  late final CartController _cartController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _cartController = Get.find<CartController>();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,13 +81,21 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       isPast: true,
                       iconData: Icons.fire_truck_rounded,
                       content: DeliverySection()),
+
                   //  on delivery information
-                  CheckoutTile(
-                      isFirst: false,
-                      isLast: false,
-                      isPast: true,
-                      iconData: Icons.location_on_rounded,
-                      content: LocationSection()),
+                  Obx(
+                    () => Visibility(
+                      visible: _cartController.activeDeliveryType.value ==
+                          DeliveryTypes.door_delivery,
+                      child: CheckoutTile(
+                          isFirst: false,
+                          isLast: false,
+                          isPast: true,
+                          iconData: Icons.location_on_rounded,
+                          content: LocationSection()),
+                    ),
+                  ),
+
                   //  payment information
                   CheckoutTile(
                       isFirst: false,
@@ -84,11 +103,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       isPast: true,
                       iconData: Icons.attach_money_rounded,
                       content: PaymentSection()),
+
                   //  order confirmation
                   CheckoutTile(
                       isFirst: false,
                       isLast: true,
-                      isPast: false,
+                      isPast: true,
                       iconData: Icons.done_rounded,
                       content: OrderConfirmedSection())
                 ],

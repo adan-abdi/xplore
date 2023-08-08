@@ -1,0 +1,1 @@
+enum PaymentTypes {mpesa, cash}

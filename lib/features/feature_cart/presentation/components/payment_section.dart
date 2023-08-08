@@ -66,7 +66,7 @@ class _PaymentSectionState extends State<PaymentSection> {
                 onPressed: () {},
                 style: TextButton.styleFrom(
                     foregroundColor: XploreColors.xploreOrange),
-                child: Text("Next")),
+                child: Text("Order")),
           )
         ],
       ),
