@@ -44,7 +44,7 @@ class SubmitButton extends StatelessWidget {
                   Icon(
                     iconData,
                     color: XploreColors.white,
-                    size: 16,
+                    size: 24,
                   ),
                   hSize20SizedBox,
                   Text(

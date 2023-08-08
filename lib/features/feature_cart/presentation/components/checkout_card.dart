@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
+import 'package:shamiri/features/feature_checkout/presentation/checkout_screen.dart';
 
 import '../../../../application/core/themes/colors.dart';
 import '../../../../core/presentation/controller/auth_controller.dart';
@@ -116,7 +117,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
               text: "Checkout",
               backgroundColor: XploreColors.xploreOrange,
               isValid: true,
-              onTap: () {})
+              onTap: () => Get.to(() => CheckoutScreen()))
         ],
       ),
     );
