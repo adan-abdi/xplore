@@ -3,8 +3,8 @@ import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_home/presentation/components/pill_btn.dart';
 
-class DeliveryInformation extends StatelessWidget {
-  const DeliveryInformation({super.key});
+class DeliverySection extends StatelessWidget {
+  const DeliverySection({super.key});
 
   @override
   Widget build(BuildContext context) {

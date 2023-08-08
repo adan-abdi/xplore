@@ -62,7 +62,6 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                   onTap: () {
                     //  open transactions page
                     Get.to(() => MerchantTransactions());
-                    print("Hello");
                   },
                   child: Ink(
                     width: double.infinity,
