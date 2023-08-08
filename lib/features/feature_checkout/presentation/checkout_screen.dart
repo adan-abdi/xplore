@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:shamiri/features/feature_cart/presentation/components/checkout_tile.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/login_title.dart';
 
 import '../../../application/core/themes/colors.dart';
@@ -55,8 +56,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       extraHeading: "Add payment information"),
 
                   //  devlivery information
+                  CheckoutTile(isFirst: true, isLast: false, isPast: false),
                   //  payment information
+                  CheckoutTile(isFirst: false, isLast: false, isPast: false),
                   //  order confirmation
+                  CheckoutTile(isFirst: false, isLast: true, isPast: false)
                 ],
               ),
             ),
