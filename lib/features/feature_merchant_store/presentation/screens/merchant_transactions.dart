@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:get/get.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_toggle.dart';
 
 class MerchantTransactions extends StatefulWidget {
   const MerchantTransactions({super.key});
@@ -21,13 +22,25 @@ class _MerchantTransactionsState extends State<MerchantTransactions> {
             statusBarColor: XploreColors.white,
             systemNavigationBarColor: XploreColors.white,
             systemNavigationBarIconBrightness: Brightness.dark),
-        title: Text("Transactions", style: TextStyle(color: XploreColors.black),),
+        title: Text(
+          "Transactions",
+          style: TextStyle(color: XploreColors.black),
+        ),
         centerTitle: true,
         backgroundColor: XploreColors.white,
         elevation: 0,
-        leading: IconButton(onPressed: () => Get.back(), icon: Icon(Icons.arrow_back_rounded, color: XploreColors.black)),
+        leading: IconButton(
+            onPressed: () => Get.back(),
+            icon: Icon(Icons.arrow_back_rounded, color: XploreColors.black)),
       ),
-      body: Text("Transactions"),
+      body: SafeArea(
+          child: CustomScrollView(
+        slivers: [
+          //  fullfilled, pending toggle,
+          TransactionToggle()
+          // main body
+        ],
+      )),
     );
   }
 }
