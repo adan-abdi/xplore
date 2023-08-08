@@ -90,27 +90,31 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       child: CheckoutTile(
                           isFirst: false,
                           isLast: false,
-                          isPast: true,
+                          isPast: _cartController.isAddressPast.value,
                           iconData: Icons.location_on_rounded,
                           content: LocationSection()),
                     ),
                   ),
 
                   //  payment information
-                  CheckoutTile(
-                      isFirst: false,
-                      isLast: false,
-                      isPast: true,
-                      iconData: Icons.attach_money_rounded,
-                      content: PaymentSection()),
+                  Obx(
+                    () => CheckoutTile(
+                        isFirst: false,
+                        isLast: false,
+                        isPast: _cartController.isPaymentPast.value,
+                        iconData: Icons.attach_money_rounded,
+                        content: PaymentSection()),
+                  ),
 
                   //  order confirmation
-                  CheckoutTile(
-                      isFirst: false,
-                      isLast: true,
-                      isPast: true,
-                      iconData: Icons.done_rounded,
-                      content: OrderConfirmedSection())
+                  Obx(
+                    () => CheckoutTile(
+                        isFirst: false,
+                        isLast: true,
+                        isPast: _cartController.isOrderPast.value,
+                        iconData: Icons.done_rounded,
+                        content: OrderConfirmedSection()),
+                  )
                 ],
               ),
             ),

@@ -49,8 +49,12 @@ class _DeliverySectionState extends State<DeliverySection> {
                 () => PillBtn(
                     text: "Door Delivery",
                     iconData: Icons.car_crash_rounded,
-                    onTap: () => _cartController.setActiveDeliveryType(
-                        deliveryType: DeliveryTypes.door_delivery),
+                    onTap: () {
+                      _cartController.setActiveDeliveryType(
+                        deliveryType: DeliveryTypes.door_delivery);
+
+                      _cartController.setIsAddressPast(isPast: true);
+                    },
                     isActive: _cartController.activeDeliveryType.value ==
                         DeliveryTypes.door_delivery),
               ),
@@ -71,7 +75,14 @@ class _DeliverySectionState extends State<DeliverySection> {
           Align(
             alignment: AlignmentDirectional.bottomEnd,
             child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (_cartController.activeDeliveryType.value ==
+                      DeliveryTypes.door_delivery) {
+                    _cartController.setIsAddressPast(isPast: true);
+                  } else {
+                    _cartController.setIsPaymentPast(isPast: true);
+                  }
+                },
                 style: TextButton.styleFrom(
                     foregroundColor: XploreColors.xploreOrange),
                 child: Text("Next")),
