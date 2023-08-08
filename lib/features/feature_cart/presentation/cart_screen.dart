@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
@@ -7,6 +8,7 @@ import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/all_cart_products.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/checkout_card.dart';
 
+import '../../../core/presentation/components/badged_icon.dart';
 import '../../../core/presentation/controller/auth_controller.dart';
 import '../../feature_home/presentation/controller/home_controller.dart';
 
@@ -34,34 +36,57 @@ class _CartScreenState extends State<CartScreen> {
     return Obx(
       () => Scaffold(
         backgroundColor: XploreColors.white,
+        appBar: AppBar(
+          systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarIconBrightness: Brightness.dark,
+              statusBarColor: XploreColors.white,
+              systemNavigationBarColor: XploreColors.deepBlue,
+              systemNavigationBarIconBrightness: Brightness.dark),
+          title: Text(
+            "My Cart",
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: XploreColors.black),
+          ),
+          centerTitle: true,
+          backgroundColor: XploreColors.white,
+          leading: IconButton(
+              onPressed: () => Get.back(),
+              icon: Icon(Icons.arrow_back_rounded, color: XploreColors.deepBlue)),
+          elevation: 0,
+        ),
         body: _authController.user.value!.itemsInCart!.isNotEmpty
-            ? Stack(
-                fit: StackFit.expand,
-                children: [
-                  //  All Products
-                  AllCartProducts(),
-
-                  //  checkout container
-                  Align(
-                      alignment: AlignmentDirectional.bottomCenter,
-                      child: CheckoutCard()),
-                ],
-              )
-            : Container(
-                width: double.infinity,
-                height: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+            ? SafeArea(
+              child: Stack(
+                  fit: StackFit.expand,
                   children: [
-                    MyLottie(
-                      lottie: 'assets/general/cart2.json'
-                    ),
-                    vSize30SizedBox,
-                    Text("No items in your cart... Happy shopping!", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)
+                    //  All Products
+                    AllCartProducts(),
+
+                    //  checkout container
+                    Align(
+                        alignment: AlignmentDirectional.bottomCenter,
+                        child: CheckoutCard()),
                   ],
                 ),
-              ),
+            )
+            : SafeArea(
+              child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      MyLottie(
+                        lottie: 'assets/general/cart2.json'
+                      ),
+                      vSize30SizedBox,
+                      Text("No items in your cart... Happy shopping!", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)
+                    ],
+                  ),
+                ),
+            ),
       ),
     );
   }

@@ -106,10 +106,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
         systemOverlayStyle: SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.dark,
             statusBarColor: XploreColors.white,
-            systemNavigationBarColor:
-                _homeController.activeBottomBarIndex.value == 2
-                    ? XploreColors.deepBlue
-                    : XploreColors.white,
+            systemNavigationBarColor: XploreColors.white,
             systemNavigationBarIconBrightness: Brightness.dark),
         backgroundColor: XploreColors.white,
         leading: IconButton(
