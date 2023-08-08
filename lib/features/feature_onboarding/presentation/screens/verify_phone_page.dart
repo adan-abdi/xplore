@@ -79,9 +79,12 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
               color: XploreColors.black,
             )),
         actions: [
-          Icon(
-            Icons.admin_panel_settings_rounded,
-            color: XploreColors.xploreOrange,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Icon(
+              Icons.admin_panel_settings_rounded,
+              color: XploreColors.xploreOrange,
+            ),
           )
         ],
       ),

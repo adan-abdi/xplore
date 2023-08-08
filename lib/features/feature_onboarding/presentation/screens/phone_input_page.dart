@@ -73,9 +73,12 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
                 color: XploreColors.black,
               )),
           actions: [
-            Icon(
-              Icons.admin_panel_settings_rounded,
-              color: XploreColors.xploreOrange,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Icon(
+                Icons.admin_panel_settings_rounded,
+                color: XploreColors.xploreOrange,
+              ),
             )
           ],
         ),
