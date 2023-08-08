@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/checkout_tile.dart';
+import 'package:shamiri/features/feature_cart/presentation/components/delivery_information.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/login_title.dart';
 
 import '../../../application/core/themes/colors.dart';
@@ -55,12 +57,29 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       subtitle: "Your Order",
                       extraHeading: "Add payment information"),
 
+                  vSize30SizedBox,
+
                   //  devlivery information
-                  CheckoutTile(isFirst: true, isLast: false, isPast: false),
+                  CheckoutTile(
+                      isFirst: true,
+                      isLast: false,
+                      isPast: true,
+                      iconData: Icons.fire_truck_rounded,
+                      content: DeliveryInformation()),
                   //  payment information
-                  CheckoutTile(isFirst: false, isLast: false, isPast: false),
+                  CheckoutTile(
+                      isFirst: false,
+                      isLast: false,
+                      isPast: false,
+                      iconData: Icons.attach_money_rounded,
+                      content: Text("data")),
                   //  order confirmation
-                  CheckoutTile(isFirst: false, isLast: true, isPast: false)
+                  CheckoutTile(
+                      isFirst: false,
+                      isLast: true,
+                      isPast: false,
+                      iconData: Icons.done_rounded,
+                      content: Text("data"))
                 ],
               ),
             ),
