@@ -12,6 +12,7 @@ import 'package:shamiri/features/feature_home/presentation/controller/home_contr
 import 'package:shamiri/features/feature_home/presentation/screens/home_page.dart';
 
 import '../../../feature_main/main_screen.dart';
+import '../../../feature_merchant_store/domain/model/transaction_model.dart';
 import '../controller/cart_controller.dart';
 
 class OrderConfirmedSection extends StatefulWidget {
@@ -70,18 +71,37 @@ class _OrderConfirmedSectionState extends State<OrderConfirmedSection> {
             Align(
               alignment: AlignmentDirectional.bottomEnd,
               child: TextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     //  update merchant transactions
                     _authController.user.value!.itemsInCart!
-                        .forEach((cartItem) {
+                        .forEach((cartItem) async {
                       //  get seller id & product id
-                      final sellerId = _homeController.products.firstWhere(
-                          (product) =>
-                              product.productId! == cartItem.cartProductId!).sellerId!;
+                      final sellerId = _homeController.products
+                          .firstWhere((product) =>
+                              product.productId! == cartItem.cartProductId!)
+                          .sellerId!;
+
+                      final sellerData = await _authController
+                          .getSpecificUserFromFirestore(uid: sellerId);
+
+                      final allTransactions = sellerData.transactions!;
+
+                      allTransactions.add(TransactionModel(
+                          buyerId: _authController.user.value!.userId!,
+                          productId: cartItem.cartProductId!,
+                          itemsBought: cartItem.cartProductCount!,
+                          amountPaid: _homeController.products
+                                  .firstWhere((product) =>
+                                      product.productId! ==
+                                      cartItem.cartProductId!)
+                                  .productSellingPrice! *
+                              cartItem.cartProductCount!,
+                          transactionDate: DateTime.now().toString(),
+                          isFulfilled: true));
 
                       _authController.updateUserDataInFirestore(
                           oldUser: _authController.user.value!,
-                          newUser: UserModel(transactions: ),
+                          newUser: UserModel(transactions: allTransactions),
                           uid: sellerId);
                     });
 

@@ -1,3 +1,4 @@
+import 'package:shamiri/core/domain/use_cases/get_specific_user_from_firestore.dart';
 import 'package:shamiri/core/domain/use_cases/get_user_data_from_firestore.dart';
 import 'package:shamiri/core/domain/use_cases/save_user_data_to_firestore.dart';
 import 'package:shamiri/core/domain/use_cases/sign_in_with_phone.dart';
@@ -14,6 +15,7 @@ class AuthUseCases {
   final CheckUserExists checkUserExists;
   final SaveUserDataToFirestore saveUserDataToFirestore;
   final GetUserDataFromFirestore getUserDataFromFirestore;
+  final GetSpecificUserFromFirestore getSpecificUserFromFirestore;
   final UpdateUserDataInFirestore updateUserDataInFirestore;
 
   AuthUseCases(
@@ -23,5 +25,6 @@ class AuthUseCases {
       required this.checkUserExists,
       required this.saveUserDataToFirestore,
       required this.getUserDataFromFirestore,
+      required this.getSpecificUserFromFirestore,
       required this.updateUserDataInFirestore});
 }

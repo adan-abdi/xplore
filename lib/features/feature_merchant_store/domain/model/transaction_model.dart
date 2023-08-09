@@ -5,12 +5,17 @@ part 'transaction_model.g.dart';
 
 @JsonSerializable()
 class TransactionModel {
-
   @JsonKey(name: 'buyerId')
   String? buyerId;
 
   @JsonKey(name: 'productId')
   String? productId;
+
+  @JsonKey(name: 'itemsBought')
+  int? itemsBought;
+
+  @JsonKey(name: 'amountPaid')
+  int? amountPaid;
 
   @JsonKey(name: 'transactionDate')
   String? transactionDate;
@@ -18,7 +23,13 @@ class TransactionModel {
   @JsonKey(name: 'isFulfilled')
   bool? isFulfilled;
 
-  TransactionModel({this.buyerId, this.productId, this.transactionDate, this.isFulfilled});
+  TransactionModel(
+      {this.buyerId,
+      this.productId,
+      this.itemsBought,
+      this.amountPaid,
+      this.transactionDate,
+      this.isFulfilled});
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) =>
       _$TransactionModelFromJson(json);
