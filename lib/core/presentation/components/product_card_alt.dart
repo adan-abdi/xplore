@@ -6,8 +6,10 @@ import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
 class ProductCardAlt extends StatefulWidget {
   final ProductModel product;
+  final VoidCallback onDelete;
 
-  const ProductCardAlt({super.key, required this.product});
+  const ProductCardAlt(
+      {super.key, required this.product, required this.onDelete});
 
   @override
   State<ProductCardAlt> createState() => _ProductCardAltState();
@@ -33,15 +35,18 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                 borderRadius: BorderRadius.circular(24)),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(24),
-              child: widget.product.productImageUrl !=
-                  null && widget.product.productImageUrl!.isNotEmpty
+              child: widget.product.productImageUrl != null &&
+                      widget.product.productImageUrl!.isNotEmpty
                   ? Image.network(
-                widget.product.productImageUrl
-                !,
-                width: double.infinity,
-                height: double.infinity,
-                fit: BoxFit.cover,
-              ) : Icon(Icons.add_shopping_cart_rounded, color: XploreColors.white,),
+                      widget.product.productImageUrl!,
+                      width: double.infinity,
+                      height: double.infinity,
+                      fit: BoxFit.cover,
+                    )
+                  : Icon(
+                      Icons.add_shopping_cart_rounded,
+                      color: XploreColors.white,
+                    ),
             ),
           ),
 
@@ -51,16 +56,17 @@ class _ProductCardAltState extends State<ProductCardAlt> {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  widget.product.productName!,
-                  style: TextStyle(fontSize: 18),
-                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('Ksh. ${widget.product.productSellingPrice!.toString().addCommas}'),
+                    Text(
+                      widget.product.productName!,
+                      style: TextStyle(
+                          fontSize: 18, overflow: TextOverflow.ellipsis),
+                    ),
 
                     //  increment stock button
                     Row(
@@ -104,13 +110,28 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                     )
                   ],
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                        'Ksh. ${widget.product.productSellingPrice!.toString().addCommas}'),
+
+                    //  delete icon
+                    GestureDetector(
+                      onTap: (){},
+                      child: Icon(
+                        Icons.delete_rounded,
+                        color: XploreColors.xploreOrange,
+                      ),
+                    )
+                  ],
+                ),
               ],
             ),
           )
-        ]
-        ,
-      )
-      ,
+        ],
+      ),
     );
   }
 }
