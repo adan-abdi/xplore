@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
-class CheckoutTile extends StatefulWidget {
+class TransactionTile extends StatefulWidget {
   final bool isFirst;
   final bool isLast;
   final bool isPast;
   final IconData iconData;
   final Widget content;
 
-  const CheckoutTile(
+  const TransactionTile(
       {super.key,
       required this.isFirst,
       required this.isLast,
@@ -18,14 +18,14 @@ class CheckoutTile extends StatefulWidget {
       required this.content});
 
   @override
-  State<CheckoutTile> createState() => _CheckoutTileState();
+  State<TransactionTile> createState() => _TransactionTileState();
 }
 
-class _CheckoutTileState extends State<CheckoutTile> {
+class _TransactionTileState extends State<TransactionTile> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 220,
+      height: 200,
       child: TimelineTile(
         isFirst: widget.isFirst,
         isLast: widget.isLast,

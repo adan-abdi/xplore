@@ -3,6 +3,7 @@ import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_cart/domain/model/delivery_types.dart';
 import 'package:shamiri/features/feature_cart/presentation/controller/cart_controller.dart';
+import 'package:shamiri/features/feature_cart/presentation/model/delivery_method.dart';
 import 'package:shamiri/features/feature_home/presentation/components/pill_btn.dart';
 import 'package:get/get.dart';
 
@@ -15,20 +16,32 @@ class DeliverySection extends StatefulWidget {
 
 class _DeliverySectionState extends State<DeliverySection> {
   late final CartController _cartController;
+  late final List<DeliveryMethod> deliveryMethods;
 
   @override
   void initState() {
     super.initState();
 
     _cartController = Get.find<CartController>();
+
+    deliveryMethods = [
+      DeliveryMethod(
+          title: "Door delivery",
+          iconData: Icons.car_crash_rounded,
+          deliveryType: DeliveryTypes.door_delivery),
+      DeliveryMethod(
+          title: "Pick up",
+          iconData: Icons.shopping_basket_rounded,
+          deliveryType: DeliveryTypes.pick_up),
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //  title
@@ -43,32 +56,24 @@ class _DeliverySectionState extends State<DeliverySection> {
           // delivery pills
           vSize20SizedBox,
 
-          Row(
-            children: [
-              Obx(
-                () => PillBtn(
-                    text: "Door Delivery",
-                    iconData: Icons.car_crash_rounded,
-                    onTap: () {
-                      _cartController.setActiveDeliveryType(
-                        deliveryType: DeliveryTypes.door_delivery);
-
-                      _cartController.setIsAddressPast(isPast: true);
-                    },
+          Container(
+            height: 50,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              itemCount: deliveryMethods.length,
+              itemBuilder: (context, index) => Obx(
+                    () => PillBtn(
+                    text: deliveryMethods[index].title,
+                    iconData: deliveryMethods[index].iconData,
+                    imageAsset: deliveryMethods[index].svgAsset,
                     isActive: _cartController.activeDeliveryType.value ==
-                        DeliveryTypes.door_delivery),
-              ),
-              hSize20SizedBox,
-              Obx(
-                () => PillBtn(
-                    text: "Pick up",
-                    iconData: Icons.shopping_basket_rounded,
+                        deliveryMethods[index].deliveryType,
                     onTap: () => _cartController.setActiveDeliveryType(
-                        deliveryType: DeliveryTypes.pick_up),
-                    isActive: _cartController.activeDeliveryType.value ==
-                        DeliveryTypes.pick_up),
-              )
-            ],
+                        deliveryType: deliveryMethods[index].deliveryType)),
+              ),
+              separatorBuilder: (context, index) => hSize10SizedBox,
+            ),
           ),
 
           //  proceed button
