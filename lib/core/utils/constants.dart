@@ -27,4 +27,6 @@ class Constants {
     ProductCategory(
         categoryName: 'Other', categoryIcon: Icons.phone_android_rounded),
   ];
+
+  static List<ProductCategory> productCategoriesFiltered = productCategories..removeAt(0);
 }

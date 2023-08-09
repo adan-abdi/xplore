@@ -195,7 +195,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                           ),
                           Expanded(
                             child: DropdownButtonFormField<String>(
-                                items: Constants.productCategories
+                                items: Constants.productCategoriesFiltered
                                     .map((category) =>
                                     DropdownMenuItem<String>(
                                         value: category.categoryName,
