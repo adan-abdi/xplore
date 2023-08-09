@@ -144,6 +144,14 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                               delegate: SliverChildBuilderDelegate(
                                   (context, index) => ProductCardAlt(
                                         product: products.elementAt(index),
+                                        onTap: () {
+                                          openBottomSheet(
+                                              content: AddProductBottomSheet(
+                                                product:
+                                                    products.elementAt(index),
+                                              ),
+                                              onComplete: () {});
+                                        },
                                         onDelete: () async {
                                           //  delete product
                                           _merchantController.deleteProduct(

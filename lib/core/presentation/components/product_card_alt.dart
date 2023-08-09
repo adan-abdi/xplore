@@ -6,10 +6,14 @@ import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
 class ProductCardAlt extends StatefulWidget {
   final ProductModel product;
+  final VoidCallback onTap;
   final VoidCallback onDelete;
 
   const ProductCardAlt(
-      {super.key, required this.product, required this.onDelete});
+      {super.key,
+      required this.product,
+      required this.onTap,
+      required this.onDelete});
 
   @override
   State<ProductCardAlt> createState() => _ProductCardAltState();
@@ -18,119 +22,122 @@ class ProductCardAlt extends StatefulWidget {
 class _ProductCardAltState extends State<ProductCardAlt> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 100,
-      padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
-      child: Row(
-        children: [
-          //  image
-          Container(
-            width: 84,
-            height: double.infinity,
-            decoration: BoxDecoration(
-                color: XploreColors.deepBlue,
-                borderRadius: BorderRadius.circular(24)),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(24),
-              child: widget.product.productImageUrl != null &&
-                      widget.product.productImageUrl!.isNotEmpty
-                  ? Image.network(
-                      widget.product.productImageUrl!,
-                      width: double.infinity,
-                      height: double.infinity,
-                      fit: BoxFit.cover,
-                    )
-                  : Icon(
-                      Icons.add_shopping_cart_rounded,
-                      color: XploreColors.white,
-                    ),
-            ),
-          ),
-
-          hSize10SizedBox,
-
-          //  description
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      widget.product.productName!,
-                      style: TextStyle(
-                          fontSize: 18, overflow: TextOverflow.ellipsis),
-                    ),
-
-                    //  increment stock button
-                    Row(
-                      children: [
-                        Container(
-                          width: 35,
-                          height: 35,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: XploreColors.deepBlue,
-                          ),
-                          child: Center(
-                            child: Icon(
-                              Icons.remove_rounded,
-                              color: XploreColors.white,
-                            ),
-                          ),
-                        ),
-                        hSize10SizedBox,
-                        Text(
-                          '${widget.product.productStockCount!}',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                        hSize10SizedBox,
-                        Container(
-                          width: 35,
-                          height: 35,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: XploreColors.deepBlue,
-                          ),
-                          child: Center(
-                            child: Icon(
-                              Icons.add_rounded,
-                              color: XploreColors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                        'Ksh. ${widget.product.productSellingPrice!.toString().addCommas}'),
-
-                    //  delete icon
-                    GestureDetector(
-                      onTap: widget.onDelete,
-                      child: Icon(
-                        Icons.delete_rounded,
-                        color: XploreColors.xploreOrange,
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Container(
+        width: double.infinity,
+        height: 100,
+        padding: const EdgeInsets.all(8),
+        margin: const EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
+        child: Row(
+          children: [
+            //  image
+            Container(
+              width: 84,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                  color: XploreColors.deepBlue,
+                  borderRadius: BorderRadius.circular(24)),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+                child: widget.product.productImageUrl != null &&
+                        widget.product.productImageUrl!.isNotEmpty
+                    ? Image.network(
+                        widget.product.productImageUrl!,
+                        width: double.infinity,
+                        height: double.infinity,
+                        fit: BoxFit.cover,
+                      )
+                    : Icon(
+                        Icons.add_shopping_cart_rounded,
+                        color: XploreColors.white,
                       ),
-                    )
-                  ],
-                ),
-              ],
+              ),
             ),
-          )
-        ],
+
+            hSize10SizedBox,
+
+            //  description
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.product.productName!,
+                        style: TextStyle(
+                            fontSize: 18, overflow: TextOverflow.ellipsis),
+                      ),
+
+                      //  increment stock button
+                      Row(
+                        children: [
+                          Container(
+                            width: 35,
+                            height: 35,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: XploreColors.deepBlue,
+                            ),
+                            child: Center(
+                              child: Icon(
+                                Icons.remove_rounded,
+                                color: XploreColors.white,
+                              ),
+                            ),
+                          ),
+                          hSize10SizedBox,
+                          Text(
+                            '${widget.product.productStockCount!}',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          hSize10SizedBox,
+                          Container(
+                            width: 35,
+                            height: 35,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: XploreColors.deepBlue,
+                            ),
+                            child: Center(
+                              child: Icon(
+                                Icons.add_rounded,
+                                color: XploreColors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                          'Ksh. ${widget.product.productSellingPrice!.toString().addCommas}'),
+
+                      //  delete icon
+                      GestureDetector(
+                        onTap: widget.onDelete,
+                        child: Icon(
+                          Icons.delete_rounded,
+                          color: XploreColors.xploreOrange,
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
