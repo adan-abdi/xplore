@@ -8,6 +8,7 @@ import 'package:shamiri/features/feature_home/presentation/components/pill_btn.d
 import 'package:shamiri/features/feature_home/presentation/components/product_card.dart';
 import 'package:shamiri/features/feature_home/presentation/components/top_store_card.dart';
 import 'package:shamiri/features/feature_home/presentation/screens/product_view_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../application/core/themes/colors.dart';
 import '../../../feature_merchant_store/presentation/components/store_overview_card.dart';
@@ -61,41 +62,55 @@ class _StoreViewPageState extends State<StoreViewPage> {
               // store header
               SliverToBoxAdapter(
                   child: Column(
-                children: [
-                  TopStoreCard(
-                    store: widget.store,
-                    onTap: () {},
-                  ),
-
-                  vSize20SizedBox,
-
-                  //  call / message button
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: XploreColors.deepBlue
-                        ),
-                        child: Center(
-                          child: Icon(Icons.message_rounded, color: XploreColors.white,),
-                        ),
+                      TopStoreCard(
+                        store: widget.store,
+                        onTap: () {},
                       ),
-                      hSize10SizedBox,
-                      PillBtn(
-                          text: "Call",
-                          iconData: Icons.phone_rounded,
-                          isActive: true,
-                          activeColor: XploreColors.deepBlue,
-                          onTap: () {}),
+
+                      vSize20SizedBox,
+
+                      //  call / message button
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: (){
+                              final messageUrl = Uri(scheme: 'sms',
+                                  path: widget.store.userPhoneNumber!);
+
+                              launchUrl(messageUrl);
+                            },
+                            child: Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: XploreColors.deepBlue
+                              ),
+                              child: Center(
+                                child: Icon(Icons.message_rounded,
+                                  color: XploreColors.white,),
+                              ),
+                            ),
+                          ),
+                          hSize10SizedBox,
+                          PillBtn(
+                              text: "Call",
+                              iconData: Icons.phone_rounded,
+                              isActive: true,
+                              activeColor: XploreColors.deepBlue,
+                              onTap: () async {
+                                final phoneUrl = Uri(scheme: 'tel',
+                                    path: widget.store.userPhoneNumber!);
+
+                                launchUrl(phoneUrl);
+                              }),
+                        ],
+                      )
                     ],
-                  )
-                ],
-              )),
+                  )),
               SliverToBoxAdapter(
                 child: vSize20SizedBox,
               ),
@@ -105,7 +120,8 @@ class _StoreViewPageState extends State<StoreViewPage> {
                   children: [
                     Text(
                       "Products",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                   ],
                 ),
@@ -117,24 +133,28 @@ class _StoreViewPageState extends State<StoreViewPage> {
 
               //  products within this category
               Obx(
-                () => _homeController.storeProducts.isNotEmpty
+                    () =>
+                _homeController.storeProducts.isNotEmpty
                     ? SliverGrid(
-                        delegate: SliverChildBuilderDelegate(
-                            (context, index) => ProductCard(
-                                  product: _homeController.storeProducts[index],
-                                  onTap: () => Get.to(() => ProductViewPage(
-                                      product: _homeController
-                                          .storeProducts[index])),
-                                ),
-                            childCount: _homeController.storeProducts.length),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisExtent: 180,
-                            mainAxisSpacing: 16,
-                            crossAxisSpacing: 12))
+                    delegate: SliverChildBuilderDelegate(
+                            (context, index) =>
+                            ProductCard(
+                              product: _homeController.storeProducts[index],
+                              onTap: () =>
+                                  Get.to(() =>
+                                      ProductViewPage(
+                                          product: _homeController
+                                              .storeProducts[index])),
+                            ),
+                        childCount: _homeController.storeProducts.length),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisExtent: 180,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 12))
                     : SliverFillRemaining(
-                        child: Center(child: Text("No products")),
-                      ),
+                  child: Center(child: Text("No products")),
+                ),
               )
             ],
           ),
