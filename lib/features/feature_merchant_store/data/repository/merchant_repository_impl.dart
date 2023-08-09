@@ -64,6 +64,17 @@ class MerchantRepositoryImpl implements MerchantRepository {
     return downloadUrl;
   }
 
+  /// Delete Product
+  @override
+  Future<void> deleteProduct({required String productId}) async {
+    await firestore
+        .collection(Constants.USER_COLLECTION)
+        .doc(auth.currentUser!.uid)
+        .collection(Constants.PRODUCTS_COLLECTION)
+        .doc(productId)
+        .delete();
+  }
+
   /// Get Merchant Products
   @override
   Stream<QuerySnapshot> getMerchantProducts() => firestore
