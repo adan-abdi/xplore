@@ -73,20 +73,26 @@ class _SearchPageState extends State<SearchPage> {
 
               //  all products toggle pill buttons
               Obx(
-                () => SliverGrid(
-                    delegate: SliverChildBuilderDelegate(
-                        (context, index) => ProductCard(
-                              product: _homeController.filteredProducts[index],
-                              onTap: () => Get.to(() => ProductViewPage(
+                () => _homeController.filteredProducts.isNotEmpty
+                    ? SliverGrid(
+                        delegate: SliverChildBuilderDelegate(
+                            (context, index) => ProductCard(
                                   product:
-                                      _homeController.filteredProducts[index])),
-                            ),
-                        childCount: _homeController.filteredProducts.length),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisExtent: 180,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 12)),
+                                      _homeController.filteredProducts[index],
+                                  onTap: () => Get.to(() => ProductViewPage(
+                                      product: _homeController
+                                          .filteredProducts[index])),
+                                ),
+                            childCount:
+                                _homeController.filteredProducts.length),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisExtent: 180,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 12))
+                    : SliverFillRemaining(
+                        child: Center(child: Text("Search for products")),
+                      ),
               )
             ],
           ),
