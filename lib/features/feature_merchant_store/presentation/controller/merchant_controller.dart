@@ -37,5 +37,8 @@ class MerchantController extends GetxController {
         onSuccess: onSuccess);
   }
 
+  Future<void> deleteProduct({required String productId}) async =>
+      await useCases.deleteProduct.call(productId: productId);
+
   Stream<QuerySnapshot> getMerchantProducts() => useCases.getMerchantProducts();
 }

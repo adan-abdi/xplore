@@ -119,10 +119,7 @@ class _ProductCardAltState extends State<ProductCardAlt> {
 
                     //  delete icon
                     GestureDetector(
-                      onTap: (){
-                        //  delete product from firestore
-
-                      },
+                      onTap: widget.onDelete,
                       child: Icon(
                         Icons.delete_rounded,
                         color: XploreColors.xploreOrange,
