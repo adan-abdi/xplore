@@ -9,6 +9,7 @@ import 'package:shamiri/core/presentation/components/show_snackbar.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/presentation/controller/core_controller.dart';
+import 'package:shamiri/core/utils/constants.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:get/get.dart';
@@ -30,10 +31,11 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
   late final TextEditingController _productStockCountController;
   late final TextEditingController _productBuyingPriceController;
   late final TextEditingController _productSellingPriceController;
-  late final TextEditingController _productCategoryController;
   late final MerchantController _merchantController;
   late final CoreController _coreController;
   late final AuthController _authController;
+
+  late String? selectedCategory;
 
   @override
   void initState() {
@@ -44,7 +46,6 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
     _productStockCountController = TextEditingController();
     _productBuyingPriceController = TextEditingController();
     _productSellingPriceController = TextEditingController();
-    _productCategoryController = TextEditingController();
     _coreController = Get.find<CoreController>();
     _authController = Get.find<AuthController>();
     _merchantController = Get.find<MerchantController>();
@@ -171,13 +172,53 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                         onChanged: (value) {}),
 
                     vSize20SizedBox,
-                    //  product category
-                    CustomTextField(
-                        hint: "Product Category",
-                        iconData: Icons.description,
-                        textStyle: TextStyle(fontSize: 16),
-                        controller: _productCategoryController,
-                        onChanged: (value) {}),
+
+                    Container(
+                      width: double.infinity,
+                      height: 60,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.category_rounded,
+                            color: XploreColors.xploreOrange,
+                          ),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          Expanded(
+                            child: DropdownButtonFormField<String>(
+                                items: Constants.productCategories
+                                    .map((category) => DropdownMenuItem<String>(
+                                        value: category.categoryName,
+                                        child: Text(category.categoryName)))
+                                    .toList(),
+                                decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 16),
+                                    hintText: "Product Category",
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            width: 2,
+                                            color: XploreColors.xploreOrange)),
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            width: 2,
+                                            color: XploreColors.deepBlue
+                                                .withOpacity(0.1))),
+                                    border: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            width: 2,
+                                            color: XploreColors.deepBlue
+                                                .withOpacity(0.1)))),
+                                onChanged: (s) {
+                                  setState(() {
+                                    selectedCategory = s;
+                                  });
+                                }),
+                          ),
+                        ],
+                      ),
+                    ),
 
                     const SizedBox(
                       height: 100,
@@ -207,9 +248,10 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                             productBuyingPrice: int.parse(
                                 _productBuyingPriceController.text
                                     .replaceAll(",", "")),
-                            productSellingPrice:
-                                int.parse(_productSellingPriceController.text.replaceAll(",", "")),
-                            productCategoryId: _productCategoryController.text,
+                            productSellingPrice: int.parse(
+                                _productSellingPriceController.text
+                                    .replaceAll(",", "")),
+                            productCategoryId: selectedCategory,
                             productCreatedAt: DateTime.now().toString(),
                             productStockCount:
                                 int.parse(_productStockCountController.text));
