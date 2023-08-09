@@ -64,12 +64,19 @@ class _TopStoresSectionState extends State<TopStoresSection> {
                   return Text("No Stores found");
                 }
 
+                var allStores = snapshot.data!.docs
+                    .map((store) => UserModel.fromJson(
+                    store.data() as Map<String, dynamic>))
+                    .toList();
+
                 var stores = snapshot.data!.docs
                     .map((store) => UserModel.fromJson(
                         store.data() as Map<String, dynamic>))
                     .where((store) =>
                         store.userId! != _authController.user.value!.userId)
                     .toList();
+
+                _homeController.setStores(stores: allStores);
 
                 return //  top stores carousel
                     Column(

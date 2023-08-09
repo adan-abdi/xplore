@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/presentation/model/product_category.dart';
 import 'package:shamiri/di/locator.dart';
 import 'package:shamiri/features/feature_home/domain/use_cases/home_use_cases.dart';
@@ -11,6 +12,7 @@ class HomeController extends GetxController {
   final useCases = locator.get<HomeUseCases>();
 
   final products = <ProductModel>[].obs;
+  final stores = <UserModel>[].obs;
   final filteredProducts = <ProductModel>[].obs;
   final storeProducts = <ProductModel>[].obs;
 
@@ -28,6 +30,9 @@ class HomeController extends GetxController {
 
   void setProducts({required List<ProductModel> products}) =>
       this.products.value = products;
+
+  void setStores({required List<UserModel> stores}) =>
+      this.stores.value = stores;
 
   void setActiveBottomBarIndex(int index) => activeBottomBarIndex.value = index;
 
