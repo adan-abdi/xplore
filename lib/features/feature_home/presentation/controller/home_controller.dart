@@ -38,13 +38,15 @@ class HomeController extends GetxController {
   void setIsDrawerOpen(bool isOpen) => isDrawerOpen.value = isOpen;
 
   void searchForProducts({required String query}) {
-    filteredProducts.value = products
-        .where((product) => product.productName!
-            .replaceAll(RegExp('[^A-Za-z]'), '')
-            .replaceAll(" ", '')
-            .toLowerCase()
-            .contains(query.replaceAll(" ", '').toLowerCase()))
-        .toList();
+    filteredProducts.value = query.isEmpty
+        ? []
+        : products
+            .where((product) => product.productName!
+                .replaceAll(RegExp('[^A-Za-z]'), '')
+                .replaceAll(" ", '')
+                .toLowerCase()
+                .contains(query.replaceAll(" ", '').toLowerCase()))
+            .toList();
   }
 
   /// All Stores
