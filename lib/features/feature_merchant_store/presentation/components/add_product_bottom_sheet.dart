@@ -55,12 +55,18 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
+          bottom: MediaQuery
+              .of(context)
+              .viewInsets
+              .bottom,
           top: 8,
           left: 16,
           right: 16),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.75,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height * 0.75,
         color: XploreColors.white,
         child: Stack(
           fit: StackFit.expand,
@@ -71,9 +77,9 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                   children: [
                     Center(
                         child: Text(
-                      "Add Product",
-                      style: TextStyle(fontSize: 24),
-                    )),
+                          "Add Product",
+                          style: TextStyle(fontSize: 24),
+                        )),
 
                     vSize30SizedBox,
 
@@ -86,29 +92,31 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                             });
                       },
                       child: Obx(
-                        () => Container(
-                            width: 150,
-                            height: 150,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: XploreColors.deepBlue),
-                            child: _merchantController.productPic.value != null
-                                ? ClipRRect(
+                            () =>
+                            Container(
+                                width: 150,
+                                height: 150,
+                                decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(16),
-                                    child: Image.file(
-                                      File(_merchantController
-                                          .productPic.value!.path),
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                    ),
-                                  )
-                                : Center(
+                                    color: XploreColors.deepBlue),
+                                child: _merchantController.productPic.value !=
+                                    null
+                                    ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: Image.file(
+                                    File(_merchantController
+                                        .productPic.value!.path),
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                  ),
+                                )
+                                    : Center(
                                     child: Icon(
-                                    Icons.image_rounded,
-                                    size: 48,
-                                    color: XploreColors.white,
-                                  ))),
+                                      Icons.image_rounded,
+                                      size: 48,
+                                      color: XploreColors.white,
+                                    ))),
                       ),
                     ),
 
@@ -188,9 +196,17 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                           Expanded(
                             child: DropdownButtonFormField<String>(
                                 items: Constants.productCategories
-                                    .map((category) => DropdownMenuItem<String>(
+                                    .map((category) =>
+                                    DropdownMenuItem<String>(
                                         value: category.categoryName,
-                                        child: Text(category.categoryName)))
+                                        child: Row(
+                                          children: [
+                                            Icon(category.categoryIcon,
+                                              color: XploreColors.deepBlue,),
+                                            SizedBox(width: 16,),
+                                            Text(category.categoryName),
+                                          ],
+                                        )))
                                     .toList(),
                                 decoration: InputDecoration(
                                     contentPadding: const EdgeInsets.symmetric(
@@ -232,71 +248,80 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Obx(
-                  () => SubmitButton(
-                      iconData: Icons.done_rounded,
-                      isLoading: _merchantController.uploadButtonLoading.value,
-                      isValid: true,
-                      text: "Add Product",
-                      onTap: () async {
-                        var productModel = ProductModel(
-                            sellerName: _authController.user.value!.userName,
-                            sellerId: _authController.user.value!.userId,
-                            productId: '',
-                            productName: _productNameController.text,
-                            productImageUrl: '',
-                            productUnit: _productUnitController.text,
-                            productBuyingPrice: int.parse(
-                                _productBuyingPriceController.text
-                                    .replaceAll(",", "")),
-                            productSellingPrice: int.parse(
-                                _productSellingPriceController.text
-                                    .replaceAll(",", "")),
-                            productCategoryId: selectedCategory,
-                            productCreatedAt: DateTime.now().toString(),
-                            productStockCount:
+                      () =>
+                      SubmitButton(
+                          iconData: Icons.done_rounded,
+                          isLoading: _merchantController.uploadButtonLoading
+                              .value,
+                          isValid: true,
+                          text: "Add Product",
+                          onTap: () async {
+                            var productModel = ProductModel(
+                                sellerName: _authController.user.value!
+                                    .userName,
+                                sellerId: _authController.user.value!.userId,
+                                productId: '',
+                                productName: _productNameController.text,
+                                productImageUrl: '',
+                                productUnit: _productUnitController.text,
+                                productBuyingPrice: int.parse(
+                                    _productBuyingPriceController.text
+                                        .replaceAll(",", "")),
+                                productSellingPrice: int.parse(
+                                    _productSellingPriceController.text
+                                        .replaceAll(",", "")),
+                                productCategoryId: selectedCategory,
+                                productCreatedAt: DateTime.now().toString(),
+                                productStockCount:
                                 int.parse(_productStockCountController.text));
 
-                        await _merchantController.addProductToFirestore(
-                            product: productModel,
-                            productPic: _merchantController.productPic.value,
-                            response: (state) {
-                              switch (state) {
-                                case ResponseState.success:
-                                  _merchantController.setUploadButtonLoading(
-                                      isLoading: false);
-                                  break;
-                                case ResponseState.loading:
-                                  _merchantController.setUploadButtonLoading(
-                                      isLoading: true);
-                                  break;
-                                case ResponseState.failure:
-                                  _merchantController.setUploadButtonLoading(
-                                      isLoading: false);
+                            await _merchantController.addProductToFirestore(
+                                product: productModel,
+                                productPic: _merchantController.productPic
+                                    .value,
+                                response: (state) {
+                                  switch (state) {
+                                    case ResponseState.success:
+                                      _merchantController
+                                          .setUploadButtonLoading(
+                                          isLoading: false);
+                                      break;
+                                    case ResponseState.loading:
+                                      _merchantController
+                                          .setUploadButtonLoading(
+                                          isLoading: true);
+                                      break;
+                                    case ResponseState.failure:
+                                      _merchantController
+                                          .setUploadButtonLoading(
+                                          isLoading: false);
 
-                                  WidgetsBinding.instance
-                                      .addPostFrameCallback((_) {
-                                    showSnackbar(
-                                        title: "Error uploading product",
-                                        message:
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        showSnackbar(
+                                            title: "Error uploading product",
+                                            message:
                                             "Something went wrong. please try again",
-                                        iconData: Icons.login_rounded,
+                                            iconData: Icons.login_rounded,
+                                            iconColor: XploreColors
+                                                .xploreOrange);
+                                      });
+                                      break;
+                                  }
+                                },
+                                onSuccess: () {
+                                  WidgetsBinding.instance.addPostFrameCallback((
+                                      _) {
+                                    showSnackbar(
+                                        title: "Product uploaded!",
+                                        message: "Product uploaded successfully!",
+                                        iconData: Icons.library_books_rounded,
                                         iconColor: XploreColors.xploreOrange);
                                   });
-                                  break;
-                              }
-                            },
-                            onSuccess: () {
-                              WidgetsBinding.instance.addPostFrameCallback((_) {
-                                showSnackbar(
-                                    title: "Product uploaded!",
-                                    message: "Product uploaded successfully!",
-                                    iconData: Icons.library_books_rounded,
-                                    iconColor: XploreColors.xploreOrange);
-                              });
 
-                              Get.back();
-                            });
-                      }),
+                                  Get.back();
+                                });
+                          }),
                 ),
               ),
             )
