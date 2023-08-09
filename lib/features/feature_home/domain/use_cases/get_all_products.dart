@@ -5,5 +5,6 @@ import 'package:shamiri/features/feature_home/domain/repository/home_repository.
 class GetAllProducts {
   final repository = locator.get<HomeRepository>();
 
-  Stream<QuerySnapshot> call() => repository.getAllProducts();
+  Stream<QuerySnapshot> call({required String? filter}) =>
+      repository.getAllProducts(filter: filter);
 }
