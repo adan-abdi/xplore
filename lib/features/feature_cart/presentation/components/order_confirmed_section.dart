@@ -38,9 +38,9 @@ class _OrderConfirmedSectionState extends State<OrderConfirmedSection> {
     return Opacity(
       opacity: _cartController.isOrderPast.value ? 1 : 0.1,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //  title
@@ -51,8 +51,8 @@ class _OrderConfirmedSectionState extends State<OrderConfirmedSection> {
                 hSize20SizedBox,
                 MyLottie(
                   lottie: 'assets/general/success.json',
-                  width: 50,
-                  height: 50,
+                  width: 30,
+                  height: 30,
                   repeat: false,
                 ),
               ],

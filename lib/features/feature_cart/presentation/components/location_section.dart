@@ -30,9 +30,9 @@ class _LocationSectionState extends State<LocationSection> {
     return Opacity(
       opacity: _cartController.isAddressPast.value ? 1 : 0.1,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //  title
