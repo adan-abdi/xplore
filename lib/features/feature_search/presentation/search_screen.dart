@@ -3,11 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/features/feature_home/presentation/components/product_card.dart';
 
 import '../../../application/core/themes/colors.dart';
 import '../../../core/presentation/components/custom_textfield_alt.dart';
-import '../../feature_home/presentation/components/all_products_section.dart';
 import '../../feature_home/presentation/controller/home_controller.dart';
+import '../../feature_home/presentation/screens/product_view_page.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -60,7 +61,9 @@ class _SearchPageState extends State<SearchPage> {
                       iconData: Icons.search_rounded,
                       textStyle: TextStyle(fontSize: 16),
                       controller: _searchController,
-                      onChanged: (value) {}),
+                      onChanged: (query) {
+                        _homeController.searchForProducts(query: query);
+                      }),
                 ),
               ),
 
@@ -69,7 +72,22 @@ class _SearchPageState extends State<SearchPage> {
               ),
 
               //  all products toggle pill buttons
-              AllProductsSection()
+              Obx(
+                () => SliverGrid(
+                    delegate: SliverChildBuilderDelegate(
+                        (context, index) => ProductCard(
+                              product: _homeController.filteredProducts[index],
+                              onTap: () => Get.to(() => ProductViewPage(
+                                  product:
+                                      _homeController.filteredProducts[index])),
+                            ),
+                        childCount: _homeController.filteredProducts.length),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisExtent: 180,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 12)),
+              )
             ],
           ),
         ),

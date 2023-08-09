@@ -11,6 +11,7 @@ class HomeController extends GetxController {
   final useCases = locator.get<HomeUseCases>();
 
   final products = <ProductModel>[].obs;
+  final filteredProducts = <ProductModel>[].obs;
 
   /// Active Bottom Bar Index
   final activeBottomBarIndex = 0.obs;
@@ -35,6 +36,16 @@ class HomeController extends GetxController {
       activeCategory.value = category;
 
   void setIsDrawerOpen(bool isOpen) => isDrawerOpen.value = isOpen;
+
+  void searchForProducts({required String query}) {
+    filteredProducts.value = products
+        .where((product) => product.productName!
+            .replaceAll(RegExp('[^A-Za-z]'), '')
+            .replaceAll(" ", '')
+            .toLowerCase()
+            .contains(query.replaceAll(" ", '').toLowerCase()))
+        .toList();
+  }
 
   /// All Stores
   Stream<QuerySnapshot> getAllStores() => useCases.getAllStores();
