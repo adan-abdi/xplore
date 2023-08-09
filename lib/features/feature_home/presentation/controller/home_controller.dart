@@ -12,6 +12,7 @@ class HomeController extends GetxController {
 
   final products = <ProductModel>[].obs;
   final filteredProducts = <ProductModel>[].obs;
+  final storeProducts = <ProductModel>[].obs;
 
   /// Active Bottom Bar Index
   final activeBottomBarIndex = 0.obs;
@@ -47,6 +48,11 @@ class HomeController extends GetxController {
                 .toLowerCase()
                 .contains(query.replaceAll(" ", '').toLowerCase()))
             .toList();
+  }
+
+  void filterProductsByStore({required String sellerId}) {
+    storeProducts.value =
+        products.where((product) => product.sellerId! == sellerId).toList();
   }
 
   /// All Stores

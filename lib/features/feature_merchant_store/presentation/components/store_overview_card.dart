@@ -1,26 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/presentation/components/profile_pic.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
-class StoreOverViewCard extends StatefulWidget {
-  const StoreOverViewCard({super.key});
+class StoreOverViewCard extends StatelessWidget {
+  final UserModel store;
 
-  @override
-  State<StoreOverViewCard> createState() => _StoreOverViewCardState();
-}
-
-class _StoreOverViewCardState extends State<StoreOverViewCard> {
-  late AuthController _authController;
-
-  @override
-  void initState() {
-    super.initState();
-    _authController = Get.find<AuthController>();
-  }
+  const StoreOverViewCard({super.key, required this.store});
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +31,8 @@ class _StoreOverViewCardState extends State<StoreOverViewCard> {
             children: [
               Row(
                 children: [
-                  Obx(() => ProfilePic(
-                      imageUrl: _authController.user.value!.userProfilePicUrl)),
+                  ProfilePic(
+                      imageUrl: store.userProfilePicUrl),
                   hSize20SizedBox,
                   Expanded(
                     child: Column(
@@ -53,15 +43,12 @@ class _StoreOverViewCardState extends State<StoreOverViewCard> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                                 color: XploreColors.white)),
-                        Obx(
-                          () => Text(
-                              _authController
-                                  .user.value!.userName!.trimUserName,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24,
-                                  color: XploreColors.white)),
-                        ),
+                        Text(
+                            store.userName!.trimUserName,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                                color: XploreColors.white)),
                       ],
                     ),
                   )

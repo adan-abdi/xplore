@@ -7,6 +7,7 @@ class PillBtn extends StatelessWidget {
   final IconData? iconData;
   final String? imageAsset;
   final bool isActive;
+  final Color activeColor;
   final VoidCallback onTap;
 
   const PillBtn(
@@ -15,6 +16,7 @@ class PillBtn extends StatelessWidget {
       this.iconData,
       this.imageAsset,
       this.isActive = false,
+      this.activeColor = XploreColors.xploreOrange,
       required this.onTap});
 
   @override
@@ -26,14 +28,21 @@ class PillBtn extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           decoration: BoxDecoration(
               color: isActive
-                  ? XploreColors.xploreOrange
+                  ? activeColor
                   : XploreColors.xploreOrange.withOpacity(0.1),
               borderRadius: BorderRadius.circular(100)),
           child: Center(
               child: Row(
             children: [
-              iconData == null ? Image.asset(imageAsset!, width: 26, height: 26,) : Icon(iconData,
-                  color: isActive ? XploreColors.white : XploreColors.black),
+              iconData == null
+                  ? Image.asset(
+                      imageAsset!,
+                      width: 26,
+                      height: 26,
+                    )
+                  : Icon(iconData,
+                      color:
+                          isActive ? XploreColors.white : XploreColors.black),
               hSize10SizedBox,
               Text(
                 text,

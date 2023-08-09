@@ -13,6 +13,8 @@ import 'package:shamiri/features/feature_merchant_store/presentation/screens/mer
 import 'package:shamiri/presentation/core/widgets/molecular/dashboard_tab_action_button.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/presentation/controller/auth_controller.dart';
+
 class MerchantStorePage extends StatefulWidget {
   const MerchantStorePage({super.key});
 
@@ -22,12 +24,14 @@ class MerchantStorePage extends StatefulWidget {
 
 class _MerchantStorePageState extends State<MerchantStorePage> {
   late final MerchantController _merchantController;
+  late AuthController _authController;
 
   @override
   void initState() {
     super.initState();
 
     _merchantController = Get.find<MerchantController>();
+    _authController = Get.find<AuthController>();
   }
 
   @override
@@ -47,7 +51,11 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
           physics: const BouncingScrollPhysics(),
           slivers: [
             //  store overview
-            StoreOverViewCard(),
+            Obx(
+              () => StoreOverViewCard(
+                store: _authController.user.value!,
+              ),
+            ),
 
             SliverToBoxAdapter(
               child: vSize20SizedBox,
@@ -113,7 +121,11 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return SliverToBoxAdapter(
-                        child: MyLottie(lottie: 'assets/general/loading.json', width: 35, height: 35,));
+                        child: MyLottie(
+                      lottie: 'assets/general/loading.json',
+                      width: 35,
+                      height: 35,
+                    ));
                   }
 
                   if (snapshot.data == null || !snapshot.hasData) {
@@ -138,7 +150,9 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                           child: Center(
                             child: Column(
                               children: [
-                                MyLottie(lottie: 'assets/general/xplore_loader.json'),
+                                MyLottie(
+                                    lottie:
+                                        'assets/general/xplore_loader.json'),
                                 Text("No Products yet")
                               ],
                             ),

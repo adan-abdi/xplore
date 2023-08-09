@@ -5,6 +5,7 @@ import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
+import 'package:shamiri/features/feature_home/presentation/screens/store_view_page.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_home/presentation/components/top_store_card.dart';
@@ -77,7 +78,11 @@ class _TopStoresSectionState extends State<TopStoresSection> {
                     CarouselSlider.builder(
                         itemCount: stores.length,
                         itemBuilder: (context, index, realIndex) =>
-                            TopStoreCard(store: stores[index]),
+                            TopStoreCard(
+                              store: stores[index],
+                              onTap: () => Get.to(
+                                  () => StoreViewPage(store: stores[index])),
+                            ),
                         carouselController: _carouselController,
                         options: CarouselOptions(
                             height: 170,
