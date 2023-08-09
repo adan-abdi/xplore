@@ -37,6 +37,13 @@ class MerchantController extends GetxController {
         onSuccess: onSuccess);
   }
 
+  Future<void> updateProduct(
+          {required ProductModel oldProduct,
+          required ProductModel newProduct,
+          required Function(ResponseState response) response}) async => await
+      useCases.updateProduct.call(
+          oldProduct: oldProduct, newProduct: newProduct, response: response);
+
   Future<void> deleteProduct({required String productId}) async =>
       await useCases.deleteProduct.call(productId: productId);
 

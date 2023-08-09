@@ -5,6 +5,7 @@ import 'package:shamiri/features/feature_merchant_store/domain/use_cases/add_pro
 import 'package:shamiri/features/feature_merchant_store/domain/use_cases/delete_product.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/use_cases/get_merchant_products.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/use_cases/merchant_use_cases.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/use_cases/update_product.dart';
 
 void merchantDI({required GetIt locator}) {
   /// Merchant Repository
@@ -15,5 +16,6 @@ void merchantDI({required GetIt locator}) {
   locator.registerLazySingleton<MerchantUseCases>(() => MerchantUseCases(
       addProductToFirestore: AddProductToFirestore(),
       getMerchantProducts: GetMerchantProducts(),
+      updateProduct: UpdateProduct(),
       deleteProduct: DeleteProduct()));
 }

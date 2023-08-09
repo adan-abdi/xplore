@@ -90,8 +90,6 @@ class MerchantRepositoryImpl implements MerchantRepository {
             newProduct.productSellingPrice ?? oldProduct.productSellingPrice,
         "productCategoryId":
             newProduct.productCategoryId ?? oldProduct.productCategoryId,
-        "productImageUrl":
-            newProduct.productImageUrl ?? oldProduct.productImageUrl,
       }).then((value) {
         response(ResponseState.success);
       });

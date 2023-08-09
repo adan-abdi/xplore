@@ -295,46 +295,85 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                             productStockCount:
                                 int.parse(_productStockCountController.text));
 
-                        await _merchantController.addProductToFirestore(
-                            product: productModel,
-                            productPic: _merchantController.productPic.value,
-                            response: (state) {
-                              switch (state) {
-                                case ResponseState.success:
-                                  _merchantController.setUploadButtonLoading(
-                                      isLoading: false);
-                                  break;
-                                case ResponseState.loading:
-                                  _merchantController.setUploadButtonLoading(
-                                      isLoading: true);
-                                  break;
-                                case ResponseState.failure:
-                                  _merchantController.setUploadButtonLoading(
-                                      isLoading: false);
+                        if (widget.product == null) {
+                          //  add new product
 
-                                  WidgetsBinding.instance
-                                      .addPostFrameCallback((_) {
-                                    showSnackbar(
-                                        title: "Error uploading product",
-                                        message:
-                                            "Something went wrong. please try again",
-                                        iconData: Icons.login_rounded,
-                                        iconColor: XploreColors.xploreOrange);
-                                  });
-                                  break;
-                              }
-                            },
-                            onSuccess: () {
-                              WidgetsBinding.instance.addPostFrameCallback((_) {
-                                showSnackbar(
-                                    title: "Product uploaded!",
-                                    message: "Product uploaded successfully!",
-                                    iconData: Icons.library_books_rounded,
-                                    iconColor: XploreColors.xploreOrange);
+                          await _merchantController.addProductToFirestore(
+                              product: productModel,
+                              productPic: _merchantController.productPic.value,
+                              response: (state) {
+                                switch (state) {
+                                  case ResponseState.success:
+                                    _merchantController.setUploadButtonLoading(
+                                        isLoading: false);
+                                    break;
+                                  case ResponseState.loading:
+                                    _merchantController.setUploadButtonLoading(
+                                        isLoading: true);
+                                    break;
+                                  case ResponseState.failure:
+                                    _merchantController.setUploadButtonLoading(
+                                        isLoading: false);
+
+                                    WidgetsBinding.instance
+                                        .addPostFrameCallback((_) {
+                                      showSnackbar(
+                                          title: "Error uploading product",
+                                          message:
+                                              "Something went wrong. please try again",
+                                          iconData: Icons.login_rounded,
+                                          iconColor: XploreColors.xploreOrange);
+                                    });
+                                    break;
+                                }
+                              },
+                              onSuccess: () {
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((_) {
+                                  showSnackbar(
+                                      title: "Product uploaded!",
+                                      message: "Product uploaded successfully!",
+                                      iconData: Icons.library_books_rounded,
+                                      iconColor: XploreColors.xploreOrange);
+                                });
+
+                                Get.back();
                               });
+                        } else {
 
-                              Get.back();
-                            });
+                          //  update current product
+                          await _merchantController.updateProduct(
+                              oldProduct: widget.product!,
+                              newProduct: productModel,
+                              response: (state) {
+                                switch (state) {
+                                  case ResponseState.success:
+                                    _merchantController.setUploadButtonLoading(
+                                        isLoading: false);
+
+                                    Get.back();
+                                    break;
+                                  case ResponseState.loading:
+                                    _merchantController.setUploadButtonLoading(
+                                        isLoading: true);
+                                    break;
+                                  case ResponseState.failure:
+                                    _merchantController.setUploadButtonLoading(
+                                        isLoading: false);
+
+                                    WidgetsBinding.instance
+                                        .addPostFrameCallback((_) {
+                                      showSnackbar(
+                                          title: "Error uploading product",
+                                          message:
+                                              "Something went wrong. please try again",
+                                          iconData: Icons.login_rounded,
+                                          iconColor: XploreColors.xploreOrange);
+                                    });
+                                    break;
+                                }
+                              });
+                        }
                       }),
                 ),
               ),
