@@ -15,14 +15,14 @@ class CartItemCard extends StatefulWidget {
   final ProductModel product;
   final int cartQuantity;
 
-  const CartItemCard({super.key, required this.product, required this.cartQuantity});
+  const CartItemCard(
+      {super.key, required this.product, required this.cartQuantity});
 
   @override
   State<CartItemCard> createState() => _CartItemCardState();
 }
 
 class _CartItemCardState extends State<CartItemCard> {
-
   late final HomeController _homeController;
   late final AuthController _authController;
 
@@ -35,8 +35,8 @@ class _CartItemCardState extends State<CartItemCard> {
   }
 
   void decrementCount() {
-    var cartItem = _authController.user.value!.itemsInCart!.firstWhere(
-            (item) => item.cartProductId == widget.product.productId!);
+    var cartItem = _authController.user.value!.itemsInCart!
+        .firstWhere((item) => item.cartProductId == widget.product.productId!);
 
     var currentCartCount = cartItem.cartProductCount!;
 
@@ -52,14 +52,16 @@ class _CartItemCardState extends State<CartItemCard> {
 
       //  update items in cart
       _authController.updateUserDataInFirestore(
-          newUser: UserModel(
-              itemsInCart: _authController.user.value!.itemsInCart!));
+          oldUser: _authController.user.value!,
+          newUser:
+              UserModel(itemsInCart: _authController.user.value!.itemsInCart!),
+          uid: _authController.user.value!.userId!);
     }
   }
 
   void incrementCount() {
-    var cartItem = _authController.user.value!.itemsInCart!.firstWhere(
-            (item) => item.cartProductId == widget.product.productId!);
+    var cartItem = _authController.user.value!.itemsInCart!
+        .firstWhere((item) => item.cartProductId == widget.product.productId!);
 
     var currentCartCount = cartItem.cartProductCount!;
 
@@ -75,9 +77,12 @@ class _CartItemCardState extends State<CartItemCard> {
 
       //  update items in cart
       _authController.updateUserDataInFirestore(
-          newUser: UserModel(
-              itemsInCart: _authController.user.value!.itemsInCart!));
-  }}
+          oldUser: _authController.user.value!,
+          newUser:
+              UserModel(itemsInCart: _authController.user.value!.itemsInCart!),
+          uid: _authController.user.value!.userId!);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,25 +97,24 @@ class _CartItemCardState extends State<CartItemCard> {
         children: [
           //  image
           Container(
-            width: 90,
+              width: 90,
               height: 90,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: XploreColors.deepBlue
-              ),
+                  borderRadius: BorderRadius.circular(24),
+                  color: XploreColors.deepBlue),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(24),
                 child: widget.product.productImageUrl != null &&
-                    widget.product.productImageUrl!.isNotEmpty
+                        widget.product.productImageUrl!.isNotEmpty
                     ? Image.network(
-                  widget.product.productImageUrl!,
-                  fit: BoxFit.cover,
-                )
+                        widget.product.productImageUrl!,
+                        fit: BoxFit.cover,
+                      )
                     : Icon(
-                  Icons.shopping_cart_checkout_rounded,
-                  color: XploreColors.white,
-                  size: 32,
-                ),
+                        Icons.shopping_cart_checkout_rounded,
+                        color: XploreColors.white,
+                        size: 32,
+                      ),
               )),
 
           hSize10SizedBox,
@@ -126,7 +130,8 @@ class _CartItemCardState extends State<CartItemCard> {
                   children: [
                     Text(
                       widget.product.productName!,
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -179,29 +184,27 @@ class _CartItemCardState extends State<CartItemCard> {
                     )
                   ],
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Ksh. ${widget.product.productSellingPrice!.toString().addCommas}'),
+                    Text(
+                        'Ksh. ${widget.product.productSellingPrice!.toString().addCommas}'),
 
                     //  delete icon
                     IconButton(
                         onPressed: () async {
                           //  get initial cart items
                           final List<CartModel> itemsInCart =
-                          _authController
-                              .user.value!.itemsInCart!;
+                              _authController.user.value!.itemsInCart!;
                           //  remove item from list
                           itemsInCart.removeWhere((item) =>
-                          item.cartProductId! ==
-                              widget.product.productId!);
+                              item.cartProductId! == widget.product.productId!);
 
                           //  update items in cart
-                          await _authController
-                              .updateUserDataInFirestore(
-                              newUser: UserModel(
-                                  itemsInCart: itemsInCart));
+                          await _authController.updateUserDataInFirestore(
+                              oldUser: _authController.user.value!,
+                              newUser: UserModel(itemsInCart: itemsInCart),
+                              uid: _authController.user.value!.userId!);
                         },
                         icon: Icon(
                           Icons.delete_rounded,

@@ -8,6 +8,7 @@ import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_cart/presentation/model/payment_method.dart';
 import 'package:shamiri/features/feature_home/presentation/components/pill_btn.dart';
+import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_home/presentation/screens/home_page.dart';
 
 import '../../../feature_main/main_screen.dart';
@@ -21,8 +22,8 @@ class OrderConfirmedSection extends StatefulWidget {
 }
 
 class _OrderConfirmedSectionState extends State<OrderConfirmedSection> {
-
   late final CartController _cartController;
+  late final HomeController _homeController;
   late final AuthController _authController;
 
   @override
@@ -30,6 +31,7 @@ class _OrderConfirmedSectionState extends State<OrderConfirmedSection> {
     super.initState();
 
     _cartController = Get.find<CartController>();
+    _homeController = Get.find<HomeController>();
     _authController = Get.find<AuthController>();
   }
 
@@ -47,7 +49,8 @@ class _OrderConfirmedSectionState extends State<OrderConfirmedSection> {
             Row(
               children: [
                 Text("Order Confirimed!",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 hSize20SizedBox,
                 MyLottie(
                   lottie: 'assets/general/success.json',
@@ -69,12 +72,24 @@ class _OrderConfirmedSectionState extends State<OrderConfirmedSection> {
               child: TextButton(
                   onPressed: () {
                     //  update merchant transactions
+                    _authController.user.value!.itemsInCart!
+                        .forEach((cartItem) {
+                      //  get seller id & product id
+                      final sellerId = _homeController.products.firstWhere(
+                          (product) =>
+                              product.productId! == cartItem.cartProductId!).sellerId!;
 
+                      _authController.updateUserDataInFirestore(
+                          oldUser: _authController.user.value!,
+                          newUser: UserModel(transactions: ),
+                          uid: sellerId);
+                    });
 
                     //  clear all cart items
-                    _authController.updateUserDataInFirestore(newUser: UserModel(
-                      itemsInCart: []
-                    ));
+                    _authController.updateUserDataInFirestore(
+                        oldUser: _authController.user.value!,
+                        newUser: UserModel(itemsInCart: []),
+                        uid: _authController.user.value!.userId!);
 
                     //  go to home page
                     Get.offAll(MainScreen());

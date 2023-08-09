@@ -97,9 +97,23 @@ class AuthRepositoryImpl implements AuthRepository {
           .collection(Constants.USER_COLLECTION)
           .doc(uid)
           .snapshots();
-
     } on FirebaseAuthException catch (error) {
       throw Exception(error);
+    }
+  }
+
+  @override
+  Future<UserModel> getSpecificUserFromFirestore({required String uid}) async {
+
+    try {
+
+      final snapshot =
+      await firestore.collection(Constants.USER_COLLECTION).doc(uid).get();
+
+      return UserModel.fromJson(snapshot.data()!);
+
+    } catch (error) {
+     throw Exception(error);
     }
   }
 
@@ -153,22 +167,11 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> updateUserDataInFirestore(
-      {required UserModel oldUser, required UserModel newUser}) async {
-    final updatedUser = UserModel(
-        userId: auth.currentUser!.uid,
-        userName: newUser.userName ?? oldUser.userName,
-        userProfilePicUrl:
-            newUser.userProfilePicUrl ?? oldUser.userProfilePicUrl,
-        userEmail: newUser.userEmail ?? oldUser.userEmail,
-        userPhoneNumber: newUser.userPhoneNumber ?? oldUser.userPhoneNumber,
-        createdAt: newUser.createdAt ?? oldUser.createdAt,
-        storeLocation: newUser.storeLocation ?? oldUser.storeLocation);
-
+      {required UserModel oldUser,
+      required UserModel newUser,
+      required String uid}) async {
     try {
-      await firestore
-          .collection(Constants.USER_COLLECTION)
-          .doc(auth.currentUser!.uid)
-          .update({
+      await firestore.collection(Constants.USER_COLLECTION).doc(uid).update({
         "userId": auth.currentUser!.uid,
         "userName": newUser.userName ?? oldUser.userName,
         "userProfilePicUrl":
@@ -179,7 +182,13 @@ class AuthRepositoryImpl implements AuthRepository {
         "storeLocation": newUser.storeLocation ?? oldUser.storeLocation,
         "itemsInCart":
             newUser.itemsInCart?.map((item) => item.toJson()).toList() ??
-                oldUser.itemsInCart?.map((item) => item.toJson()).toList()
+                oldUser.itemsInCart?.map((item) => item.toJson()).toList(),
+        "transactions": newUser.transactions
+                ?.map((transaction) => transaction.toJson())
+                .toList() ??
+            oldUser.transactions
+                ?.map((transaction) => transaction.toJson())
+                .toList()
       }).then((value) => print("SUCCESS!!!"));
     } on FirebaseException catch (error) {
       throw Exception(error.message);

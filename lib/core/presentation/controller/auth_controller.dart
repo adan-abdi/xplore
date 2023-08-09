@@ -111,8 +111,8 @@ class AuthController extends GetxController {
       authUseCases.getUserDataFromFirestore();
 
   /// Update User Data In Firestore
-  Future<void> updateUserDataInFirestore({required UserModel newUser}) async {
+  Future<void> updateUserDataInFirestore({required UserModel oldUser, required UserModel newUser, required String uid}) async {
     await authUseCases.updateUserDataInFirestore
-        .call(oldUser: user.value!, newUser: newUser);
+        .call(oldUser: oldUser, newUser: newUser, uid: uid);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/transaction_model.dart';
 
 import 'cart_model.dart';
 
@@ -43,6 +44,10 @@ class UserModel {
   @HiveField(7, defaultValue: [])
   List<CartModel>? itemsInCart;
 
+  @JsonKey(name: 'transactions')
+  @HiveField(8, defaultValue: [])
+  List<TransactionModel>? transactions;
+
   UserModel(
       {this.userId,
       this.userName,
@@ -51,7 +56,8 @@ class UserModel {
       this.userPhoneNumber,
       this.createdAt,
       this.storeLocation,
-      this.itemsInCart});
+      this.itemsInCart,
+      this.transactions});
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

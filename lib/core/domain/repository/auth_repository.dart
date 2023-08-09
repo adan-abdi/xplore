@@ -37,9 +37,12 @@ abstract class AuthRepository {
   /// Get User Data From Firebase
   Stream<DocumentSnapshot> getUserDataFromFirestore();
 
+  /// Get User Data From Firebase
+  Future<UserModel> getSpecificUserFromFirestore({required String uid});
+
   /// Update User Data In Firestore
   Future<void> updateUserDataInFirestore(
-      {required UserModel oldUser, required UserModel newUser});
+      {required UserModel oldUser, required UserModel newUser, required String uid});
 
   Future<String> storeFileToFirebaseStorage(
       {required String ref, required File file});

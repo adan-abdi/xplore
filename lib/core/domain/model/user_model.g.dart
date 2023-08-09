@@ -26,13 +26,16 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       storeLocation: fields[6] == null ? '' : fields[6] as String?,
       itemsInCart:
           fields[7] == null ? [] : (fields[7] as List?)?.cast<CartModel>(),
+      transactions: fields[8] == null
+          ? []
+          : (fields[8] as List?)?.cast<TransactionModel>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.userId)
       ..writeByte(1)
@@ -48,7 +51,9 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(6)
       ..write(obj.storeLocation)
       ..writeByte(7)
-      ..write(obj.itemsInCart);
+      ..write(obj.itemsInCart)
+      ..writeByte(8)
+      ..write(obj.transactions);
   }
 
   @override
@@ -77,6 +82,9 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       itemsInCart: (json['itemsInCart'] as List<dynamic>?)
           ?.map((e) => CartModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      transactions: (json['transactions'] as List<dynamic>?)
+          ?.map((e) => TransactionModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -88,4 +96,5 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'createdAt': instance.createdAt,
       'storeLocation': instance.storeLocation,
       'itemsInCart': instance.itemsInCart,
+      'transactions': instance.transactions,
     };

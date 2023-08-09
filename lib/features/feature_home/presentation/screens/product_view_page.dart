@@ -55,8 +55,10 @@ class _ProductViewPageState extends State<ProductViewPage> {
 
         //  update items in cart
         _authController.updateUserDataInFirestore(
+            oldUser: _authController.user.value!,
             newUser: UserModel(
-                itemsInCart: _authController.user.value!.itemsInCart!));
+                itemsInCart: _authController.user.value!.itemsInCart!),
+            uid: _authController.user.value!.userId!);
       }
     } else {
       setState(() {
@@ -86,8 +88,10 @@ class _ProductViewPageState extends State<ProductViewPage> {
 
         //  update items in cart
         _authController.updateUserDataInFirestore(
+            oldUser: _authController.user.value!,
             newUser: UserModel(
-                itemsInCart: _authController.user.value!.itemsInCart!));
+                itemsInCart: _authController.user.value!.itemsInCart!),
+            uid: _authController.user.value!.userId!);
       }
     } else {
       setState(() {
@@ -116,9 +120,8 @@ class _ProductViewPageState extends State<ProductViewPage> {
           IconButton(
               onPressed: () => Get.to(() => CartScreen()),
               icon: Obx(
-                    () => BadgeIcon(
-                    badgeCount: _authController
-                        .user.value!.itemsInCart!.length,
+                () => BadgeIcon(
+                    badgeCount: _authController.user.value!.itemsInCart!.length,
                     iconData: Icons.shopping_cart_rounded),
               )),
           IconButton(
@@ -462,8 +465,12 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                     //  update items in cart
                                     await _authController
                                         .updateUserDataInFirestore(
+                                            oldUser:
+                                                _authController.user.value!,
                                             newUser: UserModel(
-                                                itemsInCart: itemsInCart));
+                                                itemsInCart: itemsInCart),
+                                            uid: _authController
+                                                .user.value!.userId!);
                                   } else {
                                     //  Add item to list
                                     itemsInCart.add(CartModel(
@@ -473,8 +480,12 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                     //  update items in cart
                                     await _authController
                                         .updateUserDataInFirestore(
+                                            oldUser:
+                                                _authController.user.value!,
                                             newUser: UserModel(
-                                                itemsInCart: itemsInCart));
+                                                itemsInCart: itemsInCart),
+                                            uid: _authController
+                                                .user.value!.userId!);
                                   }
                                 },
                                 child: UnconstrainedBox(
