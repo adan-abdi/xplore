@@ -10,6 +10,8 @@ import 'package:shamiri/features/feature_cart/presentation/model/payment_method.
 import 'package:shamiri/features/feature_home/presentation/components/pill_btn.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_home/presentation/screens/home_page.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
 
 import '../../../feature_main/main_screen.dart';
 import '../../../feature_merchant_store/domain/model/transaction_model.dart';
@@ -25,6 +27,7 @@ class OrderConfirmedSection extends StatefulWidget {
 class _OrderConfirmedSectionState extends State<OrderConfirmedSection> {
   late final CartController _cartController;
   late final HomeController _homeController;
+  late final MerchantController _merchantController;
   late final AuthController _authController;
 
   @override
@@ -33,6 +36,7 @@ class _OrderConfirmedSectionState extends State<OrderConfirmedSection> {
 
     _cartController = Get.find<CartController>();
     _homeController = Get.find<HomeController>();
+    _merchantController = Get.find<MerchantController>();
     _authController = Get.find<AuthController>();
   }
 
@@ -81,6 +85,10 @@ class _OrderConfirmedSectionState extends State<OrderConfirmedSection> {
                               product.productId! == cartItem.cartProductId!)
                           .sellerId!;
 
+                      final product = _homeController.products.firstWhere(
+                          (product) =>
+                              product.productId! == cartItem.cartProductId!);
+
                       final sellerData = await _authController
                           .getSpecificUserFromFirestore(uid: sellerId);
 
@@ -90,19 +98,25 @@ class _OrderConfirmedSectionState extends State<OrderConfirmedSection> {
                           buyerId: _authController.user.value!.userId!,
                           productId: cartItem.cartProductId!,
                           itemsBought: cartItem.cartProductCount!,
-                          amountPaid: _homeController.products
-                                  .firstWhere((product) =>
-                                      product.productId! ==
-                                      cartItem.cartProductId!)
-                                  .productSellingPrice! *
+                          amountPaid: product.productSellingPrice! *
                               cartItem.cartProductCount!,
                           transactionDate: DateTime.now().toString(),
                           isFulfilled: true));
 
-                      _authController.updateUserDataInFirestore(
-                          oldUser: _authController.user.value!,
-                          newUser: UserModel(transactions: allTransactions),
-                          uid: sellerId);
+                      _authController
+                          .updateUserDataInFirestore(
+                              oldUser: _authController.user.value!,
+                              newUser: UserModel(transactions: allTransactions),
+                              uid: sellerId)
+                          .then((value) {
+                        //  update product stock count
+                        _merchantController.updateProduct(
+                            oldProduct: product,
+                            newProduct: ProductModel(
+                                productStockCount: product.productStockCount! -
+                                    cartItem.cartProductCount!),
+                            response: (state) {});
+                      });
                     });
 
                     //  clear all cart items
