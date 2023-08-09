@@ -30,7 +30,6 @@ class ProductCard extends StatelessWidget {
                     fit: StackFit.expand,
                     children: [
                       Container(
-                          margin: EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                             color: product.productImageUrl != null &&
@@ -57,27 +56,27 @@ class ProductCard extends StatelessWidget {
                               )
                             ],
                           )),
-                      Align(
-                        alignment: AlignmentDirectional.topEnd,
-                        child: UnconstrainedBox(
-                          child: Container(
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                                color: XploreColors.deepBlue,
-                                border: Border.all(
-                                    color: XploreColors.white, width: 4, strokeAlign: BorderSide.strokeAlignOutside),
-                                borderRadius: BorderRadius.circular(100)),
-                            child: Center(
-                              child: Icon(
-                                Icons.favorite_outline_rounded,
-                                color: XploreColors.xploreOrange,
-                                size: 20,
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
+                      // Align(
+                      //   alignment: AlignmentDirectional.topEnd,
+                      //   child: UnconstrainedBox(
+                      //     child: Container(
+                      //       width: 30,
+                      //       height: 30,
+                      //       decoration: BoxDecoration(
+                      //           color: XploreColors.deepBlue,
+                      //           border: Border.all(
+                      //               color: XploreColors.white, width: 4, strokeAlign: BorderSide.strokeAlignOutside),
+                      //           borderRadius: BorderRadius.circular(100)),
+                      //       child: Center(
+                      //         child: Icon(
+                      //           Icons.favorite_outline_rounded,
+                      //           color: XploreColors.xploreOrange,
+                      //           size: 20,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // )
                     ],
                   )),
 
