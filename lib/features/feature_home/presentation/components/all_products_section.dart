@@ -55,19 +55,25 @@ class _AllProductsSectionState extends State<AllProductsSection> {
                         _homeController.activeCategory.value.categoryName)
                     .toList();
 
-        return SliverGrid(
-            delegate: SliverChildBuilderDelegate(
-                (context, index) => ProductCard(
-                  product: filteredProducts[index],
-                  onTap: () => Get.to(() =>
-                      ProductViewPage(product: filteredProducts[index])),
-                ),
-                childCount: filteredProducts.length),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisExtent: 180,
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 12));
+        if (filteredProducts.isEmpty) {
+          return SliverFillRemaining(
+            child: Center(child: Text('No products in ${_homeController.activeCategory.value.categoryName}')),
+          );
+        } else {
+          return SliverGrid(
+              delegate: SliverChildBuilderDelegate(
+                      (context, index) => ProductCard(
+                    product: filteredProducts[index],
+                    onTap: () => Get.to(() =>
+                        ProductViewPage(product: filteredProducts[index])),
+                  ),
+                  childCount: filteredProducts.length),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisExtent: 180,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 12));
+        }
       }
     });
   }
