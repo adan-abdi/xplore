@@ -9,11 +9,13 @@ import '../../../../core/presentation/components/profile_pic.dart';
 class TopStoreCard extends StatelessWidget {
   final UserModel store;
   final double height;
+  final double margin;
   final VoidCallback onTap;
 
   const TopStoreCard(
       {super.key,
-      required this.store, 
+      required this.store,
+        this.margin = 16,
         this.height = 200,
       required this.onTap});
 
@@ -25,7 +27,7 @@ class TopStoreCard extends StatelessWidget {
         width: double.infinity,
         height: height,
         padding: const EdgeInsets.all(16),
-        margin: const EdgeInsets.symmetric(horizontal: 8),
+        margin: EdgeInsets.only(right: margin),
         decoration: BoxDecoration(
             color: XploreColors.deepBlue,
             borderRadius: BorderRadius.circular(16)),

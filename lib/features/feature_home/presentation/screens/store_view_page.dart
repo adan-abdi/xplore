@@ -65,6 +65,7 @@ class _StoreViewPageState extends State<StoreViewPage> {
                     children: [
                       TopStoreCard(
                         store: widget.store,
+                        margin: 0,
                         onTap: () {},
                       ),
 

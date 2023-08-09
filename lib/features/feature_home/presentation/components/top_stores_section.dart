@@ -89,7 +89,7 @@ class _TopStoresSectionState extends State<TopStoresSection> {
                             initialPage: 0,
                             enlargeCenterPage: false,
                             enableInfiniteScroll: false,
-                            viewportFraction: 0.85,
+                            viewportFraction: 1,
                             scrollPhysics: const BouncingScrollPhysics(),
                             onPageChanged: (index, reason) =>
                                 _homeController.setActiveCarouselIndex(index))),
