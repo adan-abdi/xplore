@@ -14,18 +14,8 @@ class HomeRepositoryImpl implements HomeRepository {
       firestore.collection(Constants.USER_COLLECTION).snapshots();
 
   @override
-  Stream<QuerySnapshot<Object?>> getAllProducts({required String? filter}) {
-    if (filter == null) {
-      return firestore
-          .collectionGroup(Constants.PRODUCTS_COLLECTION)
-          .snapshots();
-    } else {
-      return firestore
-          .collectionGroup(Constants.PRODUCTS_COLLECTION)
-          .where('productCategoryId', isEqualTo: filter)
-          .snapshots();
-    }
-  }
+  Stream<QuerySnapshot<Object?>> getAllProducts() =>
+      firestore.collectionGroup(Constants.PRODUCTS_COLLECTION).snapshots();
 
   @override
   Stream<QuerySnapshot<Object?>> getStoreProducts({required String userId}) =>

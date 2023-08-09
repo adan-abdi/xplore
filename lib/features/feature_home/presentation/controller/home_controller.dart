@@ -40,8 +40,7 @@ class HomeController extends GetxController {
   Stream<QuerySnapshot> getAllStores() => useCases.getAllStores();
 
   /// All Products
-  Stream<QuerySnapshot> getAllProducts({String? filter}) =>
-      useCases.getAllProducts(filter: filter);
+  Stream<QuerySnapshot> getAllProducts() => useCases.getAllProducts();
 
   /// Store Products
   Stream<QuerySnapshot> getStoreProducts({required String userId}) =>

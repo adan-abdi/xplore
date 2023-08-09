@@ -25,52 +25,50 @@ class _AllProductsSectionState extends State<AllProductsSection> {
     super.initState();
 
     _homeController = Get.find<HomeController>();
+
+    _homeController.getAllProducts().listen((snapshot) {
+      var products = snapshot.docs
+          .map((product) =>
+              ProductModel.fromJson(product.data() as Map<String, dynamic>))
+          .toList();
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _homeController.setProducts(products: products);
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: _homeController.getAllProducts(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return SliverToBoxAdapter(
-                child: MyLottie(
-              lottie: 'assets/general/loading.json',
-              width: 50,
-              height: 50,
-            ));
-          }
+    return Obx(() {
+      if (_homeController.products.isEmpty) {
+        return SliverFillRemaining(
+          child: Center(child: Text('No products yet')),
+        );
+      } else {
+        final filteredProducts =
+            _homeController.activeCategory.value.categoryName == 'All'
+                ? _homeController.products
+                : _homeController.products
+                    .where((product) =>
+                        product.productCategoryId ==
+                        _homeController.activeCategory.value.categoryName)
+                    .toList();
 
-          if (!snapshot.hasData) {
-            return SliverFillRemaining(child: Text("No Data found"));
-          }
-
-          var products = snapshot.data!.docs
-              .map((product) =>
-                  ProductModel.fromJson(product.data() as Map<String, dynamic>))
-              .toList();
-
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            _homeController.setProducts(products: products);
-          });
-
-          return products.isEmpty
-              ? SliverFillRemaining(
-                  child: Center(child: Text('No products yet')),
-                )
-              : SliverGrid(
-                  delegate: SliverChildBuilderDelegate(
-                      (context, index) => ProductCard(
-                            product: products[index],
-                            onTap: () => Get.to(() =>
-                                ProductViewPage(product: products[index])),
-                          ),
-                      childCount: products.length),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisExtent: 180,
-                      mainAxisSpacing: 16,
-                      crossAxisSpacing: 12));
-        });
+        return SliverGrid(
+            delegate: SliverChildBuilderDelegate(
+                (context, index) => ProductCard(
+                  product: filteredProducts[index],
+                  onTap: () => Get.to(() =>
+                      ProductViewPage(product: filteredProducts[index])),
+                ),
+                childCount: filteredProducts.length),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisExtent: 180,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 12));
+      }
+    });
   }
 }

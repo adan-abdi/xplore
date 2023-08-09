@@ -28,5 +28,19 @@ class Constants {
         categoryName: 'Other', categoryIcon: Icons.phone_android_rounded),
   ];
 
-  static List<ProductCategory> productCategoriesFiltered = productCategories..removeAt(0);
+  static List<ProductCategory> productCategoriesFiltered = <ProductCategory>[
+    ProductCategory(
+        categoryName: 'Entertainment', categoryIcon: Icons.tv_rounded),
+    ProductCategory(
+        categoryName: 'Food & Drinks', categoryIcon: Icons.fastfood_rounded),
+    ProductCategory(
+        categoryName: 'Hardware', categoryIcon: Icons.hardware_rounded),
+    ProductCategory(
+        categoryName: 'Health & Beauty',
+        categoryIcon: Icons.health_and_safety_rounded),
+    ProductCategory(
+        categoryName: 'Computing', categoryIcon: Icons.computer_rounded),
+    ProductCategory(
+        categoryName: 'Other', categoryIcon: Icons.phone_android_rounded),
+  ];
 }
