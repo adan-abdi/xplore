@@ -13,6 +13,11 @@ abstract class MerchantRepository {
       required Function(ResponseState response) response,
       required Function onSuccess});
 
+  Future<void> updateProduct(
+      {required ProductModel oldProduct,
+        required ProductModel newProduct,
+      required Function(ResponseState response) response});
+
   Future<void> deleteProduct({required String productId});
 
   Stream<QuerySnapshot> getMerchantProducts();
