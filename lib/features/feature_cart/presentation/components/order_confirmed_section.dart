@@ -68,10 +68,14 @@ class _OrderConfirmedSectionState extends State<OrderConfirmedSection> {
               alignment: AlignmentDirectional.bottomEnd,
               child: TextButton(
                   onPressed: () {
+                    //  update merchant transactions
+
+
                     //  clear all cart items
                     _authController.updateUserDataInFirestore(newUser: UserModel(
                       itemsInCart: []
                     ));
+
                     //  go to home page
                     Get.offAll(MainScreen());
                   },

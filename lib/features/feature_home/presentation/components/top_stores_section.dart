@@ -13,7 +13,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/presentation/components/my_lottie.dart';
-import '../../../feature_merchant_store/domain/model/store_model.dart';
 
 class TopStoresSection extends StatefulWidget {
   const TopStoresSection({super.key});
