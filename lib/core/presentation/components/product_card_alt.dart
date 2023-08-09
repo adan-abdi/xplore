@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+
+import '../../../features/feature_merchant_store/presentation/controller/merchant_controller.dart';
 
 class ProductCardAlt extends StatefulWidget {
   final ProductModel product;
@@ -20,6 +24,39 @@ class ProductCardAlt extends StatefulWidget {
 }
 
 class _ProductCardAltState extends State<ProductCardAlt> {
+  late final MerchantController _merchantController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _merchantController = Get.find<MerchantController>();
+  }
+
+  void decrementCount() {
+    var currentProductCount = widget.product.productStockCount!;
+
+    if (currentProductCount > 1) {
+      currentProductCount -= 1;
+
+      _merchantController.updateProduct(
+          oldProduct: widget.product,
+          newProduct: ProductModel(productStockCount: currentProductCount),
+          response: (state) {});
+    }
+  }
+
+  void incrementCount() {
+    var currentProductCount = widget.product.productStockCount!;
+
+    currentProductCount += 1;
+
+    _merchantController.updateProduct(
+        oldProduct: widget.product,
+        newProduct: ProductModel(productStockCount: currentProductCount),
+        response: (state) {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -77,17 +114,20 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                       //  increment stock button
                       Row(
                         children: [
-                          Container(
-                            width: 35,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              color: XploreColors.deepBlue,
-                            ),
-                            child: Center(
-                              child: Icon(
-                                Icons.remove_rounded,
-                                color: XploreColors.white,
+                          GestureDetector(
+                            onTap: () => decrementCount(),
+                            child: Container(
+                              width: 35,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: XploreColors.deepBlue,
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.remove_rounded,
+                                  color: XploreColors.white,
+                                ),
                               ),
                             ),
                           ),
@@ -98,17 +138,20 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           hSize10SizedBox,
-                          Container(
-                            width: 35,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              color: XploreColors.deepBlue,
-                            ),
-                            child: Center(
-                              child: Icon(
-                                Icons.add_rounded,
-                                color: XploreColors.white,
+                          GestureDetector(
+                            onTap: () => incrementCount(),
+                            child: Container(
+                              width: 35,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: XploreColors.deepBlue,
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.add_rounded,
+                                  color: XploreColors.white,
+                                ),
                               ),
                             ),
                           ),
