@@ -9,6 +9,7 @@ class CustomTextFieldAlt extends StatelessWidget {
   final int? maxLines;
   final bool isObscured;
   final bool isEnabled;
+  final bool autoFocusEnabled;
   final TextEditingController controller;
   final Function(String text) onChanged;
 
@@ -20,13 +21,14 @@ class CustomTextFieldAlt extends StatelessWidget {
       this.maxLines = 1,
       this.isObscured = false,
       this.isEnabled = true,
+        this.autoFocusEnabled = false,
       required this.controller,
       required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      autofocus: false,
+      autofocus: autoFocusEnabled,
       controller: controller,
       enabled: isEnabled,
       obscureText: isObscured,

@@ -8,6 +8,7 @@ import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_home/presentation/components/all_products_section.dart';
 import 'package:shamiri/features/feature_home/presentation/components/top_stores_section.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
+import 'package:shamiri/features/feature_search/presentation/search_screen.dart';
 
 import '../../../../core/presentation/components/custom_textfield.dart';
 import '../../../../core/presentation/components/custom_textfield_alt.dart';
@@ -55,12 +56,19 @@ class _HomePageState extends State<HomePage> {
                 slivers: [
                   //  Search bar
                   SliverToBoxAdapter(
-                    child: CustomTextFieldAlt(
-                        hint: "Search For Products",
-                        iconData: Icons.search_rounded,
-                        textStyle: TextStyle(fontSize: 16),
-                        controller: _searchController,
-                        onChanged: (value) {}),
+                    child: Hero(
+                      tag: 'search',
+                      child: GestureDetector(
+                        onTap: () => Get.to(() => SearchPage()),
+                        child: CustomTextFieldAlt(
+                            hint: "Search For Products",
+                            iconData: Icons.search_rounded,
+                            textStyle: TextStyle(fontSize: 16),
+                            isEnabled: false,
+                            controller: _searchController,
+                            onChanged: (value) {}),
+                      ),
+                    ),
                   ),
 
                   SliverToBoxAdapter(child: vSize30SizedBox),
