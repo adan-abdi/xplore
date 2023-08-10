@@ -24,21 +24,18 @@ class TransactionTile extends StatefulWidget {
 class _TransactionTileState extends State<TransactionTile> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 60,
-      child: TimelineTile(
-        isFirst: widget.isFirst,
-        isLast: widget.isLast,
-        beforeLineStyle: LineStyle(color: widget.isPast ? XploreColors.deepBlue : XploreColors.deepBlueLight),
-        indicatorStyle: IndicatorStyle(
-          width: 30,
-          height: 30,
-          indicatorXY: 0,
-          color: widget.isPast ? XploreColors.deepBlue : XploreColors.deepBlueLight,
-          iconStyle: IconStyle(iconData: widget.iconData, color: XploreColors.white)
-        ),
-        endChild: widget.content,
+    return TimelineTile(
+      isFirst: widget.isFirst,
+      isLast: widget.isLast,
+      beforeLineStyle: LineStyle(color: widget.isPast ? XploreColors.deepBlue : XploreColors.deepBlueLight),
+      indicatorStyle: IndicatorStyle(
+        width: 30,
+        height: 30,
+        indicatorXY: 0,
+        color: widget.isPast ? XploreColors.deepBlue : XploreColors.deepBlueLight,
+        iconStyle: IconStyle(iconData: widget.iconData, color: XploreColors.white)
       ),
+      endChild: widget.content,
     );
   }
 }
