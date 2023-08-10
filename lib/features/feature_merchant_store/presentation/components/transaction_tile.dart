@@ -25,7 +25,7 @@ class _TransactionTileState extends State<TransactionTile> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 150,
+      height: 60,
       child: TimelineTile(
         isFirst: widget.isFirst,
         isLast: widget.isLast,

@@ -11,7 +11,7 @@ class _PendingTransactionsState extends State<PendingTransactions> {
   @override
   Widget build(BuildContext context) {
     return SliverFillRemaining(
-      child: Text("Pending transactions"),
+      child: Center(child: Text("Pending transactions")),
     );
   }
 }

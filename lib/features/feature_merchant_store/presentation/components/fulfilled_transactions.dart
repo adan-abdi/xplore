@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_tile.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -27,35 +29,59 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => SliverPadding(
-        padding: const EdgeInsets.all(16),
-        sliver: SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-          final userDetails = _homeController.stores.firstWhere((store) =>
-              store.userId! ==
-              _authController.user.value!.transactions![index].buyerId);
+      () => _authController.user.value!.transactions!.isNotEmpty
+          ? SliverPadding(
+              padding: const EdgeInsets.all(16),
+              sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                final userDetails = _homeController.stores.firstWhere((store) =>
+                    store.userId! ==
+                    _authController.user.value!.transactions![index].buyerId);
 
-          return TransactionTile(
-              isFirst: index == 0 ? true : false,
-              isLast:
-                  index == _authController.user.value!.transactions!.length - 1
-                      ? true
-                      : false,
-              isPast: true,
-              iconData: Icons.date_range,
-              content: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    //  user name
-                    Text("${userDetails.userName}", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
-                  ],
-                ),
-              ));
-        }, childCount: _authController.user.value!.transactions!.length)),
-      ),
+                final transaction = _authController.user.value!.transactions![index];
+
+                return TransactionTile(
+                    isFirst: index == 0 ? true : false,
+                    isLast: index ==
+                            _authController.user.value!.transactions!.length - 1
+                        ? true
+                        : false,
+                    isPast: true,
+                    iconData: Icons.date_range,
+                    content: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 4),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          //  user name
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "${userDetails.userName}",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "+ Ksh. ${transaction.amountPaid.toString().addCommas}",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w600, color: XploreColors.xploreOrange),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ));
+              }, childCount: _authController.user.value!.transactions!.length)),
+            )
+          : SliverFillRemaining(
+              child: Center(
+                child: Text("No fulfilled transactions"),
+              ),
+            ),
     );
   }
 }
