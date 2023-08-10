@@ -105,7 +105,7 @@ class _OrderConfirmedSectionState extends State<OrderConfirmedSection> {
 
                       _authController
                           .updateUserDataInFirestore(
-                              oldUser: _authController.user.value!,
+                              oldUser: sellerData,
                               newUser: UserModel(transactions: allTransactions),
                               uid: sellerId)
                           .then((value) {

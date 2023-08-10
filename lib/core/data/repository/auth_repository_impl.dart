@@ -172,13 +172,11 @@ class AuthRepositoryImpl implements AuthRepository {
       required String uid}) async {
     try {
       await firestore.collection(Constants.USER_COLLECTION).doc(uid).update({
-        "userId": auth.currentUser!.uid,
         "userName": newUser.userName ?? oldUser.userName,
         "userProfilePicUrl":
             newUser.userProfilePicUrl ?? oldUser.userProfilePicUrl,
         "userEmail": newUser.userEmail ?? oldUser.userEmail,
         "userPhoneNumber": newUser.userPhoneNumber ?? oldUser.userPhoneNumber,
-        "createdAt": newUser.createdAt ?? oldUser.createdAt,
         "storeLocation": newUser.storeLocation ?? oldUser.storeLocation,
         "itemsInCart":
             newUser.itemsInCart?.map((item) => item.toJson()).toList() ??

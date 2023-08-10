@@ -233,7 +233,8 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                       userPhoneNumber: "",
                                       createdAt: "",
                                       storeLocation: _locationController.text,
-                                      itemsInCart: []),
+                                      itemsInCart: [],
+                                      transactions: []),
                                   userProfilePic:
                                       _coreController.userProfilePic.value,
                                   response: (state, error) {
