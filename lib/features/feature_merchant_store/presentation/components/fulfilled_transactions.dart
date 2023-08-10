@@ -137,8 +137,9 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
                                         Row(
                                           children: [
                                             Expanded(
+                                              flex: 2,
                                               child: Text(
-                                                "${transaction.transactionDate!}",
+                                                "${transaction.transactionDate!.formatDate}",
                                                 style: TextStyle(
                                                     fontSize: 14,
                                                     fontWeight:

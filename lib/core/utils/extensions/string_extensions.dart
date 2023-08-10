@@ -1,3 +1,6 @@
+import 'package:intl/intl.dart';
+import 'package:shamiri/domain/value_objects/app_constants.dart';
+
 extension StringExtensions on String {
   ///  Check whether given phone number is valid
   bool get checkIsPhoneNumberValid {
@@ -63,5 +66,20 @@ extension StringExtensions on String {
         new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
   }
 
+  String get shortenDateNames {
+    if (this.length > 3) {
+      return '${this[0]}${this[1]}${this[2]}';
+    } else {
+      return this;
+    }
+  }
+
   /// Format Date Time
+  String get formatDate {
+    final date = DateTime.parse(this);
+    final formatterMonth = DateFormat('MMMM');
+    final formatterDay = DateFormat('EEEE');
+
+    return '${formatterDay.format(date).shortenDateNames}, ${date.day} ${formatterMonth.format(date).shortenDateNames} ${date.year}';
+  }
 }
