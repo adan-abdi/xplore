@@ -14,6 +14,7 @@ import '../../domain/model/product_model.dart';
 class MerchantController extends GetxController {
   final useCases = locator.get<MerchantUseCases>();
 
+  final merchantProducts = <ProductModel>[].obs;
   final productPic = Rxn<File>();
   final uploadButtonLoading = false.obs;
 
@@ -23,6 +24,9 @@ class MerchantController extends GetxController {
   final activeCategory = Constants.productCategories[0].obs;
 
   void setProductPic({required File file}) => productPic.value = file;
+
+  void setProducts({required List<ProductModel> products}) =>
+      this.merchantProducts.value = products;
 
   void setUploadButtonLoading({required bool isLoading}) =>
       uploadButtonLoading.value = isLoading;

@@ -198,6 +198,7 @@ class _MainScreenState extends State<MainScreen> {
                           horizontal: 16, vertical: 4),
                       child: GNav(
                         tabs: _bottomBarTabs,
+                        selectedIndex: _homeController.activeBottomBarIndex.value,
                         onTabChange: _homeController.setActiveBottomBarIndex,
                         backgroundColor: Colors.transparent,
                         color: XploreColors.deepBlue,

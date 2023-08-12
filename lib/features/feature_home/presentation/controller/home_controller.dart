@@ -17,7 +17,7 @@ class HomeController extends GetxController {
   final storeProducts = <ProductModel>[].obs;
 
   /// Active Bottom Bar Index
-  final activeBottomBarIndex = 0.obs;
+  final activeBottomBarIndex = 1.obs;
 
   /// Active Carousel Index
   final activeCarouselIndex = 0.obs;
