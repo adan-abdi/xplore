@@ -43,10 +43,10 @@ class _MainScreenState extends State<MainScreen> {
     _authController = Get.find<AuthController>();
 
     _authController.getUserDataFromFirestore().listen((user) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _authController.setUser(
-            user: UserModel.fromJson(user.data() as Map<String, dynamic>));
-      });
+      _authController.setUser(
+          user: UserModel.fromJson(user.data() as Map<String, dynamic>));
+
+      print("SET USER CALLED ${_authController.user.value!.itemsInCart!.toString()}");
     });
 
     _bottomBarTabs = [

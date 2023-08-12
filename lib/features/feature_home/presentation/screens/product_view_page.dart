@@ -453,12 +453,12 @@ class _ProductViewPageState extends State<ProductViewPage> {
                               child: GestureDetector(
                                 onTap: () async {
                                   //  get initial cart items
-                                  final List<CartModel> itemsInCart =
+                                  List<CartModel> itemsInCart =
                                       _authController.user.value!.itemsInCart!;
                                   //  update the list
                                   if (isInCart) {
                                     //  remove item from list
-                                    itemsInCart.removeWhere((item) =>
+                                    itemsInCart = itemsInCart..removeWhere((item) =>
                                         item.cartProductId! ==
                                         widget.product.productId!);
 
@@ -473,7 +473,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                                 .user.value!.userId!);
                                   } else {
                                     //  Add item to list
-                                    itemsInCart.add(CartModel(
+                                    itemsInCart = itemsInCart..add(CartModel(
                                         cartProductId:
                                             widget.product.productId!,
                                         cartProductCount: itemCount));

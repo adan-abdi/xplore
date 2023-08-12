@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/presentation/components/my_lottie.dart';
+import 'package:shamiri/features/feature_home/presentation/screens/product_view_page.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 import 'package:shamiri/core/presentation/components/open_bottom_sheet.dart';
 import 'package:shamiri/core/presentation/components/product_card_alt.dart';
@@ -173,30 +174,29 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       sliver: SliverList(
                           delegate: SliverChildBuilderDelegate(
-                              (context, index) => Obx(
-                                  () => ProductCardAlt(
-                                      product: filteredProducts.elementAt(index),
-                                      onTap: () {
-                                        // openBottomSheet(
-                                        //     content: AddProductBottomSheet(
-                                        //       product: filteredProducts
-                                        //           .elementAt(index),
-                                        //     ),
-                                        //     onComplete: () {});
-                                        openBottomSheet(
-                                            content: ProductActionsBottomSheet(
-                                              product: filteredProducts[index],
-                                            ),
-                                            onComplete: () {});
-                                      },
-                                      onDelete: () async {
-                                        //  delete product
-                                        _merchantController.deleteProduct(
-                                            productId: filteredProducts
-                                                .elementAt(index)
-                                                .productId!);
-                                      },
-                                    ),
+                              (context, index) => ProductCardAlt(
+                                product: filteredProducts.elementAt(index),
+                                onTap: () {
+                                  Get.to(() => ProductViewPage(product: filteredProducts.elementAt(index)));
+                                  // openBottomSheet(
+                                  //     content: AddProductBottomSheet(
+                                  //       product: filteredProducts
+                                  //           .elementAt(index),
+                                  //     ),
+                                  //     onComplete: () {});
+                                  // openBottomSheet(
+                                  //     content: ProductActionsBottomSheet(
+                                  //       product: filteredProducts[index],
+                                  //     ),
+                                  //     onComplete: () {});
+                                },
+                                onDelete: () async {
+                                  //  delete product
+                                  _merchantController.deleteProduct(
+                                      productId: filteredProducts
+                                          .elementAt(index)
+                                          .productId!);
+                                },
                               ),
                               childCount: filteredProducts.length)),
                     )

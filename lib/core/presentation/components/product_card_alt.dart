@@ -105,12 +105,26 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Expanded(
+                        child: Text(
+                          widget.product.productName!,
+                          style: TextStyle(
+                              fontSize: 18, overflow: TextOverflow.ellipsis),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
                       Text(
-                        widget.product.productName!,
+                        'Ksh. ${widget.product.productSellingPrice!.toString().addCommas}',
                         style: TextStyle(
-                            fontSize: 18, overflow: TextOverflow.ellipsis),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
 
+                      //  delete icon
                       //  increment stock button
                       Row(
                         children: [
@@ -156,23 +170,6 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                             ),
                           ),
                         ],
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                          'Ksh. ${widget.product.productSellingPrice!.toString().addCommas}'),
-
-                      //  delete icon
-                      GestureDetector(
-                        onTap: widget.onDelete,
-                        child: Icon(
-                          Icons.delete_rounded,
-                          color: XploreColors.xploreOrange,
-                        ),
                       )
                     ],
                   ),
