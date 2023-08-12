@@ -42,7 +42,7 @@ class Assets {
   static const String generalLady = 'assets/general/lady.jpg';
   static const String generalLoading = 'assets/general/loading.json';
   static const String generalLogo = 'assets/general/logo.svg';
-  static const String generalMpesa = 'assets/general/mpesa.png';
+  static const String generalMpesaNew = 'assets/general/mpesa_new.png';
   static const String generalProfile = 'assets/general/profile.svg';
   static const String generalShoe = 'assets/general/shoe.jpg';
   static const String generalSuccess = 'assets/general/success.json';

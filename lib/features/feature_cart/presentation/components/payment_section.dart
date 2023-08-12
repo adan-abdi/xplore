@@ -34,7 +34,7 @@ class _PaymentSectionState extends State<PaymentSection> {
           paymentType: PaymentTypes.cash),
       PaymentMethod(
           title: "M-Pesa",
-          svgAsset: 'assets/general/mpesa.png',
+          svgAsset: 'assets/general/mpesa_new.png',
           paymentType: PaymentTypes.mpesa),
       PaymentMethod(
           title: "Deni",

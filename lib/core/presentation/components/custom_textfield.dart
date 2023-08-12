@@ -9,8 +9,9 @@ class CustomTextField extends StatelessWidget {
   final int? maxLines;
   final bool isObscured;
   final bool isEnabled;
+  final String? value;
   final TextInputType inputType;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final Function(String text) onChanged;
 
   const CustomTextField(
@@ -21,8 +22,9 @@ class CustomTextField extends StatelessWidget {
       this.maxLines = 1,
       this.isObscured = false,
       this.isEnabled = true,
+      this.value,
       this.inputType = TextInputType.text,
-      required this.controller,
+      this.controller,
       required this.onChanged});
 
   @override

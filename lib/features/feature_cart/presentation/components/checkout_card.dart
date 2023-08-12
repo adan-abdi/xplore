@@ -132,7 +132,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
               backgroundColor: XploreColors.xploreOrange,
               isValid: true,
               onTap: () => Get.to(() => CheckoutScreen(
-                    totalToPay: getTotalAmount().toString().addCommas,
+                    totalToPay: getTotalAmount(),
                   )))
         ],
       ),
