@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
-import 'package:shamiri/features/feature_onboarding/presentation/components/image_picker_item.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/components/round_toggle_button.dart';
 
 class ImagePickerBottomSheet extends StatelessWidget {
   final VoidCallback onCameraTap;
@@ -26,15 +26,15 @@ class ImagePickerBottomSheet extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ImagePickerItem(
+            RoundToggleButton(
                 iconData: Icons.camera_alt_rounded,
                 title: "Camera",
                 onTap: onCameraTap),
-            ImagePickerItem(
+            RoundToggleButton(
                 iconData: Icons.image_rounded,
                 title: "Gallery",
                 onTap: onGalleryTap),
-            ImagePickerItem(
+            RoundToggleButton(
                 iconData: Icons.delete_forever_rounded,
                 title: "Remove Profile",
                 onTap: onRemoveTap),

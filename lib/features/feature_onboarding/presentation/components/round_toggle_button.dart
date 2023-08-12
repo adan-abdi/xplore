@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
-class ImagePickerItem extends StatelessWidget {
+class RoundToggleButton extends StatelessWidget {
   final IconData iconData;
   final String title;
   final VoidCallback onTap;
 
-  const ImagePickerItem(
+  const RoundToggleButton(
       {super.key, required this.iconData, required this.title, required this.onTap});
 
   @override
