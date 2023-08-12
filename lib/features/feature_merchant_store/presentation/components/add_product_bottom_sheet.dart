@@ -37,7 +37,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
   late final CoreController _coreController;
   late final AuthController _authController;
 
-  late String? selectedCategory;
+  late String? selectedCategory = null;
 
   @override
   void initState() {
@@ -178,8 +178,8 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                     vSize20SizedBox,
                     //  product unit
                     CustomTextField(
-                        hint: "Product Unit",
-                        iconData: Icons.description,
+                        hint: "Product Unit e.g per litre, per kg etc",
+                        iconData: Icons.scale_rounded,
                         textStyle: TextStyle(fontSize: 16),
                         controller: _productUnitController,
                         onChanged: (value) {}),
@@ -188,7 +188,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                     //  product stock count
                     CustomTextField(
                         hint: "Product Stock count",
-                        iconData: Icons.description,
+                        iconData: Icons.account_tree_rounded,
                         textStyle: TextStyle(fontSize: 16),
                         inputType: TextInputType.number,
                         controller: _productStockCountController,

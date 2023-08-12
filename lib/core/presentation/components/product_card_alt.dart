@@ -125,7 +125,6 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                       ),
 
                       //  delete icon
-                      //  increment stock button
                       Row(
                         children: [
                           GestureDetector(

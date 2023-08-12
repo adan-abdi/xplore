@@ -213,6 +213,8 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                       ),
                     );
             }),
+
+            SliverToBoxAdapter(child: SizedBox(height: 64))
           ],
         ));
   }
