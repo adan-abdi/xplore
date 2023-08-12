@@ -14,6 +14,8 @@ import 'package:shamiri/presentation/core/widgets/molecular/dashboard_tab_action
 import 'package:get/get.dart';
 
 import '../../../../core/presentation/controller/auth_controller.dart';
+import '../../../../core/utils/constants.dart';
+import '../../../feature_home/presentation/components/pill_btn.dart';
 
 class MerchantStorePage extends StatefulWidget {
   const MerchantStorePage({super.key});
@@ -109,6 +111,37 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverToBoxAdapter(
                   child: Text("My Products", style: TextStyle(fontSize: 18))),
+            ),
+
+            SliverToBoxAdapter(
+              child: vSize20SizedBox,
+            ),
+
+            //  all products pill buttons
+            SliverToBoxAdapter(
+              child: Container(
+                  height: 50,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: Constants.productCategories.length,
+                    itemBuilder: (context, index) => Obx(
+                          () => PillBtn(
+                        text: Constants
+                            .productCategories[index].categoryName,
+                        iconData: Constants
+                            .productCategories[index].categoryIcon,
+                        isActive: _merchantController.activeCategory.value ==
+                            Constants.productCategories[index],
+                        onTap: () => _merchantController.setActiveCategory(
+                            Constants.productCategories[index]),
+                      ),
+                    ),
+                    separatorBuilder: (context, index) => const SizedBox(
+                      width: 8,
+                    ),
+                  )),
             ),
 
             SliverToBoxAdapter(

@@ -56,6 +56,7 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
                     content: Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
+                      margin: const EdgeInsets.only(bottom: 16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,

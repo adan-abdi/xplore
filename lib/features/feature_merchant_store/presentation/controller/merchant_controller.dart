@@ -7,6 +7,8 @@ import 'package:shamiri/features/feature_merchant_store/domain/model/transaction
 import 'package:shamiri/features/feature_merchant_store/domain/use_cases/merchant_use_cases.dart';
 
 import '../../../../core/domain/model/response_state.dart';
+import '../../../../core/presentation/model/product_category.dart';
+import '../../../../core/utils/constants.dart';
 import '../../domain/model/product_model.dart';
 
 class MerchantController extends GetxController {
@@ -17,6 +19,9 @@ class MerchantController extends GetxController {
 
   final activeTransactionType = TransactionTypes.fulfilled.obs;
 
+  /// Active Category
+  final activeCategory = Constants.productCategories[0].obs;
+
   void setProductPic({required File file}) => productPic.value = file;
 
   void setUploadButtonLoading({required bool isLoading}) =>
@@ -24,6 +29,9 @@ class MerchantController extends GetxController {
 
   void setActiveTransactionType({required TransactionTypes transactionType}) =>
       activeTransactionType.value = transactionType;
+
+  void setActiveCategory(ProductCategory category) =>
+      activeCategory.value = category;
 
   Future<void> addProductToFirestore(
       {required ProductModel product,
