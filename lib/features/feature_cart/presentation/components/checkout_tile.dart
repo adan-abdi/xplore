@@ -24,21 +24,18 @@ class CheckoutTile extends StatefulWidget {
 class _CheckoutTileState extends State<CheckoutTile> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 220,
-      child: TimelineTile(
-        isFirst: widget.isFirst,
-        isLast: widget.isLast,
-        beforeLineStyle: LineStyle(color: widget.isPast ? XploreColors.deepBlue : XploreColors.deepBlueLight),
-        indicatorStyle: IndicatorStyle(
-          width: 30,
-          height: 30,
-          indicatorXY: 0,
-          color: widget.isPast ? XploreColors.deepBlue : XploreColors.deepBlueLight,
-          iconStyle: IconStyle(iconData: widget.iconData, color: XploreColors.white)
-        ),
-        endChild: widget.content,
+    return TimelineTile(
+      isFirst: widget.isFirst,
+      isLast: widget.isLast,
+      beforeLineStyle: LineStyle(color: widget.isPast ? XploreColors.deepBlue : XploreColors.deepBlueLight),
+      indicatorStyle: IndicatorStyle(
+        width: 30,
+        height: 30,
+        indicatorXY: 0,
+        color: widget.isPast ? XploreColors.deepBlue : XploreColors.deepBlueLight,
+        iconStyle: IconStyle(iconData: widget.iconData, color: XploreColors.white)
       ),
+      endChild: widget.content,
     );
   }
 }

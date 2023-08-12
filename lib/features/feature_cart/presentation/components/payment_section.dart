@@ -47,6 +47,7 @@ class _PaymentSectionState extends State<PaymentSection> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
+      margin: const EdgeInsets.only(bottom: 24),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,16 +83,6 @@ class _PaymentSectionState extends State<PaymentSection> {
               separatorBuilder: (context, index) => hSize10SizedBox,
             ),
           ),
-
-          //  proceed button
-          Align(
-            alignment: AlignmentDirectional.bottomEnd,
-            child: TextButton(
-                onPressed: () => _cartController.setIsOrderPast(isPast: true),
-                style: TextButton.styleFrom(
-                    foregroundColor: XploreColors.xploreOrange),
-                child: Text("Order")),
-          )
         ],
       ),
     );

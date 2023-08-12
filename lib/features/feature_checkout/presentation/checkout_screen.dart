@@ -12,10 +12,11 @@ import 'package:shamiri/features/feature_cart/presentation/components/payment_se
 import 'package:shamiri/features/feature_onboarding/presentation/components/login_title.dart';
 
 import '../../../application/core/themes/colors.dart';
+import '../../feature_cart/domain/model/payment_types.dart';
+import '../../feature_cart/presentation/components/cash_payment_section.dart';
 import '../../feature_cart/presentation/controller/cart_controller.dart';
 
 class CheckoutScreen extends StatefulWidget {
-
   final String totalToPay;
 
   const CheckoutScreen({super.key, required this.totalToPay});
@@ -84,6 +85,38 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       isPast: true,
                       iconData: Icons.attach_money_rounded,
                       content: PaymentSection()),
+
+                  //  payment methods
+                  Obx(
+                    () {
+                      switch (_cartController.activePaymentType.value) {
+                        case PaymentTypes.cash:
+                          //  Cash payment
+                          return CheckoutTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: true,
+                              iconData: Icons.person_pin_rounded,
+                              content: CashPaymentSection());
+                        case PaymentTypes.mpesa:
+                          //  M-Pesa payment
+                          return CheckoutTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: true,
+                              iconData: Icons.attach_money_rounded,
+                              content: PaymentSection());
+                        case PaymentTypes.deni:
+                          //  Deni payment
+                          return CheckoutTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: true,
+                              iconData: Icons.attach_money_rounded,
+                              content: PaymentSection());
+                      }
+                    },
+                  ),
 
                   //  order confirmation
                   Obx(
