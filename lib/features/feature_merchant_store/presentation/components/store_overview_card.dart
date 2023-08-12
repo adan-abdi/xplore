@@ -6,11 +6,27 @@ import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
+import 'package:get/get.dart';
 
-class StoreOverViewCard extends StatelessWidget {
+class StoreOverviewCard extends StatefulWidget {
   final UserModel store;
 
-  const StoreOverViewCard({super.key, required this.store});
+  const StoreOverviewCard({super.key, required this.store});
+
+  @override
+  State<StoreOverviewCard> createState() => _StoreOverviewCardState();
+}
+
+class _StoreOverviewCardState extends State<StoreOverviewCard> {
+  late final MerchantController _merchantController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _merchantController = Get.find<MerchantController>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +47,7 @@ class StoreOverViewCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  ProfilePic(
-                      imageUrl: store.userProfilePicUrl),
+                  ProfilePic(imageUrl: widget.store.userProfilePicUrl),
                   hSize20SizedBox,
                   Expanded(
                     child: Column(
@@ -43,8 +58,7 @@ class StoreOverViewCard extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                                 color: XploreColors.white)),
-                        Text(
-                            store.userName!.trimUserName,
+                        Text(widget.store.userName!.trimUserName,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 24,
@@ -74,7 +88,7 @@ class StoreOverViewCard extends StatelessWidget {
                           hSize10SizedBox,
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 8),
+                                horizontal: 12, vertical: 4),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
                                 color: XploreColors.xploreOrange),
@@ -85,17 +99,21 @@ class StoreOverViewCard extends StatelessWidget {
                           )
                         ],
                       ),
-                      Text.rich(TextSpan(children: [
-                        TextSpan(
-                            text: "Ksh. ",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: XploreColors.xploreOrange)),
-                        TextSpan(
-                            text: "300",
-                            style: TextStyle(
-                                fontSize: 32, color: XploreColors.white)),
-                      ])),
+                      vSize20SizedBox,
+                      Obx(
+                        () => Text.rich(TextSpan(children: [
+                          TextSpan(
+                              text: "Ksh. ",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: XploreColors.xploreOrange)),
+                          TextSpan(
+                              text: _merchantController.calculateTotalStock
+                                  .toString().addCommas,
+                              style: TextStyle(
+                                  fontSize: 26, color: XploreColors.white, fontWeight: FontWeight.bold)),
+                        ])),
+                      ),
                     ],
                   ),
                   Icon(

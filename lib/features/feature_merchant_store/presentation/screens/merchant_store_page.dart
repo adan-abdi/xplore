@@ -41,9 +41,7 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
               ProductModel.fromJson(product.data() as Map<String, dynamic>))
           .toList();
 
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _merchantController.setProducts(products: products);
-      });
+      _merchantController.setProducts(products: products);
     });
   }
 
@@ -65,7 +63,7 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
           slivers: [
             //  store overview
             Obx(
-              () => StoreOverViewCard(
+              () => StoreOverviewCard(
                 store: _authController.user.value!,
               ),
             ),
@@ -97,7 +95,7 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                       children: [
                         Row(
                           children: [
-                            Icon(Icons.receipt_rounded,
+                            Icon(Icons.receipt_long_rounded,
                                 color: XploreColors.white),
                             hSize20SizedBox,
                             Text("My Transactions",
@@ -174,24 +172,26 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       sliver: SliverList(
                           delegate: SliverChildBuilderDelegate(
-                              (context, index) => ProductCardAlt(
-                                    product: filteredProducts.elementAt(index),
-                                    onTap: () {
-                                      openBottomSheet(
-                                          content: AddProductBottomSheet(
-                                            product: filteredProducts
-                                                .elementAt(index),
-                                          ),
-                                          onComplete: () {});
-                                    },
-                                    onDelete: () async {
-                                      //  delete product
-                                      _merchantController.deleteProduct(
-                                          productId: filteredProducts
-                                              .elementAt(index)
-                                              .productId!);
-                                    },
-                                  ),
+                              (context, index) => Obx(
+                                  () => ProductCardAlt(
+                                      product: filteredProducts.elementAt(index),
+                                      onTap: () {
+                                        openBottomSheet(
+                                            content: AddProductBottomSheet(
+                                              product: filteredProducts
+                                                  .elementAt(index),
+                                            ),
+                                            onComplete: () {});
+                                      },
+                                      onDelete: () async {
+                                        //  delete product
+                                        _merchantController.deleteProduct(
+                                            productId: filteredProducts
+                                                .elementAt(index)
+                                                .productId!);
+                                      },
+                                    ),
+                              ),
                               childCount: filteredProducts.length)),
                     )
                   : SliverToBoxAdapter(

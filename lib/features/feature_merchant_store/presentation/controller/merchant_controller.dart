@@ -37,6 +37,18 @@ class MerchantController extends GetxController {
   void setActiveCategory(ProductCategory category) =>
       activeCategory.value = category;
 
+  double get calculateTotalStock {
+    if (merchantProducts.isNotEmpty) {
+      final totalItemSellingPrices = merchantProducts
+          .map((product) => product.productSellingPrice! * product.productStockCount!)
+          .reduce((value, element) => value + element);
+
+      return totalItemSellingPrices.roundToDouble();
+    }
+
+    return 0.0;
+  }
+
   Future<void> addProductToFirestore(
       {required ProductModel product,
       required File? productPic,
@@ -52,8 +64,8 @@ class MerchantController extends GetxController {
   Future<void> updateProduct(
           {required ProductModel oldProduct,
           required ProductModel newProduct,
-          required Function(ResponseState response) response}) async => await
-      useCases.updateProduct.call(
+          required Function(ResponseState response) response}) async =>
+      await useCases.updateProduct.call(
           oldProduct: oldProduct, newProduct: newProduct, response: response);
 
   Future<void> deleteProduct({required String productId}) async =>
