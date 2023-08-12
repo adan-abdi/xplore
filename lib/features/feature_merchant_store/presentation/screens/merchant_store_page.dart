@@ -7,6 +7,7 @@ import 'package:shamiri/core/presentation/components/open_bottom_sheet.dart';
 import 'package:shamiri/core/presentation/components/product_card_alt.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/add_product_bottom_sheet.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/components/product_actions_bottom_sheet.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/store_overview_card.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/screens/merchant_transactions.dart';
@@ -176,10 +177,15 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                                   () => ProductCardAlt(
                                       product: filteredProducts.elementAt(index),
                                       onTap: () {
+                                        // openBottomSheet(
+                                        //     content: AddProductBottomSheet(
+                                        //       product: filteredProducts
+                                        //           .elementAt(index),
+                                        //     ),
+                                        //     onComplete: () {});
                                         openBottomSheet(
-                                            content: AddProductBottomSheet(
-                                              product: filteredProducts
-                                                  .elementAt(index),
+                                            content: ProductActionsBottomSheet(
+                                              product: filteredProducts[index],
                                             ),
                                             onComplete: () {});
                                       },
