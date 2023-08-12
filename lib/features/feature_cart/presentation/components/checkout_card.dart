@@ -50,7 +50,6 @@ class _CheckoutCardState extends State<CheckoutCard> {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
@@ -64,11 +63,16 @@ class _CheckoutCardState extends State<CheckoutCard> {
         children: [
           Row(
             children: [
-              Icon(Icons.receipt_long_rounded, color: XploreColors.xploreOrange,),
+              Icon(
+                Icons.receipt_long_rounded,
+                color: XploreColors.xploreOrange,
+              ),
               hSize10SizedBox,
-              Text("Order Summary", style: TextStyle(fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: XploreColors.white)),
+              Text("Order Summary",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: XploreColors.white)),
             ],
           ),
           Row(
@@ -79,8 +83,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                       fontSize: 18,
                       color: XploreColors.whiteSmoke,
                       fontWeight: FontWeight.bold)),
-              Obx(() =>
-                  Text.rich(TextSpan(children: [
+              Obx(() => Text.rich(TextSpan(children: [
                     TextSpan(
                         text: "Ksh. ",
                         style: TextStyle(
@@ -88,9 +91,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                             color: XploreColors.whiteSmoke,
                             fontWeight: FontWeight.bold)),
                     TextSpan(
-                        text: "${getTotalAmount()
-                            .toString()
-                            .addCommas}",
+                        text: "${getTotalAmount().toString().addCommas}",
                         style: TextStyle(
                             fontSize: 21,
                             color: XploreColors.white,
@@ -107,8 +108,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                       fontSize: 18,
                       color: XploreColors.white,
                       fontWeight: FontWeight.bold)),
-              Obx(() =>
-                  Text.rich(TextSpan(children: [
+              Obx(() => Text.rich(TextSpan(children: [
                     TextSpan(
                         text: "Ksh. ",
                         style: TextStyle(
@@ -116,9 +116,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                             color: XploreColors.whiteSmoke,
                             fontWeight: FontWeight.bold)),
                     TextSpan(
-                        text: "${getTotalAmount()
-                            .toString()
-                            .addCommas}",
+                        text: "${getTotalAmount().toString().addCommas}",
                         style: TextStyle(
                             fontSize: 21,
                             color: XploreColors.white,
@@ -133,7 +131,9 @@ class _CheckoutCardState extends State<CheckoutCard> {
               text: "Checkout",
               backgroundColor: XploreColors.xploreOrange,
               isValid: true,
-              onTap: () => Get.to(() => CheckoutScreen()))
+              onTap: () => Get.to(() => CheckoutScreen(
+                    totalToPay: getTotalAmount().toString().addCommas,
+                  )))
         ],
       ),
     );

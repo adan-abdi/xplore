@@ -36,62 +36,63 @@ class _PaymentSectionState extends State<PaymentSection> {
           title: "M-Pesa",
           svgAsset: 'assets/general/mpesa.png',
           paymentType: PaymentTypes.mpesa),
+      PaymentMethod(
+          title: "Deni",
+          iconData: Icons.menu_book_rounded,
+          paymentType: PaymentTypes.deni),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
-    return Opacity(
-      opacity: _cartController.isPaymentPast.value ? 1 : 0.1,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //  title
-            Text("Payment",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          //  title
+          Text("Payment",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
 
-            vSize10SizedBox,
+          vSize10SizedBox,
 
-            Text("Choose payment method.",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
+          Text("Choose payment method.",
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
 
-            // delivery pills
-            vSize20SizedBox,
+          // delivery pills
+          vSize20SizedBox,
 
-            Container(
-              height: 50,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                physics: const BouncingScrollPhysics(),
-                itemCount: paymentMethods.length,
-                itemBuilder: (context, index) => Obx(
-                    () => PillBtn(
-                      text: paymentMethods[index].title,
-                      iconData: paymentMethods[index].iconData,
-                      imageAsset: paymentMethods[index].svgAsset,
-                      isActive: _cartController.activePaymentType.value ==
-                          paymentMethods[index].paymentType,
-                      onTap: () => _cartController.setActivePaymentType(
-                          paymentType: paymentMethods[index].paymentType)),
-                ),
-                separatorBuilder: (context, index) => hSize10SizedBox,
+          Container(
+            height: 50,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              itemCount: paymentMethods.length,
+              itemBuilder: (context, index) => Obx(
+                  () => PillBtn(
+                    text: paymentMethods[index].title,
+                    iconData: paymentMethods[index].iconData,
+                    imageAsset: paymentMethods[index].svgAsset,
+                    isActive: _cartController.activePaymentType.value ==
+                        paymentMethods[index].paymentType,
+                    onTap: () => _cartController.setActivePaymentType(
+                        paymentType: paymentMethods[index].paymentType)),
               ),
+              separatorBuilder: (context, index) => hSize10SizedBox,
             ),
+          ),
 
-            //  proceed button
-            Align(
-              alignment: AlignmentDirectional.bottomEnd,
-              child: TextButton(
-                  onPressed: () => _cartController.setIsOrderPast(isPast: true),
-                  style: TextButton.styleFrom(
-                      foregroundColor: XploreColors.xploreOrange),
-                  child: Text("Order")),
-            )
-          ],
-        ),
+          //  proceed button
+          Align(
+            alignment: AlignmentDirectional.bottomEnd,
+            child: TextButton(
+                onPressed: () => _cartController.setIsOrderPast(isPast: true),
+                style: TextButton.styleFrom(
+                    foregroundColor: XploreColors.xploreOrange),
+                child: Text("Order")),
+          )
+        ],
       ),
     );
   }

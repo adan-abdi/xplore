@@ -15,7 +15,10 @@ import '../../../application/core/themes/colors.dart';
 import '../../feature_cart/presentation/controller/cart_controller.dart';
 
 class CheckoutScreen extends StatefulWidget {
-  const CheckoutScreen({super.key});
+
+  final String totalToPay;
+
+  const CheckoutScreen({super.key, required this.totalToPay});
 
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
@@ -70,41 +73,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       context: context,
                       title: "Place \n",
                       subtitle: "Your Order",
-                      extraHeading: "Add payment information"),
+                      extraHeading: "Total to pay : Ksh. ${widget.totalToPay}"),
 
                   vSize30SizedBox,
 
-                  //  devlivery information
+                  //  payment information
                   CheckoutTile(
-                      isFirst: true,
+                      isFirst: false,
                       isLast: false,
                       isPast: true,
-                      iconData: Icons.fire_truck_rounded,
-                      content: DeliverySection()),
-
-                  //  on delivery information
-                  Obx(
-                    () => Visibility(
-                      visible: _cartController.activeDeliveryType.value ==
-                          DeliveryTypes.door_delivery,
-                      child: CheckoutTile(
-                          isFirst: false,
-                          isLast: false,
-                          isPast: _cartController.isAddressPast.value,
-                          iconData: Icons.location_on_rounded,
-                          content: LocationSection()),
-                    ),
-                  ),
-
-                  //  payment information
-                  Obx(
-                    () => CheckoutTile(
-                        isFirst: false,
-                        isLast: false,
-                        isPast: _cartController.isPaymentPast.value,
-                        iconData: Icons.attach_money_rounded,
-                        content: PaymentSection()),
-                  ),
+                      iconData: Icons.attach_money_rounded,
+                      content: PaymentSection()),
 
                   //  order confirmation
                   Obx(
