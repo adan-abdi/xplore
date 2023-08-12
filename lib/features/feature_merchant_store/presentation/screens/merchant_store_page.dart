@@ -38,7 +38,7 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
     _merchantController.getMerchantProducts().listen((snapshot) {
       var products = snapshot.docs
           .map((product) =>
-          ProductModel.fromJson(product.data() as Map<String, dynamic>))
+              ProductModel.fromJson(product.data() as Map<String, dynamic>))
           .toList();
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -159,54 +159,53 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
             ),
 
             Obx(() {
-
               final filteredProducts =
-              _merchantController.activeCategory.value.categoryName ==
-                  'All'
-                  ? _merchantController.merchantProducts
-                  : _merchantController.merchantProducts
-                  .where((product) =>
-              product.productCategoryId ==
-                  _merchantController
-                      .activeCategory.value.categoryName)
-                  .toList();
+                  _merchantController.activeCategory.value.categoryName == 'All'
+                      ? _merchantController.merchantProducts
+                      : _merchantController.merchantProducts
+                          .where((product) =>
+                              product.productCategoryId ==
+                              _merchantController
+                                  .activeCategory.value.categoryName)
+                          .toList();
 
-              return _merchantController.merchantProducts.isNotEmpty
-                ? SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverList(
-                  delegate:
-                  SliverChildBuilderDelegate((context, index) => ProductCardAlt(
-                    product: filteredProducts.elementAt(index),
-                    onTap: () {
-                      openBottomSheet(
-                          content: AddProductBottomSheet(
-                            product:
-                            filteredProducts.elementAt(index),
-                          ),
-                          onComplete: () {});
-                    },
-                    onDelete: () async {
-                      //  delete product
-                      _merchantController.deleteProduct(
-                          productId: filteredProducts
-                              .elementAt(index)
-                              .productId!);
-                    },
-                  ), childCount: filteredProducts.length)),
-            )
-                : SliverToBoxAdapter(
-              child: Center(
-                child: Column(
-                  children: [
-                    MyLottie(
-                        lottie:
-                        'assets/general/xplore_loader.json'),
-                    Text("No Products yet")
-                  ],
-                ),
-              ),
-            );
+              return filteredProducts.isNotEmpty
+                  ? SliverPadding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      sliver: SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                              (context, index) => ProductCardAlt(
+                                    product: filteredProducts.elementAt(index),
+                                    onTap: () {
+                                      openBottomSheet(
+                                          content: AddProductBottomSheet(
+                                            product: filteredProducts
+                                                .elementAt(index),
+                                          ),
+                                          onComplete: () {});
+                                    },
+                                    onDelete: () async {
+                                      //  delete product
+                                      _merchantController.deleteProduct(
+                                          productId: filteredProducts
+                                              .elementAt(index)
+                                              .productId!);
+                                    },
+                                  ),
+                              childCount: filteredProducts.length)),
+                    )
+                  : SliverToBoxAdapter(
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            MyLottie(
+                                lottie: 'assets/general/xplore_loader.json'),
+                            Text("No Products yet")
+                          ],
+                        ),
+                      ),
+                    );
             }),
           ],
         ));
