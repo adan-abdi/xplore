@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
+import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_checkout/presentation/checkout_screen.dart';
 
 import '../../../../application/core/themes/colors.dart';
@@ -49,18 +50,27 @@ class _CheckoutCardState extends State<CheckoutCard> {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       width: double.infinity,
-      height: 200,
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(24), topRight: Radius.circular(24)),
         color: XploreColors.deepBlue,
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Wrap(
+        runSpacing: 24,
         children: [
+          Row(
+            children: [
+              Icon(Icons.receipt_long_rounded, color: XploreColors.xploreOrange,),
+              hSize10SizedBox,
+              Text("Order Summary", style: TextStyle(fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: XploreColors.white)),
+            ],
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -69,7 +79,8 @@ class _CheckoutCardState extends State<CheckoutCard> {
                       fontSize: 18,
                       color: XploreColors.whiteSmoke,
                       fontWeight: FontWeight.bold)),
-              Obx(() => Text.rich(TextSpan(children: [
+              Obx(() =>
+                  Text.rich(TextSpan(children: [
                     TextSpan(
                         text: "Ksh. ",
                         style: TextStyle(
@@ -77,7 +88,9 @@ class _CheckoutCardState extends State<CheckoutCard> {
                             color: XploreColors.whiteSmoke,
                             fontWeight: FontWeight.bold)),
                     TextSpan(
-                        text: "${getTotalAmount().toString().addCommas}",
+                        text: "${getTotalAmount()
+                            .toString()
+                            .addCommas}",
                         style: TextStyle(
                             fontSize: 21,
                             color: XploreColors.white,
@@ -94,20 +107,23 @@ class _CheckoutCardState extends State<CheckoutCard> {
                       fontSize: 18,
                       color: XploreColors.white,
                       fontWeight: FontWeight.bold)),
-              Obx(() => Text.rich(TextSpan(children: [
-                TextSpan(
-                    text: "Ksh. ",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: XploreColors.whiteSmoke,
-                        fontWeight: FontWeight.bold)),
-                TextSpan(
-                    text: "${getTotalAmount().toString().addCommas}",
-                    style: TextStyle(
-                        fontSize: 21,
-                        color: XploreColors.white,
-                        fontWeight: FontWeight.bold)),
-              ]))),
+              Obx(() =>
+                  Text.rich(TextSpan(children: [
+                    TextSpan(
+                        text: "Ksh. ",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: XploreColors.whiteSmoke,
+                            fontWeight: FontWeight.bold)),
+                    TextSpan(
+                        text: "${getTotalAmount()
+                            .toString()
+                            .addCommas}",
+                        style: TextStyle(
+                            fontSize: 21,
+                            color: XploreColors.white,
+                            fontWeight: FontWeight.bold)),
+                  ]))),
             ],
           ),
 
