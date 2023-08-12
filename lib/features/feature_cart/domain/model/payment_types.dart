@@ -1,1 +1,1 @@
-enum PaymentTypes {mpesa, cash, deni}
+enum PaymentTypes {mpesa, cash}

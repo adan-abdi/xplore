@@ -111,14 +111,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               content: MpesaPaymentSection(
                                 total: widget.totalToPay,
                               ));
-                        case PaymentTypes.deni:
-                          //  Deni payment
-                          return CheckoutTile(
-                              isFirst: false,
-                              isLast: false,
-                              isPast: true,
-                              iconData: Icons.attach_money_rounded,
-                              content: PaymentSection());
                       }
                     },
                   ),
