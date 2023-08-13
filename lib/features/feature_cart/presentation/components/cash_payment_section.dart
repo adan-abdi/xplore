@@ -135,28 +135,26 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                             newUser: UserModel(transactions: allTransactions),
                             uid: sellerId)
                         .then((value) async {
+                      //  update buyer data
+                      if (buyerData != null && buyerId != null) {
+                        final buyerTransactions = buyerData.transactions!;
 
-                          //  update buyer data
-                          if (buyerData != null && buyerId != null) {
-                            final buyerTransactions = buyerData.transactions!;
+                        buyerTransactions.add(TransactionModel(
+                            buyerId: buyerId == null || buyerId!.isEmpty
+                                ? _authController.user.value!.userId!
+                                : buyerId!,
+                            productId: cartItem.cartProductId!,
+                            itemsBought: cartItem.cartProductCount!,
+                            amountPaid: product.productSellingPrice! *
+                                cartItem.cartProductCount!,
+                            transactionDate: DateTime.now().toString(),
+                            isFulfilled: true));
 
-                            buyerTransactions.add(TransactionModel(
-                                buyerId: buyerId == null || buyerId!.isEmpty
-                                    ? _authController.user.value!.userId!
-                                    : buyerId!,
-                                productId: cartItem.cartProductId!,
-                                itemsBought: cartItem.cartProductCount!,
-                                amountPaid: product.productSellingPrice! *
-                                    cartItem.cartProductCount!,
-                                transactionDate: DateTime.now().toString(),
-                                isFulfilled: true));
-
-                            await _authController
-                                .updateUserDataInFirestore(
-                                oldUser: buyerData,
-                                newUser: UserModel(transactions: buyerTransactions),
-                                uid: buyerId!);
-                          }
+                        await _authController.updateUserDataInFirestore(
+                            oldUser: buyerData,
+                            newUser: UserModel(transactions: buyerTransactions),
+                            uid: buyerId!);
+                      }
 
                       //  update product stock count
                       _merchantController.updateProduct(
