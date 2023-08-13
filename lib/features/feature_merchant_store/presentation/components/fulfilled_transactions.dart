@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shamiri/core/presentation/components/open_bottom_sheet.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card_main.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_tile.dart';
 
 import '../../../../core/presentation/components/my_lottie.dart';
@@ -28,38 +30,64 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => _authController.user.value!.transactions!.isNotEmpty
+    return Obx(() {
+      final transactionsByBuyerId = _authController.user.value!.transactions!
+          .map((transaction) => transaction.buyerId!)
+          .toSet()
+          .toList();
+
+      return _authController.user.value!.transactions!.isNotEmpty
           ? SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate((context, index) {
-                final userDetails = _homeController.stores.firstWhere((store) =>
-                    store.userId! ==
-                    _authController.user.value!.transactions![index].buyerId);
+                  delegate: SliverChildBuilderDelegate((context, mainIndex) {
+                final allTransactionsByBuyer = _authController
+                    .user.value!.transactions!
+                    .where((transaction) =>
+                        transaction.buyerId! ==
+                        transactionsByBuyerId[mainIndex])
+                    .toList();
 
-                final transaction =
-                    _authController.user.value!.transactions![index];
+                return TransactionCardMain(
+                  buyerId: transactionsByBuyerId[mainIndex],
+                  onTap: () {
+                    openBottomSheet(
+                        content: Container(
+                          height: MediaQuery.of(context).size.height * 0.5,
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: ListView.builder(
+                              itemBuilder: (context, index) {
+                                final userDetails = _homeController.stores
+                                    .firstWhere((store) =>
+                                        store.userId! == allTransactionsByBuyer[index].buyerId!);
 
-                return TransactionCard(
-                  transaction: transaction,
-                  userDetails: userDetails,
-                  product: transaction.product!,
+                                final transaction = allTransactionsByBuyer[index];
+
+                                return TransactionCard(
+                                  transaction: transaction,
+                                  userDetails: userDetails,
+                                  product: transaction.product!,
+                                );
+                              },
+                              itemCount: allTransactionsByBuyer.length),
+                        ),
+                        onComplete: () {});
+                  },
                 );
-              }, childCount: _authController.user.value!.transactions!.length)),
+              }, childCount: transactionsByBuyerId.length)),
             )
           : SliverFillRemaining(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            MyLottie(
-              lottie: 'assets/general/receipt.json',
-            ),
-            Text("No loans yet.")
-          ],
-        ),
-      )
-    );
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  MyLottie(
+                    lottie: 'assets/general/receipt.json',
+                  ),
+                  Text("No loans yet.")
+                ],
+              ),
+            );
+    });
   }
 }
