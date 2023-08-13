@@ -31,7 +31,7 @@ class _TransactionToggleState extends State<TransactionToggle> {
         height: 50,
         padding: const EdgeInsets.all(6),
         margin: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(color: XploreColors.whiteSmoke.withOpacity(0.5), borderRadius: BorderRadius.circular(8)),
+        decoration: BoxDecoration(color: XploreColors.deepBlue.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
         child: Row(
           children: [
             Expanded(
