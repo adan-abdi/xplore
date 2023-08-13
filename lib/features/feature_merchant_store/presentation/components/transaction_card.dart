@@ -21,117 +21,125 @@ class TransactionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      margin: const EdgeInsets.only(bottom: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          //  user name
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "${userDetails.userName}",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "+ Ksh. ${transaction.amountPaid.toString().addCommas}",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: XploreColors.xploreOrange),
-              ),
-            ],
-          ),
-
-          vSize20SizedBox,
-
-          //  product bought
-          Container(
-            width: double.infinity,
-            height: 80,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: XploreColors.deepBlue),
-            child: Row(
-              children: [
-                //  image
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: XploreColors.xploreOrange,
-                      borderRadius: BorderRadius.circular(8)),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(24),
-                    child: product.productImageUrl != null &&
-                            product.productImageUrl!.isNotEmpty
-                        ? Image.network(
-                            product.productImageUrl!,
-                            width: double.infinity,
-                            height: double.infinity,
-                            fit: BoxFit.cover,
-                          )
-                        : Icon(
-                            Icons.add_shopping_cart_rounded,
-                            color: XploreColors.white,
-                          ),
-                  ),
+      margin: const EdgeInsets.only(bottom: 24),
+      child: Container(
+        width: double.infinity,
+        height: 80,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16), color: XploreColors.white),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //  image
+            Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                  color: XploreColors.deepBlue.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(100)),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+                child: Icon(
+                  Icons.receipt_long_rounded,
+                  color: XploreColors.deepBlue,
+                  size: 24,
                 ),
+              ),
+            ),
 
-                //  product name
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Column(
+            hSize10SizedBox,
+
+            //  product name
+            Expanded(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //  name and price
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "${product.productName!}",
                           style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: XploreColors.white),
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
                         ),
+                        //  price
+                        Text(
+                          "Ksh. ${transaction.amountPaid!.toString().addCommas}",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                      ],
+                    ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "${product.productCategoryId != null && product.productCategoryId!.isNotEmpty ? product.productCategoryId! : 'No category'}",
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                        Text(
+                          "${transaction.itemsBought!} items",
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black),
+                        ),
+                      ],
+                    ),
+
+                    //  date and tags
+                    Row(
+                      children: [
+                        Text(
+                          "${transaction.transactionDate!.formatDate}",
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                        hSize20SizedBox,
                         Row(
                           children: [
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                "${transaction.transactionDate!.formatDate}",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    color: XploreColors.white,
-                                    overflow: TextOverflow.ellipsis),
-                              ),
+                            Container(
+                              width: 5,
+                              height: 5,
+                              decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(100)),
                             ),
-                            Expanded(
-                              child: Align(
-                                alignment: AlignmentDirectional.centerEnd,
-                                child: Text(
-                                  "${transaction.itemsBought!} items",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal,
-                                      color: XploreColors.white),
-                                ),
-                              ),
+                            hSize10SizedBox,
+                            Text(
+                              "fulfilled",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black),
                             ),
                           ],
                         ),
                       ],
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

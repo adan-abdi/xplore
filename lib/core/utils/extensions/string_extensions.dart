@@ -77,9 +77,8 @@ extension StringExtensions on String {
   /// Format Date Time
   String get formatDate {
     final date = DateTime.parse(this);
-    final formatterMonth = DateFormat('MMMM');
-    final formatterDay = DateFormat('EEEE');
+    final format = DateFormat('dd/MM/yyyy');
 
-    return '${formatterDay.format(date).shortenDateNames}, ${date.day} ${formatterMonth.format(date).shortenDateNames} ${date.year}';
+    return format.format(date);
   }
 }
