@@ -3,6 +3,7 @@ import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/transaction_model.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_tag.dart';
 
 import '../../../../application/core/themes/colors.dart';
 import '../../../../domain/value_objects/app_spaces.dart';
@@ -113,25 +114,7 @@ class TransactionCard extends StatelessWidget {
                               overflow: TextOverflow.ellipsis),
                         ),
                         hSize20SizedBox,
-                        Row(
-                          children: [
-                            Container(
-                              width: 5,
-                              height: 5,
-                              decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(100)),
-                            ),
-                            hSize10SizedBox,
-                            Text(
-                              "fulfilled",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black),
-                            ),
-                          ],
-                        ),
+                        TransactionTag(title: "fulfilled", tagColor: XploreColors.red)
                       ],
                     ),
                   ],
