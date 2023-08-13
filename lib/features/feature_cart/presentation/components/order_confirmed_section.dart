@@ -96,7 +96,10 @@ class _OrderConfirmedSectionState extends State<OrderConfirmedSection> {
 
                       allTransactions.add(TransactionModel(
                           buyerId: _authController.user.value!.userId!,
-                          productId: cartItem.cartProductId!,
+                          product: _merchantController.merchantProducts
+                              .firstWhere((product) =>
+                          product.productId! ==
+                              cartItem.cartProductId!),
                           itemsBought: cartItem.cartProductCount!,
                           amountPaid: product.productSellingPrice! *
                               cartItem.cartProductCount!,

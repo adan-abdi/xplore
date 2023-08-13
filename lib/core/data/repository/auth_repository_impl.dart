@@ -104,16 +104,13 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<UserModel> getSpecificUserFromFirestore({required String uid}) async {
-
     try {
-
       final snapshot =
-      await firestore.collection(Constants.USER_COLLECTION).doc(uid).get();
+          await firestore.collection(Constants.USER_COLLECTION).doc(uid).get();
 
       return UserModel.fromJson(snapshot.data()!);
-
     } catch (error) {
-     throw Exception(error);
+      throw Exception(error);
     }
   }
 
@@ -182,10 +179,24 @@ class AuthRepositoryImpl implements AuthRepository {
             newUser.itemsInCart?.map((item) => item.toJson()).toList() ??
                 oldUser.itemsInCart?.map((item) => item.toJson()).toList(),
         "transactions": newUser.transactions
-                ?.map((transaction) => transaction.toJson())
+                ?.map((transaction) => {
+                      "buyerId": transaction.buyerId!,
+                      "product": transaction.product!.toJson(),
+                      "itemsBought": transaction.itemsBought!,
+                      "amountPaid": transaction.amountPaid!,
+                      "transactionDate": transaction.transactionDate!,
+                      "isFulfilled": transaction.isFulfilled!,
+                    })
                 .toList() ??
             oldUser.transactions
-                ?.map((transaction) => transaction.toJson())
+                ?.map((transaction) => {
+                      "buyerId": transaction.buyerId!,
+                      "product": transaction.product!.toJson(),
+                      "itemsBought": transaction.itemsBought!,
+                      "amountPaid": transaction.amountPaid!,
+                      "transactionDate": transaction.transactionDate!,
+                      "isFulfilled": transaction.isFulfilled!,
+                    })
                 .toList()
       }).then((value) => print("SUCCESS!!!"));
     } on FirebaseException catch (error) {

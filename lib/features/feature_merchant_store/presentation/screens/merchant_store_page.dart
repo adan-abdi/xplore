@@ -178,17 +178,6 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                                 product: filteredProducts.elementAt(index),
                                 onTap: () {
                                   Get.to(() => ProductViewPage(product: filteredProducts.elementAt(index)));
-                                  // openBottomSheet(
-                                  //     content: AddProductBottomSheet(
-                                  //       product: filteredProducts
-                                  //           .elementAt(index),
-                                  //     ),
-                                  //     onComplete: () {});
-                                  // openBottomSheet(
-                                  //     content: ProductActionsBottomSheet(
-                                  //       product: filteredProducts[index],
-                                  //     ),
-                                  //     onComplete: () {});
                                 },
                                 onDelete: () async {
                                   //  delete product

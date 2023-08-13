@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
-import 'package:shamiri/core/utils/extensions/string_extensions.dart';
-import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_tile.dart';
-import 'package:timeline_tile/timeline_tile.dart';
 
 class FulfilledTransactions extends StatefulWidget {
   const FulfilledTransactions({super.key});
@@ -44,7 +40,7 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
                     _authController.user.value!.transactions![index];
 
                 final product = _homeController.products.firstWhere(
-                    (prod) => prod.productId! == transaction.productId!);
+                    (prod) => prod.productId! == transaction.product!);
 
                 return TransactionTile(
                     isFirst: index == 0 ? true : false,

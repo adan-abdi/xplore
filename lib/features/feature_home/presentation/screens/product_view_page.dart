@@ -11,8 +11,10 @@ import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
 
 import '../../../../core/presentation/components/badged_icon.dart';
+import '../../../../core/presentation/components/open_bottom_sheet.dart';
 import '../../../feature_cart/presentation/cart_screen.dart';
 import '../../../feature_merchant_store/domain/model/product_model.dart';
+import '../../../feature_merchant_store/presentation/components/add_product_bottom_sheet.dart';
 import '../controller/home_controller.dart';
 
 class ProductViewPage extends StatefulWidget {
@@ -135,7 +137,15 @@ class _ProductViewPageState extends State<ProductViewPage> {
               itemBuilder: (context) => [
                 //  update product
                 PopupMenuItem(
-                  onTap: () {},
+                  onTap: () {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      openBottomSheet(
+                          content: AddProductBottomSheet(
+                            product: widget.product,
+                          ),
+                          onComplete: () {});
+                    });
+                  },
                   child: Row(
                     children: [
                       Icon(
@@ -148,16 +158,19 @@ class _ProductViewPageState extends State<ProductViewPage> {
                       ),
                       Text(
                         "Edit Product",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       )
                     ],
                   ),
                 ),
                 //  delete product
                 PopupMenuItem(
-                  onTap: () {},
+                  onTap: () async {
+                    //  delete product
+                    await _merchantController.deleteProduct(
+                        productId: widget.product.productId!);
+                    Get.back();
+                  },
                   child: Row(
                     children: [
                       Icon(
@@ -170,9 +183,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                       ),
                       Text(
                         "Delete Product",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       )
                     ],
                   ),

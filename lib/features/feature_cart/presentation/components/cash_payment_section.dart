@@ -122,7 +122,10 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                         buyerId: buyerId == null || buyerId!.isEmpty
                             ? _authController.user.value!.userId!
                             : buyerId!,
-                        productId: cartItem.cartProductId!,
+                        product: _merchantController.merchantProducts
+                            .firstWhere((product) =>
+                        product.productId! ==
+                            cartItem.cartProductId!),
                         itemsBought: cartItem.cartProductCount!,
                         amountPaid: product.productSellingPrice! *
                             cartItem.cartProductCount!,
@@ -143,7 +146,10 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                             buyerId: buyerId == null || buyerId!.isEmpty
                                 ? _authController.user.value!.userId!
                                 : buyerId!,
-                            productId: cartItem.cartProductId!,
+                            product: _merchantController.merchantProducts
+                                .firstWhere((product) =>
+                                    product.productId! ==
+                                    cartItem.cartProductId!),
                             itemsBought: cartItem.cartProductCount!,
                             amountPaid: product.productSellingPrice! *
                                 cartItem.cartProductCount!,
