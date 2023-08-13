@@ -80,7 +80,27 @@ class _MerchantTransactionsState extends State<MerchantTransactions> {
                             oldUser: _authController.user.value!,
                             newUser: UserModel(transactions: allTransactions),
                             uid: _authController.user.value!.userId!);
-                      })
+                      }) : _merchantController.activeTransactionType.value ==
+                  TransactionTypes.credit ? CustomFAB(
+                  actionIcon: Icons.attach_money_rounded,
+                  actionLabel: "Pay all",
+                  onPressed: () {
+                    //  fulfill all orders
+                    final allTransactions =
+                    _authController.user.value!.transactions!;
+
+                    allTransactions.forEach((transaction) {
+                      if (transaction.transactionType == TransactionTypes.credit.toString()) {
+                        transaction.transactionType =
+                            TransactionTypes.fulfilled.toString();
+                      }
+                    });
+
+                    _authController.updateUserDataInFirestore(
+                        oldUser: _authController.user.value!,
+                        newUser: UserModel(transactions: allTransactions),
+                        uid: _authController.user.value!.userId!);
+                  })
                   : null,
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
