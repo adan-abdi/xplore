@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/presentation/components/my_lottie.dart';
 
-class DeniTransactions extends StatefulWidget {
-  const DeniTransactions({super.key});
+class CreditTransactions extends StatefulWidget {
+  const CreditTransactions({super.key});
 
   @override
-  State<DeniTransactions> createState() => _DeniTransactionsState();
+  State<CreditTransactions> createState() => _CreditTransactionsState();
 }
 
-class _DeniTransactionsState extends State<DeniTransactions> {
+class _CreditTransactionsState extends State<CreditTransactions> {
   @override
   Widget build(BuildContext context) {
     return SliverFillRemaining(

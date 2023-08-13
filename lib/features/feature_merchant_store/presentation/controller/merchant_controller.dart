@@ -18,7 +18,7 @@ class MerchantController extends GetxController {
   final productPic = Rxn<File>();
   final uploadButtonLoading = false.obs;
 
-  final activeTransactionType = TransactionTypes.fulfilled.obs;
+  final activeTransactionType = TransactionTypes.pending.obs;
 
   /// Active Category
   final activeCategory = Constants.productCategories[0].obs;

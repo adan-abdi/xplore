@@ -38,48 +38,46 @@ class _TransactionToggleState extends State<TransactionToggle> {
             children: [
               Expanded(
                   child: GestureDetector(
-                onTap: () {
-                  _merchantController.setActiveTransactionType(
-                      transactionType: TransactionTypes.fulfilled);
-                },
-                child: Container(
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: _merchantController.activeTransactionType.value ==
-                            TransactionTypes.fulfilled
-                        ? XploreColors.xploreOrange
-                        : XploreColors.white,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(
-                        Icons.done_all_rounded,
-                        size: 24,
-                        color: _merchantController.activeTransactionType.value ==
-                                TransactionTypes.fulfilled
-                            ? XploreColors.deepBlue
-                            : XploreColors.xploreOrange,
-                      ),
-                      Text(
-                        "Fulfilled",
-                        style: TextStyle(
-                          fontWeight:
-                              Theme.of(context).textTheme.bodyMedium?.fontWeight,
-                          fontSize:
-                              Theme.of(context).textTheme.bodyMedium?.fontSize,
-                          color:
+                    onTap: () {
+                      _merchantController.setActiveTransactionType(
+                          transactionType: TransactionTypes.pending);
+                    },
+                    child: Container(
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: _merchantController.activeTransactionType.value ==
+                              TransactionTypes.pending
+                              ? XploreColors.xploreOrange
+                              : XploreColors.white),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(Icons.pending_actions_rounded,
+                              size: 24,
+                              color:
                               _merchantController.activeTransactionType.value ==
-                                      TransactionTypes.fulfilled
+                                  TransactionTypes.pending
+                                  ? XploreColors.deepBlue
+                                  : XploreColors.xploreOrange),
+                          Text(
+                            "Pending",
+                            style: TextStyle(
+                              fontWeight:
+                              Theme.of(context).textTheme.bodyMedium?.fontWeight,
+                              fontSize:
+                              Theme.of(context).textTheme.bodyMedium?.fontSize,
+                              color:
+                              _merchantController.activeTransactionType.value ==
+                                  TransactionTypes.pending
                                   ? XploreColors.white
                                   : XploreColors.deepBlue,
-                        ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-              )),
+                    ),
+                  )),
               const SizedBox(
                 width: 8,
               ),
@@ -108,7 +106,7 @@ class _TransactionToggleState extends State<TransactionToggle> {
                                   ? XploreColors.deepBlue
                                   : XploreColors.xploreOrange),
                       Text(
-                        "Deni",
+                        "Credit",
                         style: TextStyle(
                           fontWeight:
                               Theme.of(context).textTheme.bodyMedium?.fontWeight,
@@ -130,46 +128,48 @@ class _TransactionToggleState extends State<TransactionToggle> {
               ),
               Expanded(
                   child: GestureDetector(
-                onTap: () {
-                  _merchantController.setActiveTransactionType(
-                      transactionType: TransactionTypes.pending);
-                },
-                child: Container(
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: _merchantController.activeTransactionType.value ==
-                              TransactionTypes.pending
-                          ? XploreColors.xploreOrange
-                          : XploreColors.white),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(Icons.pending_actions_rounded,
-                          size: 24,
-                          color:
-                              _merchantController.activeTransactionType.value ==
-                                      TransactionTypes.pending
-                                  ? XploreColors.deepBlue
-                                  : XploreColors.xploreOrange),
-                      Text(
-                        "Pending",
-                        style: TextStyle(
-                          fontWeight:
+                    onTap: () {
+                      _merchantController.setActiveTransactionType(
+                          transactionType: TransactionTypes.fulfilled);
+                    },
+                    child: Container(
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: _merchantController.activeTransactionType.value ==
+                            TransactionTypes.fulfilled
+                            ? XploreColors.xploreOrange
+                            : XploreColors.white,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(
+                            Icons.done_all_rounded,
+                            size: 24,
+                            color: _merchantController.activeTransactionType.value ==
+                                TransactionTypes.fulfilled
+                                ? XploreColors.deepBlue
+                                : XploreColors.xploreOrange,
+                          ),
+                          Text(
+                            "Fulfilled",
+                            style: TextStyle(
+                              fontWeight:
                               Theme.of(context).textTheme.bodyMedium?.fontWeight,
-                          fontSize:
+                              fontSize:
                               Theme.of(context).textTheme.bodyMedium?.fontSize,
-                          color:
+                              color:
                               _merchantController.activeTransactionType.value ==
-                                      TransactionTypes.pending
+                                  TransactionTypes.fulfilled
                                   ? XploreColors.white
                                   : XploreColors.deepBlue,
-                        ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-              )),
+                    ),
+                  )),
             ],
           ),
         ),

@@ -39,19 +39,11 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
                 final transaction =
                     _authController.user.value!.transactions![index];
 
-                return TransactionTile(
-                    isFirst: index == 0 ? true : false,
-                    isLast: index ==
-                            _authController.user.value!.transactions!.length - 1
-                        ? true
-                        : false,
-                    isPast: true,
-                    iconData: Icons.date_range,
-                    content: TransactionCard(
-                      transaction: transaction,
-                      userDetails: userDetails,
-                      product: transaction.product!,
-                    ));
+                return TransactionCard(
+                  transaction: transaction,
+                  userDetails: userDetails,
+                  product: transaction.product!,
+                );
               }, childCount: _authController.user.value!.transactions!.length)),
             )
           : SliverFillRemaining(

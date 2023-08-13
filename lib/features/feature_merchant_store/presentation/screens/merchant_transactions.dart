@@ -4,7 +4,7 @@ import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/transaction_types.dart';
-import 'package:shamiri/features/feature_merchant_store/presentation/components/deni_transactions.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/components/credit_transactions.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/pending_transactions.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_toggle.dart';
 
@@ -78,7 +78,7 @@ class _MerchantTransactionsState extends State<MerchantTransactions> {
                   ? FulfilledTransactions()
                   : _merchantController.activeTransactionType.value ==
                           TransactionTypes.deni
-                      ? DeniTransactions()
+                      ? CreditTransactions()
                       : PendingTransactions()
             ],
           ),
