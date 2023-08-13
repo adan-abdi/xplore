@@ -59,10 +59,12 @@ class _PendingTransactionsState extends State<PendingTransactions> {
 
               return TransactionCardMain(
                 buyerId: pendingTransactionsByBuyerId[mainIndex],
+                transactionType: TransactionTypes.pending,
                 onTap: () {
                   openBottomSheet(
                       content: TransactionDetailsBottomSheet(
                         allTransactionsByBuyer: allTransactionsByBuyer,
+                        transactionType: TransactionTypes.pending,
                       ),
                       onComplete: () {});
                 },

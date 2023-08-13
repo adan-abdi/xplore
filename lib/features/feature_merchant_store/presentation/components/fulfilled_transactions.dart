@@ -57,10 +57,12 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
 
                 return TransactionCardMain(
                   buyerId: fulfilledTransactionsByBuyerId[mainIndex],
+                  transactionType: TransactionTypes.fulfilled,
                   onTap: () {
                     openBottomSheet(
                         content: TransactionDetailsBottomSheet(
                           allTransactionsByBuyer: allTransactionsByBuyer,
+                          transactionType: TransactionTypes.fulfilled,
                         ),
                         onComplete: () {});
                   },

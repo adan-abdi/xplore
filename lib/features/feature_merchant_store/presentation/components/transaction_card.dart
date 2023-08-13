@@ -7,15 +7,18 @@ import 'package:shamiri/features/feature_merchant_store/presentation/components/
 
 import '../../../../application/core/themes/colors.dart';
 import '../../../../domain/value_objects/app_spaces.dart';
+import '../../domain/model/transaction_types.dart';
 
 class TransactionCard extends StatelessWidget {
   final TransactionModel transaction;
   final ProductModel product;
+  final TransactionTypes transactionType;
 
   const TransactionCard(
       {super.key,
       required this.transaction,
-      required this.product});
+      required this.product,
+      required this.transactionType});
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +115,18 @@ class TransactionCard extends StatelessWidget {
                               overflow: TextOverflow.ellipsis),
                         ),
                         hSize20SizedBox,
-                        TransactionTag(title: "fulfilled", tagColor: XploreColors.red)
+                        TransactionTag(
+                            title: transactionType == TransactionTypes.fulfilled
+                                ? 'Fulfilled'
+                                : transactionType == TransactionTypes.pending
+                                    ? 'Pending'
+                                    : 'Credit',
+                            tagColor: transactionType ==
+                                    TransactionTypes.fulfilled
+                                ? XploreColors.green
+                                : transactionType == TransactionTypes.pending
+                                    ? XploreColors.red
+                                    : XploreColors.xploreOrange)
                       ],
                     ),
                   ],

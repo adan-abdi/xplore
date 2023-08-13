@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/transaction_types.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_tag.dart';
 
 import '../../../../application/core/themes/colors.dart';
@@ -11,10 +12,14 @@ import '../../../feature_home/presentation/controller/home_controller.dart';
 
 class TransactionCardMain extends StatefulWidget {
   final String buyerId;
+  final TransactionTypes transactionType;
   final VoidCallback onTap;
 
   const TransactionCardMain(
-      {super.key, required this.buyerId, required this.onTap});
+      {super.key,
+      required this.buyerId,
+      required this.transactionType,
+      required this.onTap});
 
   @override
   State<TransactionCardMain> createState() => _TransactionCardMainState();
@@ -166,7 +171,20 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                           ),
                           hSize20SizedBox,
                           TransactionTag(
-                              title: "fulfilled", tagColor: XploreColors.red)
+                              title: widget.transactionType ==
+                                      TransactionTypes.fulfilled
+                                  ? 'Fulfilled'
+                                  : widget.transactionType ==
+                                          TransactionTypes.pending
+                                      ? 'Pending'
+                                      : 'Credit',
+                              tagColor: widget.transactionType ==
+                                      TransactionTypes.fulfilled
+                                  ? XploreColors.green
+                                  : widget.transactionType ==
+                                          TransactionTypes.pending
+                                      ? XploreColors.red
+                                      : XploreColors.xploreOrange)
                         ],
                       ),
                     ],

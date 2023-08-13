@@ -8,11 +8,14 @@ import 'package:shamiri/features/feature_merchant_store/presentation/components/
 import '../../domain/model/transaction_model.dart';
 import 'package:get/get.dart';
 
+import '../../domain/model/transaction_types.dart';
+
 class TransactionDetailsBottomSheet extends StatefulWidget {
   final List<TransactionModel> allTransactionsByBuyer;
+  final TransactionTypes transactionType;
 
   const TransactionDetailsBottomSheet(
-      {super.key, required this.allTransactionsByBuyer});
+      {super.key, required this.allTransactionsByBuyer, required this.transactionType});
 
   @override
   State<TransactionDetailsBottomSheet> createState() =>
@@ -65,6 +68,7 @@ class _TransactionDetailsBottomSheetState
                   return TransactionCard(
                     transaction: transaction,
                     product: transaction.product!,
+                    transactionType: widget.transactionType,
                   );
                 },
                 itemCount: widget.allTransactionsByBuyer.length),

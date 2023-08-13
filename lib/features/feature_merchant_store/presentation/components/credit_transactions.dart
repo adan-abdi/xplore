@@ -55,10 +55,12 @@ class _CreditTransactionsState extends State<CreditTransactions> {
 
                 return TransactionCardMain(
                   buyerId: creditTransactionsByBuyerId[mainIndex],
+                  transactionType: TransactionTypes.credit,
                   onTap: () {
                     openBottomSheet(
                         content: TransactionDetailsBottomSheet(
                           allTransactionsByBuyer: allTransactionsByBuyer,
+                          transactionType: TransactionTypes.credit,
                         ),
                         onComplete: () {});
                   },
