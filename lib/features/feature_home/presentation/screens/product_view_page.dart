@@ -12,7 +12,7 @@ import 'package:shamiri/features/feature_merchant_store/presentation/controller/
 
 import '../../../../core/presentation/components/badged_icon.dart';
 import '../../../../core/presentation/components/open_bottom_sheet.dart';
-import '../../../feature_cart/presentation/cart_screen.dart';
+import '../../../feature_cart/presentation/screens/cart_screen.dart';
 import '../../../feature_merchant_store/domain/model/product_model.dart';
 import '../../../feature_merchant_store/presentation/components/add_product_bottom_sheet.dart';
 import '../controller/home_controller.dart';

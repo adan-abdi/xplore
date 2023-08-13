@@ -7,14 +7,13 @@ import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_cart/domain/model/delivery_types.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/checkout_tile.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/mpesa_payment_section.dart';
-import 'package:shamiri/features/feature_cart/presentation/components/order_confirmed_section.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/payment_section.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/login_title.dart';
 
-import '../../../application/core/themes/colors.dart';
-import '../../feature_cart/domain/model/payment_types.dart';
-import '../../feature_cart/presentation/components/cash_payment_section.dart';
-import '../../feature_cart/presentation/controller/cart_controller.dart';
+import '../../../../application/core/themes/colors.dart';
+import '../../domain/model/payment_types.dart';
+import '../components/cash_payment_section.dart';
+import '../controller/cart_controller.dart';
 
 class CheckoutScreen extends StatefulWidget {
   final int totalToPay;
@@ -109,19 +108,19 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               content: MpesaPaymentSection(
                                 total: widget.totalToPay,
                               ));
+                        case PaymentTypes.credit:
+                        //  Credit payment
+                          return CheckoutTile(
+                              isFirst: false,
+                              isLast: false,
+                              isPast: true,
+                              iconData: Icons.person_pin_rounded,
+                              content: MpesaPaymentSection(
+                                total: widget.totalToPay,
+                              ));
                       }
                     },
                   ),
-
-                  //  order confirmation
-                  Obx(
-                    () => CheckoutTile(
-                        isFirst: false,
-                        isLast: true,
-                        isPast: _cartController.isOrderPast.value,
-                        iconData: Icons.done_rounded,
-                        content: OrderConfirmedSection()),
-                  )
                 ],
               ),
             ),

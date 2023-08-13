@@ -8,9 +8,9 @@ import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/all_cart_products.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/checkout_card.dart';
 
-import '../../../core/presentation/components/badged_icon.dart';
-import '../../../core/presentation/controller/auth_controller.dart';
-import '../../feature_home/presentation/controller/home_controller.dart';
+import '../../../../core/presentation/components/badged_icon.dart';
+import '../../../../core/presentation/controller/auth_controller.dart';
+import '../../../feature_home/presentation/controller/home_controller.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});

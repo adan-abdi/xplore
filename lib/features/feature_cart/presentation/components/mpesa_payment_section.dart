@@ -77,9 +77,6 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
               onChanged: (value) {
 
               }),
-
-          vSize20SizedBox,
-
           //  box to enter M-Pesa amount
           CustomTextField(
               hint: "Phone number",
@@ -90,8 +87,6 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
               onChanged: (value) {
 
               }),
-
-          vSize20SizedBox,
 
           //  proceed button
           Align(

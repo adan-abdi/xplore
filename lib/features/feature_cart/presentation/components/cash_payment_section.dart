@@ -70,8 +70,6 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
               textStyle: TextStyle(fontSize: 16),
               inputType: TextInputType.number,
               controller: _phoneNumberController,
-              showErrorMessage: buyerId == null,
-              errorMessage: "User not registered.",
               onChanged: (value) {
                 //  get buyer ID from phone number
                 final buyerId = value.checkIsPhoneNumberValid
@@ -86,8 +84,6 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                 setState(() {
                   this.buyerId = buyerId;
                 });
-
-                print("BUYER ID : - ${buyerId}");
               }),
 
           vSize20SizedBox,

@@ -7,7 +7,7 @@ import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/presentation/components/badged_icon.dart';
 import 'package:shamiri/core/presentation/components/my_lottie.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
-import 'package:shamiri/features/feature_cart/presentation/cart_screen.dart';
+import 'package:shamiri/features/feature_cart/presentation/screens/cart_screen.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_home/presentation/screens/home_page.dart';
 import 'package:shamiri/features/feature_main/components/drawer_icon.dart';

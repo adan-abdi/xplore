@@ -36,6 +36,10 @@ class _PaymentSectionState extends State<PaymentSection> {
           title: "M-Pesa",
           svgAsset: 'assets/general/mpesa_new.png',
           paymentType: PaymentTypes.mpesa),
+      PaymentMethod(
+          title: "Credit",
+          iconData: Icons.loyalty_rounded,
+          paymentType: PaymentTypes.credit),
     ];
   }
 

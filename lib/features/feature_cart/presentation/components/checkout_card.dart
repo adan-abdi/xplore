@@ -4,7 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
-import 'package:shamiri/features/feature_checkout/presentation/checkout_screen.dart';
+import 'package:shamiri/features/feature_cart/presentation/screens/checkout_screen.dart';
 
 import '../../../../application/core/themes/colors.dart';
 import '../../../../core/presentation/controller/auth_controller.dart';
