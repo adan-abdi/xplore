@@ -32,57 +32,68 @@ class _MerchantTransactionsState extends State<MerchantTransactions> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Scaffold(
-        backgroundColor: XploreColors.white,
-        appBar: AppBar(
-          systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarIconBrightness: Brightness.dark,
-              statusBarColor: XploreColors.white,
-              systemNavigationBarColor: XploreColors.white,
-              systemNavigationBarIconBrightness: Brightness.dark),
-          title: Text(
-            "Transactions",
-            style: TextStyle(color: XploreColors.black),
-          ),
-          centerTitle: true,
+      () => DefaultTabController(
+        length: 3,
+        child: Scaffold(
           backgroundColor: XploreColors.white,
-          elevation: 0,
-          leading: IconButton(
-              onPressed: () => Get.back(),
-              icon: Icon(Icons.arrow_back_rounded, color: XploreColors.black)),
-        ),
-        floatingActionButton: _merchantController.activeTransactionType.value ==
-                TransactionTypes.pending
-            ? CustomFAB(
-                actionIcon: Icons.done_all_rounded,
-                actionLabel: "Fulfill all",
-                onPressed: () {})
-            : null,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: SafeArea(
-            child: Obx(
-          () => CustomScrollView(
-            physics: const BouncingScrollPhysics(),
-            slivers: [
-              SliverToBoxAdapter(
-                child: vSize10SizedBox,
-              ),
-              //  fullfilled, pending toggle,
-              TransactionToggle(),
-              SliverToBoxAdapter(
-                child: vSize30SizedBox,
-              ),
-              // main body
+          appBar: AppBar(
+            systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarIconBrightness: Brightness.dark,
+                statusBarColor: XploreColors.white,
+                systemNavigationBarColor: XploreColors.white,
+                systemNavigationBarIconBrightness: Brightness.dark),
+            title: Text(
+              "Transactions",
+              style: TextStyle(color: XploreColors.black),
+            ),
+            centerTitle: true,
+            backgroundColor: XploreColors.white,
+            elevation: 0,
+            leading: IconButton(
+                onPressed: () => Get.back(),
+                icon:
+                    Icon(Icons.arrow_back_rounded, color: XploreColors.black)),
+          ),
+          floatingActionButton:
               _merchantController.activeTransactionType.value ==
-                      TransactionTypes.fulfilled
-                  ? FulfilledTransactions()
-                  : _merchantController.activeTransactionType.value ==
-                          TransactionTypes.deni
-                      ? CreditTransactions()
-                      : PendingTransactions()
+                      TransactionTypes.pending
+                  ? CustomFAB(
+                      actionIcon: Icons.done_all_rounded,
+                      actionLabel: "Fulfill all",
+                      onPressed: () {})
+                  : null,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          body: Column(
+            children: [
+              Obx(
+                () => Expanded(
+                  child: CustomScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: vSize10SizedBox,
+                      ),
+                      //  fullfilled, pending toggle,
+                      TransactionToggle(),
+                      SliverToBoxAdapter(
+                        child: vSize30SizedBox,
+                      ),
+                      // main body
+                      _merchantController.activeTransactionType.value ==
+                              TransactionTypes.fulfilled
+                          ? FulfilledTransactions()
+                          : _merchantController.activeTransactionType.value ==
+                                  TransactionTypes.credit
+                              ? CreditTransactions()
+                              : PendingTransactions()
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
-        )),
+        ),
       ),
     );
   }

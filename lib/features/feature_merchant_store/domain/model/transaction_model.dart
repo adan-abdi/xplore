@@ -24,13 +24,17 @@ class TransactionModel {
   @JsonKey(name: 'isFulfilled')
   bool? isFulfilled;
 
+  @JsonKey(name: 'transactionType')
+  String? transactionType;
+
   TransactionModel(
       {this.buyerId,
       this.product,
       this.itemsBought,
       this.amountPaid,
       this.transactionDate,
-      this.isFulfilled});
+      this.isFulfilled,
+      this.transactionType});
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) =>
       _$TransactionModelFromJson(json);

@@ -10,13 +10,11 @@ import '../../../../domain/value_objects/app_spaces.dart';
 
 class TransactionCard extends StatelessWidget {
   final TransactionModel transaction;
-  final UserModel userDetails;
   final ProductModel product;
 
   const TransactionCard(
       {super.key,
       required this.transaction,
-      required this.userDetails,
       required this.product});
 
   @override

@@ -180,22 +180,24 @@ class AuthRepositoryImpl implements AuthRepository {
                 oldUser.itemsInCart?.map((item) => item.toJson()).toList(),
         "transactions": newUser.transactions
                 ?.map((transaction) => {
-                      "buyerId": transaction.buyerId!,
+                      "buyerId": transaction.buyerId,
                       "product": transaction.product!.toJson(),
-                      "itemsBought": transaction.itemsBought!,
-                      "amountPaid": transaction.amountPaid!,
-                      "transactionDate": transaction.transactionDate!,
-                      "isFulfilled": transaction.isFulfilled!,
+                      "itemsBought": transaction.itemsBought,
+                      "amountPaid": transaction.amountPaid,
+                      "transactionDate": transaction.transactionDate,
+                      "isFulfilled": transaction.isFulfilled,
+                      "transactionType": transaction.transactionType
                     })
                 .toList() ??
             oldUser.transactions
                 ?.map((transaction) => {
-                      "buyerId": transaction.buyerId!,
+                      "buyerId": transaction.buyerId,
                       "product": transaction.product!.toJson(),
-                      "itemsBought": transaction.itemsBought!,
-                      "amountPaid": transaction.amountPaid!,
-                      "transactionDate": transaction.transactionDate!,
-                      "isFulfilled": transaction.isFulfilled!,
+                      "itemsBought": transaction.itemsBought,
+                      "amountPaid": transaction.amountPaid,
+                      "transactionDate": transaction.transactionDate,
+                      "isFulfilled": transaction.isFulfilled,
+                      "transactionType": transaction.transactionType
                     })
                 .toList()
       }).then((value) => print("SUCCESS!!!"));

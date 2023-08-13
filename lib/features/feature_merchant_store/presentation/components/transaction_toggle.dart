@@ -26,152 +26,131 @@ class _TransactionToggleState extends State<TransactionToggle> {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
         child: Obx(
-      () => Material(
-        elevation: 4,
-        shadowColor: XploreColors.deepBlue.withOpacity(0.2),
-        child: Container(
-          width: double.infinity,
-          height: 60,
-          padding: const EdgeInsets.all(6),
-          decoration: BoxDecoration(color: XploreColors.white),
-          child: Row(
-            children: [
-              Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      _merchantController.setActiveTransactionType(
-                          transactionType: TransactionTypes.pending);
-                    },
-                    child: Container(
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: _merchantController.activeTransactionType.value ==
-                              TransactionTypes.pending
-                              ? XploreColors.xploreOrange
-                              : XploreColors.white),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Icon(Icons.pending_actions_rounded,
-                              size: 24,
-                              color:
-                              _merchantController.activeTransactionType.value ==
-                                  TransactionTypes.pending
-                                  ? XploreColors.deepBlue
-                                  : XploreColors.xploreOrange),
-                          Text(
-                            "Pending",
-                            style: TextStyle(
-                              fontWeight:
-                              Theme.of(context).textTheme.bodyMedium?.fontWeight,
-                              fontSize:
-                              Theme.of(context).textTheme.bodyMedium?.fontSize,
-                              color:
-                              _merchantController.activeTransactionType.value ==
-                                  TransactionTypes.pending
-                                  ? XploreColors.white
-                                  : XploreColors.deepBlue,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )),
-              const SizedBox(
-                width: 8,
-              ),
-              Expanded(
-                  child: GestureDetector(
-                onTap: () {
-                  _merchantController.setActiveTransactionType(
-                      transactionType: TransactionTypes.deni);
-                },
-                child: Container(
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: _merchantController.activeTransactionType.value ==
-                              TransactionTypes.deni
-                          ? XploreColors.xploreOrange
-                          : XploreColors.white),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(Icons.menu_book_rounded,
-                          size: 24,
-                          color:
-                              _merchantController.activeTransactionType.value ==
-                                      TransactionTypes.deni
-                                  ? XploreColors.deepBlue
-                                  : XploreColors.xploreOrange),
-                      Text(
-                        "Credit",
-                        style: TextStyle(
-                          fontWeight:
-                              Theme.of(context).textTheme.bodyMedium?.fontWeight,
-                          fontSize:
-                              Theme.of(context).textTheme.bodyMedium?.fontSize,
-                          color:
-                              _merchantController.activeTransactionType.value ==
-                                      TransactionTypes.deni
-                                  ? XploreColors.white
-                                  : XploreColors.deepBlue,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )),
-              const SizedBox(
-                width: 8,
-              ),
-              Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      _merchantController.setActiveTransactionType(
-                          transactionType: TransactionTypes.fulfilled);
-                    },
-                    child: Container(
-                      height: double.infinity,
-                      decoration: BoxDecoration(
+      () => Container(
+        width: double.infinity,
+        height: 50,
+        padding: const EdgeInsets.all(6),
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(color: XploreColors.whiteSmoke.withOpacity(0.5), borderRadius: BorderRadius.circular(8)),
+        child: Row(
+          children: [
+            Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    _merchantController.setActiveTransactionType(
+                        transactionType: TransactionTypes.pending);
+                  },
+                  child: Container(
+                    height: double.infinity,
+                    decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                         color: _merchantController.activeTransactionType.value ==
-                            TransactionTypes.fulfilled
-                            ? XploreColors.xploreOrange
-                            : XploreColors.white,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Icon(
-                            Icons.done_all_rounded,
+                            TransactionTypes.pending
+                            ? XploreColors.white
+                            : Colors.transparent),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(Icons.pending_actions_rounded,
                             size: 24,
-                            color: _merchantController.activeTransactionType.value ==
-                                TransactionTypes.fulfilled
+                            color:
+                            _merchantController.activeTransactionType.value ==
+                                TransactionTypes.pending
                                 ? XploreColors.deepBlue
-                                : XploreColors.xploreOrange,
+                                : XploreColors.xploreOrange),
+                        Text(
+                          "Pending",
+                          style: TextStyle(
+                            fontWeight:
+                            Theme.of(context).textTheme.bodyMedium?.fontWeight,
+                            fontSize:
+                            Theme.of(context).textTheme.bodyMedium?.fontSize,
+                            color: XploreColors.deepBlue,
                           ),
-                          Text(
-                            "Fulfilled",
-                            style: TextStyle(
-                              fontWeight:
-                              Theme.of(context).textTheme.bodyMedium?.fontWeight,
-                              fontSize:
-                              Theme.of(context).textTheme.bodyMedium?.fontSize,
-                              color:
-                              _merchantController.activeTransactionType.value ==
-                                  TransactionTypes.fulfilled
-                                  ? XploreColors.white
-                                  : XploreColors.deepBlue,
-                            ),
-                          ),
-                        ],
+                        ),
+                      ],
+                    ),
+                  ),
+                )),
+            Expanded(
+                child: GestureDetector(
+              onTap: () {
+                _merchantController.setActiveTransactionType(
+                    transactionType: TransactionTypes.credit);
+              },
+              child: Container(
+                height: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: _merchantController.activeTransactionType.value ==
+                        TransactionTypes.credit
+                        ? XploreColors.white
+                        : Colors.transparent),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Icon(Icons.loyalty_rounded,
+                        size: 24,
+                        color:
+                            _merchantController.activeTransactionType.value ==
+                                    TransactionTypes.credit
+                                ? XploreColors.deepBlue
+                                : XploreColors.xploreOrange),
+                    Text(
+                      "Credit",
+                      style: TextStyle(
+                        fontWeight:
+                            Theme.of(context).textTheme.bodyMedium?.fontWeight,
+                        fontSize:
+                            Theme.of(context).textTheme.bodyMedium?.fontSize,
+                        color: XploreColors.deepBlue,
                       ),
                     ),
-                  )),
-            ],
-          ),
+                  ],
+                ),
+              ),
+            )),
+            Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    _merchantController.setActiveTransactionType(
+                        transactionType: TransactionTypes.fulfilled);
+                  },
+                  child: Container(
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: _merchantController.activeTransactionType.value ==
+                          TransactionTypes.fulfilled
+                          ? XploreColors.white
+                          : Colors.transparent,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(
+                          Icons.receipt_rounded,
+                          size: 24,
+                          color: _merchantController.activeTransactionType.value ==
+                              TransactionTypes.fulfilled
+                              ? XploreColors.deepBlue
+                              : XploreColors.xploreOrange,
+                        ),
+                        Text(
+                          "Fulfilled",
+                          style: TextStyle(
+                            fontWeight:
+                            Theme.of(context).textTheme.bodyMedium?.fontWeight,
+                            fontSize:
+                            Theme.of(context).textTheme.bodyMedium?.fontSize,
+                            color: XploreColors.deepBlue,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )),
+          ],
         ),
       ),
     ));

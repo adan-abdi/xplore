@@ -33,14 +33,16 @@ class _TransactionDetailsBottomSheetState
   }
 
   String getUserName() {
-    final userName = _homeController.stores
-        .firstWhere((store) =>
-            store.userId! == widget.allTransactionsByBuyer[0].buyerId!)
-        .userName!;
+    final userName =
+        widget.allTransactionsByBuyer[0].buyerId!.split(" ").toList()[0] ==
+                'customer'
+            ? 'Unknown'
+            : _homeController.stores
+                .firstWhere((store) =>
+                    store.userId! == widget.allTransactionsByBuyer[0].buyerId!)
+                .userName!;
 
-    return widget.allTransactionsByBuyer[0].buyerId! == _authController.user.value!.userId
-        ? "Unknown"
-        : userName;
+    return userName;
   }
 
   @override
@@ -58,16 +60,10 @@ class _TransactionDetailsBottomSheetState
           Expanded(
             child: ListView.builder(
                 itemBuilder: (context, index) {
-                  final userDetails = _homeController.stores.firstWhere(
-                      (store) =>
-                          store.userId! ==
-                          widget.allTransactionsByBuyer[index].buyerId!);
-
                   final transaction = widget.allTransactionsByBuyer[index];
 
                   return TransactionCard(
                     transaction: transaction,
-                    userDetails: userDetails,
                     product: transaction.product!,
                   );
                 },

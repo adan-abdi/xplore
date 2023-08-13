@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/core/presentation/components/custom_textfield.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/transaction_types.dart';
 
 import '../../../../application/core/themes/colors.dart';
 import '../../../../core/domain/model/user_model.dart';
@@ -120,17 +122,18 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
 
                     allTransactions.add(TransactionModel(
                         buyerId: buyerId == null || buyerId!.isEmpty
-                            ? _authController.user.value!.userId!
+                            ? 'customer - ${Timestamp.now()}'
                             : buyerId!,
                         product: _merchantController.merchantProducts
                             .firstWhere((product) =>
-                        product.productId! ==
-                            cartItem.cartProductId!),
+                                product.productId! == cartItem.cartProductId!),
                         itemsBought: cartItem.cartProductCount!,
                         amountPaid: product.productSellingPrice! *
                             cartItem.cartProductCount!,
                         transactionDate: DateTime.now().toString(),
-                        isFulfilled: true));
+                        isFulfilled: true,
+                        transactionType:
+                            TransactionTypes.fulfilled.toString()));
 
                     _authController
                         .updateUserDataInFirestore(

@@ -33,10 +33,13 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
   }
 
   String getUserName() {
-    final userName = _homeController.stores
-        .firstWhere((store) => store.userId! == widget.buyerId)
-        .userName!;
-    return widget.buyerId == _authController.user.value!.userId ? "Unknown" : userName;
+    final userName = widget.buyerId.split(" ").toList()[0] == 'customer'
+        ? 'Unknown'
+        : _homeController.stores
+            .firstWhere((store) => store.userId! == widget.buyerId)
+            .userName!;
+
+    return userName;
   }
 
   int getTotalPrice() {
