@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shamiri/core/presentation/components/open_bottom_sheet.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/transaction_types.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card_main.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_details_bottomsheet.dart';
@@ -33,6 +34,9 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
   Widget build(BuildContext context) {
     return Obx(() {
       final transactionsByBuyerId = _authController.user.value!.transactions!
+          .where((transaction) =>
+              transaction.transactionType ==
+              TransactionTypes.fulfilled.toString())
           .map((transaction) => transaction.buyerId!)
           .toSet()
           .toList();
@@ -46,7 +50,9 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
                     .user.value!.transactions!
                     .where((transaction) =>
                         transaction.buyerId! ==
-                        transactionsByBuyerId[mainIndex])
+                            transactionsByBuyerId[mainIndex] &&
+                        transaction.transactionType ==
+                            TransactionTypes.fulfilled.toString())
                     .toList();
 
                 return TransactionCardMain(
