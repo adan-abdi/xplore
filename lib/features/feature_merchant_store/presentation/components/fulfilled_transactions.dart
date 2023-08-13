@@ -39,9 +39,6 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
                 final transaction =
                     _authController.user.value!.transactions![index];
 
-                final product = _homeController.products.firstWhere(
-                    (prod) => prod.productId! == transaction.product!);
-
                 return TransactionTile(
                     isFirst: index == 0 ? true : false,
                     isLast: index ==
@@ -53,7 +50,7 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
                     content: TransactionCard(
                       transaction: transaction,
                       userDetails: userDetails,
-                      product: product,
+                      product: transaction.product!,
                     ));
               }, childCount: _authController.user.value!.transactions!.length)),
             )
