@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/transaction_types.dart';
@@ -84,7 +85,7 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
         height: widget.transactionType == TransactionTypes.pending ||
                 widget.transactionType == TransactionTypes.credit
             ? 120
-            : 80,
+            : 88,
         margin: const EdgeInsets.only(bottom: 24),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16), color: XploreColors.white),
@@ -211,12 +212,21 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                     child: UnconstrainedBox(
                       child: GestureDetector(
                         onTap: () {
-                          // //  all transactions
-                          // final allTransactions =
-                          //     _authController.user.value!.transactions!
-                          // .map((transaction) => null);
-                          //
+                          //  all transactions
+                          final allTransactions =
+                              _authController.user.value!.transactions!;
 
+                          allTransactions.forEach((transaction) {
+                            if (transaction.buyerId! == widget.buyerId) {
+                              transaction.transactionType =
+                                  TransactionTypes.fulfilled.toString();
+                            }
+                          });
+
+                          _authController.updateUserDataInFirestore(
+                              oldUser: _authController.user.value!,
+                              newUser: UserModel(transactions: allTransactions),
+                              uid: _authController.user.value!.userId!);
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(
@@ -227,11 +237,20 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                           ),
                           child: Row(
                             children: [
-                              Icon(Icons.done_rounded,
-                                  color: XploreColors.white),
+                              Icon(
+                                widget.transactionType ==
+                                        TransactionTypes.pending
+                                    ? Icons.done_rounded
+                                    : Icons.attach_money_rounded,
+                                color: XploreColors.white,
+                                size: 16,
+                              ),
                               hSize10SizedBox,
                               Text(
-                                "Fulfill",
+                                widget.transactionType ==
+                                        TransactionTypes.pending
+                                    ? "Fulfill"
+                                    : "Pay",
                                 style: TextStyle(
                                     fontSize: 14, color: XploreColors.white),
                               ),
