@@ -29,7 +29,7 @@ class PillBtn extends StatelessWidget {
           decoration: BoxDecoration(
               color: isActive
                   ? activeColor
-                  : XploreColors.xploreOrange.withOpacity(0.1),
+                  : XploreColors.white,
               borderRadius: BorderRadius.circular(100)),
           child: Center(
               child: Row(
@@ -42,13 +42,14 @@ class PillBtn extends StatelessWidget {
                     )
                   : Icon(iconData,
                       color:
-                          isActive ? XploreColors.white : XploreColors.black),
+                          isActive ? XploreColors.white : XploreColors.xploreOrange),
               hSize10SizedBox,
               Text(
                 text,
                 style: TextStyle(
                     fontSize: 14,
-                    color: isActive ? XploreColors.white : XploreColors.black),
+                    fontWeight: FontWeight.w700,
+                    color: isActive ? XploreColors.white : XploreColors.deepBlue),
               ),
             ],
           )),

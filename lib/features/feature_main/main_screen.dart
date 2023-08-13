@@ -45,8 +45,6 @@ class _MainScreenState extends State<MainScreen> {
     _authController.getUserDataFromFirestore().listen((user) {
       _authController.setUser(
           user: UserModel.fromJson(user.data() as Map<String, dynamic>));
-
-      print("SET USER CALLED ${_authController.user.value!.itemsInCart!.toString()}");
     });
 
     _bottomBarTabs = [
@@ -111,13 +109,13 @@ class _MainScreenState extends State<MainScreen> {
                       _homeController.activeBottomBarIndex.value == 0
                           ? _authController.user.value!.userName!.trimUserName
                           : _homeController.activeBottomBarIndex.value == 1
-                              ? "Merchant Store"
+                              ? "My Store"
                               : "Profile",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: XploreColors.black),
                     ),
-                    centerTitle: true,
+                    centerTitle: _homeController.activeBottomBarIndex.value != 1 ? true : false,
                     leading: DrawerIcon(),
                     actions: [
                       IconButton(
@@ -165,6 +163,17 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                         ),
                       ),
+
+                      //  MY STORE PAGE
+                      Obx(() => Visibility(
+                          visible:
+                          _homeController.activeBottomBarIndex.value == 1,
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.search_rounded,
+                                color: XploreColors.deepBlue,
+                              )))),
 
                       //  MY STORE PAGE
                       Obx(() => Visibility(
