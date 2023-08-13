@@ -6,6 +6,7 @@ import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_cart/domain/model/delivery_types.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/checkout_tile.dart';
+import 'package:shamiri/features/feature_cart/presentation/components/credit_payment_section.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/mpesa_payment_section.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/payment_section.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/login_title.dart';
@@ -114,8 +115,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               isFirst: false,
                               isLast: false,
                               isPast: true,
-                              iconData: Icons.person_pin_rounded,
-                              content: MpesaPaymentSection(
+                              iconData: Icons.loyalty_rounded,
+                              content: CreditPaymentSection(
                                 total: widget.totalToPay,
                               ));
                       }

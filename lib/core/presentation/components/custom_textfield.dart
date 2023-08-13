@@ -11,11 +11,14 @@ class CustomTextField extends StatelessWidget {
   final bool isObscured;
   final bool isEnabled;
   final bool? showErrorMessage;
+  final bool? readOnly;
+  final bool? showCursor;
   final String? errorMessage;
   final String? value;
   final TextInputType inputType;
   final TextEditingController? controller;
   final Function(String text) onChanged;
+  final VoidCallback? onTap;
 
   const CustomTextField(
       {super.key,
@@ -26,11 +29,14 @@ class CustomTextField extends StatelessWidget {
       this.isObscured = false,
       this.isEnabled = true,
       this.showErrorMessage,
+      this.readOnly,
+      this.showCursor,
       this.errorMessage,
       this.value,
       this.inputType = TextInputType.text,
       this.controller,
-      required this.onChanged});
+      required this.onChanged,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +49,12 @@ class CustomTextField extends StatelessWidget {
           obscureText: isObscured,
           keyboardType: inputType,
           maxLines: maxLines,
+          readOnly: readOnly ?? false,
+          showCursor: showCursor ?? true,
           textInputAction: TextInputAction.done,
           style: TextStyle(fontSize: 18, color: XploreColors.black),
           cursorColor: XploreColors.deepBlue,
+          onTap: onTap,
           decoration: InputDecoration(
               hintText: hint,
               hintStyle: textStyle,
@@ -74,10 +83,14 @@ class CustomTextField extends StatelessWidget {
 
         //  error message
         Visibility(
-            visible: showErrorMessage != null && showErrorMessage! == true ,
+            visible: showErrorMessage != null && showErrorMessage! == true,
             child: Row(
               children: [
-                Icon(Icons.error_rounded, color: XploreColors.red, size: 16,),
+                Icon(
+                  Icons.error_rounded,
+                  color: XploreColors.red,
+                  size: 16,
+                ),
                 hSize10SizedBox,
                 Text(
                   errorMessage ?? "",
