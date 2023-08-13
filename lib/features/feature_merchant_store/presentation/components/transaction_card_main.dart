@@ -11,11 +11,14 @@ import '../../../../application/core/themes/colors.dart';
 import '../../../../domain/value_objects/app_spaces.dart';
 import 'package:get/get.dart';
 
+import '../../../feature_home/presentation/controller/home_controller.dart';
+
 class TransactionCardMain extends StatefulWidget {
   final String buyerId;
   final VoidCallback onTap;
 
-  const TransactionCardMain({super.key, required this.buyerId, required this.onTap});
+  const TransactionCardMain(
+      {super.key, required this.buyerId, required this.onTap});
 
   @override
   State<TransactionCardMain> createState() => _TransactionCardMainState();
@@ -24,6 +27,7 @@ class TransactionCardMain extends StatefulWidget {
 class _TransactionCardMainState extends State<TransactionCardMain> {
   late final MerchantController _merchantController;
   late final AuthController _authController;
+  late final HomeController _homeController;
 
   @override
   void initState() {
@@ -31,6 +35,14 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
 
     _merchantController = Get.find<MerchantController>();
     _authController = Get.find<AuthController>();
+    _homeController = Get.find<HomeController>();
+  }
+
+  String getUserName() {
+    final userName = _homeController.stores
+        .firstWhere((store) => store.userId! == widget.buyerId)
+        .userName!;
+    return userName;
   }
 
   int getTotalPrice() {
@@ -68,7 +80,8 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
           width: double.infinity,
           height: 80,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16), color: XploreColors.white),
+              borderRadius: BorderRadius.circular(16),
+              color: XploreColors.white),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -105,7 +118,7 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Kenneth Njoroge",
+                            "${getUserName()}",
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,

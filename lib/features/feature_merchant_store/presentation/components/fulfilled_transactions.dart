@@ -5,6 +5,7 @@ import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card_main.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_details_bottomsheet.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_tile.dart';
 
 import '../../../../core/presentation/components/my_lottie.dart';
@@ -52,24 +53,8 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
                   buyerId: transactionsByBuyerId[mainIndex],
                   onTap: () {
                     openBottomSheet(
-                        content: Container(
-                          height: MediaQuery.of(context).size.height * 0.5,
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: ListView.builder(
-                              itemBuilder: (context, index) {
-                                final userDetails = _homeController.stores
-                                    .firstWhere((store) =>
-                                        store.userId! == allTransactionsByBuyer[index].buyerId!);
-
-                                final transaction = allTransactionsByBuyer[index];
-
-                                return TransactionCard(
-                                  transaction: transaction,
-                                  userDetails: userDetails,
-                                  product: transaction.product!,
-                                );
-                              },
-                              itemCount: allTransactionsByBuyer.length),
+                        content: TransactionDetailsBottomSheet(
+                          allTransactionsByBuyer: allTransactionsByBuyer,
                         ),
                         onComplete: () {});
                   },
