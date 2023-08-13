@@ -18,26 +18,30 @@ class CustomFAB extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton.extended(
-      backgroundColor: XploreColors.deepBlue,
-      onPressed: onPressed,
-      label: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Icon(
-            actionIcon,
-            size: 25,
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Text(actionLabel,
-              style: TextStyle(
-                fontSize: 14,
-              )),
-        ],
+    return SizedBox(
+      height: 40,
+      child: FloatingActionButton.extended(
+        backgroundColor: XploreColors.deepBlue,
+        onPressed: onPressed,
+        extendedPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        label: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(
+              actionIcon,
+              size: 25,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(actionLabel,
+                style: TextStyle(
+                  fontSize: 14,
+                )),
+          ],
+        ),
+        enableFeedback: true,
       ),
-      enableFeedback: true,
     );
   }
 }

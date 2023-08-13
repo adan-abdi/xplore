@@ -77,120 +77,153 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
     return InkWell(
       onTap: widget.onTap,
       child: Container(
+        width: double.infinity,
+        height: widget.transactionType == TransactionTypes.pending ||
+            widget.transactionType == TransactionTypes.credit ? 120 : 80,
         margin: const EdgeInsets.only(bottom: 24),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16), color: XploreColors.white),
         child: Container(
-          width: double.infinity,
-          height: 80,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: XploreColors.white),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          height: double.infinity,
+          child: Column(
             children: [
-              //  image
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                    color: XploreColors.deepBlue.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(100)),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(24),
-                  child: Icon(
-                    Icons.receipt_long_rounded,
-                    color: XploreColors.deepBlue,
-                    size: 24,
-                  ),
-                ),
-              ),
-
-              hSize10SizedBox,
-
-              //  product name
               Expanded(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //  name and price
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "${getUserName()}",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                          //  price
-                          Text(
-                            "Ksh. ${getTotalPrice().toString().addCommas}",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                        ],
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //  image
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: XploreColors.deepBlue.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(100)),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(24),
+                        child: Icon(
+                          Icons.receipt_long_rounded,
+                          color: XploreColors.deepBlue,
+                          size: 24,
+                        ),
                       ),
+                    ),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "No category",
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                                overflow: TextOverflow.ellipsis),
-                          ),
-                          Text(
-                            "${getTotalItemsBought()} items",
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black),
-                          ),
-                        ],
-                      ),
+                    hSize10SizedBox,
 
-                      //  date and tags
-                      Row(
-                        children: [
-                          Text(
-                            "${getDateOfPurchase()}",
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                                overflow: TextOverflow.ellipsis),
-                          ),
-                          hSize20SizedBox,
-                          TransactionTag(
-                              title: widget.transactionType ==
-                                      TransactionTypes.fulfilled
-                                  ? 'Fulfilled'
-                                  : widget.transactionType ==
-                                          TransactionTypes.pending
-                                      ? 'Pending'
-                                      : 'Credit',
-                              tagColor: widget.transactionType ==
-                                      TransactionTypes.fulfilled
-                                  ? XploreColors.green
-                                  : widget.transactionType ==
-                                          TransactionTypes.pending
-                                      ? XploreColors.red
-                                      : XploreColors.xploreOrange)
-                        ],
+                    //  product name
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 5),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            //  name and price
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "${getUserName()}",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                ),
+                                //  price
+                                Text(
+                                  "Ksh. ${getTotalPrice().toString().addCommas}",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                ),
+                              ],
+                            ),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "No category",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      overflow: TextOverflow.ellipsis),
+                                ),
+                                Text(
+                                  "${getTotalItemsBought()} items",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black),
+                                ),
+                              ],
+                            ),
+
+                            //  date and tags
+                            Row(
+                              children: [
+                                Text(
+                                  "${getDateOfPurchase()}",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      overflow: TextOverflow.ellipsis),
+                                ),
+                                hSize20SizedBox,
+                                TransactionTag(
+                                    title: widget.transactionType ==
+                                            TransactionTypes.fulfilled
+                                        ? 'Fulfilled'
+                                        : widget.transactionType ==
+                                                TransactionTypes.pending
+                                            ? 'Pending'
+                                            : 'Credit',
+                                    tagColor: widget.transactionType ==
+                                            TransactionTypes.fulfilled
+                                        ? XploreColors.green
+                                        : widget.transactionType ==
+                                                TransactionTypes.pending
+                                            ? XploreColors.red
+                                            : XploreColors.xploreOrange)
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
+              Visibility(
+                  visible: widget.transactionType == TransactionTypes.pending ||
+                      widget.transactionType == TransactionTypes.credit,
+                  child: Align(
+                    alignment: AlignmentDirectional.bottomEnd,
+                    child: UnconstrainedBox(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: XploreColors.deepBlue,
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.done_rounded, color: XploreColors.white),
+                            hSize10SizedBox,
+                            Text(
+                              "Fulfill",
+                              style: TextStyle(
+                                  fontSize: 14, color: XploreColors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ))
             ],
           ),
         ),
