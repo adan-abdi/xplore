@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/presentation/components/my_lottie.dart';
 
-class PendingTransactions extends StatefulWidget {
-  const PendingTransactions({super.key});
+class DeniTransactions extends StatefulWidget {
+  const DeniTransactions({super.key});
 
   @override
-  State<PendingTransactions> createState() => _PendingTransactionsState();
+  State<DeniTransactions> createState() => _DeniTransactionsState();
 }
 
-class _PendingTransactionsState extends State<PendingTransactions> {
+class _DeniTransactionsState extends State<DeniTransactions> {
   @override
   Widget build(BuildContext context) {
     return SliverFillRemaining(
@@ -20,7 +20,7 @@ class _PendingTransactionsState extends State<PendingTransactions> {
           MyLottie(
             lottie: 'assets/general/receipt.json',
           ),
-          Text("No pending transactions yet.")
+          Text("No loans yet.")
         ],
       ),
     );

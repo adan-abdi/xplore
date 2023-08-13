@@ -4,6 +4,7 @@ import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/transaction_types.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/components/deni_transactions.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/pending_transactions.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_toggle.dart';
 
@@ -50,12 +51,13 @@ class _MerchantTransactionsState extends State<MerchantTransactions> {
               onPressed: () => Get.back(),
               icon: Icon(Icons.arrow_back_rounded, color: XploreColors.black)),
         ),
-        floatingActionButton:_merchantController.activeTransactionType.value ==
-            TransactionTypes.pending ? CustomFAB(
-            actionIcon: Icons.done_all_rounded,
-            actionLabel: "Fulfill all",
-            onPressed: () {
-            }) : null,
+        floatingActionButton: _merchantController.activeTransactionType.value ==
+                TransactionTypes.pending
+            ? CustomFAB(
+                actionIcon: Icons.done_all_rounded,
+                actionLabel: "Fulfill all",
+                onPressed: () {})
+            : null,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: SafeArea(
             child: Obx(
@@ -74,7 +76,10 @@ class _MerchantTransactionsState extends State<MerchantTransactions> {
               _merchantController.activeTransactionType.value ==
                       TransactionTypes.fulfilled
                   ? FulfilledTransactions()
-                  : PendingTransactions()
+                  : _merchantController.activeTransactionType.value ==
+                          TransactionTypes.deni
+                      ? DeniTransactions()
+                      : PendingTransactions()
             ],
           ),
         )),
