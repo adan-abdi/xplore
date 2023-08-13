@@ -35,7 +35,7 @@ class _PendingTransactionsState extends State<PendingTransactions> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final transactionsByBuyerId = _authController.user.value!.transactions!
+      final pendingTransactionsByBuyerId = _authController.user.value!.transactions!
           .where((transaction) =>
       transaction.transactionType ==
           TransactionTypes.pending.toString())
@@ -43,7 +43,7 @@ class _PendingTransactionsState extends State<PendingTransactions> {
           .toSet()
           .toList();
 
-      return transactionsByBuyerId.isNotEmpty
+      return pendingTransactionsByBuyerId.isNotEmpty
           ? SliverPadding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         sliver: SliverList(
@@ -52,13 +52,13 @@ class _PendingTransactionsState extends State<PendingTransactions> {
                   .user.value!.transactions!
                   .where((transaction) =>
               transaction.buyerId! ==
-                  transactionsByBuyerId[mainIndex] &&
+                  pendingTransactionsByBuyerId[mainIndex] &&
                   transaction.transactionType ==
                       TransactionTypes.pending.toString())
                   .toList();
 
               return TransactionCardMain(
-                buyerId: transactionsByBuyerId[mainIndex],
+                buyerId: pendingTransactionsByBuyerId[mainIndex],
                 onTap: () {
                   openBottomSheet(
                       content: TransactionDetailsBottomSheet(
@@ -67,7 +67,7 @@ class _PendingTransactionsState extends State<PendingTransactions> {
                       onComplete: () {});
                 },
               );
-            }, childCount: transactionsByBuyerId.length)),
+            }, childCount: pendingTransactionsByBuyerId.length)),
       )
           : SliverFillRemaining(
         child: Column(

@@ -33,7 +33,7 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final transactionsByBuyerId = _authController.user.value!.transactions!
+      final fulfilledTransactionsByBuyerId = _authController.user.value!.transactions!
           .where((transaction) =>
               transaction.transactionType ==
               TransactionTypes.fulfilled.toString())
@@ -50,13 +50,13 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
                     .user.value!.transactions!
                     .where((transaction) =>
                         transaction.buyerId! ==
-                            transactionsByBuyerId[mainIndex] &&
+                            fulfilledTransactionsByBuyerId[mainIndex] &&
                         transaction.transactionType ==
                             TransactionTypes.fulfilled.toString())
                     .toList();
 
                 return TransactionCardMain(
-                  buyerId: transactionsByBuyerId[mainIndex],
+                  buyerId: fulfilledTransactionsByBuyerId[mainIndex],
                   onTap: () {
                     openBottomSheet(
                         content: TransactionDetailsBottomSheet(
@@ -65,7 +65,7 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
                         onComplete: () {});
                   },
                 );
-              }, childCount: transactionsByBuyerId.length)),
+              }, childCount: fulfilledTransactionsByBuyerId.length)),
             )
           : SliverFillRemaining(
               child: Column(
