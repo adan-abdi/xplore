@@ -12,10 +12,10 @@ import '../../domain/model/transaction_types.dart';
 
 class TransactionDetailsBottomSheet extends StatefulWidget {
   final List<TransactionModel> allTransactionsByBuyer;
-  final TransactionTypes transactionType;
 
   const TransactionDetailsBottomSheet(
-      {super.key, required this.allTransactionsByBuyer, required this.transactionType});
+      {super.key,
+      required this.allTransactionsByBuyer});
 
   @override
   State<TransactionDetailsBottomSheet> createState() =>
@@ -68,7 +68,9 @@ class _TransactionDetailsBottomSheetState
                   return TransactionCard(
                     transaction: transaction,
                     product: transaction.product!,
-                    transactionType: widget.transactionType,
+                    transactionType: TransactionTypes.values.firstWhere(
+                        (type) =>
+                            type.toString() == transaction.transactionType!),
                   );
                 },
                 itemCount: widget.allTransactionsByBuyer.length),

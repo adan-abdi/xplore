@@ -9,16 +9,19 @@ import '../../../../domain/value_objects/app_spaces.dart';
 import 'package:get/get.dart';
 
 import '../../../feature_home/presentation/controller/home_controller.dart';
+import '../../domain/model/transaction_model.dart';
 
 class TransactionCardMain extends StatefulWidget {
   final String buyerId;
   final TransactionTypes transactionType;
+  final List<TransactionModel> allTransactionsByBuyer;
   final VoidCallback onTap;
 
   const TransactionCardMain(
       {super.key,
       required this.buyerId,
       required this.transactionType,
+      required this.allTransactionsByBuyer,
       required this.onTap});
 
   @override
@@ -79,7 +82,9 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
       child: Container(
         width: double.infinity,
         height: widget.transactionType == TransactionTypes.pending ||
-            widget.transactionType == TransactionTypes.credit ? 120 : 80,
+                widget.transactionType == TransactionTypes.credit
+            ? 120
+            : 80,
         margin: const EdgeInsets.only(bottom: 24),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16), color: XploreColors.white),
@@ -204,22 +209,34 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                   child: Align(
                     alignment: AlignmentDirectional.bottomEnd,
                     child: UnconstrainedBox(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: XploreColors.deepBlue,
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(Icons.done_rounded, color: XploreColors.white),
-                            hSize10SizedBox,
-                            Text(
-                              "Fulfill",
-                              style: TextStyle(
-                                  fontSize: 14, color: XploreColors.white),
-                            ),
-                          ],
+                      child: GestureDetector(
+                        onTap: () {
+                          // //  all transactions
+                          // final allTransactions =
+                          //     _authController.user.value!.transactions!
+                          // .map((transaction) => null);
+                          //
+
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: XploreColors.deepBlue,
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(Icons.done_rounded,
+                                  color: XploreColors.white),
+                              hSize10SizedBox,
+                              Text(
+                                "Fulfill",
+                                style: TextStyle(
+                                    fontSize: 14, color: XploreColors.white),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

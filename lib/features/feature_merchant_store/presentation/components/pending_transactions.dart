@@ -19,7 +19,6 @@ class PendingTransactions extends StatefulWidget {
 }
 
 class _PendingTransactionsState extends State<PendingTransactions> {
-
   late final HomeController _homeController;
   late final AuthController _authController;
 
@@ -31,58 +30,58 @@ class _PendingTransactionsState extends State<PendingTransactions> {
     _authController = Get.find<AuthController>();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final pendingTransactionsByBuyerId = _authController.user.value!.transactions!
+      final pendingTransactionsByBuyerId = _authController
+          .user.value!.transactions!
           .where((transaction) =>
-      transaction.transactionType ==
-          TransactionTypes.pending.toString())
+              transaction.transactionType ==
+              TransactionTypes.pending.toString())
           .map((transaction) => transaction.buyerId!)
           .toSet()
           .toList();
 
       return pendingTransactionsByBuyerId.isNotEmpty
           ? SliverPadding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        sliver: SliverList(
-            delegate: SliverChildBuilderDelegate((context, mainIndex) {
-              final allTransactionsByBuyer = _authController
-                  .user.value!.transactions!
-                  .where((transaction) =>
-              transaction.buyerId! ==
-                  pendingTransactionsByBuyerId[mainIndex] &&
-                  transaction.transactionType ==
-                      TransactionTypes.pending.toString())
-                  .toList();
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate((context, mainIndex) {
+                final allTransactionsByBuyer = _authController
+                    .user.value!.transactions!
+                    .where((transaction) =>
+                        transaction.buyerId! ==
+                            pendingTransactionsByBuyerId[mainIndex] &&
+                        transaction.transactionType ==
+                            TransactionTypes.pending.toString())
+                    .toList();
 
-              return TransactionCardMain(
-                buyerId: pendingTransactionsByBuyerId[mainIndex],
-                transactionType: TransactionTypes.pending,
-                onTap: () {
-                  openBottomSheet(
-                      content: TransactionDetailsBottomSheet(
-                        allTransactionsByBuyer: allTransactionsByBuyer,
-                        transactionType: TransactionTypes.pending,
-                      ),
-                      onComplete: () {});
-                },
-              );
-            }, childCount: pendingTransactionsByBuyerId.length)),
-      )
+                return TransactionCardMain(
+                  buyerId: pendingTransactionsByBuyerId[mainIndex],
+                  transactionType: TransactionTypes.pending,
+                  allTransactionsByBuyer: allTransactionsByBuyer,
+                  onTap: () {
+                    openBottomSheet(
+                        content: TransactionDetailsBottomSheet(
+                          allTransactionsByBuyer: allTransactionsByBuyer,
+                        ),
+                        onComplete: () {});
+                  },
+                );
+              }, childCount: pendingTransactionsByBuyerId.length)),
+            )
           : SliverFillRemaining(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            MyLottie(
-              lottie: 'assets/general/receipt.json',
-            ),
-            Text("No pending transactions")
-          ],
-        ),
-      );
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  MyLottie(
+                    lottie: 'assets/general/receipt.json',
+                  ),
+                  Text("No pending transactions")
+                ],
+              ),
+            );
     });
   }
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:get/get.dart';
+import 'package:shamiri/core/domain/model/user_model.dart';
+import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/transaction_types.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/credit_transactions.dart';
@@ -21,12 +23,14 @@ class MerchantTransactions extends StatefulWidget {
 
 class _MerchantTransactionsState extends State<MerchantTransactions> {
   late final MerchantController _merchantController;
+  late final AuthController _authController;
 
   @override
   void initState() {
     super.initState();
 
     _merchantController = Get.find<MerchantController>();
+    _authController = Get.find<AuthController>();
   }
 
   @override
@@ -60,7 +64,23 @@ class _MerchantTransactionsState extends State<MerchantTransactions> {
                   ? CustomFAB(
                       actionIcon: Icons.done_all_rounded,
                       actionLabel: "Fulfill all",
-                      onPressed: () {})
+                      onPressed: () {
+                        //  fulfill all orders
+                        final allTransactions =
+                            _authController.user.value!.transactions!;
+
+                        allTransactions.forEach((transaction) {
+                          if (transaction.transactionType == TransactionTypes.pending.toString()) {
+                            transaction.transactionType =
+                                TransactionTypes.fulfilled.toString();
+                          }
+                        });
+
+                        _authController.updateUserDataInFirestore(
+                            oldUser: _authController.user.value!,
+                            newUser: UserModel(transactions: allTransactions),
+                            uid: _authController.user.value!.userId!);
+                      })
                   : null,
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
