@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
+import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card.dart';
@@ -21,12 +22,25 @@ class TransactionDetailsBottomSheet extends StatefulWidget {
 class _TransactionDetailsBottomSheetState
     extends State<TransactionDetailsBottomSheet> {
   late final HomeController _homeController;
+  late final AuthController _authController;
 
   @override
   void initState() {
     super.initState();
 
     _homeController = Get.find<HomeController>();
+    _authController = Get.find<AuthController>();
+  }
+
+  String getUserName() {
+    final userName = _homeController.stores
+        .firstWhere((store) =>
+            store.userId! == widget.allTransactionsByBuyer[0].buyerId!)
+        .userName!;
+
+    return widget.allTransactionsByBuyer[0].buyerId! == _authController.user.value!.userId
+        ? "Unknown"
+        : userName;
   }
 
   @override
@@ -37,7 +51,7 @@ class _TransactionDetailsBottomSheetState
       child: Column(
         children: [
           Text(
-            "Receipts for ${_homeController.stores.firstWhere((store) => store.userId! == widget.allTransactionsByBuyer[0].buyerId!).userName!}",
+            "Receipts for ${getUserName()}",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           vSize20SizedBox,

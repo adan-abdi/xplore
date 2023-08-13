@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
-import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
-import 'package:shamiri/features/feature_merchant_store/domain/model/transaction_model.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_tag.dart';
-import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
 
 import '../../../../application/core/themes/colors.dart';
 import '../../../../domain/value_objects/app_spaces.dart';
@@ -25,7 +21,6 @@ class TransactionCardMain extends StatefulWidget {
 }
 
 class _TransactionCardMainState extends State<TransactionCardMain> {
-  late final MerchantController _merchantController;
   late final AuthController _authController;
   late final HomeController _homeController;
 
@@ -33,7 +28,6 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
   void initState() {
     super.initState();
 
-    _merchantController = Get.find<MerchantController>();
     _authController = Get.find<AuthController>();
     _homeController = Get.find<HomeController>();
   }
@@ -42,7 +36,7 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
     final userName = _homeController.stores
         .firstWhere((store) => store.userId! == widget.buyerId)
         .userName!;
-    return userName;
+    return widget.buyerId == _authController.user.value!.userId ? "Unknown" : userName;
   }
 
   int getTotalPrice() {
