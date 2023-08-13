@@ -8,6 +8,7 @@ import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
 
 import '../../../../core/presentation/components/badged_icon.dart';
 import '../../../feature_cart/presentation/cart_screen.dart';
@@ -26,6 +27,7 @@ class ProductViewPage extends StatefulWidget {
 class _ProductViewPageState extends State<ProductViewPage> {
   late final HomeController _homeController;
   late final AuthController _authController;
+  late final MerchantController _merchantController;
   int itemCount = 1;
 
   @override
@@ -34,6 +36,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
 
     _homeController = Get.find<HomeController>();
     _authController = Get.find<AuthController>();
+    _merchantController = Get.find<MerchantController>();
   }
 
   void decrementCount({required bool isInCart}) {
@@ -124,10 +127,64 @@ class _ProductViewPageState extends State<ProductViewPage> {
                     badgeCount: _authController.user.value!.itemsInCart!.length,
                     iconData: Icons.shopping_cart_rounded),
               )),
-          IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.favorite_outline_rounded,
-                  color: XploreColors.deepBlue)),
+          Visibility(
+            visible: _merchantController.merchantProducts
+                .map((product) => product.productId!)
+                .contains(widget.product.productId!),
+            child: PopupMenuButton(
+              itemBuilder: (context) => [
+                //  update product
+                PopupMenuItem(
+                  onTap: () {},
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.edit_rounded,
+                        size: 16,
+                        color: XploreColors.xploreOrange,
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        "Edit Product",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium,
+                      )
+                    ],
+                  ),
+                ),
+                //  delete product
+                PopupMenuItem(
+                  onTap: () {},
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.delete_forever_rounded,
+                        size: 16,
+                        color: XploreColors.xploreOrange,
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        "Delete Product",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium,
+                      )
+                    ],
+                  ),
+                ),
+              ],
+              color: XploreColors.white,
+              icon: Icon(
+                Icons.more_vert_rounded,
+                color: XploreColors.deepBlue,
+              ),
+            ),
+          ),
         ],
         elevation: 0,
       ),
@@ -458,9 +515,10 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                   //  update the list
                                   if (isInCart) {
                                     //  remove item from list
-                                    itemsInCart = itemsInCart..removeWhere((item) =>
-                                        item.cartProductId! ==
-                                        widget.product.productId!);
+                                    itemsInCart = itemsInCart
+                                      ..removeWhere((item) =>
+                                          item.cartProductId! ==
+                                          widget.product.productId!);
 
                                     //  update items in cart
                                     await _authController
@@ -473,10 +531,11 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                                 .user.value!.userId!);
                                   } else {
                                     //  Add item to list
-                                    itemsInCart = itemsInCart..add(CartModel(
-                                        cartProductId:
-                                            widget.product.productId!,
-                                        cartProductCount: itemCount));
+                                    itemsInCart = itemsInCart
+                                      ..add(CartModel(
+                                          cartProductId:
+                                              widget.product.productId!,
+                                          cartProductCount: itemCount));
                                     //  update items in cart
                                     await _authController
                                         .updateUserDataInFirestore(
