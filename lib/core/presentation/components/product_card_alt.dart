@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/core/presentation/components/show_alert_dialog.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
@@ -128,7 +129,11 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                       Row(
                         children: [
                           GestureDetector(
-                            onTap: () => decrementCount(),
+                            onTap: () => showAlertDialog(
+                                title: "Decrease Stock",
+                                iconData: Icons.storefront_rounded,
+                                content: Text(
+                                    "Would you like to decrease the stock count?")),
                             child: Container(
                               width: 35,
                               height: 35,
