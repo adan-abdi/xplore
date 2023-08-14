@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/core/presentation/components/custom_textfield.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
 import '../../../../application/core/themes/colors.dart';
@@ -81,7 +82,21 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
               textStyle: TextStyle(fontSize: 16),
               inputType: TextInputType.number,
               controller: _phoneNumberController,
-              onChanged: (value) {}),
+              onChanged: (value) {
+                //  get buyer ID from phone number
+                final buyerId = value.checkIsPhoneNumberValid
+                    ? _homeController.stores
+                    .firstWhere(
+                        (user) =>
+                    user.userPhoneNumber! == value.add254Prefix,
+                    orElse: () => UserModel())
+                    .userId
+                    : null;
+
+                setState(() {
+                  this.buyerId = buyerId;
+                });
+              }),
 
           //  proceed button
           Align(

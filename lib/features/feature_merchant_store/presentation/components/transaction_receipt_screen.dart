@@ -4,11 +4,16 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
+import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/receipt.dart';
+import 'package:shamiri/presentation/core/widgets/molecular/dashboard_tab_action_button.dart';
 
+import '../../../../core/domain/model/user_model.dart';
+import '../../../../core/presentation/components/show_alert_dialog.dart';
 import '../../../../core/presentation/controller/auth_controller.dart';
 import '../../../feature_home/presentation/controller/home_controller.dart';
 import '../../domain/model/transaction_model.dart';
+import '../../domain/model/transaction_types.dart';
 
 class TransactionReceiptScreen extends StatefulWidget {
   final List<TransactionModel> allTransactionsByBuyer;
@@ -59,6 +64,13 @@ class _TransactionReceiptScreenState extends State<TransactionReceiptScreen> {
     return allTransactionsPrice;
   }
 
+  TransactionTypes getTransactionType({required int index}) {
+    final transaction = widget.allTransactionsByBuyer[index];
+
+    return TransactionTypes.values
+        .firstWhere((type) => type.toString() == transaction.transactionType!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +105,57 @@ class _TransactionReceiptScreenState extends State<TransactionReceiptScreen> {
                 userName: getUserName(),
                 totalPrice: getTotalPrice().toString().addCommas,
                 allTransactionsByBuyer: widget.allTransactionsByBuyer,
-              )
+              ),
+
+              vSize20SizedBox,
+
+              //  call to action button
+              Visibility(
+                visible:
+                    getTransactionType(index: 0) == TransactionTypes.pending ||
+                        getTransactionType(index: 0) == TransactionTypes.credit,
+                child: CustomFAB(
+                    actionIcon:
+                        getTransactionType(index: 0) == TransactionTypes.pending
+                            ? Icons.done_rounded
+                            : Icons.attach_money_rounded,
+                    actionLabel:
+                        getTransactionType(index: 0) == TransactionTypes.pending
+                            ? "Fulfill"
+                            : "Pay",
+                    onPressed: () {
+                      showAlertDialog(
+                          title: "Fulfill Transaction",
+                          iconData: Icons.receipt_rounded,
+                          content: Text(
+                            "Would you like to fulfill this transaction?",
+                            textAlign: TextAlign.center,
+                          ),
+                          onCancel: () => Get.back(),
+                          onConfirm: () async {
+
+                            Get.back();
+
+                            //  all transactions
+                            final allTransactions =
+                                _authController.user.value!.transactions!;
+
+                            allTransactions.forEach((transaction) {
+                              if (transaction.buyerId! ==
+                                  widget.allTransactionsByBuyer[0].buyerId!) {
+                                transaction.transactionType =
+                                    TransactionTypes.fulfilled.toString();
+                              }
+                            });
+
+                            await _authController.updateUserDataInFirestore(
+                                oldUser: _authController.user.value!,
+                                newUser:
+                                    UserModel(transactions: allTransactions),
+                                uid: _authController.user.value!.userId!);
+                          });
+                    }),
+              ),
             ],
           )),
     );

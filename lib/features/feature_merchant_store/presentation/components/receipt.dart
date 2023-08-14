@@ -31,7 +31,7 @@ class Receipt extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       child: Container(
           width: double.infinity,
-          height: 500,
+          height: 450,
           padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),

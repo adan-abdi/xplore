@@ -84,7 +84,21 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
               textStyle: TextStyle(fontSize: 16),
               inputType: TextInputType.number,
               controller: _phoneNumberController,
-              onChanged: (value) {}),
+              onChanged: (value) {
+                //  get buyer ID from phone number
+                final buyerId = value.checkIsPhoneNumberValid
+                    ? _homeController.stores
+                    .firstWhere(
+                        (user) =>
+                    user.userPhoneNumber! == value.add254Prefix,
+                    orElse: () => UserModel())
+                    .userId
+                    : null;
+
+                setState(() {
+                  this.buyerId = buyerId;
+                });
+              }),
 
           CustomTextField(
             hint: "Date for payment",
