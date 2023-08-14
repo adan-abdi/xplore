@@ -16,7 +16,7 @@ Future<bool> showAlertDialog(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
-              icon: Icon(iconData, color: XploreColors.xploreOrange),
+              icon: Icon(iconData, color: XploreColors.deepBlue),
               backgroundColor: XploreColors.white,
               scrollable: true,
               shape: RoundedRectangleBorder(
