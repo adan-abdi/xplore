@@ -74,21 +74,21 @@ class _TransactionReceiptScreenState extends State<TransactionReceiptScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: XploreColors.white,
+      backgroundColor: XploreColors.deepBlue,
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarIconBrightness: Brightness.dark,
-            statusBarColor: XploreColors.white,
-            systemNavigationBarColor: XploreColors.white,
-            systemNavigationBarIconBrightness: Brightness.dark),
-        backgroundColor: XploreColors.white,
+            statusBarIconBrightness: Brightness.light,
+            statusBarColor: XploreColors.deepBlue,
+            systemNavigationBarColor: XploreColors.deepBlue,
+            systemNavigationBarIconBrightness: Brightness.light),
+        backgroundColor: XploreColors.deepBlue,
         leading: IconButton(
             onPressed: () => Get.back(),
-            icon: Icon(Icons.arrow_back_rounded, color: XploreColors.deepBlue)),
+            icon: Icon(Icons.arrow_back_rounded, color: XploreColors.white)),
         elevation: 0,
         title: Text(
           "Receipt",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
       ),

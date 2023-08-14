@@ -31,11 +31,11 @@ class Receipt extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       child: Container(
           width: double.infinity,
-          height: 450,
-          padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+          height: 500,
+          padding: const EdgeInsets.only(top: 16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
-            color: XploreColors.deepBlue,
+            color: XploreColors.white,
           ),
           child: Stack(
             children: [
@@ -43,111 +43,149 @@ class Receipt extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   //  logo
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           ClipRRect(
                               borderRadius: BorderRadius.circular(100),
                               child: Image.asset(
                                 "assets/appIcon/playstore.png",
-                                width: 50,
-                                height: 50,
+                                width: 60,
+                                height: 60,
                               )),
-                          hSize10SizedBox,
+                          vSize20SizedBox,
                           Text(
-                            "Shamiri",
+                            "Order ${getTransactionType(index: 0) == TransactionTypes.fulfilled ? "fulfilled!" : getTransactionType(index: 0) == TransactionTypes.pending ? "pending!" : "on credit!"}",
                             style: TextStyle(
-                                color: XploreColors.white,
+                                color: XploreColors.deepBlue,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18),
                           )
                         ],
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: getTransactionType(index: 0) ==
-                                    TransactionTypes.fulfilled
-                                ? XploreColors.green.withOpacity(0.6)
-                                : getTransactionType(index: 0) ==
-                                        TransactionTypes.pending
-                                    ? XploreColors.red.withOpacity(0.6)
-                                    : XploreColors.xploreOrange
-                                        .withOpacity(0.6)),
-                        child: Text(
-                          getTransactionType(index: 0) ==
-                                  TransactionTypes.fulfilled
-                              ? "Fulfilled"
-                              : getTransactionType(index: 0) ==
-                                      TransactionTypes.pending
-                                  ? "Pending"
-                                  : "Credit",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: XploreColors.white),
-                        ),
-                      )
-                    ],
-                  ),
-                  vSize20SizedBox,
-                  //  username title
-                  Text(
-                    userName,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: XploreColors.white),
+                    ),
                   ),
 
-                  //  user orders
-                  vSize20SizedBox,
                   Expanded(
                     flex: 3,
-                    child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          final transaction = allTransactionsByBuyer[index];
-
-                          return TransactionCard(
-                            transaction: transaction,
-                            product: transaction.product!,
-                            altColors: true,
-                            transactionType: getTransactionType(index: index),
-                          );
-                        },
-                        itemCount: allTransactionsByBuyer.length),
-                  ),
-                  //  total
-                  Divider(
-                    height: 5,
-                    color: XploreColors.whiteSmoke,
-                  ),
-
-                  Expanded(
-                    flex: 1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    child: Column(
                       children: [
-                        Text(
-                          "Total",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: XploreColors.whiteSmoke),
+                        //  notch divider
+                        Row(
+                          children: [
+                            Container(
+                                width: 10,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(100),
+                                        bottomRight: Radius.circular(100)),
+                                    color: XploreColors.deepBlue)),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: List.generate(
+                                    20,
+                                    (index) => Container(
+                                          width: 8,
+                                          height: 2,
+                                          color: XploreColors.deepBlue,
+                                        )),
+                              ),
+                            ),
+                            Container(
+                              width: 10,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(100),
+                                      bottomLeft: Radius.circular(100)),
+                                  color: XploreColors.deepBlue),
+                            ),
+                          ],
                         ),
-                        Text(
-                          "Ksh. $totalPrice",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: XploreColors.white),
+
+                        vSize20SizedBox,
+
+                        //  username title
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Text(
+                            userName,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: XploreColors.black),
+                          ),
                         ),
+
+                        //  user orders
+                        vSize20SizedBox,
+                        Expanded(
+                          flex: 3,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  final transaction =
+                                      allTransactionsByBuyer[index];
+
+                                  return TransactionCard(
+                                    transaction: transaction,
+                                    product: transaction.product!,
+                                    altColors: false,
+                                    transactionType:
+                                        getTransactionType(index: index),
+                                  );
+                                },
+                                itemCount: allTransactionsByBuyer.length),
+                          ),
+                        ),
+
+                        //  total
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Divider(
+                            height: 5,
+                            color: XploreColors.deepBlue,
+                          ),
+                        ),
+
+                        Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Total",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: Colors.black),
+                                ),
+                                Text(
+                                  "Ksh. $totalPrice",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   )
@@ -170,7 +208,7 @@ class Receipt extends StatelessWidget {
                                 topLeft: Radius.circular(100),
                                 topRight: Radius.circular(100),
                               ),
-                              color: XploreColors.white,
+                              color: XploreColors.deepBlue,
                             ),
                           )),
                 ),
