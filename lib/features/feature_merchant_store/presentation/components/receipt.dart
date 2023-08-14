@@ -8,11 +8,13 @@ import '../../domain/model/transaction_types.dart';
 
 class Receipt extends StatelessWidget {
   final String userName;
+  final String totalPrice;
   final List<TransactionModel> allTransactionsByBuyer;
 
   const Receipt(
       {super.key,
       required this.userName,
+      required this.totalPrice,
       required this.allTransactionsByBuyer});
 
   TransactionTypes getTransactionType({required int index}) {
@@ -105,7 +107,9 @@ class Receipt extends StatelessWidget {
                   //  user orders
                   vSize20SizedBox,
                   Expanded(
+                    flex: 3,
                     child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
                           final transaction = allTransactionsByBuyer[index];
 
@@ -118,6 +122,35 @@ class Receipt extends StatelessWidget {
                         },
                         itemCount: allTransactionsByBuyer.length),
                   ),
+                  //  total
+                  Divider(
+                    height: 5,
+                    color: XploreColors.whiteSmoke,
+                  ),
+
+                  Expanded(
+                    flex: 1,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Total",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: XploreColors.whiteSmoke),
+                        ),
+                        Text(
+                          "Ksh. $totalPrice",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: XploreColors.white),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
               Align(

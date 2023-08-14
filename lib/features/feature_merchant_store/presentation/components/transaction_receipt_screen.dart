@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/receipt.dart';
 
 import '../../../../core/presentation/controller/auth_controller.dart';
@@ -34,15 +35,29 @@ class _TransactionReceiptScreenState extends State<TransactionReceiptScreen> {
 
   String getUserName() {
     final userName =
-    widget.allTransactionsByBuyer[0].buyerId!.split(" ").toList()[0] ==
-        'customer'
-        ? 'Unknown'
-        : _homeController.stores
-        .firstWhere((store) =>
-    store.userId! == widget.allTransactionsByBuyer[0].buyerId!.split(" ").toList()[0])
-        .userName!;
+        widget.allTransactionsByBuyer[0].buyerId!.split(" ").toList()[0] ==
+                'customer'
+            ? 'Unknown'
+            : _homeController.stores
+                .firstWhere((store) =>
+                    store.userId! ==
+                    widget.allTransactionsByBuyer[0].buyerId!
+                        .split(" ")
+                        .toList()[0])
+                .userName!;
 
     return userName;
+  }
+
+  int getTotalPrice() {
+    final allTransactionsPrice = _authController.user.value!.transactions!
+        .where((transaction) =>
+            transaction.buyerId! ==
+            widget.allTransactionsByBuyer[0].buyerId!.split(" ").toList()[0])
+        .map((transaction) => transaction.amountPaid!)
+        .reduce((value, element) => value + element);
+
+    return allTransactionsPrice;
   }
 
   @override
@@ -60,7 +75,10 @@ class _TransactionReceiptScreenState extends State<TransactionReceiptScreen> {
             onPressed: () => Get.back(),
             icon: Icon(Icons.arrow_back_rounded, color: XploreColors.deepBlue)),
         elevation: 0,
-        title: Text("Receipt", style: TextStyle(color: Colors.black),),
+        title: Text(
+          "Receipt",
+          style: TextStyle(color: Colors.black),
+        ),
         centerTitle: true,
       ),
       body: Container(
@@ -72,7 +90,11 @@ class _TransactionReceiptScreenState extends State<TransactionReceiptScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               //  receipt
-              Receipt(userName: getUserName(), allTransactionsByBuyer: widget.allTransactionsByBuyer,)
+              Receipt(
+                userName: getUserName(),
+                totalPrice: getTotalPrice().toString().addCommas,
+                allTransactionsByBuyer: widget.allTransactionsByBuyer,
+              )
             ],
           )),
     );
