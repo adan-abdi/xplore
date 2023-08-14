@@ -27,7 +27,6 @@ class MpesaPaymentSection extends StatefulWidget {
 }
 
 class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
-
   late final CartController _cartController;
   late final HomeController _homeController;
   late final MerchantController _merchantController;
@@ -74,9 +73,7 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
               textStyle: TextStyle(fontSize: 16),
               inputType: TextInputType.number,
               isEnabled: false,
-              onChanged: (value) {
-
-              }),
+              onChanged: (value) {}),
           //  box to enter M-Pesa amount
           CustomTextField(
               hint: "Phone number",
@@ -84,27 +81,25 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
               textStyle: TextStyle(fontSize: 16),
               inputType: TextInputType.number,
               controller: _phoneNumberController,
-              onChanged: (value) {
-
-              }),
+              onChanged: (value) {}),
 
           //  proceed button
           Align(
             alignment: AlignmentDirectional.bottomEnd,
             child: TextButton(
-                onPressed: ()async {
+                onPressed: () async {
                   // update merchant transactions
                   _authController.user.value!.itemsInCart!
                       .forEach((cartItem) async {
                     //  get seller id & product id
                     final sellerId = _homeController.products
                         .firstWhere((product) =>
-                    product.productId! == cartItem.cartProductId!)
+                            product.productId! == cartItem.cartProductId!)
                         .sellerId!;
 
                     final product = _homeController.products.firstWhere(
-                            (product) =>
-                        product.productId! == cartItem.cartProductId!);
+                        (product) =>
+                            product.productId! == cartItem.cartProductId!);
 
                     final sellerData = await _authController
                         .getSpecificUserFromFirestore(uid: sellerId);
@@ -112,30 +107,29 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
                     final buyerData = buyerId == null || buyerId!.isEmpty
                         ? null
                         : await _authController.getSpecificUserFromFirestore(
-                        uid: buyerId!);
+                            uid: buyerId!);
 
                     final allTransactions = sellerData.transactions!;
 
                     allTransactions.add(TransactionModel(
                         buyerId: buyerId == null || buyerId!.isEmpty
                             ? 'customer - ${Timestamp.now()}'
-                            : buyerId!,
+                            : '${buyerId!} - ${Timestamp.now()}',
                         product: _merchantController.merchantProducts
                             .firstWhere((product) =>
-                        product.productId! == cartItem.cartProductId!),
+                                product.productId! == cartItem.cartProductId!),
                         itemsBought: cartItem.cartProductCount!,
                         amountPaid: product.productSellingPrice! *
                             cartItem.cartProductCount!,
                         transactionDate: DateTime.now().toString(),
                         isFulfilled: false,
-                        transactionType:
-                        TransactionTypes.pending.toString()));
+                        transactionType: TransactionTypes.pending.toString()));
 
                     _authController
                         .updateUserDataInFirestore(
-                        oldUser: sellerData,
-                        newUser: UserModel(transactions: allTransactions),
-                        uid: sellerId)
+                            oldUser: sellerData,
+                            newUser: UserModel(transactions: allTransactions),
+                            uid: sellerId)
                         .then((value) async {
                       //  update buyer data
                       if (buyerData != null && buyerId != null) {
@@ -144,16 +138,18 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
                         buyerTransactions.add(TransactionModel(
                             buyerId: buyerId == null || buyerId!.isEmpty
                                 ? _authController.user.value!.userId!
-                                : buyerId!,
+                                : '${buyerId!} - ${Timestamp.now()}',
                             product: _merchantController.merchantProducts
                                 .firstWhere((product) =>
-                            product.productId! ==
-                                cartItem.cartProductId!),
+                                    product.productId! ==
+                                    cartItem.cartProductId!),
                             itemsBought: cartItem.cartProductCount!,
                             amountPaid: product.productSellingPrice! *
                                 cartItem.cartProductCount!,
                             transactionDate: DateTime.now().toString(),
-                            isFulfilled: true));
+                            isFulfilled: true,
+                            transactionType:
+                                TransactionTypes.pending.toString()));
 
                         await _authController.updateUserDataInFirestore(
                             oldUser: buyerData,
@@ -182,7 +178,10 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
                 },
                 style: TextButton.styleFrom(
                     foregroundColor: XploreColors.xploreOrange),
-                child: Text("Pay", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)),
+                child: Text(
+                  "Pay",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                )),
           ),
         ],
       ),

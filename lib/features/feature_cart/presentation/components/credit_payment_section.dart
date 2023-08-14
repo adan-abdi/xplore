@@ -143,7 +143,7 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                     allTransactions.add(TransactionModel(
                         buyerId: buyerId == null || buyerId!.isEmpty
                             ? 'customer - ${Timestamp.now()}'
-                            : buyerId!,
+                            : '${buyerId!} - ${Timestamp.now()}',
                         product: _merchantController.merchantProducts
                             .firstWhere((product) =>
                                 product.productId! == cartItem.cartProductId!),
@@ -167,7 +167,7 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                         buyerTransactions.add(TransactionModel(
                             buyerId: buyerId == null || buyerId!.isEmpty
                                 ? _authController.user.value!.userId!
-                                : buyerId!,
+                                : '${buyerId!} - ${Timestamp.now()}',
                             product: _merchantController.merchantProducts
                                 .firstWhere((product) =>
                                     product.productId! ==
@@ -176,7 +176,9 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                             amountPaid: product.productSellingPrice! *
                                 cartItem.cartProductCount!,
                             transactionDate: DateTime.now().toString(),
-                            isFulfilled: true));
+                            isFulfilled: true,
+                            transactionType:
+                            TransactionTypes.credit.toString()));
 
                         await _authController.updateUserDataInFirestore(
                             oldUser: buyerData,

@@ -119,7 +119,7 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                     allTransactions.add(TransactionModel(
                         buyerId: buyerId == null || buyerId!.isEmpty
                             ? 'customer - ${Timestamp.now()}'
-                            : buyerId!,
+                            : '${buyerId!} - ${Timestamp.now()}',
                         product: _merchantController.merchantProducts
                             .firstWhere((product) =>
                                 product.productId! == cartItem.cartProductId!),
@@ -144,7 +144,7 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                         buyerTransactions.add(TransactionModel(
                             buyerId: buyerId == null || buyerId!.isEmpty
                                 ? _authController.user.value!.userId!
-                                : buyerId!,
+                                : '${buyerId!} - ${Timestamp.now()}',
                             product: _merchantController.merchantProducts
                                 .firstWhere((product) =>
                                     product.productId! ==
@@ -153,7 +153,9 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                             amountPaid: product.productSellingPrice! *
                                 cartItem.cartProductCount!,
                             transactionDate: DateTime.now().toString(),
-                            isFulfilled: true));
+                            isFulfilled: true,
+                            transactionType:
+                                TransactionTypes.fulfilled.toString()));
 
                         await _authController.updateUserDataInFirestore(
                             oldUser: buyerData,

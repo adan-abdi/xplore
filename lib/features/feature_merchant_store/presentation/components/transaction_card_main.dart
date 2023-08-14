@@ -45,7 +45,7 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
     final userName = widget.buyerId.split(" ").toList()[0] == 'customer'
         ? 'Unknown'
         : _homeController.stores
-            .firstWhere((store) => store.userId! == widget.buyerId)
+            .firstWhere((store) => store.userId! == widget.buyerId.split(" ").toList()[0])
             .userName!;
 
     return userName;

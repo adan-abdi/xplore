@@ -50,7 +50,7 @@ class _CreditTransactionsState extends State<CreditTransactions> {
                         transaction.buyerId! ==
                             creditTransactionsByBuyerId[mainIndex] &&
                         transaction.transactionType ==
-                            TransactionTypes.pending.toString())
+                            TransactionTypes.credit.toString())
                     .toList();
 
                 return TransactionCardMain(

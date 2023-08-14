@@ -42,7 +42,7 @@ class _TransactionDetailsBottomSheetState
             ? 'Unknown'
             : _homeController.stores
                 .firstWhere((store) =>
-                    store.userId! == widget.allTransactionsByBuyer[0].buyerId!)
+                    store.userId! == widget.allTransactionsByBuyer[0].buyerId!.split(" ").toList()[0])
                 .userName!;
 
     return userName;

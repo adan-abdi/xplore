@@ -33,7 +33,8 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final fulfilledTransactionsByBuyerId = _authController.user.value!.transactions!
+      final fulfilledTransactionsByBuyerId = _authController
+          .user.value!.transactions!
           .where((transaction) =>
               transaction.transactionType ==
               TransactionTypes.fulfilled.toString())
