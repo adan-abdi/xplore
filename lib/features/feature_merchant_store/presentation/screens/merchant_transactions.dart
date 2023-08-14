@@ -93,39 +93,6 @@ class _MerchantTransactionsState extends State<MerchantTransactions> {
                           Get.back();
                         });
                   })
-              : _merchantController.activeTransactionType.value ==
-                      TransactionTypes.credit
-                  ? CustomFAB(
-                      actionIcon: Icons.attach_money_rounded,
-                      actionLabel: "Pay all",
-                      onPressed: () {
-                        showAlertDialog(
-                            title: "Fulfill Transactions",
-                            iconData: Icons.receipt_rounded,
-                            content:
-                            Text("Would you like to fulfill all debts?"),
-                            onCancel: () => Get.back(),
-                            onConfirm: () async {
-                              //  fulfill all orders
-                              final allTransactions =
-                              _authController.user.value!.transactions!;
-
-                              allTransactions.forEach((transaction) {
-                                if (transaction.transactionType ==
-                                    TransactionTypes.pending.toString()) {
-                                  transaction.transactionType =
-                                      TransactionTypes.fulfilled.toString();
-                                }
-                              });
-
-                              await _authController.updateUserDataInFirestore(
-                                  oldUser: _authController.user.value!,
-                                  newUser: UserModel(transactions: allTransactions),
-                                  uid: _authController.user.value!.userId!);
-
-                              Get.back();
-                            });
-                      })
                   : null,
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
