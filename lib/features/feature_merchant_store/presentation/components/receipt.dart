@@ -7,11 +7,20 @@ import '../../domain/model/transaction_model.dart';
 import '../../domain/model/transaction_types.dart';
 
 class Receipt extends StatelessWidget {
-
   final String userName;
   final List<TransactionModel> allTransactionsByBuyer;
 
-  const Receipt({super.key, required this.userName, required this.allTransactionsByBuyer});
+  const Receipt(
+      {super.key,
+      required this.userName,
+      required this.allTransactionsByBuyer});
+
+  TransactionTypes getTransactionType({required int index}) {
+    final transaction = allTransactionsByBuyer[index];
+
+    return TransactionTypes.values
+        .firstWhere((type) => type.toString() == transaction.transactionType!);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +29,7 @@ class Receipt extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       child: Container(
           width: double.infinity,
-          height: 450,
+          height: 500,
           padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
@@ -33,35 +42,55 @@ class Receipt extends StatelessWidget {
                 children: [
                   //  logo
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Image.asset(
-                            "assets/appIcon/playstore.png",
-                            width: 50,
-                            height: 50,
-                          )),
-                      hSize10SizedBox,
-                      Text(
-                        "Shamiri",
-                        style: TextStyle(
-                            color: XploreColors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
+                      Row(
+                        children: [
+                          ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Image.asset(
+                                "assets/appIcon/playstore.png",
+                                width: 50,
+                                height: 50,
+                              )),
+                          hSize10SizedBox,
+                          Text(
+                            "Shamiri",
+                            style: TextStyle(
+                                color: XploreColors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          )
+                        ],
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: getTransactionType(index: 0) ==
+                                    TransactionTypes.fulfilled
+                                ? XploreColors.green.withOpacity(0.6)
+                                : getTransactionType(index: 0) ==
+                                        TransactionTypes.pending
+                                    ? XploreColors.red.withOpacity(0.6)
+                                    : XploreColors.xploreOrange
+                                        .withOpacity(0.6)),
+                        child: Text(
+                          getTransactionType(index: 0) ==
+                                  TransactionTypes.fulfilled
+                              ? "Fulfilled"
+                              : getTransactionType(index: 0) ==
+                                      TransactionTypes.pending
+                                  ? "Pending"
+                                  : "Credit",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: XploreColors.white),
+                        ),
                       )
                     ],
-                  ),
-                  vSize20SizedBox,
-                  //  order confirmed title
-                  Align(
-                    alignment: AlignmentDirectional.center,
-                    child: Text(
-                      "Order Confirmed!",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: XploreColors.white),
-                    ),
                   ),
                   vSize20SizedBox,
                   //  username title
@@ -84,9 +113,7 @@ class Receipt extends StatelessWidget {
                             transaction: transaction,
                             product: transaction.product!,
                             altColors: true,
-                            transactionType: TransactionTypes.values.firstWhere(
-                                    (type) =>
-                                type.toString() == transaction.transactionType!),
+                            transactionType: getTransactionType(index: index),
                           );
                         },
                         itemCount: allTransactionsByBuyer.length),
@@ -102,7 +129,9 @@ class Receipt extends StatelessWidget {
                       (index) => Container(
                             width: 20,
                             height: 10,
-                            margin: index != 9 ? const EdgeInsets.only(right: 8) : EdgeInsets.zero,
+                            margin: index != 9
+                                ? const EdgeInsets.only(right: 8)
+                                : EdgeInsets.zero,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(100),
