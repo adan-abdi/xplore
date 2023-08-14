@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../../../../application/core/themes/colors.dart';
 import '../../../../domain/value_objects/app_spaces.dart';
 
 class TransactionTag extends StatelessWidget {
   final String title;
   final Color tagColor;
+  final bool altColors;
 
   const TransactionTag(
-      {super.key, required this.title, required this.tagColor});
+      {super.key, required this.title, required this.tagColor, this.altColors = false});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class TransactionTag extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-              fontSize: 14, fontWeight: FontWeight.normal, color: Colors.black),
+              fontSize: 14, fontWeight: FontWeight.normal, color: altColors ? XploreColors.white :  Colors.black),
         ),
       ],
     );

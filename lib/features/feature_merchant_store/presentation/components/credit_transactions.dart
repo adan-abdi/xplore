@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card_main.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_details_bottomsheet.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_receipt_screen.dart';
 
 import '../../../../core/presentation/components/my_lottie.dart';
 import '../../../../core/presentation/components/open_bottom_sheet.dart';
@@ -32,7 +33,8 @@ class _CreditTransactionsState extends State<CreditTransactions> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final creditTransactionsByBuyerId = _authController.user.value!.transactions!
+      final creditTransactionsByBuyerId = _authController
+          .user.value!.transactions!
           .where((transaction) =>
               transaction.transactionType == TransactionTypes.credit.toString())
           .map((transaction) => transaction.buyerId!)
@@ -63,6 +65,9 @@ class _CreditTransactionsState extends State<CreditTransactions> {
                           allTransactionsByBuyer: allTransactionsByBuyer,
                         ),
                         onComplete: () {});
+
+                    Get.to(() => TransactionReceiptScreen(
+                        allTransactionsByBuyer: allTransactionsByBuyer));
                   },
                 );
               }, childCount: creditTransactionsByBuyerId.length)),

@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card_main.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_details_bottomsheet.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_receipt_screen.dart';
 
 import '../../../../core/presentation/components/my_lottie.dart';
 import '../../../../core/presentation/components/open_bottom_sheet.dart';
@@ -61,11 +62,8 @@ class _PendingTransactionsState extends State<PendingTransactions> {
                   transactionType: TransactionTypes.pending,
                   allTransactionsByBuyer: allTransactionsByBuyer,
                   onTap: () {
-                    openBottomSheet(
-                        content: TransactionDetailsBottomSheet(
-                          allTransactionsByBuyer: allTransactionsByBuyer,
-                        ),
-                        onComplete: () {});
+                    Get.to(() => TransactionReceiptScreen(
+                        allTransactionsByBuyer: allTransactionsByBuyer));
                   },
                 );
               }, childCount: pendingTransactionsByBuyerId.length)),

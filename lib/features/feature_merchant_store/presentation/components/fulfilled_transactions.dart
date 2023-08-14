@@ -7,6 +7,7 @@ import 'package:shamiri/features/feature_merchant_store/domain/model/transaction
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card_main.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_details_bottomsheet.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_receipt_screen.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_tile.dart';
 
 import '../../../../core/presentation/components/my_lottie.dart';
@@ -61,11 +62,8 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
                   transactionType: TransactionTypes.fulfilled,
                   allTransactionsByBuyer: allTransactionsByBuyer,
                   onTap: () {
-                    openBottomSheet(
-                        content: TransactionDetailsBottomSheet(
-                          allTransactionsByBuyer: allTransactionsByBuyer,
-                        ),
-                        onComplete: () {});
+                    Get.to(() => TransactionReceiptScreen(
+                        allTransactionsByBuyer: allTransactionsByBuyer));
                   },
                 );
               }, childCount: fulfilledTransactionsByBuyerId.length)),

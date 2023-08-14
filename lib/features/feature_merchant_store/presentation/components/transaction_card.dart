@@ -12,12 +12,14 @@ import '../../domain/model/transaction_types.dart';
 class TransactionCard extends StatelessWidget {
   final TransactionModel transaction;
   final ProductModel product;
+  final bool altColors;
   final TransactionTypes transactionType;
 
   const TransactionCard(
       {super.key,
       required this.transaction,
       required this.product,
+      this.altColors = false,
       required this.transactionType});
 
   @override
@@ -28,7 +30,7 @@ class TransactionCard extends StatelessWidget {
         width: double.infinity,
         height: 80,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16), color: XploreColors.white),
+            borderRadius: BorderRadius.circular(16), color: altColors ? XploreColors.deepBlue : XploreColors.white),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -37,7 +39,7 @@ class TransactionCard extends StatelessWidget {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                  color: XploreColors.deepBlue.withOpacity(0.2),
+                  color: altColors ? XploreColors.white : XploreColors.deepBlue.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(100)),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(24),
@@ -69,7 +71,7 @@ class TransactionCard extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                              color: altColors ? XploreColors.white : Colors.black),
                         ),
                         //  price
                         Text(
@@ -77,7 +79,7 @@ class TransactionCard extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                              color: altColors ? XploreColors.white : Colors.black),
                         ),
                       ],
                     ),
@@ -90,7 +92,7 @@ class TransactionCard extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.normal,
-                              color: Colors.black,
+                              color: altColors ? XploreColors.white : Colors.black,
                               overflow: TextOverflow.ellipsis),
                         ),
                         Text(
@@ -98,7 +100,7 @@ class TransactionCard extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.normal,
-                              color: Colors.black),
+                              color: altColors ? XploreColors.white : Colors.black),
                         ),
                       ],
                     ),
@@ -111,7 +113,7 @@ class TransactionCard extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.normal,
-                              color: Colors.black,
+                              color: altColors ? XploreColors.white : Colors.black,
                               overflow: TextOverflow.ellipsis),
                         ),
                         hSize20SizedBox,
@@ -121,6 +123,7 @@ class TransactionCard extends StatelessWidget {
                                 : transactionType == TransactionTypes.pending
                                     ? 'Pending'
                                     : 'Credit',
+                            altColors: true,
                             tagColor: transactionType ==
                                     TransactionTypes.fulfilled
                                 ? XploreColors.green
