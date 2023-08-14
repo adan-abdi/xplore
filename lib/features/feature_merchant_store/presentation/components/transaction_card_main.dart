@@ -43,13 +43,14 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
   }
 
   String getUserName() {
-    final userName = widget.buyerId.split(" ").toList()[0] == 'customer'
-        ? 'Unknown'
+    UserModel? userName = widget.buyerId.split(" ").toList()[0] == 'customer'
+        ? null
         : _homeController.stores
-            .firstWhere((store) => store.userId! == widget.buyerId.split(" ").toList()[0])
-            .userName!;
+            .firstWhereOrNull(
+                (store) =>
+                    store.userId! == widget.buyerId.split(" ").toList()[0]);
 
-    return userName;
+    return userName == null ? 'Unknown' : userName.userName!;
   }
 
   int getTotalPrice() {
@@ -216,13 +217,15 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                           showAlertDialog(
                               title: "Fulfill Transaction",
                               iconData: Icons.receipt_rounded,
-                              content:
-                              Text("Would you like to fulfill this transaction?", textAlign: TextAlign.center,),
+                              content: Text(
+                                "Would you like to fulfill this transaction?",
+                                textAlign: TextAlign.center,
+                              ),
                               onCancel: () => Get.back(),
                               onConfirm: () async {
                                 //  all transactions
                                 final allTransactions =
-                                _authController.user.value!.transactions!;
+                                    _authController.user.value!.transactions!;
 
                                 allTransactions.forEach((transaction) {
                                   if (transaction.buyerId! == widget.buyerId) {
@@ -233,7 +236,8 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
 
                                 await _authController.updateUserDataInFirestore(
                                     oldUser: _authController.user.value!,
-                                    newUser: UserModel(transactions: allTransactions),
+                                    newUser: UserModel(
+                                        transactions: allTransactions),
                                     uid: _authController.user.value!.userId!);
 
                                 Get.back();

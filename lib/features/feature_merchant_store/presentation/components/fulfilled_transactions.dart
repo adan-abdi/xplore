@@ -43,7 +43,7 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
           .toSet()
           .toList();
 
-      return _authController.user.value!.transactions!.isNotEmpty
+      return fulfilledTransactionsByBuyerId.isNotEmpty
           ? SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverList(
