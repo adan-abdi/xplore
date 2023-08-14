@@ -133,7 +133,12 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                                 title: "Decrease Stock",
                                 iconData: Icons.storefront_rounded,
                                 content: Text(
-                                    "Would you like to decrease the stock count?")),
+                                    "Would you like to decrease the stock count?"),
+                                onCancel: () => Get.back(),
+                                onConfirm: () {
+                                  decrementCount();
+                                  Get.back();
+                                }),
                             child: Container(
                               width: 35,
                               height: 35,
@@ -157,7 +162,16 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                           ),
                           hSize10SizedBox,
                           GestureDetector(
-                            onTap: () => incrementCount(),
+                            onTap: () =>  showAlertDialog(
+                                title: "Increase Stock",
+                                iconData: Icons.storefront_rounded,
+                                content: Text(
+                                    "Would you like to increase the stock count?"),
+                                onCancel: () => Get.back(),
+                                onConfirm: () {
+                                  incrementCount();
+                                  Get.back();
+                                }),
                             child: Container(
                               width: 35,
                               height: 35,
