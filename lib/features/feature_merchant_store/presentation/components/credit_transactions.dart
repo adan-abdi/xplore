@@ -60,12 +60,6 @@ class _CreditTransactionsState extends State<CreditTransactions> {
                   transactionType: TransactionTypes.credit,
                   allTransactionsByBuyer: allTransactionsByBuyer,
                   onTap: () {
-                    openBottomSheet(
-                        content: TransactionDetailsBottomSheet(
-                          allTransactionsByBuyer: allTransactionsByBuyer,
-                        ),
-                        onComplete: () {});
-
                     Get.to(() => TransactionReceiptScreen(
                         allTransactionsByBuyer: allTransactionsByBuyer));
                   },

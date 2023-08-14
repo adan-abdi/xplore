@@ -52,8 +52,7 @@ class _TransactionReceiptScreenState extends State<TransactionReceiptScreen> {
   int getTotalPrice() {
     final allTransactionsPrice = _authController.user.value!.transactions!
         .where((transaction) =>
-            transaction.buyerId! ==
-            widget.allTransactionsByBuyer[0].buyerId!.split(" ").toList()[0])
+            transaction.buyerId! == widget.allTransactionsByBuyer[0].buyerId!)
         .map((transaction) => transaction.amountPaid!)
         .reduce((value, element) => value + element);
 
