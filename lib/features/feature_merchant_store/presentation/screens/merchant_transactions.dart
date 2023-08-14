@@ -89,6 +89,8 @@ class _MerchantTransactionsState extends State<MerchantTransactions> {
                               oldUser: _authController.user.value!,
                               newUser: UserModel(transactions: allTransactions),
                               uid: _authController.user.value!.userId!);
+
+                          Get.back();
                         });
                   })
               : _merchantController.activeTransactionType.value ==
@@ -120,6 +122,8 @@ class _MerchantTransactionsState extends State<MerchantTransactions> {
                                   oldUser: _authController.user.value!,
                                   newUser: UserModel(transactions: allTransactions),
                                   uid: _authController.user.value!.userId!);
+
+                              Get.back();
                             });
                       })
                   : null,

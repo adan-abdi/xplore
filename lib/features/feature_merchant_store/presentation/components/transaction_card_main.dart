@@ -6,6 +6,7 @@ import 'package:shamiri/features/feature_merchant_store/domain/model/transaction
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_tag.dart';
 
 import '../../../../application/core/themes/colors.dart';
+import '../../../../core/presentation/components/show_alert_dialog.dart';
 import '../../../../domain/value_objects/app_spaces.dart';
 import 'package:get/get.dart';
 
@@ -212,21 +213,31 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                     child: UnconstrainedBox(
                       child: GestureDetector(
                         onTap: () {
-                          //  all transactions
-                          final allTransactions =
-                              _authController.user.value!.transactions!;
+                          showAlertDialog(
+                              title: "Fulfill Transaction",
+                              iconData: Icons.receipt_rounded,
+                              content:
+                              Text("Would you like to fulfill this transaction?", textAlign: TextAlign.center,),
+                              onCancel: () => Get.back(),
+                              onConfirm: () async {
+                                //  all transactions
+                                final allTransactions =
+                                _authController.user.value!.transactions!;
 
-                          allTransactions.forEach((transaction) {
-                            if (transaction.buyerId! == widget.buyerId) {
-                              transaction.transactionType =
-                                  TransactionTypes.fulfilled.toString();
-                            }
-                          });
+                                allTransactions.forEach((transaction) {
+                                  if (transaction.buyerId! == widget.buyerId) {
+                                    transaction.transactionType =
+                                        TransactionTypes.fulfilled.toString();
+                                  }
+                                });
 
-                          _authController.updateUserDataInFirestore(
-                              oldUser: _authController.user.value!,
-                              newUser: UserModel(transactions: allTransactions),
-                              uid: _authController.user.value!.userId!);
+                                await _authController.updateUserDataInFirestore(
+                                    oldUser: _authController.user.value!,
+                                    newUser: UserModel(transactions: allTransactions),
+                                    uid: _authController.user.value!.userId!);
+
+                                Get.back();
+                              });
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(
