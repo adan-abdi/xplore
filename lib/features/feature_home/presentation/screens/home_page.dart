@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
-import 'package:shamiri/core/presentation/components/hamburger.dart';
 import 'package:shamiri/core/utils/constants.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_home/presentation/components/all_products_section.dart';
@@ -10,9 +8,7 @@ import 'package:shamiri/features/feature_home/presentation/components/top_stores
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_search/presentation/search_screen.dart';
 
-import '../../../../core/presentation/components/custom_textfield.dart';
 import '../../../../core/presentation/components/custom_textfield_alt.dart';
-import '../../../../core/presentation/components/open_bottom_sheet.dart';
 import '../../../../presentation/core/widgets/molecular/dashboard_tab_action_button.dart';
 import '../components/pill_btn.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                     child: Hero(
                       tag: 'search',
                       child: GestureDetector(
-                        onTap: () => Get.to(() => SearchPage()),
+                        onTap: () => Get.to(() => SearchPage(products: _homeController.products)),
                         child: CustomTextFieldAlt(
                             hint: "Search For Products",
                             iconData: Icons.search_rounded,

@@ -43,7 +43,7 @@ class HomeController extends GetxController {
 
   void setIsDrawerOpen(bool isOpen) => isDrawerOpen.value = isOpen;
 
-  void searchForProducts({required String query}) {
+  void searchForProducts({required String query, required List<ProductModel> products}) {
     filteredProducts.value = query.isEmpty
         ? []
         : products

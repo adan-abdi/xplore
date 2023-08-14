@@ -21,6 +21,8 @@ import 'package:get/get.dart';
 import 'package:badges/badges.dart' as badge;
 
 import '../../core/presentation/controller/auth_controller.dart';
+import '../feature_merchant_store/presentation/controller/merchant_controller.dart';
+import '../feature_search/presentation/search_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -33,6 +35,7 @@ class _MainScreenState extends State<MainScreen> {
   late AuthController _authController;
   late List<GButton> _bottomBarTabs;
   late HomeController _homeController;
+  late MerchantController _merchantController;
   late final List<Widget> _pages;
 
   @override
@@ -41,6 +44,7 @@ class _MainScreenState extends State<MainScreen> {
 
     _homeController = Get.find<HomeController>();
     _authController = Get.find<AuthController>();
+    _merchantController = Get.find<MerchantController>();
 
     _authController.getUserDataFromFirestore().listen((user) {
       _authController.setUser(
@@ -115,7 +119,9 @@ class _MainScreenState extends State<MainScreen> {
                           fontWeight: FontWeight.bold,
                           color: XploreColors.black),
                     ),
-                    centerTitle: _homeController.activeBottomBarIndex.value != 1 ? true : false,
+                    centerTitle: _homeController.activeBottomBarIndex.value != 1
+                        ? true
+                        : false,
                     leading: DrawerIcon(),
                     actions: [
                       IconButton(
@@ -164,12 +170,14 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                       ),
 
-                      //  MY STORE PAGE
+                      //  MY Search PAGE
                       Obx(() => Visibility(
                           visible:
-                          _homeController.activeBottomBarIndex.value == 1,
+                              _homeController.activeBottomBarIndex.value == 1,
                           child: IconButton(
-                              onPressed: () {},
+                              onPressed: () => Get.to(() => SearchPage(
+                                  products:
+                                      _merchantController.merchantProducts)),
                               icon: Icon(
                                 Icons.search_rounded,
                                 color: XploreColors.deepBlue,
@@ -207,7 +215,8 @@ class _MainScreenState extends State<MainScreen> {
                           horizontal: 16, vertical: 4),
                       child: GNav(
                         tabs: _bottomBarTabs,
-                        selectedIndex: _homeController.activeBottomBarIndex.value,
+                        selectedIndex:
+                            _homeController.activeBottomBarIndex.value,
                         onTabChange: _homeController.setActiveBottomBarIndex,
                         backgroundColor: Colors.transparent,
                         color: XploreColors.deepBlue,

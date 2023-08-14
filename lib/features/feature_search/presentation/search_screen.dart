@@ -9,9 +9,12 @@ import '../../../application/core/themes/colors.dart';
 import '../../../core/presentation/components/custom_textfield_alt.dart';
 import '../../feature_home/presentation/controller/home_controller.dart';
 import '../../feature_home/presentation/screens/product_view_page.dart';
+import '../../feature_merchant_store/domain/model/product_model.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+  final List<ProductModel> products;
+
+  const SearchPage({super.key, required this.products});
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -62,7 +65,8 @@ class _SearchPageState extends State<SearchPage> {
                       textStyle: TextStyle(fontSize: 16),
                       controller: _searchController,
                       onChanged: (query) {
-                        _homeController.searchForProducts(query: query);
+                        _homeController.searchForProducts(
+                            query: query, products: widget.products);
                       }),
                 ),
               ),
