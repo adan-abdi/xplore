@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
+import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
 import '../../../../application/core/themes/colors.dart';
 
@@ -58,6 +60,23 @@ class UserProfileCard extends StatelessWidget {
                       Text(user.userName!, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                     ],
                   ),
+
+                  vSize20SizedBox,
+
+                  //  phone number
+                  Row(
+                    children: [
+                      //  phone number
+                      Row(
+                        children: [
+                          Icon(Icons.phone_rounded, size: 16, color: XploreColors.xploreOrange),
+                          hSize5SizedBox,
+                          Text(user.userPhoneNumber!.add254Prefix, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),)
+                        ],
+                      )
+                      //  email address
+                    ],
+                  )
                 ],
               ),
             ),
