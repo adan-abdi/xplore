@@ -134,8 +134,6 @@ class _TransactionReceiptScreenState extends State<TransactionReceiptScreen> {
                           onCancel: () => Get.back(),
                           onConfirm: () async {
 
-                            Get.back();
-
                             //  all transactions
                             final allTransactions =
                                 _authController.user.value!.transactions!;
@@ -153,6 +151,9 @@ class _TransactionReceiptScreenState extends State<TransactionReceiptScreen> {
                                 newUser:
                                     UserModel(transactions: allTransactions),
                                 uid: _authController.user.value!.userId!);
+
+                            Get.back();
+                            Get.back();
                           });
                     }),
               ),
