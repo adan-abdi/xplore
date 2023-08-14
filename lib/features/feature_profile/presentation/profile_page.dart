@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/features/feature_profile/presentation/components/user_profile_card.dart';
 import 'package:shamiri/presentation/core/pages/user_profile_page.dart';
@@ -24,6 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: XploreColors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),

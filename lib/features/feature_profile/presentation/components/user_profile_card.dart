@@ -12,15 +12,14 @@ class UserProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 200,
-      color: Colors.blue,
+      height: 150,
       child: Row(
         children: [
           //  profile picture
           UnconstrainedBox(
             child: Container(
-              width: 120,
-              height: 120,
+              width: 100,
+              height: 100,
               margin: const EdgeInsets.only(right: 16),
               decoration: BoxDecoration(
                   color: XploreColors.deepBlue,
@@ -42,6 +41,27 @@ class UserProfileCard extends StatelessWidget {
                         )),
             ),
           ),
+
+          //  profile details
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //  username
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Hello"),
+                      Text(user.userName!, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
