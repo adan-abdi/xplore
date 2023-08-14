@@ -7,12 +7,14 @@ import 'package:shamiri/application/core/themes/colors.dart';
 class CustomFAB extends StatelessWidget {
   final IconData actionIcon;
   final String actionLabel;
+  final Color color;
   final void Function()? onPressed;
 
   const CustomFAB({
     Key? key,
     required this.actionIcon,
     required this.actionLabel,
+    this.color = XploreColors.deepBlue,
     required this.onPressed,
   }) : super(key: key);
 

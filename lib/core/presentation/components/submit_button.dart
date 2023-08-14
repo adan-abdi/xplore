@@ -9,6 +9,7 @@ class SubmitButton extends StatelessWidget {
   final bool isLoading;
   final bool isValid;
   final Color backgroundColor;
+  final Color textColor;
   final VoidCallback? onTap;
 
   const SubmitButton(
@@ -18,6 +19,7 @@ class SubmitButton extends StatelessWidget {
       this.isLoading = false,
       required this.isValid,
       this.backgroundColor = XploreColors.deepBlue,
+      this.textColor = XploreColors.white,
       required this.onTap});
 
   @override
@@ -43,7 +45,7 @@ class SubmitButton extends StatelessWidget {
                 children: [
                   Icon(
                     iconData,
-                    color: XploreColors.white,
+                    color: textColor,
                     size: 24,
                   ),
                   hSize20SizedBox,
@@ -51,7 +53,7 @@ class SubmitButton extends StatelessWidget {
                     text,
                     style: TextStyle(
                         fontSize: 16,
-                        color: XploreColors.white,
+                        color: textColor,
                         fontWeight: FontWeight.bold),
                   )
                 ],

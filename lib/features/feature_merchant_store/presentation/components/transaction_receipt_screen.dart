@@ -10,7 +10,9 @@ import 'package:shamiri/presentation/core/widgets/molecular/dashboard_tab_action
 
 import '../../../../core/domain/model/user_model.dart';
 import '../../../../core/presentation/components/show_alert_dialog.dart';
+import '../../../../core/presentation/components/submit_button.dart';
 import '../../../../core/presentation/controller/auth_controller.dart';
+import '../../../feature_cart/presentation/screens/checkout_screen.dart';
 import '../../../feature_home/presentation/controller/home_controller.dart';
 import '../../domain/model/transaction_model.dart';
 import '../../domain/model/transaction_types.dart';
@@ -111,52 +113,51 @@ class _TransactionReceiptScreenState extends State<TransactionReceiptScreen> {
 
               //  call to action button
               Visibility(
-                visible:
-                    getTransactionType(index: 0) == TransactionTypes.pending ||
-                        getTransactionType(index: 0) == TransactionTypes.credit,
-                child: CustomFAB(
-                    actionIcon:
-                        getTransactionType(index: 0) == TransactionTypes.pending
-                            ? Icons.done_rounded
-                            : Icons.attach_money_rounded,
-                    actionLabel:
-                        getTransactionType(index: 0) == TransactionTypes.pending
-                            ? "Fulfill"
-                            : "Pay",
-                    onPressed: () {
-                      showAlertDialog(
-                          title: "Fulfill Transaction",
-                          iconData: Icons.receipt_rounded,
-                          content: Text(
-                            "Would you like to fulfill this transaction?",
-                            textAlign: TextAlign.center,
-                          ),
-                          onCancel: () => Get.back(),
-                          onConfirm: () async {
+                  visible: getTransactionType(index: 0) ==
+                          TransactionTypes.pending ||
+                      getTransactionType(index: 0) == TransactionTypes.credit,
+                  child: SubmitButton(
+                      iconData: getTransactionType(index: 0) == TransactionTypes.pending
+                          ? Icons.done_rounded
+                          : Icons.attach_money_rounded,
+                      text: getTransactionType(index: 0) == TransactionTypes.pending
+                          ? "Fulfill"
+                          : "Pay",
+                      backgroundColor: XploreColors.white,
+                      textColor: XploreColors.deepBlue,
+                      isValid: true,
+                      onTap: () {
+                        showAlertDialog(
+                            title: "Fulfill Transaction",
+                            iconData: Icons.receipt_rounded,
+                            content: Text(
+                              "Would you like to fulfill this transaction?",
+                              textAlign: TextAlign.center,
+                            ),
+                            onCancel: () => Get.back(),
+                            onConfirm: () async {
+                              //  all transactions
+                              final allTransactions =
+                              _authController.user.value!.transactions!;
 
-                            //  all transactions
-                            final allTransactions =
-                                _authController.user.value!.transactions!;
+                              allTransactions.forEach((transaction) {
+                                if (transaction.buyerId! ==
+                                    widget.allTransactionsByBuyer[0].buyerId!) {
+                                  transaction.transactionType =
+                                      TransactionTypes.fulfilled.toString();
+                                }
+                              });
 
-                            allTransactions.forEach((transaction) {
-                              if (transaction.buyerId! ==
-                                  widget.allTransactionsByBuyer[0].buyerId!) {
-                                transaction.transactionType =
-                                    TransactionTypes.fulfilled.toString();
-                              }
+                              await _authController.updateUserDataInFirestore(
+                                  oldUser: _authController.user.value!,
+                                  newUser:
+                                  UserModel(transactions: allTransactions),
+                                  uid: _authController.user.value!.userId!);
+
+                              Get.back();
+                              Get.back();
                             });
-
-                            await _authController.updateUserDataInFirestore(
-                                oldUser: _authController.user.value!,
-                                newUser:
-                                    UserModel(transactions: allTransactions),
-                                uid: _authController.user.value!.userId!);
-
-                            Get.back();
-                            Get.back();
-                          });
-                    }),
-              ),
+                      })),
             ],
           )),
     );
