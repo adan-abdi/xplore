@@ -70,8 +70,7 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
               sliver: SliverToBoxAdapter(
                 child: GestureDetector(
                   onTap: () => Get.to(() => SearchPage(
-                      products:
-                      _merchantController.merchantProducts)),
+                      products: _merchantController.merchantProducts)),
                   child: CustomTextFieldAlt(
                       hint: "Search For Products",
                       iconData: Icons.search_rounded,
@@ -154,28 +153,35 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
 
             //  all products pill buttons
             SliverToBoxAdapter(
-              child: Container(
-                  height: 50,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: Constants.productCategories.length,
-                    itemBuilder: (context, index) => Obx(
-                      () => PillBtn(
-                        text: Constants.productCategories[index].categoryName,
-                        iconData:
-                            Constants.productCategories[index].categoryIcon,
-                        isActive: _merchantController.activeCategory.value ==
-                            Constants.productCategories[index],
-                        onTap: () => _merchantController.setActiveCategory(
-                            Constants.productCategories[index]),
-                      ),
-                    ),
-                    separatorBuilder: (context, index) => const SizedBox(
-                      width: 8,
-                    ),
-                  )),
+              child: Obx(
+                () => Visibility(
+                  visible: _merchantController.merchantProducts.isNotEmpty,
+                  child: Container(
+                      height: 50,
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: Constants.productCategories.length,
+                        itemBuilder: (context, index) => Obx(
+                          () => PillBtn(
+                            text:
+                                Constants.productCategories[index].categoryName,
+                            iconData:
+                                Constants.productCategories[index].categoryIcon,
+                            isActive:
+                                _merchantController.activeCategory.value ==
+                                    Constants.productCategories[index],
+                            onTap: () => _merchantController.setActiveCategory(
+                                Constants.productCategories[index]),
+                          ),
+                        ),
+                        separatorBuilder: (context, index) => const SizedBox(
+                          width: 8,
+                        ),
+                      )),
+                ),
+              ),
             ),
 
             SliverToBoxAdapter(
@@ -199,30 +205,31 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                       sliver: SliverList(
                           delegate: SliverChildBuilderDelegate(
                               (context, index) => ProductCardAlt(
-                                product: filteredProducts.elementAt(index),
-                                onTap: () {
-                                  Get.to(() => ProductViewPage(product: filteredProducts.elementAt(index)));
-                                },
-                                onDelete: () async {
-                                  //  delete product
-                                  _merchantController.deleteProduct(
-                                      productId: filteredProducts
-                                          .elementAt(index)
-                                          .productId!);
-                                },
-                              ),
+                                    product: filteredProducts.elementAt(index),
+                                    onTap: () {
+                                      Get.to(() => ProductViewPage(
+                                          product: filteredProducts
+                                              .elementAt(index)));
+                                    },
+                                    onDelete: () async {
+                                      //  delete product
+                                      _merchantController.deleteProduct(
+                                          productId: filteredProducts
+                                              .elementAt(index)
+                                              .productId!);
+                                    },
+                                  ),
                               childCount: filteredProducts.length)),
                     )
                   : SliverToBoxAdapter(
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            MyLottie(
-                                lottie: 'assets/general/xplore_loader.json'),
-                            Text("No Products yet")
-                          ],
-                        ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          MyLottie(
+                              lottie: 'assets/general/xplore_loader.json', height: 150,),
+                          vSize10SizedBox,
+                          Text("No Products yet")
+                        ],
                       ),
                     );
             }),
