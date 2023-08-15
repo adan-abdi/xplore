@@ -10,7 +10,7 @@ class CustomTextFieldAlt extends StatelessWidget {
   final bool isObscured;
   final bool isEnabled;
   final bool autoFocusEnabled;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final Function(String text) onChanged;
 
   const CustomTextFieldAlt(

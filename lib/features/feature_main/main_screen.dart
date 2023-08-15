@@ -170,19 +170,6 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                       ),
 
-                      //  MY Search PAGE
-                      Obx(() => Visibility(
-                          visible:
-                              _homeController.activeBottomBarIndex.value == 1,
-                          child: IconButton(
-                              onPressed: () => Get.to(() => SearchPage(
-                                  products:
-                                      _merchantController.merchantProducts)),
-                              icon: Icon(
-                                Icons.search_rounded,
-                                color: XploreColors.deepBlue,
-                              )))),
-
                       //  MY STORE PAGE
                       Obx(() => Visibility(
                           visible:

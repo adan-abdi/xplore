@@ -15,9 +15,11 @@ import 'package:shamiri/features/feature_merchant_store/presentation/screens/mer
 import 'package:shamiri/presentation/core/widgets/molecular/dashboard_tab_action_button.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/presentation/components/custom_textfield_alt.dart';
 import '../../../../core/presentation/controller/auth_controller.dart';
 import '../../../../core/utils/constants.dart';
 import '../../../feature_home/presentation/components/pill_btn.dart';
+import '../../../feature_search/presentation/search_screen.dart';
 
 class MerchantStorePage extends StatefulWidget {
   const MerchantStorePage({super.key});
@@ -63,6 +65,28 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
         body: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: GestureDetector(
+                  onTap: () => Get.to(() => SearchPage(
+                      products:
+                      _merchantController.merchantProducts)),
+                  child: CustomTextFieldAlt(
+                      hint: "Search For Products",
+                      iconData: Icons.search_rounded,
+                      textStyle: TextStyle(fontSize: 16),
+                      isEnabled: false,
+                      controller: null,
+                      onChanged: (value) {}),
+                ),
+              ),
+            ),
+
+            SliverToBoxAdapter(
+              child: vSize20SizedBox,
+            ),
+
             //  store overview
             Obx(
               () => StoreOverviewCard(
