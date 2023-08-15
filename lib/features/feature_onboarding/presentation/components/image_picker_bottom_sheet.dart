@@ -36,7 +36,7 @@ class ImagePickerBottomSheet extends StatelessWidget {
                 onTap: onGalleryTap),
             RoundToggleButton(
                 iconData: Icons.delete_forever_rounded,
-                title: "Remove Profile",
+                title: "Remove",
                 onTap: onRemoveTap),
           ],
         ),

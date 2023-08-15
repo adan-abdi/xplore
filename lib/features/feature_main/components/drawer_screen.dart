@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shamiri/core/presentation/components/show_toast.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_main/components/drawer_option_item.dart';
+import 'package:shamiri/features/feature_main/main_screen.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/screens/merchant_store_page.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/screens/merchant_transactions.dart';
 
 import '../../../application/core/themes/colors.dart';
 import 'package:get/get.dart';
@@ -19,12 +26,18 @@ class DrawerScreen extends StatefulWidget {
 
 class _DrawerScreenState extends State<DrawerScreen> {
   late final AuthController _authController;
+  late final HomeController _homeController;
+  late final FToast _toast;
 
   @override
   void initState() {
     super.initState();
 
     _authController = Get.find<AuthController>();
+    _homeController = Get.find<HomeController>();
+
+    _toast = FToast();
+    _toast.init(context);
   }
 
   @override
@@ -49,19 +62,22 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     color: XploreColors.deepBlue,
                     borderRadius: BorderRadius.circular(100)),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child:
-                      _authController.user.value!.userProfilePicUrl != null &&
-                              _authController
-                                  .user.value!.userProfilePicUrl!.isNotEmpty
-                          ? Image.network(
-                              _authController.user.value!.userProfilePicUrl!,
-                              width: double.infinity,
-                              height: double.infinity,
-                              fit: BoxFit.cover,
-                            )
-                          : Icon(Icons.person_rounded, color: XploreColors.white, size: 48,)
-                ),
+                    borderRadius: BorderRadius.circular(100),
+                    child:
+                        _authController.user.value!.userProfilePicUrl != null &&
+                                _authController
+                                    .user.value!.userProfilePicUrl!.isNotEmpty
+                            ? Image.network(
+                                _authController.user.value!.userProfilePicUrl!,
+                                width: double.infinity,
+                                height: double.infinity,
+                                fit: BoxFit.cover,
+                              )
+                            : Icon(
+                                Icons.person_rounded,
+                                color: XploreColors.white,
+                                size: 48,
+                              )),
               ),
             ),
 
@@ -102,22 +118,36 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   DrawerOptionItem(
                       title: "Profile",
                       iconData: Icons.person_rounded,
-                      onTap: () {}),
+                      onTap: () {
+                        _homeController.setActiveBottomBarIndex(2);
+                        ZoomDrawer.of(context)!.close();
+                      }),
                   // my store settings
                   DrawerOptionItem(
                       title: "My Store",
                       iconData: Icons.store_rounded,
-                      onTap: () {}),
+                      onTap: () {
+                        _homeController.setActiveBottomBarIndex(1);
+                        ZoomDrawer.of(context)!.close();
+                      }),
                   // transactions settings
                   DrawerOptionItem(
                       title: "Transactions",
                       iconData: Icons.receipt_long_rounded,
-                      onTap: () {}),
+                      onTap: () {
+                        Get.to(() => MerchantTransactions());
+                        ZoomDrawer.of(context)!.close();
+                      }),
                   // qr code scanner settings
                   DrawerOptionItem(
                       title: "Qr code",
                       iconData: Icons.qr_code_outlined,
-                      onTap: () {}),
+                      onTap: () {
+                        showToast(
+                            toast: _toast,
+                            iconData: Icons.access_time_rounded,
+                            msg: "Coming soon");
+                      }),
                 ],
               ),
             ),
