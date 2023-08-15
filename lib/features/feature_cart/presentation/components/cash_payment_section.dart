@@ -127,9 +127,9 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                         amountPaid: product.productSellingPrice! *
                             cartItem.cartProductCount!,
                         transactionDate: DateTime.now().toString(),
-                        isFulfilled: true,
+                        isFulfilled: false,
                         transactionType:
-                            TransactionTypes.fulfilled.toString()));
+                            TransactionTypes.pending.toString()));
 
                     _authController
                         .updateUserDataInFirestore(
@@ -153,9 +153,9 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                             amountPaid: product.productSellingPrice! *
                                 cartItem.cartProductCount!,
                             transactionDate: DateTime.now().toString(),
-                            isFulfilled: true,
+                            isFulfilled: false,
                             transactionType:
-                                TransactionTypes.fulfilled.toString()));
+                                TransactionTypes.pending.toString()));
 
                         await _authController.updateUserDataInFirestore(
                             oldUser: buyerData,

@@ -41,19 +41,14 @@ class _TransactionReceiptScreenState extends State<TransactionReceiptScreen> {
   }
 
   String getUserName() {
-    final userName =
-        widget.allTransactionsByBuyer[0].buyerId!.split(" ").toList()[0] ==
-                'customer'
-            ? 'Unknown'
-            : _homeController.stores
-                .firstWhere((store) =>
-                    store.userId! ==
-                    widget.allTransactionsByBuyer[0].buyerId!
-                        .split(" ")
-                        .toList()[0])
-                .userName!;
+    UserModel? userName = widget.allTransactionsByBuyer[0].buyerId!.split(" ").toList()[0] == 'customer'
+        ? null
+        : _homeController.stores
+        .firstWhereOrNull(
+            (store) =>
+        store.userId! == widget.allTransactionsByBuyer[0].buyerId!.split(" ").toList()[0]);
 
-    return userName;
+    return userName == null ? 'Unknown' : userName.userName!;
   }
 
   int getTotalPrice() {

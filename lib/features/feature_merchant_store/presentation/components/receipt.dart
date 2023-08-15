@@ -74,6 +74,7 @@ class Receipt extends StatelessWidget {
                   Expanded(
                     flex: 3,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         //  notch divider
                         Row(
@@ -127,27 +128,25 @@ class Receipt extends StatelessWidget {
 
                         //  user orders
                         vSize20SizedBox,
-                        Expanded(
-                          flex: 3,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: ListView.builder(
-                                physics: const BouncingScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  final transaction =
-                                      allTransactionsByBuyer[index];
+                        Padding(
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                final transaction =
+                                    allTransactionsByBuyer[index];
 
-                                  return TransactionCard(
-                                    transaction: transaction,
-                                    product: transaction.product!,
-                                    altColors: false,
-                                    transactionType:
-                                        getTransactionType(index: index),
-                                  );
-                                },
-                                itemCount: allTransactionsByBuyer.length),
-                          ),
+                                return TransactionCard(
+                                  transaction: transaction,
+                                  product: transaction.product!,
+                                  altColors: false,
+                                  transactionType:
+                                      getTransactionType(index: index),
+                                );
+                              },
+                              itemCount: allTransactionsByBuyer.length),
                         ),
 
                         //  total
@@ -159,31 +158,28 @@ class Receipt extends StatelessWidget {
                           ),
                         ),
 
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Total",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                      color: Colors.black),
-                                ),
-                                Text(
-                                  "Ksh. $totalPrice",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                      color: Colors.black),
-                                ),
-                              ],
-                            ),
+                        Padding(
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Total",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    color: Colors.black),
+                              ),
+                              Text(
+                                "Ksh. $totalPrice",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    color: Colors.black),
+                              ),
+                            ],
                           ),
                         )
                       ],

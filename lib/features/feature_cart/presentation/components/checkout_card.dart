@@ -5,13 +5,18 @@ import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_cart/presentation/screens/checkout_screen.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 
 import '../../../../application/core/themes/colors.dart';
+import '../../../../core/domain/model/cart_model.dart';
 import '../../../../core/presentation/controller/auth_controller.dart';
 import '../../../feature_home/presentation/controller/home_controller.dart';
 
 class CheckoutCard extends StatefulWidget {
-  const CheckoutCard({super.key});
+  final List<CartModel> itemsInCart;
+  final List<ProductModel> products;
+
+  const CheckoutCard({super.key, required this.itemsInCart, required this.products});
 
   @override
   State<CheckoutCard> createState() => _CheckoutCardState();
@@ -30,16 +35,15 @@ class _CheckoutCardState extends State<CheckoutCard> {
   }
 
   int getTotalAmount() {
-    if (_homeController.products.isEmpty) {
+    if (widget.itemsInCart.isEmpty) {
       return 0;
     }
 
-    final itemsInCart = _authController.user.value!.itemsInCart!;
     var total = 0;
 
-    itemsInCart.forEach((item) {
+    widget.itemsInCart.forEach((item) {
       total += item.cartProductCount! *
-          _homeController.products
+          widget.products
               .firstWhere(
                   (product) => product.productId! == item.cartProductId!)
               .productSellingPrice!;

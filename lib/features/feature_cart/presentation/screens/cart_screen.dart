@@ -69,7 +69,13 @@ class _CartScreenState extends State<CartScreen> {
                     //  checkout container
                     Align(
                         alignment: AlignmentDirectional.bottomCenter,
-                        child: CheckoutCard()),
+                        child: Obx(
+                          () => CheckoutCard(
+                            itemsInCart:
+                                _authController.user.value!.itemsInCart!,
+                            products: _homeController.products,
+                          ),
+                        )),
                   ],
                 ),
               )
