@@ -52,17 +52,25 @@ class _HomePageState extends State<HomePage> {
                 slivers: [
                   //  Search bar
                   SliverToBoxAdapter(
-                    child: Hero(
-                      tag: 'search',
-                      child: GestureDetector(
-                        onTap: () => Get.to(() => SearchPage(products: _homeController.products)),
-                        child: CustomTextFieldAlt(
-                            hint: "Search For Products",
-                            iconData: Icons.search_rounded,
-                            textStyle: TextStyle(fontSize: 16),
-                            isEnabled: false,
-                            controller: _searchController,
-                            onChanged: (value) {}),
+                    child: Material(
+                      elevation: 4,
+                      child: Container(
+                        width: double.infinity,
+                        color: XploreColors.white,
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Hero(
+                          tag: 'search',
+                          child: GestureDetector(
+                            onTap: () => Get.to(() => SearchPage(products: _homeController.products)),
+                            child: CustomTextFieldAlt(
+                                hint: "Search For Products",
+                                iconData: Icons.search_rounded,
+                                textStyle: TextStyle(fontSize: 16),
+                                isEnabled: false,
+                                controller: _searchController,
+                                onChanged: (value) {}),
+                          ),
+                        ),
                       ),
                     ),
                   ),

@@ -44,7 +44,7 @@ class CustomTextFieldAlt extends StatelessWidget {
             iconData,
             color: XploreColors.xploreOrange,
           ),
-          contentPadding: const EdgeInsets.all(16),
+          contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           filled: true,
           fillColor: XploreColors.whiteSmoke,
           border: OutlineInputBorder(
