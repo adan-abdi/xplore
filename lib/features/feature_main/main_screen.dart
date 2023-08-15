@@ -6,6 +6,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/presentation/components/badged_icon.dart';
 import 'package:shamiri/core/presentation/components/my_lottie.dart';
+import 'package:shamiri/core/presentation/components/profile_pic.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/features/feature_cart/presentation/screens/cart_screen.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
@@ -138,34 +139,14 @@ class _MainScreenState extends State<MainScreen> {
                         () => Visibility(
                           visible:
                               _homeController.activeBottomBarIndex.value == 0,
-                          child: UnconstrainedBox(
-                            child: Container(
-                              width: 35,
-                              height: 35,
-                              margin: const EdgeInsets.only(right: 16),
-                              decoration: BoxDecoration(
-                                  color: XploreColors.deepBlue,
-                                  borderRadius: BorderRadius.circular(100)),
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: _authController.user.value!
-                                                  .userProfilePicUrl !=
-                                              null &&
-                                          _authController.user.value!
-                                              .userProfilePicUrl!.isNotEmpty
-                                      ? Image.network(
-                                          _authController
-                                              .user.value!.userProfilePicUrl!,
-                                          width: double.infinity,
-                                          height: double.infinity,
-                                          fit: BoxFit.cover,
-                                        )
-                                      : Icon(
-                                          Icons.person_rounded,
-                                          color: XploreColors.white,
-                                          size: 24,
-                                        )),
-                            ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: UnconstrainedBox(
+                                child: ProfilePic(
+                              imageUrl: _authController
+                                  .user.value!.userProfilePicUrl!,
+                              imageSize: 35,
+                            )),
                           ),
                         ),
                       ),

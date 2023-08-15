@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shamiri/core/presentation/components/profile_pic.dart';
 import 'package:shamiri/core/presentation/components/show_toast.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
@@ -54,30 +55,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
           children: [
             //  profile image
             UnconstrainedBox(
-              child: Container(
-                width: 120,
-                height: 120,
-                margin: const EdgeInsets.only(right: 16),
-                decoration: BoxDecoration(
-                    color: XploreColors.deepBlue,
-                    borderRadius: BorderRadius.circular(100)),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child:
-                        _authController.user.value!.userProfilePicUrl != null &&
-                                _authController
-                                    .user.value!.userProfilePicUrl!.isNotEmpty
-                            ? Image.network(
-                                _authController.user.value!.userProfilePicUrl!,
-                                width: double.infinity,
-                                height: double.infinity,
-                                fit: BoxFit.cover,
-                              )
-                            : Icon(
-                                Icons.person_rounded,
-                                color: XploreColors.white,
-                                size: 48,
-                              )),
+              child: ProfilePic(
+                imageUrl: _authController.user.value!.userProfilePicUrl!,
+                imageSize: 100,
               ),
             ),
 

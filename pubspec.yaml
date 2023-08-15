@@ -50,6 +50,7 @@ dependencies:
   url_launcher: ^6.1.12
   fluttertoast: ^8.2.2
   otp_timer_button: ^1.1.0
+  cached_network_image: ^3.2.3
 
 
 dev_dependencies:
