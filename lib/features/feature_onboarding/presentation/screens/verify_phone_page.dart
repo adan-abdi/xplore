@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:otp_timer_button/otp_timer_button.dart';
 import 'package:pinput/pinput.dart';
 
 // Project imports:
@@ -46,6 +47,7 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
   late final AuthController _authController;
   late final UserPrefsController _userPrefsController;
   String? otpCode;
+  String? verificationId;
 
   @override
   void initState() {
@@ -53,6 +55,8 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
 
     _authController = Get.find<AuthController>();
     _userPrefsController = Get.find<UserPrefsController>();
+
+    verificationId = widget.verificationId;
   }
 
   @override
@@ -101,90 +105,94 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ...titles(
-                      context: context,
-                      extraHeading: 'We sent it to ${widget.phoneNumber}',
-                      subtitle: 'to your number.',
-                      title: 'Enter code sent \n',
-                      canExtraHeading: true
-                    ),
+                        context: context,
+                        extraHeading: 'We sent it to ${widget.phoneNumber}',
+                        subtitle: 'to your number.',
+                        title: 'Enter code sent \n',
+                        canExtraHeading: true),
                     //  pin input field
-                    Pinput(
-                      length: 6,
-                      showCursor: true,
-                      useNativeKeyboard: false,
-                      controller: otpPinCodeFieldController,
-                      androidSmsAutofillMethod: AndroidSmsAutofillMethod.none,
-                      defaultPinTheme: PinTheme(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              color:
-                                  XploreColors.xploreOrange.withOpacity(0.3)),
-                          textStyle: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20)),
-                      onCompleted: (otp) {
-                        _authController.verifyOtp(
-                            verificationId: widget.verificationId,
-                            userOtp: otp,
-                            response: (state, error) {
-                              switch (state) {
-                                case ResponseState.success:
-                                  _authController.setVerifyOtpLoading(
-                                      isLoading: false);
-                                  break;
-                                case ResponseState.loading:
-                                  _authController.setVerifyOtpLoading(
-                                      isLoading: true);
-                                  break;
-                                case ResponseState.failure:
-                                  _authController.setVerifyOtpLoading(
-                                      isLoading: false);
+                    Align(
+                      alignment: AlignmentDirectional.center,
+                      child: Pinput(
+                        length: 6,
+                        showCursor: true,
+                        useNativeKeyboard: false,
+                        controller: otpPinCodeFieldController,
+                        androidSmsAutofillMethod: AndroidSmsAutofillMethod.none,
+                        defaultPinTheme: PinTheme(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color:
+                                    XploreColors.xploreOrange.withOpacity(0.3)),
+                            textStyle: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20)),
+                        onCompleted: (otp) {
+                          _authController.verifyOtp(
+                              verificationId: verificationId!,
+                              userOtp: otp,
+                              response: (state, error) {
+                                switch (state) {
+                                  case ResponseState.success:
+                                    _authController.setVerifyOtpLoading(
+                                        isLoading: false);
+                                    break;
+                                  case ResponseState.loading:
+                                    _authController.setVerifyOtpLoading(
+                                        isLoading: true);
+                                    break;
+                                  case ResponseState.failure:
+                                    _authController.setVerifyOtpLoading(
+                                        isLoading: false);
 
-                                  WidgetsBinding.instance
-                                      .addPostFrameCallback((_) {
-                                    showSnackbar(
-                                        title: "Could not verify Otp",
-                                        message:
-                                        error!,
-                                        iconData: Icons.onetwothree_rounded,
-                                        iconColor:
-                                        XploreColors.xploreOrange);
-                                  });
+                                    WidgetsBinding.instance
+                                        .addPostFrameCallback((_) {
+                                      showSnackbar(
+                                          title: "Could not verify Otp",
+                                          message: error!,
+                                          iconData: Icons.onetwothree_rounded,
+                                          iconColor: XploreColors.xploreOrange);
+                                    });
 
-                                  break;
-                              }
-                            },
-                            onSuccess: (user) async {
-                              //  check whether user exists in the database
-                              await _authController
-                                  .checkUserExists(uid: user.uid)
-                                  .then((exists) async {
-                                if (exists) {
-                                  //  existing user go to home page
-                                  Get.offAll(() => MainScreen());
-
-                                  //  add logged in status to true
-                                  await _userPrefsController.updateUserPrefs(
-                                      userPrefs: UserPrefs(
-                                          isLoggedIn: true,
-                                          isProfileCreated: true));
-                                } else {
-                                  await _userPrefsController.updateUserPrefs(
-                                      userPrefs: UserPrefs(
-                                          isLoggedIn: true,
-                                          isProfileCreated: false));
-                                  //  new user go to info page
-                                  Get.offAll(CreateProfilePage());
+                                    break;
                                 }
+                              },
+                              onSuccess: (user) async {
+                                //  check whether user exists in the database
+                                await _authController
+                                    .checkUserExists(uid: user.uid)
+                                    .then((exists) async {
+                                  if (exists) {
+                                    //  existing user go to home page
+                                    Get.offAll(() => MainScreen());
+
+                                    //  add logged in status to true
+                                    await _userPrefsController.updateUserPrefs(
+                                        userPrefs: UserPrefs(
+                                            isLoggedIn: true,
+                                            isProfileCreated: true));
+                                  } else {
+                                    await _userPrefsController.updateUserPrefs(
+                                        userPrefs: UserPrefs(
+                                            isLoggedIn: true,
+                                            isProfileCreated: false));
+                                    //  new user go to info page
+                                    Get.offAll(CreateProfilePage());
+                                  }
+                                });
                               });
-                            });
-                      },
-                      onSubmitted: (value) {
-                        setState(() {
-                          otpCode = value;
-                        });
-                      },
+
+                          setState(() {
+                            otpCode = otp;
+                          });
+                        },
+                        onSubmitted: (value) {
+                          setState(() {
+                            otpCode = value;
+                          });
+                        },
+                      ),
                     ),
 
                     Container(
@@ -200,13 +208,63 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                                 color: XploreColors.xploreOrange),
                           ),
                           vSize10SizedBox,
-                          SubmitButton(
-                              iconData: Icons.sync_rounded,
-                              text: "Resend Code",
-                              isValid: false,
-                              onTap: () {
-                                //  resend OTP code
-                              })
+                          Container(
+                              width: double.infinity,
+                              margin: const EdgeInsets.symmetric(horizontal: 8),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4)),
+                              child: OtpTimerButton(
+                                  onPressed: () async {
+                                    await _authController.signInWithPhone(
+                                        phoneNumber:
+                                        widget.phoneNumber,
+                                        response: (state, error) {
+                                          switch (state) {
+                                            case ResponseState.success:
+                                              _authController
+                                                  .setVerifyButtonLoading(
+                                                  isLoading: false);
+                                              break;
+                                            case ResponseState.loading:
+                                              _authController
+                                                  .setVerifyButtonLoading(
+                                                  isLoading: true);
+                                              break;
+                                            case ResponseState.failure:
+                                              _authController
+                                                  .setVerifyButtonLoading(
+                                                  isLoading: false);
+
+                                              WidgetsBinding.instance
+                                                  .addPostFrameCallback((_) {
+                                                showSnackbar(
+                                                    title: "Could not sign in",
+                                                    message: error!.toString(),
+                                                    iconData: Icons.login_rounded,
+                                                    iconColor:
+                                                    XploreColors.xploreOrange);
+                                              });
+
+                                              break;
+                                          }
+                                        },
+                                        onCodeSent: (verificationId) {
+                                          setState(() {
+                                            verificationId = verificationId;
+                                          });
+                                        });
+                                  },
+                                  text: Text(
+                                    "Resend code",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: XploreColors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  height: 55,
+                                  backgroundColor: XploreColors.deepBlue,
+                                  textColor: XploreColors.white,
+                                  duration: 30)),
                         ],
                       ),
                     )

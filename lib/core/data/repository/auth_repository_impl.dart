@@ -20,6 +20,8 @@ class AuthRepositoryImpl implements AuthRepository {
   final firestore = locator.get<FirebaseFirestore>();
   final storage = locator.get<FirebaseStorage>();
 
+  int? _resendToken;
+
   @override
   Future<void> signInWithPhone(
       {required String phoneNumber,
@@ -43,7 +45,10 @@ class AuthRepositoryImpl implements AuthRepository {
           codeSent: (verificationId, forceResendingToken) {
             response(ResponseState.success, null);
             onCodeSent(verificationId);
+            _resendToken = forceResendingToken;
           },
+          timeout: const Duration(seconds: 30),
+          forceResendingToken: _resendToken,
           codeAutoRetrievalTimeout: (verificationId) {});
     } on FirebaseException catch (error) {
       response(ResponseState.failure, error.message);

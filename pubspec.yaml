@@ -49,6 +49,7 @@ dependencies:
   timeline_tile: ^2.0.0
   url_launcher: ^6.1.12
   fluttertoast: ^8.2.2
+  otp_timer_button: ^1.1.0
 
 
 dev_dependencies:
