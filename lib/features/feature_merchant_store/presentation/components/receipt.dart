@@ -26,114 +26,113 @@ class Receipt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      child: Container(
-          width: double.infinity,
-          height: 500,
-          padding: const EdgeInsets.only(top: 16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            color: XploreColors.white,
-          ),
-          child: Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //  logo
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      width: double.infinity,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: Image.asset(
-                                "assets/appIcon/playstore.png",
-                                width: 60,
-                                height: 60,
-                              )),
-                          vSize20SizedBox,
-                          Text(
-                            "Order ${getTransactionType(index: 0) == TransactionTypes.fulfilled ? "fulfilled!" : getTransactionType(index: 0) == TransactionTypes.pending ? "pending!" : "on credit!"}",
-                            style: TextStyle(
-                                color: XploreColors.deepBlue,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18),
-                          )
-                        ],
-                      ),
+    return Container(
+        width: double.infinity,
+        height: 500,
+        padding: const EdgeInsets.only(top: 16),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          color: XploreColors.white,
+        ),
+        child: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //  logo
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: Image.asset(
+                              "assets/appIcon/playstore.png",
+                              width: 60,
+                              height: 60,
+                            )),
+                        vSize20SizedBox,
+                        Text(
+                          "Order ${getTransactionType(index: 0) == TransactionTypes.fulfilled ? "complete!" : getTransactionType(index: 0) == TransactionTypes.pending ? "pending!" : "on credit!"}",
+                          style: TextStyle(
+                              color: XploreColors.deepBlue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        )
+                      ],
                     ),
                   ),
+                ),
 
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //  notch divider
-                        Row(
-                          children: [
-                            Container(
-                                width: 10,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(100),
-                                        bottomRight: Radius.circular(100)),
-                                    color: XploreColors.deepBlue)),
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: List.generate(
-                                    20,
-                                    (index) => Container(
-                                          width: 8,
-                                          height: 2,
-                                          color: XploreColors.deepBlue,
-                                        )),
-                              ),
-                            ),
-                            Container(
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //  notch divider
+                      Row(
+                        children: [
+                          Container(
                               width: 10,
                               height: 20,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(100),
-                                      bottomLeft: Radius.circular(100)),
-                                  color: XploreColors.deepBlue),
+                                      topRight: Radius.circular(100),
+                                      bottomRight: Radius.circular(100)),
+                                  color: XploreColors.deepBlue)),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
+                              children: List.generate(
+                                  20,
+                                  (index) => Container(
+                                        width: 8,
+                                        height: 2,
+                                        color: XploreColors.deepBlue,
+                                      )),
                             ),
-                          ],
-                        ),
-
-                        vSize20SizedBox,
-
-                        //  username title
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Text(
-                            userName,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: XploreColors.black),
                           ),
-                        ),
+                          Container(
+                            width: 10,
+                            height: 20,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(100),
+                                    bottomLeft: Radius.circular(100)),
+                                color: XploreColors.deepBlue),
+                          ),
+                        ],
+                      ),
 
-                        //  user orders
-                        vSize20SizedBox,
-                        Padding(
+                      vSize20SizedBox,
+
+                      //  username title
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          userName,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: XploreColors.black),
+                        ),
+                      ),
+
+                      //  user orders
+                      vSize20SizedBox,
+                      Expanded(
+                        flex: 2,
+                        child: Padding(
                           padding:
                               const EdgeInsets.symmetric(horizontal: 16.0),
                           child: ListView.builder(
                               physics: const BouncingScrollPhysics(),
-                              shrinkWrap: true,
+                              shrinkWrap: false,
                               itemBuilder: (context, index) {
                                 final transaction =
                                     allTransactionsByBuyer[index];
@@ -148,17 +147,19 @@ class Receipt extends StatelessWidget {
                               },
                               itemCount: allTransactionsByBuyer.length),
                         ),
+                      ),
 
-                        //  total
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Divider(
-                            height: 5,
-                            color: XploreColors.deepBlue,
-                          ),
+                      //  total
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Divider(
+                          height: 5,
+                          color: XploreColors.deepBlue,
                         ),
+                      ),
 
-                        Padding(
+                      Expanded(
+                        child: Padding(
                           padding:
                               const EdgeInsets.symmetric(horizontal: 16.0),
                           child: Row(
@@ -181,36 +182,36 @@ class Receipt extends StatelessWidget {
                               ),
                             ],
                           ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              Align(
-                alignment: AlignmentDirectional.bottomCenter,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: List.generate(
-                      10,
-                      (index) => Container(
-                            width: 20,
-                            height: 10,
-                            margin: index != 9
-                                ? const EdgeInsets.only(right: 8)
-                                : EdgeInsets.zero,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(100),
-                                topRight: Radius.circular(100),
-                              ),
-                              color: XploreColors.deepBlue,
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Align(
+              alignment: AlignmentDirectional.bottomCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(
+                    10,
+                    (index) => Container(
+                          width: 20,
+                          height: 10,
+                          margin: index != 9
+                              ? const EdgeInsets.only(right: 8)
+                              : EdgeInsets.zero,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(100),
+                              topRight: Radius.circular(100),
                             ),
-                          )),
-                ),
-              )
-            ],
-          )),
-    );
+                            color: XploreColors.deepBlue,
+                          ),
+                        )),
+              ),
+            )
+          ],
+        ));
   }
 }

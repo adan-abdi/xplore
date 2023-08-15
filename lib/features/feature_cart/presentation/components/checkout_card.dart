@@ -59,7 +59,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+            topLeft: Radius.circular(8), topRight: Radius.circular(8)),
         color: XploreColors.deepBlue,
       ),
       child: Wrap(

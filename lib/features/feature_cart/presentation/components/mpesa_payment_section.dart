@@ -8,6 +8,7 @@ import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
 import '../../../../application/core/themes/colors.dart';
+import '../../../../core/domain/model/cart_model.dart';
 import '../../../../core/domain/model/user_model.dart';
 import '../../../../core/presentation/controller/auth_controller.dart';
 import '../../../feature_home/presentation/controller/home_controller.dart';
@@ -86,11 +87,11 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
                 //  get buyer ID from phone number
                 final buyerId = value.checkIsPhoneNumberValid
                     ? _homeController.stores
-                    .firstWhere(
-                        (user) =>
-                    user.userPhoneNumber! == value.add254Prefix,
-                    orElse: () => UserModel())
-                    .userId
+                        .firstWhere(
+                            (user) =>
+                                user.userPhoneNumber! == value.add254Prefix,
+                            orElse: () => UserModel())
+                        .userId
                     : null;
 
                 setState(() {
@@ -103,93 +104,98 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
             alignment: AlignmentDirectional.bottomEnd,
             child: TextButton(
                 onPressed: () async {
-                  // update merchant transactions
-                  _authController.user.value!.itemsInCart!
-                      .forEach((cartItem) async {
-                    //  get seller id & product id
-                    final sellerId = _homeController.products
-                        .firstWhere((product) =>
-                            product.productId! == cartItem.cartProductId!)
-                        .sellerId!;
+                  final items = _authController.user.value!.itemsInCart!;
 
-                    final product = _homeController.products.firstWhere(
-                        (product) =>
-                            product.productId! == cartItem.cartProductId!);
+                  for (CartModel cartItem in items) {
+                    {
+                      //  get seller id & product id
+                      final sellerId = _homeController.products
+                          .firstWhere((product) =>
+                      product.productId! == cartItem.cartProductId!)
+                          .sellerId!;
 
-                    final sellerData = await _authController
-                        .getSpecificUserFromFirestore(uid: sellerId);
+                      final product = _homeController.products.firstWhere(
+                              (product) =>
+                          product.productId! == cartItem.cartProductId!);
 
-                    final buyerData = buyerId == null || buyerId!.isEmpty
-                        ? null
-                        : await _authController.getSpecificUserFromFirestore(
-                            uid: buyerId!);
+                      final sellerData = await _authController
+                          .getSpecificUserFromFirestore(uid: sellerId);
 
-                    final allTransactions = sellerData.transactions!;
+                      final buyerData = buyerId == null || buyerId!.isEmpty
+                          ? null
+                          : await _authController.getSpecificUserFromFirestore(
+                          uid: buyerId!);
 
-                    allTransactions.add(TransactionModel(
-                        buyerId: buyerId == null || buyerId!.isEmpty
-                            ? 'customer - ${Timestamp.now()}'
-                            : '${buyerId!} - ${Timestamp.now()}',
-                        product: _merchantController.merchantProducts
-                            .firstWhere((product) =>
-                                product.productId! == cartItem.cartProductId!),
-                        itemsBought: cartItem.cartProductCount!,
-                        amountPaid: product.productSellingPrice! *
-                            cartItem.cartProductCount!,
-                        transactionDate: DateTime.now().toString(),
-                        isFulfilled: false,
-                        transactionType: TransactionTypes.pending.toString()));
+                      final allTransactions = sellerData.transactions!;
 
-                    _authController
-                        .updateUserDataInFirestore(
-                            oldUser: sellerData,
-                            newUser: UserModel(transactions: allTransactions),
-                            uid: sellerId)
-                        .then((value) async {
-                      //  update buyer data
-                      if (buyerData != null && buyerId != null) {
-                        final buyerTransactions = buyerData.transactions!;
+                      allTransactions.add(TransactionModel(
+                          buyerId: buyerId == null || buyerId!.isEmpty
+                              ? 'customer - ${DateTime.now().day}/${DateTime.now().hour}/${DateTime.now().minute}'
+                              : '${buyerId!} - ${DateTime.now().day}/${DateTime.now().hour}/${DateTime.now().minute}',
+                          product: _merchantController.merchantProducts
+                              .firstWhere((product) =>
+                          product.productId! ==
+                              cartItem.cartProductId!),
+                          itemsBought: cartItem.cartProductCount!,
+                          amountPaid: product.productSellingPrice! *
+                              cartItem.cartProductCount!,
+                          transactionDate: DateTime.now().toString(),
+                          isFulfilled: false,
+                          transactionType:
+                          TransactionTypes.pending.toString()));
 
-                        buyerTransactions.add(TransactionModel(
-                            buyerId: buyerId == null || buyerId!.isEmpty
-                                ? _authController.user.value!.userId!
-                                : '${buyerId!} - ${Timestamp.now()}',
-                            product: _merchantController.merchantProducts
-                                .firstWhere((product) =>
-                                    product.productId! ==
-                                    cartItem.cartProductId!),
-                            itemsBought: cartItem.cartProductCount!,
-                            amountPaid: product.productSellingPrice! *
-                                cartItem.cartProductCount!,
-                            transactionDate: DateTime.now().toString(),
-                            isFulfilled: true,
-                            transactionType:
-                                TransactionTypes.pending.toString()));
+                      await _authController
+                          .updateUserDataInFirestore(
+                          oldUser: sellerData,
+                          newUser: UserModel(transactions: allTransactions),
+                          uid: sellerId)
+                          .then((value) async {
+                        //  update buyer data
+                        if (buyerData != null && buyerId != null) {
+                          final buyerTransactions = buyerData.transactions!;
 
+                          buyerTransactions.add(TransactionModel(
+                              buyerId: buyerId == null || buyerId!.isEmpty
+                                  ? _authController.user.value!.userId!
+                                  : '${buyerId!} - ${DateTime.now().day}/${DateTime.now().hour}/${DateTime.now().minute}',
+                              product: _merchantController.merchantProducts
+                                  .firstWhere((product) =>
+                              product.productId! ==
+                                  cartItem.cartProductId!),
+                              itemsBought: cartItem.cartProductCount!,
+                              amountPaid: product.productSellingPrice! *
+                                  cartItem.cartProductCount!,
+                              transactionDate: DateTime.now().toString(),
+                              isFulfilled: false,
+                              transactionType:
+                              TransactionTypes.pending.toString()));
+
+                          await _authController.updateUserDataInFirestore(
+                              oldUser: buyerData,
+                              newUser:
+                              UserModel(transactions: buyerTransactions),
+                              uid: buyerId!);
+                        }
+
+                        //  update product stock count
+                        await _merchantController.updateProduct(
+                            oldProduct: product,
+                            newProduct: ProductModel(
+                                productStockCount: product.productStockCount! -
+                                    cartItem.cartProductCount!),
+                            response: (state) {});
+
+                        //  clear all cart items
                         await _authController.updateUserDataInFirestore(
-                            oldUser: buyerData,
-                            newUser: UserModel(transactions: buyerTransactions),
-                            uid: buyerId!);
-                      }
+                            oldUser: _authController.user.value!,
+                            newUser: UserModel(itemsInCart: []),
+                            uid: _authController.user.value!.userId!);
 
-                      //  update product stock count
-                      _merchantController.updateProduct(
-                          oldProduct: product,
-                          newProduct: ProductModel(
-                              productStockCount: product.productStockCount! -
-                                  cartItem.cartProductCount!),
-                          response: (state) {});
-
-                      //  clear all cart items
-                      _authController.updateUserDataInFirestore(
-                          oldUser: _authController.user.value!,
-                          newUser: UserModel(itemsInCart: []),
-                          uid: _authController.user.value!.userId!);
-
-                      //  go to home page
-                      Get.offAll(MainScreen());
-                    });
-                  });
+                        //  go to home page
+                        Get.offAll(MainScreen());
+                      });
+                    }
+                  }
                 },
                 style: TextButton.styleFrom(
                     foregroundColor: XploreColors.xploreOrange),

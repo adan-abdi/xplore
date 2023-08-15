@@ -137,7 +137,7 @@ class _TransactionToggleState extends State<TransactionToggle> {
                               : XploreColors.xploreOrange,
                         ),
                         Text(
-                          "Fulfilled",
+                          "Complete",
                           style: TextStyle(
                             fontWeight:
                             Theme.of(context).textTheme.bodyMedium?.fontWeight,

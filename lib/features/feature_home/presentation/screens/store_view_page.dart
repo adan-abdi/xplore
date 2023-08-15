@@ -97,17 +97,26 @@ class _StoreViewPageState extends State<StoreViewPage> {
                             ),
                           ),
                           hSize10SizedBox,
-                          PillBtn(
-                              text: "Call",
-                              iconData: Icons.phone_rounded,
-                              isActive: true,
-                              activeColor: XploreColors.deepBlue,
-                              onTap: () async {
-                                final phoneUrl = Uri(scheme: 'tel',
-                                    path: widget.store.userPhoneNumber!);
+                          GestureDetector(
+                            onTap: (){
+                              final phoneUrl = Uri(scheme: 'tel',
+                                  path: widget.store.userPhoneNumber!);
 
-                                launchUrl(phoneUrl);
-                              }),
+                              launchUrl(phoneUrl);
+                            },
+                            child: Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: XploreColors.deepBlue
+                              ),
+                              child: Center(
+                                child: Icon(Icons.call_rounded,
+                                  color: XploreColors.white,),
+                              ),
+                            ),
+                          ),
                         ],
                       )
                     ],

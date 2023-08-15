@@ -64,13 +64,13 @@ class _MerchantTransactionsState extends State<MerchantTransactions> {
                   TransactionTypes.pending
               ? CustomFAB(
                   actionIcon: Icons.done_all_rounded,
-                  actionLabel: "Fulfill all",
+                  actionLabel: "Complete all",
                   onPressed: () {
                     showAlertDialog(
-                        title: "Fulfill Transactions",
+                        title: "Complete Transactions",
                         iconData: Icons.receipt_rounded,
                         content:
-                            Text("Would you like to fulfill all transactions?"),
+                            Text("Would you like to complete all transactions?"),
                         onCancel: () => Get.back(),
                         onConfirm: () async {
                           //  fulfill all orders

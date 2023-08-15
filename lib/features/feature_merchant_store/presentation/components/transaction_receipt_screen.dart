@@ -93,67 +93,69 @@ class _TransactionReceiptScreenState extends State<TransactionReceiptScreen> {
           width: double.infinity,
           height: double.infinity,
           padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              //  receipt
-              Receipt(
-                userName: getUserName(),
-                totalPrice: getTotalPrice().toString().addCommas,
-                allTransactionsByBuyer: widget.allTransactionsByBuyer,
-              ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                //  receipt
+                Receipt(
+                  userName: getUserName(),
+                  totalPrice: getTotalPrice().toString().addCommas,
+                  allTransactionsByBuyer: widget.allTransactionsByBuyer,
+                ),
 
-              vSize20SizedBox,
+                vSize20SizedBox,
 
-              //  call to action button
-              Visibility(
-                  visible: getTransactionType(index: 0) ==
-                          TransactionTypes.pending ||
-                      getTransactionType(index: 0) == TransactionTypes.credit,
-                  child: SubmitButton(
-                      iconData: getTransactionType(index: 0) == TransactionTypes.pending
-                          ? Icons.done_rounded
-                          : Icons.attach_money_rounded,
-                      text: getTransactionType(index: 0) == TransactionTypes.pending
-                          ? "Fulfill"
-                          : "Pay",
-                      backgroundColor: XploreColors.white,
-                      textColor: XploreColors.deepBlue,
-                      isValid: true,
-                      onTap: () {
-                        showAlertDialog(
-                            title: "Fulfill Transaction",
-                            iconData: Icons.receipt_rounded,
-                            content: Text(
-                              "Would you like to fulfill this transaction?",
-                              textAlign: TextAlign.center,
-                            ),
-                            onCancel: () => Get.back(),
-                            onConfirm: () async {
-                              //  all transactions
-                              final allTransactions =
-                              _authController.user.value!.transactions!;
+                //  call to action button
+                Visibility(
+                    visible: getTransactionType(index: 0) ==
+                            TransactionTypes.pending ||
+                        getTransactionType(index: 0) == TransactionTypes.credit,
+                    child: SubmitButton(
+                        iconData: getTransactionType(index: 0) == TransactionTypes.pending
+                            ? Icons.done_rounded
+                            : Icons.attach_money_rounded,
+                        text: getTransactionType(index: 0) == TransactionTypes.pending
+                            ? "Fulfill"
+                            : "Pay",
+                        backgroundColor: XploreColors.white,
+                        textColor: XploreColors.deepBlue,
+                        isValid: true,
+                        onTap: () {
+                          showAlertDialog(
+                              title: "Fulfill Transaction",
+                              iconData: Icons.receipt_rounded,
+                              content: Text(
+                                "Would you like to fulfill this transaction?",
+                                textAlign: TextAlign.center,
+                              ),
+                              onCancel: () => Get.back(),
+                              onConfirm: () async {
+                                //  all transactions
+                                final allTransactions =
+                                _authController.user.value!.transactions!;
 
-                              allTransactions.forEach((transaction) {
-                                if (transaction.buyerId! ==
-                                    widget.allTransactionsByBuyer[0].buyerId!) {
-                                  transaction.transactionType =
-                                      TransactionTypes.fulfilled.toString();
-                                }
+                                allTransactions.forEach((transaction) {
+                                  if (transaction.buyerId! ==
+                                      widget.allTransactionsByBuyer[0].buyerId!) {
+                                    transaction.transactionType =
+                                        TransactionTypes.fulfilled.toString();
+                                  }
+                                });
+
+                                await _authController.updateUserDataInFirestore(
+                                    oldUser: _authController.user.value!,
+                                    newUser:
+                                    UserModel(transactions: allTransactions),
+                                    uid: _authController.user.value!.userId!);
+
+                                Get.back();
+                                Get.back();
                               });
-
-                              await _authController.updateUserDataInFirestore(
-                                  oldUser: _authController.user.value!,
-                                  newUser:
-                                  UserModel(transactions: allTransactions),
-                                  uid: _authController.user.value!.userId!);
-
-                              Get.back();
-                              Get.back();
-                            });
-                      })),
-            ],
+                        })),
+              ],
+            ),
           )),
     );
   }

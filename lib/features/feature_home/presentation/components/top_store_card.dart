@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
 import '../../../../core/presentation/components/profile_pic.dart';
+import '../controller/home_controller.dart';
 
-class TopStoreCard extends StatelessWidget {
+class TopStoreCard extends StatefulWidget {
   final UserModel store;
   final double height;
   final double margin;
@@ -15,19 +18,33 @@ class TopStoreCard extends StatelessWidget {
   const TopStoreCard(
       {super.key,
       required this.store,
-        this.margin = 16,
-        this.height = 200,
+      this.margin = 16,
+      this.height = 200,
       required this.onTap});
+
+  @override
+  State<TopStoreCard> createState() => _TopStoreCardState();
+}
+
+class _TopStoreCardState extends State<TopStoreCard> {
+  late final HomeController _homeController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _homeController = Get.find<HomeController>();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Container(
         width: double.infinity,
-        height: height,
+        height: widget.height,
         padding: const EdgeInsets.all(16),
-        margin: EdgeInsets.only(right: margin),
+        margin: EdgeInsets.only(right: widget.margin),
         decoration: BoxDecoration(
             color: XploreColors.deepBlue,
             borderRadius: BorderRadius.circular(16)),
@@ -39,12 +56,12 @@ class TopStoreCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ProfilePic(
-                  imageUrl: store.userProfilePicUrl,
+                  imageUrl: widget.store.userProfilePicUrl,
                   imageSize: 40,
                 ),
                 hSize20SizedBox,
                 Text(
-                  store.userName!.getStoreName,
+                  widget.store.userName!.getStoreName,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -60,8 +77,8 @@ class TopStoreCard extends StatelessWidget {
                     color: XploreColors.xploreOrange, size: 16),
                 hSize10SizedBox,
                 Text(
-                  store.storeLocation!.isNotEmpty
-                      ? '${store.storeLocation!}'
+                  widget.store.storeLocation!.isNotEmpty
+                      ? '${widget.store.storeLocation!}'
                       : 'No location',
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -77,13 +94,16 @@ class TopStoreCard extends StatelessWidget {
                 //  store sales
                 Text.rich(TextSpan(children: [
                   TextSpan(
-                      text: "300",
+                      text: _homeController.products
+                          .where((p) => p.sellerId! == widget.store.userId!)
+                          .length
+                          .toString(),
                       style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
                           color: XploreColors.white)),
                   TextSpan(
-                      text: " products",
+                      text: " product(s)",
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
