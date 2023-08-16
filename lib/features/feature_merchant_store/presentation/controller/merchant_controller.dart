@@ -23,7 +23,7 @@ class MerchantController extends GetxController {
   /// Active Category
   final activeCategory = Constants.productCategories[0].obs;
 
-  void setProductPic({required File file}) => productPic.value = file;
+  void setProductPic({required File? file}) => productPic.value = file;
 
   void setProducts({required List<ProductModel> products}) =>
       this.merchantProducts.value = products;

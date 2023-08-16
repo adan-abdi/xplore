@@ -1,5 +1,7 @@
+import 'dart:ffi';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pinput/pinput.dart';
@@ -17,6 +19,8 @@ import 'package:shamiri/features/feature_merchant_store/domain/model/product_mod
 import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
 
 import '../../../../core/domain/model/response_state.dart';
+import '../../../../core/presentation/components/open_bottom_sheet.dart';
+import '../../../feature_onboarding/presentation/components/image_picker_bottom_sheet.dart';
 
 class AddProductBottomSheet extends StatefulWidget {
   final ProductModel? product;
@@ -68,8 +72,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
     _productUnitController.setText(widget.product!.productUnit!);
     _productStockCountController
         .setText(widget.product!.productStockCount!.toString());
-    _productDescriptionController
-        .setText(widget.product!.productDescription!);
+    _productDescriptionController.setText(widget.product!.productDescription!);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
@@ -112,35 +115,152 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                               _merchantController.setProductPic(file: file);
                             });
                       },
-                      child: Obx(
-                        () => Container(
-                            width: 150,
-                            height: 150,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: XploreColors.deepBlue),
-                            child: Stack(
-                              children: [
-                                _merchantController.productPic.value != null
-                                    ? ClipRRect(
+                      child: widget.product!.productImageUrl!.isNotEmpty
+                          ? Container(
+                        width: 180,
+                        height: 180,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: XploreColors.deepBlue),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: CachedNetworkImage(
+                                  imageUrl: widget.product!.productImageUrl!,
+                                  placeholder: (context, url) => Container(
+                                    width: 180,
+                                    height: 180,
+                                    decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(16),
-                                        child: Image.file(
-                                          File(_merchantController
-                                              .productPic.value!.path),
-                                          fit: BoxFit.cover,
-                                          width: double.infinity,
-                                          height: double.infinity,
+                                        color: XploreColors.deepBlue),
+                                    child: Center(
+                                        child: Icon(
+                                      Icons.image_rounded,
+                                      size: 48,
+                                      color: XploreColors.white,
+                                    )),
+                                  ),
+                                fit: BoxFit.cover,
+                                ),
+                            ),
+                          )
+                          : Obx(
+                              () => Container(
+                                  width: 180,
+                                  height: 180,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      color: XploreColors.white),
+                                  child: Stack(
+                                    children: [
+                                      _merchantController.productPic.value !=
+                                              null
+                                          ? Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(16),
+                                                child: Image.file(
+                                                  File(_merchantController
+                                                      .productPic.value!.path),
+                                                  fit: BoxFit.cover,
+                                                  width: double.infinity,
+                                                  height: double.infinity,
+                                                ),
+                                              ),
+                                            )
+                                          : Container(
+                                              width: 180,
+                                              height: 180,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                  color: XploreColors.deepBlue),
+                                              child: Center(
+                                                  child: Icon(
+                                                Icons.image_rounded,
+                                                size: 48,
+                                                color: XploreColors.white,
+                                              )),
+                                            ),
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional.bottomEnd,
+                                        child: UnconstrainedBox(
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              //  open edit bottom sheet
+                                              openBottomSheet(
+                                                  content:
+                                                      ImagePickerBottomSheet(
+                                                    onCameraTap: () async {
+                                                      await _coreController
+                                                          .pickImage(
+                                                              source:
+                                                                  ImageSource
+                                                                      .camera,
+                                                              imageFile:
+                                                                  (file) {
+                                                                _merchantController
+                                                                    .setProductPic(
+                                                                        file:
+                                                                            file);
+                                                              });
+                                                      Get.back();
+                                                    },
+                                                    onGalleryTap: () async {
+                                                      await _coreController
+                                                          .pickImage(
+                                                              source:
+                                                                  ImageSource
+                                                                      .gallery,
+                                                              imageFile:
+                                                                  (file) {
+                                                                _merchantController
+                                                                    .setProductPic(
+                                                                        file:
+                                                                            file);
+                                                              });
+                                                      Get.back();
+                                                    },
+                                                    onRemoveTap: () {
+                                                      _merchantController
+                                                          .setProductPic(
+                                                              file: null);
+
+                                                      Get.back();
+                                                    },
+                                                  ),
+                                                  height: 100,
+                                                  onComplete: () {});
+                                            },
+                                            child: Container(
+                                              width: 45,
+                                              height: 45,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100),
+                                                  border: Border.all(
+                                                      color: XploreColors.white,
+                                                      width: 5,
+                                                      strokeAlign: BorderSide
+                                                          .strokeAlignOutside),
+                                                  color: XploreColors.deepBlue),
+                                              child: Center(
+                                                child: Icon(
+                                                  Icons.image_search_rounded,
+                                                  color: XploreColors.white,
+                                                  size: 24,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       )
-                                    : Center(
-                                        child: Icon(
-                                        Icons.image_rounded,
-                                        size: 48,
-                                        color: XploreColors.white,
-                                      )),
-                              ],
-                            )),
-                      ),
+                                    ],
+                                  )),
+                            ),
                     ),
 
                     vSize30SizedBox,
