@@ -76,7 +76,7 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Icon(
-                Icons.admin_panel_settings_rounded,
+                Icons.keyboard_rounded,
                 color: XploreColors.xploreOrange,
               ),
             )

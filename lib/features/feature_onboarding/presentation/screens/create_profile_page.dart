@@ -86,7 +86,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                     subtitle: 'Create Profile',
                     title: 'Welcome! \n',
                   ),
-                  vSize40SizedBox,
+                  vSize30SizedBox,
                   Align(
                     alignment: AlignmentDirectional.center,
                     child: Obx(
@@ -185,7 +185,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                           )),
                     ),
                   ),
-                  vSize40SizedBox,
+                  vSize30SizedBox,
                   CustomTextField(
                       hint: "Full Name*",
                       iconData: Icons.person_rounded,
@@ -195,7 +195,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                         _authController.setIsFullNameValid(
                             isValid: value.isNotEmpty);
                       }),
-                  vSize30SizedBox,
+                  vSize8SizedBox,
                   CustomTextField(
                       hint: "Email Address*",
                       iconData: Icons.email_rounded,
@@ -205,14 +205,14 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                         _authController.setIsEmailValid(
                             isValid: value.isNotEmpty);
                       }),
-                  vSize30SizedBox,
+                  vSize8SizedBox,
                   CustomTextField(
                       hint: "Store location (optional)",
                       iconData: Icons.location_on_rounded,
                       textStyle: TextStyle(fontSize: 18),
                       controller: _locationController,
                       onChanged: (value) {}),
-                  vSize40SizedBox,
+                  vSize30SizedBox,
                   Align(
                       alignment: AlignmentDirectional.center,
                       child: Obx(

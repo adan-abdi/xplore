@@ -115,23 +115,27 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
                                 color: XploreColors.deepBlue),
-                            child: _merchantController.productPic.value != null
-                                ? ClipRRect(
-                                    borderRadius: BorderRadius.circular(16),
-                                    child: Image.file(
-                                      File(_merchantController
-                                          .productPic.value!.path),
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                    ),
-                                  )
-                                : Center(
+                            child: Stack(
+                              children: [
+                                _merchantController.productPic.value != null
+                                    ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: Image.file(
+                                    File(_merchantController
+                                        .productPic.value!.path),
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                  ),
+                                )
+                                    : Center(
                                     child: Icon(
-                                    Icons.image_rounded,
-                                    size: 48,
-                                    color: XploreColors.white,
-                                  ))),
+                                      Icons.image_rounded,
+                                      size: 48,
+                                      color: XploreColors.white,
+                                    )),
+                              ],
+                            )),
                       ),
                     ),
 
@@ -145,7 +149,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                         controller: _productNameController,
                         onChanged: (value) {}),
 
-                    vSize20SizedBox,
+                    vSize8SizedBox,
                     //  product unit
                     CustomTextField(
                         hint: "Product Buying Price (Ksh)",
@@ -160,7 +164,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                   .addCommas);
                         }),
 
-                    vSize20SizedBox,
+                    vSize8SizedBox,
                     //  product unit
                     CustomTextField(
                         hint: "Product Selling Price (Ksh)",
@@ -175,7 +179,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                   .addCommas);
                         }),
 
-                    vSize20SizedBox,
+                    vSize8SizedBox,
                     //  product unit
                     CustomTextField(
                         hint: "Product Unit e.g per litre, per kg etc",
@@ -184,7 +188,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                         controller: _productUnitController,
                         onChanged: (value) {}),
 
-                    vSize20SizedBox,
+                    vSize8SizedBox,
                     //  product stock count
                     CustomTextField(
                         hint: "Product Stock count",
@@ -194,7 +198,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                         controller: _productStockCountController,
                         onChanged: (value) {}),
 
-                    vSize20SizedBox,
+                    vSize8SizedBox,
 
                     Container(
                       width: double.infinity,
