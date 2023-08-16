@@ -37,7 +37,7 @@ class _ProductCardAltState extends State<ProductCardAlt> {
   void decrementCount() {
     var currentProductCount = widget.product.productStockCount!;
 
-    if (currentProductCount > 1) {
+    if (currentProductCount >= 1) {
       currentProductCount -= 1;
 
       _merchantController.updateProduct(

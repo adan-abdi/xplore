@@ -68,6 +68,8 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
     _productUnitController.setText(widget.product!.productUnit!);
     _productStockCountController
         .setText(widget.product!.productStockCount!.toString());
+    _productDescriptionController
+        .setText(widget.product!.productDescription!);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
