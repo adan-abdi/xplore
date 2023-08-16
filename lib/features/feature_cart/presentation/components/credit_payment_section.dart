@@ -90,11 +90,11 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                 //  get buyer ID from phone number
                 final buyerId = value.checkIsPhoneNumberValid
                     ? _homeController.stores
-                    .firstWhere(
-                        (user) =>
-                    user.userPhoneNumber! == value.add254Prefix,
-                    orElse: () => UserModel())
-                    .userId
+                        .firstWhere(
+                            (user) =>
+                                user.userPhoneNumber! == value.add254Prefix,
+                            orElse: () => UserModel())
+                        .userId
                     : null;
 
                 setState(() {
@@ -117,7 +117,20 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                     context: context,
                     initialDate: date,
                     firstDate: DateTime(1900),
-                    lastDate: DateTime(2100));
+                    lastDate: DateTime(2100),
+                    builder: (context, child) => Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.light(
+                            primary: XploreColors.xploreOrange,
+                            onPrimary: XploreColors.white,
+                            onSurface: XploreColors.deepBlue
+                          ),
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              foregroundColor: XploreColors.xploreOrange
+                            )
+                          )
+                        ), child: child!));
 
                 setState(() {
                   date = pickedDate != null ? pickedDate : date;
@@ -140,12 +153,12 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                       //  get seller id & product id
                       final sellerId = _homeController.products
                           .firstWhere((product) =>
-                      product.productId! == cartItem.cartProductId!)
+                              product.productId! == cartItem.cartProductId!)
                           .sellerId!;
 
                       final product = _homeController.products.firstWhere(
-                              (product) =>
-                          product.productId! == cartItem.cartProductId!);
+                          (product) =>
+                              product.productId! == cartItem.cartProductId!);
 
                       final sellerData = await _authController
                           .getSpecificUserFromFirestore(uid: sellerId);
@@ -153,7 +166,7 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                       final buyerData = buyerId == null || buyerId!.isEmpty
                           ? null
                           : await _authController.getSpecificUserFromFirestore(
-                          uid: buyerId!);
+                              uid: buyerId!);
 
                       final allTransactions = sellerData.transactions!;
 
@@ -163,21 +176,20 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                               : '${buyerId!} - ${DateTime.now().day}/${DateTime.now().hour}/${DateTime.now().minute}',
                           product: _merchantController.merchantProducts
                               .firstWhere((product) =>
-                          product.productId! ==
-                              cartItem.cartProductId!),
+                                  product.productId! ==
+                                  cartItem.cartProductId!),
                           itemsBought: cartItem.cartProductCount!,
                           amountPaid: product.productSellingPrice! *
                               cartItem.cartProductCount!,
                           transactionDate: DateTime.now().toString(),
                           isFulfilled: false,
-                          transactionType:
-                          TransactionTypes.credit.toString()));
+                          transactionType: TransactionTypes.credit.toString()));
 
                       await _authController
                           .updateUserDataInFirestore(
-                          oldUser: sellerData,
-                          newUser: UserModel(transactions: allTransactions),
-                          uid: sellerId)
+                              oldUser: sellerData,
+                              newUser: UserModel(transactions: allTransactions),
+                              uid: sellerId)
                           .then((value) async {
                         //  update buyer data
                         if (buyerData != null && buyerId != null) {
@@ -189,20 +201,20 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                                   : '${buyerId!} - ${DateTime.now().day}/${DateTime.now().hour}/${DateTime.now().minute}',
                               product: _merchantController.merchantProducts
                                   .firstWhere((product) =>
-                              product.productId! ==
-                                  cartItem.cartProductId!),
+                                      product.productId! ==
+                                      cartItem.cartProductId!),
                               itemsBought: cartItem.cartProductCount!,
                               amountPaid: product.productSellingPrice! *
                                   cartItem.cartProductCount!,
                               transactionDate: DateTime.now().toString(),
                               isFulfilled: false,
                               transactionType:
-                              TransactionTypes.credit.toString()));
+                                  TransactionTypes.credit.toString()));
 
                           await _authController.updateUserDataInFirestore(
                               oldUser: buyerData,
                               newUser:
-                              UserModel(transactions: buyerTransactions),
+                                  UserModel(transactions: buyerTransactions),
                               uid: buyerId!);
                         }
 
