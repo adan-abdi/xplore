@@ -33,6 +33,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
   late final TextEditingController _productStockCountController;
   late final TextEditingController _productBuyingPriceController;
   late final TextEditingController _productSellingPriceController;
+  late final TextEditingController _productDescriptionController;
   late final MerchantController _merchantController;
   late final CoreController _coreController;
   late final AuthController _authController;
@@ -48,6 +49,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
     _productStockCountController = TextEditingController();
     _productBuyingPriceController = TextEditingController();
     _productSellingPriceController = TextEditingController();
+    _productDescriptionController = TextEditingController();
     _coreController = Get.find<CoreController>();
     _authController = Get.find<AuthController>();
     _merchantController = Get.find<MerchantController>();
@@ -119,21 +121,21 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                               children: [
                                 _merchantController.productPic.value != null
                                     ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(16),
-                                  child: Image.file(
-                                    File(_merchantController
-                                        .productPic.value!.path),
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                  ),
-                                )
+                                        borderRadius: BorderRadius.circular(16),
+                                        child: Image.file(
+                                          File(_merchantController
+                                              .productPic.value!.path),
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                        ),
+                                      )
                                     : Center(
-                                    child: Icon(
-                                      Icons.image_rounded,
-                                      size: 48,
-                                      color: XploreColors.white,
-                                    )),
+                                        child: Icon(
+                                        Icons.image_rounded,
+                                        size: 48,
+                                        color: XploreColors.white,
+                                      )),
                               ],
                             )),
                       ),
@@ -143,7 +145,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
 
                     //  product name
                     CustomTextField(
-                        hint: "Product Name",
+                        hint: "Product name",
                         iconData: Icons.description,
                         textStyle: TextStyle(fontSize: 16),
                         controller: _productNameController,
@@ -152,7 +154,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                     vSize8SizedBox,
                     //  product unit
                     CustomTextField(
-                        hint: "Product Buying Price (Ksh)",
+                        hint: "Product buying Price (Ksh)",
                         iconData: Icons.monetization_on_rounded,
                         textStyle: TextStyle(fontSize: 16),
                         inputType: TextInputType.number,
@@ -167,7 +169,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                     vSize8SizedBox,
                     //  product unit
                     CustomTextField(
-                        hint: "Product Selling Price (Ksh)",
+                        hint: "Product selling Price (Ksh)",
                         iconData: Icons.monetization_on_rounded,
                         textStyle: TextStyle(fontSize: 16),
                         inputType: TextInputType.number,
@@ -182,7 +184,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                     vSize8SizedBox,
                     //  product unit
                     CustomTextField(
-                        hint: "Product Unit e.g per litre, per kg etc",
+                        hint: "Product unit e.g per litre, per kg etc",
                         iconData: Icons.scale_rounded,
                         textStyle: TextStyle(fontSize: 16),
                         controller: _productUnitController,
@@ -191,11 +193,22 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                     vSize8SizedBox,
                     //  product stock count
                     CustomTextField(
-                        hint: "Product Stock count",
+                        hint: "Product stock count",
                         iconData: Icons.account_tree_rounded,
                         textStyle: TextStyle(fontSize: 16),
                         inputType: TextInputType.number,
                         controller: _productStockCountController,
+                        onChanged: (value) {}),
+
+                    vSize8SizedBox,
+
+                    CustomTextField(
+                        hint: "Product description",
+                        iconData: Icons.description_rounded,
+                        textStyle: TextStyle(fontSize: 16),
+                        inputType: TextInputType.text,
+                        maxLines: null,
+                        controller: _productDescriptionController,
                         onChanged: (value) {}),
 
                     vSize8SizedBox,
@@ -297,7 +310,9 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                             productCategoryId: selectedCategory,
                             productCreatedAt: DateTime.now().toString(),
                             productStockCount:
-                                int.parse(_productStockCountController.text));
+                                int.parse(_productStockCountController.text),
+                            productDescription:
+                                _productDescriptionController.text);
 
                         if (widget.product == null) {
                           //  add new product
@@ -344,7 +359,6 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                 Get.back();
                               });
                         } else {
-
                           //  update current product
                           await _merchantController.updateProduct(
                               oldProduct: widget.product!,

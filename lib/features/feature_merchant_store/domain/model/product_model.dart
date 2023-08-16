@@ -35,6 +35,9 @@ class ProductModel {
   @JsonKey(name: 'productImageUrl')
   String? productImageUrl;
 
+  @JsonKey(name: 'productDescription')
+  String? productDescription;
+
   @JsonKey(name: 'productCreatedAt')
   String? productCreatedAt;
 
@@ -49,6 +52,7 @@ class ProductModel {
       this.productSellingPrice,
       this.productCategoryId,
       this.productImageUrl,
+        this.productDescription,
       this.productCreatedAt});
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
