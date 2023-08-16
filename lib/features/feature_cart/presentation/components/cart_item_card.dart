@@ -162,12 +162,14 @@ class _CartItemCardState extends State<CartItemCard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      widget.product.productName!,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                    Expanded(
+                      child: Text(
+                        widget.product.productName!,
+                        style:
+                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
 
                     //  increment cart button

@@ -11,6 +11,7 @@ import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import '../../../../application/core/themes/colors.dart';
 import '../../../../core/domain/model/cart_model.dart';
 import '../../../../core/domain/model/user_model.dart';
+import '../../../../core/presentation/components/show_snackbar.dart';
 import '../../../../core/presentation/controller/auth_controller.dart';
 import '../../../feature_home/presentation/controller/home_controller.dart';
 import '../../../feature_main/main_screen.dart';
@@ -218,12 +219,18 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                             oldUser: _authController.user.value!,
                             newUser: UserModel(itemsInCart: []),
                             uid: _authController.user.value!.userId!);
-
-                        //  go to home page
-                        Get.offAll(MainScreen());
                       });
+
+                      //  go to home page
+                      Get.offAll(MainScreen());
                     }
                   }
+
+                  showSnackbar(
+                      title: "Order confirmed!",
+                      message: "Payment made successfully!",
+                      iconData: Icons.attach_money_rounded,
+                      iconColor: XploreColors.xploreOrange);
                 },
                 style: TextButton.styleFrom(
                     foregroundColor: XploreColors.xploreOrange),

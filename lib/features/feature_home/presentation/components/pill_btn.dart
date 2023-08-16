@@ -7,6 +7,7 @@ class PillBtn extends StatelessWidget {
   final IconData? iconData;
   final String? imageAsset;
   final bool isActive;
+  final bool disable;
   final Color activeColor;
   final VoidCallback onTap;
 
@@ -16,6 +17,7 @@ class PillBtn extends StatelessWidget {
       this.iconData,
       this.imageAsset,
       this.isActive = false,
+      this.disable = false,
       this.activeColor = XploreColors.xploreOrange,
       required this.onTap});
 
@@ -24,35 +26,38 @@ class PillBtn extends StatelessWidget {
     return UnconstrainedBox(
       child: GestureDetector(
         onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: BoxDecoration(
-              color: isActive
-                  ? activeColor
-                  : XploreColors.white,
-              borderRadius: BorderRadius.circular(100)),
-          child: Center(
-              child: Row(
-            children: [
-              iconData == null
-                  ? Image.asset(
-                      imageAsset!,
-                      width: 26,
-                      height: 26,
-                    )
-                  : Icon(iconData,
+        child: Opacity(
+          opacity: disable ? 0.3 : 1,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+                color: isActive ? activeColor : XploreColors.white,
+                borderRadius: BorderRadius.circular(100)),
+            child: Center(
+                child: Row(
+              children: [
+                iconData == null
+                    ? Image.asset(
+                        imageAsset!,
+                        width: 26,
+                        height: 26,
+                      )
+                    : Icon(iconData,
+                        color: isActive
+                            ? XploreColors.white
+                            : XploreColors.xploreOrange),
+                hSize10SizedBox,
+                Text(
+                  text,
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
                       color:
-                          isActive ? XploreColors.white : XploreColors.xploreOrange),
-              hSize10SizedBox,
-              Text(
-                text,
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: isActive ? XploreColors.white : XploreColors.deepBlue),
-              ),
-            ],
-          )),
+                          isActive ? XploreColors.white : XploreColors.deepBlue),
+                ),
+              ],
+            )),
+          ),
         ),
       ),
     );

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/core/domain/model/cart_model.dart';
 import 'package:shamiri/core/presentation/components/custom_textfield.dart';
+import 'package:shamiri/core/presentation/components/show_snackbar.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/transaction_types.dart';
@@ -180,12 +181,17 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                             oldUser: _authController.user.value!,
                             newUser: UserModel(itemsInCart: []),
                             uid: _authController.user.value!.userId!);
-
-                        //  go to home page
-                        Get.offAll(MainScreen());
                       });
+                      //  go to home page
+                      Get.offAll(MainScreen());
                     }
                   }
+
+                  showSnackbar(
+                      title: "Order confirmed!",
+                      message: "Payment made successfully!",
+                      iconData: Icons.attach_money_rounded,
+                      iconColor: XploreColors.xploreOrange);
                 },
                 style: TextButton.styleFrom(
                     foregroundColor: XploreColors.xploreOrange),

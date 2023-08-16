@@ -119,10 +119,12 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        'Ksh. ${widget.product.productSellingPrice!.toString().addCommas}',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
+                      Expanded(
+                        child: Text(
+                          'Ksh. ${widget.product.productSellingPrice!.toString().addCommas}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
                       ),
 
                       //  delete icon

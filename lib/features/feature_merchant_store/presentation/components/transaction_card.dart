@@ -66,12 +66,15 @@ class TransactionCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "${product.productName!}",
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: altColors ? XploreColors.white : Colors.black),
+                        Expanded(
+                          child: Text(
+                            "${product.productName!}",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: altColors ? XploreColors.white : Colors.black),
+                            maxLines: 2,
+                          ),
                         ),
                         //  price
                         Text(

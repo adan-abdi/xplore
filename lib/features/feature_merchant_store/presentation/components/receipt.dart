@@ -110,12 +110,15 @@ class Receipt extends StatelessWidget {
             //  username title
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                userName,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: XploreColors.black),
+              child: Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  userName,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: XploreColors.black),
+                ),
               ),
             ),
 
