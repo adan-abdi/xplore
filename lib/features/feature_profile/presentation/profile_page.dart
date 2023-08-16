@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
@@ -53,20 +54,20 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: XploreColors.white,
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //  user profile card
-              Obx(() => UserProfileCard(
-                    user: _authController.user.value!,
-                  )),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //  user profile card
+            Obx(() => UserProfileCard(
+                  user: _authController.user.value!,
+                )),
 
-              vSize20SizedBox,
+            vSize20SizedBox,
 
-              //  store overview
-              Column(
+            //  store overview
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -99,8 +100,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   //  store overview card list
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

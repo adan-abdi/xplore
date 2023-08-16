@@ -16,6 +16,8 @@ class UserProfileCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 150,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      color: XploreColors.deepBlue,
       child: Row(
         children: [
           //  profile picture
@@ -37,10 +39,10 @@ class UserProfileCard extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Hello"),
+                      Text("Hello", style: TextStyle(color: XploreColors.whiteSmoke),),
                       Text(user.userName!,
                           style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold)),
+                              fontSize: 24, fontWeight: FontWeight.bold, color: XploreColors.white)),
                     ],
                   ),
 
@@ -58,7 +60,7 @@ class UserProfileCard extends StatelessWidget {
                           Text(
                             user.userPhoneNumber!.add254Prefix,
                             style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w600),
+                                fontSize: 14, fontWeight: FontWeight.w600, color: XploreColors.white),
                           )
                         ],
                       )

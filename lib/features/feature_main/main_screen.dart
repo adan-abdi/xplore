@@ -105,11 +105,17 @@ class _MainScreenState extends State<MainScreen> {
                 mainScreen: Scaffold(
                   appBar: AppBar(
                     systemOverlayStyle: SystemUiOverlayStyle(
-                        statusBarIconBrightness: Brightness.dark,
-                        statusBarColor: XploreColors.white,
+                        statusBarIconBrightness:
+                            _homeController.activeBottomBarIndex.value == 2
+                                ? Brightness.light
+                                : Brightness.dark,
+                        statusBarColor:
+                            _homeController.activeBottomBarIndex.value == 2
+                                ? XploreColors.deepBlue
+                                : XploreColors.white,
                         systemNavigationBarColor: XploreColors.white,
                         systemNavigationBarIconBrightness: Brightness.dark),
-                    backgroundColor: XploreColors.white,
+                    backgroundColor: _homeController.activeBottomBarIndex.value == 2 ? XploreColors.deepBlue : XploreColors.white,
                     title: Text(
                       _homeController.activeBottomBarIndex.value == 0
                           ? _authController.user.value!.userName!.trimUserName
@@ -118,7 +124,7 @@ class _MainScreenState extends State<MainScreen> {
                               : "Profile",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: XploreColors.black),
+                          color:_homeController.activeBottomBarIndex.value == 2 ? XploreColors.white : XploreColors.black),
                     ),
                     centerTitle: _homeController.activeBottomBarIndex.value != 1
                         ? true
