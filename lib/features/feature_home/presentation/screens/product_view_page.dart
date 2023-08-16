@@ -71,24 +71,20 @@ class _ProductViewPageState extends State<ProductViewPage> {
                 itemsInCart: _authController.user.value!.itemsInCart!),
             uid: _authController.user.value!.userId!);
       } else {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          showToast(
-              toast: _toast,
-              iconData: Icons.store_rounded,
-              msg: "Cannot add 0 items to cart");
-        });
+        showToast(
+            toast: _toast,
+            iconData: Icons.store_rounded,
+            msg: "Cannot add 0 items to cart");
       }
     } else {
       setState(() {
         if (itemCount > 1) {
           itemCount -= 1;
         } else {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            showToast(
-                toast: _toast,
-                iconData: Icons.store_rounded,
-                msg: "Cannot add 0 items to cart");
-          });
+          showToast(
+              toast: _toast,
+              iconData: Icons.store_rounded,
+              msg: "Cannot add 0 items to cart");
         }
       });
     }
