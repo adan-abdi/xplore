@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
+import 'package:shamiri/core/presentation/components/show_toast.dart';
 import 'package:shamiri/core/utils/constants.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_home/presentation/components/all_products_section.dart';
@@ -22,12 +24,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final HomeController _homeController;
+  late final FToast _toast;
 
   @override
   void initState() {
     super.initState();
 
     _homeController = Get.find<HomeController>();
+    _toast = FToast();
+    _toast.init(context);
   }
 
   @override
@@ -39,7 +44,10 @@ class _HomePageState extends State<HomePage> {
           actionLabel: "Scan QR code",
           onPressed: () {
             //  open bottomsheet to scan QR code
-
+            showToast(
+                toast: _toast,
+                iconData: Icons.qr_code_scanner_rounded,
+                msg: "Coming soon");
           }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
@@ -48,7 +56,6 @@ class _HomePageState extends State<HomePage> {
               child: CustomScrollView(
                 physics: const BouncingScrollPhysics(),
                 slivers: [
-
                   //  top stores section
                   TopStoresSection(),
 
@@ -71,13 +78,16 @@ class _HomePageState extends State<HomePage> {
                                       .productCategories[index].categoryName,
                                   iconData: Constants
                                       .productCategories[index].categoryIcon,
-                                  isActive: _homeController.activeCategory.value ==
-                                      Constants.productCategories[index],
-                                  onTap: () => _homeController.setActiveCategory(
-                                      Constants.productCategories[index]),
+                                  isActive:
+                                      _homeController.activeCategory.value ==
+                                          Constants.productCategories[index],
+                                  onTap: () =>
+                                      _homeController.setActiveCategory(
+                                          Constants.productCategories[index]),
                                 ),
                               ),
-                              separatorBuilder: (context, index) => const SizedBox(
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(
                                 width: 8,
                               ),
                             )),

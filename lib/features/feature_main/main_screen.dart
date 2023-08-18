@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/presentation/components/badged_icon.dart';
@@ -22,6 +23,7 @@ import '../../core/presentation/components/hamburger.dart';
 import 'package:get/get.dart';
 import 'package:badges/badges.dart' as badge;
 
+import '../../core/presentation/components/show_toast.dart';
 import '../../core/presentation/controller/auth_controller.dart';
 import '../feature_merchant_store/presentation/controller/merchant_controller.dart';
 import '../feature_search/presentation/search_screen.dart';
@@ -38,6 +40,7 @@ class _MainScreenState extends State<MainScreen> {
   late List<GButton> _bottomBarTabs;
   late HomeController _homeController;
   late MerchantController _merchantController;
+  late final FToast _toast;
   late final TextEditingController _searchController;
   late final List<Widget> _pages;
 
@@ -49,6 +52,9 @@ class _MainScreenState extends State<MainScreen> {
     _authController = Get.find<AuthController>();
     _merchantController = Get.find<MerchantController>();
     _searchController = TextEditingController();
+
+    _toast = FToast();
+    _toast.init(context);
 
     _authController.getUserDataFromFirestore().listen((user) {
       _authController.setUser(
@@ -170,7 +176,12 @@ class _MainScreenState extends State<MainScreen> {
                           visible:
                               _homeController.activeBottomBarIndex.value == 1,
                           child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                showToast(
+                                    toast: _toast,
+                                    iconData: Icons.qr_code_scanner_rounded,
+                                    msg: "Coming soon");
+                              },
                               icon: Icon(
                                 Icons.qr_code_scanner_rounded,
                                 color: XploreColors.deepBlue,
