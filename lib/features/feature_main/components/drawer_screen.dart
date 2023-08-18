@@ -55,9 +55,15 @@ class _DrawerScreenState extends State<DrawerScreen> {
           children: [
             //  profile image
             UnconstrainedBox(
-              child: ProfilePic(
-                imageUrl: _authController.user.value!.userProfilePicUrl!,
-                imageSize: 100,
+              child: GestureDetector(
+                onTap: () {
+                  _homeController.setActiveBottomBarIndex(2);
+                  ZoomDrawer.of(context)!.close();
+                },
+                child: ProfilePic(
+                  imageUrl: _authController.user.value!.userProfilePicUrl!,
+                  imageSize: 100,
+                ),
               ),
             ),
 

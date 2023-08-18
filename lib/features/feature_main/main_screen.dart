@@ -162,11 +162,14 @@ class _MainScreenState extends State<MainScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(right: 16.0),
                             child: UnconstrainedBox(
-                                child: ProfilePic(
+                                child: GestureDetector(
+                                  onTap: () => _homeController.setActiveBottomBarIndex(2),
+                                  child: ProfilePic(
                               imageUrl: _authController
-                                  .user.value!.userProfilePicUrl!,
+                                    .user.value!.userProfilePicUrl!,
                               imageSize: 35,
-                            )),
+                            ),
+                                )),
                           ),
                         ),
                       ),
