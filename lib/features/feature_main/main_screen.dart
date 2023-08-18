@@ -176,7 +176,8 @@ class _MainScreenState extends State<MainScreen> {
                                 color: XploreColors.deepBlue,
                               )))),
                     ],
-                    elevation: 4,
+                    elevation:
+                        _homeController.activeBottomBarIndex.value != 2 ? 4 : 0,
                     bottom: _homeController.activeBottomBarIndex.value != 2
                         ? PreferredSize(
                             child: Container(

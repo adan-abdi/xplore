@@ -11,6 +11,7 @@ import 'package:shamiri/features/feature_home/presentation/screens/product_view_
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../application/core/themes/colors.dart';
+import '../../../../core/presentation/components/my_lottie.dart';
 import '../../../feature_merchant_store/presentation/components/store_overview_card.dart';
 import '../controller/home_controller.dart';
 
@@ -163,7 +164,15 @@ class _StoreViewPageState extends State<StoreViewPage> {
                         mainAxisSpacing: 16,
                         crossAxisSpacing: 12))
                     : SliverFillRemaining(
-                  child: Center(child: Text("No products")),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      MyLottie(
+                        lottie: 'assets/general/xplore_loader.json', height: 200,),
+                      vSize10SizedBox,
+                      Text("No Products yet")
+                    ],
+                  ),
                 ),
               )
             ],

@@ -8,6 +8,7 @@ import 'package:shamiri/features/feature_home/presentation/controller/home_contr
 import 'package:shamiri/features/feature_home/presentation/screens/product_view_page.dart';
 
 import '../../../../core/presentation/components/my_lottie.dart';
+import '../../../../domain/value_objects/app_spaces.dart';
 import '../../../feature_merchant_store/domain/model/product_model.dart';
 
 class AllProductsSection extends StatefulWidget {
@@ -43,7 +44,15 @@ class _AllProductsSectionState extends State<AllProductsSection> {
     return Obx(() {
       if (_homeController.products.isEmpty) {
         return SliverFillRemaining(
-          child: Center(child: Text('No products yet')),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              MyLottie(
+                lottie: 'assets/general/xplore_loader.json', height: 150,),
+              vSize10SizedBox,
+              Text("No Products yet")
+            ],
+          ),
         );
       } else {
         final filteredProducts =
@@ -57,7 +66,15 @@ class _AllProductsSectionState extends State<AllProductsSection> {
 
         if (filteredProducts.isEmpty) {
           return SliverFillRemaining(
-            child: Center(child: Text('No products in ${_homeController.activeCategory.value.categoryName}')),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                MyLottie(
+                  lottie: 'assets/general/xplore_loader.json', height: 150,),
+                vSize10SizedBox,
+                Text('No products in ${_homeController.activeCategory.value.categoryName}'),
+              ],
+            ),
           );
         } else {
           return SliverGrid(
