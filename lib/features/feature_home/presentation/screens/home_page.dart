@@ -21,7 +21,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late final TextEditingController _searchController;
   late final HomeController _homeController;
 
   @override
@@ -29,7 +28,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     _homeController = Get.find<HomeController>();
-    _searchController = TextEditingController();
   }
 
   @override
@@ -40,7 +38,7 @@ class _HomePageState extends State<HomePage> {
           actionIcon: Icons.qr_code_scanner_rounded,
           actionLabel: "Scan QR code",
           onPressed: () {
-            //  open bottomsheet to add products
+            //  open bottomsheet to scan QR code
 
           }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -50,32 +48,6 @@ class _HomePageState extends State<HomePage> {
               child: CustomScrollView(
                 physics: const BouncingScrollPhysics(),
                 slivers: [
-                  //  Search bar
-                  SliverToBoxAdapter(
-                    child: Material(
-                      elevation: 4,
-                      child: Container(
-                        width: double.infinity,
-                        color: XploreColors.white,
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Hero(
-                          tag: 'search',
-                          child: GestureDetector(
-                            onTap: () => Get.to(() => SearchPage(products: _homeController.products)),
-                            child: CustomTextFieldAlt(
-                                hint: "Search For Products",
-                                iconData: Icons.search_rounded,
-                                textStyle: TextStyle(fontSize: 16),
-                                isEnabled: false,
-                                controller: _searchController,
-                                onChanged: (value) {}),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  SliverToBoxAdapter(child: vSize30SizedBox),
 
                   //  top stores section
                   TopStoresSection(),

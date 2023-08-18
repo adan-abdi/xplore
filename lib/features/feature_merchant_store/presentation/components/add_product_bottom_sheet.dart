@@ -115,7 +115,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                               _merchantController.setProductPic(file: file);
                             });
                       },
-                      child: widget.product!.productImageUrl!.isNotEmpty
+                      child: widget.product != null && widget.product!.productImageUrl!.isNotEmpty
                           ? Container(
                         width: 180,
                         height: 180,

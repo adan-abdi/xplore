@@ -200,14 +200,6 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            "Didn't Recieve code?",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: XploreColors.xploreOrange),
-                          ),
-                          vSize10SizedBox,
                           Container(
                               width: double.infinity,
                               margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -265,6 +257,14 @@ class _PhoneVerifyPageState extends State<PhoneVerifyPage> {
                                   backgroundColor: XploreColors.deepBlue,
                                   textColor: XploreColors.white,
                                   duration: 30)),
+                          vSize10SizedBox,
+                          Text(
+                            "Didn't Recieve code?",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.normal,
+                                color: XploreColors.xploreOrange),
+                          ),
                         ],
                       ),
                     )

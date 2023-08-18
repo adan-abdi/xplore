@@ -65,27 +65,9 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
         body: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverToBoxAdapter(
-                child: GestureDetector(
-                  onTap: () => Get.to(() => SearchPage(
-                      products: _merchantController.merchantProducts)),
-                  child: CustomTextFieldAlt(
-                      hint: "Search For Products",
-                      iconData: Icons.search_rounded,
-                      textStyle: TextStyle(fontSize: 16),
-                      isEnabled: false,
-                      controller: null,
-                      onChanged: (value) {}),
-                ),
-              ),
-            ),
-
             SliverToBoxAdapter(
               child: vSize20SizedBox,
             ),
-
             //  store overview
             Obx(
               () => StoreOverviewCard(

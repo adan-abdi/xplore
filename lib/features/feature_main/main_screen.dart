@@ -17,6 +17,7 @@ import 'package:shamiri/features/feature_merchant_store/presentation/screens/mer
 import 'package:shamiri/features/feature_profile/presentation/profile_page.dart';
 
 import '../../application/core/themes/colors.dart';
+import '../../core/presentation/components/custom_textfield_alt.dart';
 import '../../core/presentation/components/hamburger.dart';
 import 'package:get/get.dart';
 import 'package:badges/badges.dart' as badge;
@@ -37,6 +38,7 @@ class _MainScreenState extends State<MainScreen> {
   late List<GButton> _bottomBarTabs;
   late HomeController _homeController;
   late MerchantController _merchantController;
+  late final TextEditingController _searchController;
   late final List<Widget> _pages;
 
   @override
@@ -46,6 +48,7 @@ class _MainScreenState extends State<MainScreen> {
     _homeController = Get.find<HomeController>();
     _authController = Get.find<AuthController>();
     _merchantController = Get.find<MerchantController>();
+    _searchController = TextEditingController();
 
     _authController.getUserDataFromFirestore().listen((user) {
       _authController.setUser(
@@ -115,7 +118,10 @@ class _MainScreenState extends State<MainScreen> {
                                 : XploreColors.white,
                         systemNavigationBarColor: XploreColors.white,
                         systemNavigationBarIconBrightness: Brightness.dark),
-                    backgroundColor: _homeController.activeBottomBarIndex.value == 2 ? XploreColors.deepBlue : XploreColors.white,
+                    backgroundColor:
+                        _homeController.activeBottomBarIndex.value == 2
+                            ? XploreColors.deepBlue
+                            : XploreColors.white,
                     title: Text(
                       _homeController.activeBottomBarIndex.value == 0
                           ? _authController.user.value!.userName!.trimUserName
@@ -124,7 +130,9 @@ class _MainScreenState extends State<MainScreen> {
                               : "Profile",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color:_homeController.activeBottomBarIndex.value == 2 ? XploreColors.white : XploreColors.black),
+                          color: _homeController.activeBottomBarIndex.value == 2
+                              ? XploreColors.white
+                              : XploreColors.black),
                     ),
                     centerTitle: _homeController.activeBottomBarIndex.value != 1
                         ? true
@@ -168,7 +176,32 @@ class _MainScreenState extends State<MainScreen> {
                                 color: XploreColors.deepBlue,
                               )))),
                     ],
-                    elevation: 0,
+                    elevation: 4,
+                    bottom: _homeController.activeBottomBarIndex.value != 2
+                        ? PreferredSize(
+                            child: Container(
+                              width: double.infinity,
+                              color: XploreColors.white,
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              padding: const EdgeInsets.only(bottom: 16),
+                              child: Hero(
+                                tag: 'search',
+                                child: GestureDetector(
+                                  onTap: () => Get.to(() => SearchPage(
+                                      products: _homeController.products)),
+                                  child: CustomTextFieldAlt(
+                                      hint: "Search For Products",
+                                      iconData: Icons.search_rounded,
+                                      textStyle: TextStyle(fontSize: 16),
+                                      isEnabled: false,
+                                      controller: _searchController,
+                                      onChanged: (value) {}),
+                                ),
+                              ),
+                            ),
+                            preferredSize: const Size.fromHeight(70))
+                        : null,
                   ),
                   body: Obx(
                     () => IndexedStack(
