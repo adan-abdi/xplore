@@ -56,28 +56,33 @@ class _HomePageState extends State<HomePage> {
 
                   //  all products pill buttons
                   SliverToBoxAdapter(
-                    child: Container(
-                        height: 50,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: Constants.productCategories.length,
-                          itemBuilder: (context, index) => Obx(
-                            () => PillBtn(
-                              text: Constants
-                                  .productCategories[index].categoryName,
-                              iconData: Constants
-                                  .productCategories[index].categoryIcon,
-                              isActive: _homeController.activeCategory.value ==
-                                  Constants.productCategories[index],
-                              onTap: () => _homeController.setActiveCategory(
-                                  Constants.productCategories[index]),
-                            ),
-                          ),
-                          separatorBuilder: (context, index) => const SizedBox(
-                            width: 8,
-                          ),
-                        )),
+                    child: Obx(
+                      () => Visibility(
+                        visible: _homeController.products.isNotEmpty,
+                        child: Container(
+                            height: 50,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: Constants.productCategories.length,
+                              itemBuilder: (context, index) => Obx(
+                                () => PillBtn(
+                                  text: Constants
+                                      .productCategories[index].categoryName,
+                                  iconData: Constants
+                                      .productCategories[index].categoryIcon,
+                                  isActive: _homeController.activeCategory.value ==
+                                      Constants.productCategories[index],
+                                  onTap: () => _homeController.setActiveCategory(
+                                      Constants.productCategories[index]),
+                                ),
+                              ),
+                              separatorBuilder: (context, index) => const SizedBox(
+                                width: 8,
+                              ),
+                            )),
+                      ),
+                    ),
                   ),
 
                   SliverToBoxAdapter(child: vSize30SizedBox),
