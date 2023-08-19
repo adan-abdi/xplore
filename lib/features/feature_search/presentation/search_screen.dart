@@ -43,6 +43,24 @@ class _SearchPageState extends State<SearchPage> {
             systemNavigationBarColor: XploreColors.white,
             systemNavigationBarIconBrightness: Brightness.dark),
         backgroundColor: XploreColors.white,
+        title: Container(
+          child: Center(
+            child: Hero(
+              tag: 'search',
+              child: CustomTextFieldAlt(
+                  hint: "Search For Products",
+                  autoFocusEnabled: true,
+                  iconData: Icons.search_rounded,
+                  textStyle: TextStyle(fontSize: 16),
+                  showLeading: false,
+                  controller: _searchController,
+                  onChanged: (query) {
+                    _homeController.searchForProducts(
+                        query: query, products: widget.products);
+                  }),
+            ),
+          ),
+        ),
         leading: IconButton(
             onPressed: () => Get.back(),
             icon: Icon(Icons.cancel_rounded, color: XploreColors.deepBlue)),
@@ -54,27 +72,6 @@ class _SearchPageState extends State<SearchPage> {
           child: CustomScrollView(
             physics: const BouncingScrollPhysics(),
             slivers: [
-              //  Search bar
-              SliverToBoxAdapter(
-                child: Hero(
-                  tag: 'search',
-                  child: CustomTextFieldAlt(
-                      hint: "Search For Products",
-                      autoFocusEnabled: true,
-                      iconData: Icons.search_rounded,
-                      textStyle: TextStyle(fontSize: 16),
-                      controller: _searchController,
-                      onChanged: (query) {
-                        _homeController.searchForProducts(
-                            query: query, products: widget.products);
-                      }),
-                ),
-              ),
-
-              SliverToBoxAdapter(
-                child: vSize30SizedBox,
-              ),
-
               //  all products toggle pill buttons
               Obx(
                 () => _homeController.filteredProducts.isNotEmpty
