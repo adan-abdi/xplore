@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/domain/model/cart_model.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
+import 'package:shamiri/core/presentation/components/show_alert_dialog.dart';
 import 'package:shamiri/core/presentation/components/show_toast.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
@@ -159,73 +160,40 @@ class _ProductViewPageState extends State<ProductViewPage> {
                     badgeCount: _authController.user.value!.itemsInCart!.length,
                     iconData: Icons.shopping_cart_rounded),
               )),
-          Visibility(
-            visible: _merchantController.merchantProducts
-                .map((product) => product.productId!)
-                .contains(widget.product.productId!),
-            child: PopupMenuButton(
-              itemBuilder: (context) => [
-                //  update product
-                PopupMenuItem(
-                  onTap: () {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      openBottomSheet(
-                          content: AddProductBottomSheet(
-                            product: widget.product,
-                          ),
-                          onComplete: () {});
+          //  edit icon
+          IconButton(
+              onPressed: () {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  openBottomSheet(
+                      content: AddProductBottomSheet(
+                        product: widget.product,
+                      ),
+                      onComplete: () {});
+                });
+              },
+              icon: Icon(Icons.edit_rounded, color: XploreColors.deepBlue)),
+
+          //  delete icon
+          IconButton(
+              onPressed: () async {
+                showAlertDialog(
+                    title: "Delete Product",
+                    iconData: Icons.delete_forever_rounded,
+                    content: Text(
+                      "Would you like to delete this product?",
+                      textAlign: TextAlign.center,
+                    ),
+                    onCancel: () => Get.back(),
+                    onConfirm: () async {
+                      //  delete product
+                      await _merchantController.deleteProduct(
+                          productId: widget.product.productId!);
+                      Get.back();
+                      Get.back();
                     });
-                  },
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.edit_rounded,
-                        size: 16,
-                        color: XploreColors.xploreOrange,
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        "Edit Product",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      )
-                    ],
-                  ),
-                ),
-                //  delete product
-                PopupMenuItem(
-                  onTap: () async {
-                    //  delete product
-                    await _merchantController.deleteProduct(
-                        productId: widget.product.productId!);
-                    Get.back();
-                  },
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.delete_forever_rounded,
-                        size: 16,
-                        color: XploreColors.xploreOrange,
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        "Delete Product",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      )
-                    ],
-                  ),
-                ),
-              ],
-              color: XploreColors.white,
-              icon: Icon(
-                Icons.more_vert_rounded,
-                color: XploreColors.deepBlue,
-              ),
-            ),
-          ),
+              },
+              icon: Icon(Icons.delete_forever_rounded,
+                  color: XploreColors.deepBlue)),
         ],
         elevation: 0,
       ),
