@@ -95,7 +95,7 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                     padding:
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(5),
                         color: XploreColors.deepBlue),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -47,7 +47,7 @@ class _TopStoreCardState extends State<TopStoreCard> {
         margin: EdgeInsets.only(right: widget.margin),
         decoration: BoxDecoration(
             color: XploreColors.deepBlue,
-            borderRadius: BorderRadius.circular(16)),
+            borderRadius: BorderRadius.circular(5)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

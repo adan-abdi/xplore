@@ -244,8 +244,8 @@ class _ProductViewPageState extends State<ProductViewPage> {
               decoration: BoxDecoration(
                   color: XploreColors.white,
                   borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(24),
-                      topLeft: Radius.circular(24))),
+                      topRight: Radius.circular(5),
+                      topLeft: Radius.circular(5))),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(

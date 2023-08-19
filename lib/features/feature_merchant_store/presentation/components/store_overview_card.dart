@@ -38,7 +38,7 @@ class _StoreOverviewCardState extends State<StoreOverviewCard> {
           height: 200,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: BorderRadius.circular(5),
             color: XploreColors.deepBlue,
           ),
           child: Column(

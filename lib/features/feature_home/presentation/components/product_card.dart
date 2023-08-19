@@ -19,7 +19,7 @@ class ProductCard extends StatelessWidget {
           width: 150,
           height: 180,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16), color: XploreColors.white),
+              borderRadius: BorderRadius.circular(5), color: XploreColors.white),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -31,7 +31,7 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(5),
                             color: product.productImageUrl != null &&
                                     product.productImageUrl!.isNotEmpty
                                 ? XploreColors.white
@@ -41,7 +41,7 @@ class ProductCard extends StatelessWidget {
                             fit: StackFit.expand,
                             children: [
                               ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
+                                borderRadius: BorderRadius.circular(5),
                                 child: product.productImageUrl != null &&
                                         product.productImageUrl!.isNotEmpty
                                     ? Image.network(
@@ -56,27 +56,6 @@ class ProductCard extends StatelessWidget {
                               )
                             ],
                           )),
-                      // Align(
-                      //   alignment: AlignmentDirectional.topEnd,
-                      //   child: UnconstrainedBox(
-                      //     child: Container(
-                      //       width: 30,
-                      //       height: 30,
-                      //       decoration: BoxDecoration(
-                      //           color: XploreColors.deepBlue,
-                      //           border: Border.all(
-                      //               color: XploreColors.white, width: 4, strokeAlign: BorderSide.strokeAlignOutside),
-                      //           borderRadius: BorderRadius.circular(100)),
-                      //       child: Center(
-                      //         child: Icon(
-                      //           Icons.favorite_outline_rounded,
-                      //           color: XploreColors.xploreOrange,
-                      //           size: 20,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // )
                     ],
                   )),
 
@@ -84,7 +63,7 @@ class ProductCard extends StatelessWidget {
               Expanded(
                   flex: 3,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,

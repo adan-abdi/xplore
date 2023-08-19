@@ -67,7 +67,7 @@ class _ProductCardAltState extends State<ProductCardAlt> {
         height: 100,
         padding: const EdgeInsets.all(8),
         margin: const EdgeInsets.only(bottom: 16),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
         child: Row(
           children: [
             //  image
@@ -76,9 +76,9 @@ class _ProductCardAltState extends State<ProductCardAlt> {
               height: double.infinity,
               decoration: BoxDecoration(
                   color: XploreColors.deepBlue,
-                  borderRadius: BorderRadius.circular(24)),
+                  borderRadius: BorderRadius.circular(5)),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(5),
                 child: widget.product.productImageUrl != null &&
                         widget.product.productImageUrl!.isNotEmpty
                     ? Image.network(

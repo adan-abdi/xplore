@@ -96,7 +96,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
               height: 250,
               decoration: BoxDecoration(
                   color: XploreColors.deepBlue,
-                  borderRadius: BorderRadius.circular(16)),
+                  borderRadius: BorderRadius.circular(5)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

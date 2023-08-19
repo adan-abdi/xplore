@@ -23,7 +23,7 @@ class DrawerOptionItem extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
             color: XploreColors.deepBlue,
-            borderRadius: BorderRadius.circular(16)),
+            borderRadius: BorderRadius.circular(5)),
         child: Row(
           children: [
             Icon(iconData, color: XploreColors.whiteSmoke),
