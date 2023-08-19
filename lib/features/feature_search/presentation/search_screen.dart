@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:shamiri/core/presentation/components/my_lottie.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_home/presentation/components/product_card.dart';
 
@@ -43,6 +44,7 @@ class _SearchPageState extends State<SearchPage> {
             systemNavigationBarColor: XploreColors.white,
             systemNavigationBarIconBrightness: Brightness.dark),
         backgroundColor: XploreColors.white,
+        toolbarHeight: 80,
         title: Container(
           child: Center(
             child: Hero(
@@ -92,7 +94,13 @@ class _SearchPageState extends State<SearchPage> {
                             mainAxisSpacing: 16,
                             crossAxisSpacing: 12))
                     : SliverFillRemaining(
-                        child: Center(child: Text("Search for products")),
+                        child: Column(
+                          children: [
+                            MyLottie(lottie: 'assets/general/search.json'),
+                            vSize20SizedBox,
+                            Text("Search for products"),
+                          ],
+                        ),
                       ),
               )
             ],
