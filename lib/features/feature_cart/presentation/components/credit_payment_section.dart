@@ -19,6 +19,7 @@ import '../../../feature_merchant_store/domain/model/product_model.dart';
 import '../../../feature_merchant_store/domain/model/transaction_model.dart';
 import '../../../feature_merchant_store/domain/model/transaction_types.dart';
 import '../../../feature_merchant_store/presentation/controller/merchant_controller.dart';
+import '../../domain/model/payment_types.dart';
 import '../controller/cart_controller.dart';
 
 class CreditPaymentSection extends StatefulWidget {
@@ -120,17 +121,15 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                     lastDate: DateTime(2100),
                     builder: (context, child) => Theme(
                         data: Theme.of(context).copyWith(
-                          colorScheme: ColorScheme.light(
-                            primary: XploreColors.xploreOrange,
-                            onPrimary: XploreColors.white,
-                            onSurface: XploreColors.deepBlue
-                          ),
-                          textButtonTheme: TextButtonThemeData(
-                            style: TextButton.styleFrom(
-                              foregroundColor: XploreColors.xploreOrange
-                            )
-                          )
-                        ), child: child!));
+                            colorScheme: ColorScheme.light(
+                                primary: XploreColors.xploreOrange,
+                                onPrimary: XploreColors.white,
+                                onSurface: XploreColors.deepBlue),
+                            textButtonTheme: TextButtonThemeData(
+                                style: TextButton.styleFrom(
+                                    foregroundColor:
+                                        XploreColors.xploreOrange))),
+                        child: child!));
 
                 setState(() {
                   date = pickedDate != null ? pickedDate : date;
@@ -183,7 +182,9 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                               cartItem.cartProductCount!,
                           transactionDate: DateTime.now().toString(),
                           isFulfilled: false,
-                          transactionType: TransactionTypes.credit.toString()));
+                          transactionType: TransactionTypes.credit.toString(),
+                          transactionPaymentMethod:
+                              PaymentTypes.credit.toString()));
 
                       await _authController
                           .updateUserDataInFirestore(
@@ -209,7 +210,9 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                               transactionDate: DateTime.now().toString(),
                               isFulfilled: false,
                               transactionType:
-                                  TransactionTypes.credit.toString()));
+                                  TransactionTypes.credit.toString(),
+                              transactionPaymentMethod:
+                                  PaymentTypes.credit.toString()));
 
                           await _authController.updateUserDataInFirestore(
                               oldUser: buyerData,

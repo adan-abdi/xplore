@@ -7,6 +7,7 @@ import 'package:shamiri/core/presentation/components/custom_textfield.dart';
 import 'package:shamiri/core/presentation/components/show_snackbar.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/features/feature_cart/domain/model/payment_types.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/transaction_types.dart';
 
 import '../../../../application/core/themes/colors.dart';
@@ -133,7 +134,8 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                           transactionDate: DateTime.now().toString(),
                           isFulfilled: false,
                           transactionType:
-                              TransactionTypes.pending.toString()));
+                              TransactionTypes.pending.toString(),
+                      transactionPaymentMethod: PaymentTypes.cash.toString()));
 
                       await _authController
                           .updateUserDataInFirestore(
@@ -159,7 +161,8 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                               transactionDate: DateTime.now().toString(),
                               isFulfilled: false,
                               transactionType:
-                                  TransactionTypes.pending.toString()));
+                                  TransactionTypes.pending.toString(),
+                              transactionPaymentMethod: PaymentTypes.cash.toString()));
 
                           await _authController.updateUserDataInFirestore(
                               oldUser: buyerData,

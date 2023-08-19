@@ -10,12 +10,14 @@ import '../../../../core/presentation/components/show_alert_dialog.dart';
 import '../../../../domain/value_objects/app_spaces.dart';
 import 'package:get/get.dart';
 
+import '../../../feature_cart/domain/model/payment_types.dart';
 import '../../../feature_home/presentation/controller/home_controller.dart';
 import '../../domain/model/transaction_model.dart';
 
 class TransactionCardMain extends StatefulWidget {
   final String buyerId;
   final TransactionTypes transactionType;
+  final PaymentTypes transactionPaymentMethod;
   final List<TransactionModel> allTransactionsByBuyer;
   final VoidCallback onTap;
 
@@ -23,6 +25,7 @@ class TransactionCardMain extends StatefulWidget {
       {super.key,
       required this.buyerId,
       required this.transactionType,
+      required this.transactionPaymentMethod,
       required this.allTransactionsByBuyer,
       required this.onTap});
 
@@ -45,10 +48,8 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
   String getUserName() {
     UserModel? userName = widget.buyerId.split(" ").toList()[0] == 'customer'
         ? null
-        : _homeController.stores
-            .firstWhereOrNull(
-                (store) =>
-                    store.userId! == widget.buyerId.split(" ").toList()[0]);
+        : _homeController.stores.firstWhereOrNull(
+            (store) => store.userId! == widget.buyerId.split(" ").toList()[0]);
 
     return userName == null ? 'Unknown' : userName.userName!;
   }
@@ -185,7 +186,7 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                                 TransactionTag(
                                     title: widget.transactionType ==
                                             TransactionTypes.fulfilled
-                                        ? 'Fulfilled'
+                                        ? 'Complete'
                                         : widget.transactionType ==
                                                 TransactionTypes.pending
                                             ? 'Pending'
@@ -215,10 +216,10 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                       child: GestureDetector(
                         onTap: () {
                           showAlertDialog(
-                              title: "Fulfill Transaction",
+                              title: "Complete Transaction",
                               iconData: Icons.receipt_rounded,
                               content: Text(
-                                "Would you like to fulfill this transaction?",
+                                "Would you like to complete this transaction?",
                                 textAlign: TextAlign.center,
                               ),
                               onCancel: () => Get.back(),
@@ -264,7 +265,7 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                               Text(
                                 widget.transactionType ==
                                         TransactionTypes.pending
-                                    ? "Fulfill"
+                                    ? "Complete"
                                     : "Pay",
                                 style: TextStyle(
                                     fontSize: 14, color: XploreColors.white),

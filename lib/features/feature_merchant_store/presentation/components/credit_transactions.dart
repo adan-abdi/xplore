@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card_main.dart';
-import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_details_bottomsheet.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_receipt_screen.dart';
 
 import '../../../../core/presentation/components/my_lottie.dart';
-import '../../../../core/presentation/components/open_bottom_sheet.dart';
 import '../../../../core/presentation/controller/auth_controller.dart';
+import '../../../feature_cart/domain/model/payment_types.dart';
 import '../../../feature_home/presentation/controller/home_controller.dart';
 import '../../domain/model/transaction_types.dart';
 
@@ -55,9 +54,17 @@ class _CreditTransactionsState extends State<CreditTransactions> {
                             TransactionTypes.credit.toString())
                     .toList();
 
+                final getPaymentMethod = allTransactionsByBuyer.map((
+                    transaction) => transaction.transactionPaymentMethod!)
+                    .toList();
+
+                final paymentType = PaymentTypes.values.firstWhere((type) =>
+                type.toString() == getPaymentMethod[0]);
+
                 return TransactionCardMain(
                   buyerId: creditTransactionsByBuyerId[mainIndex],
                   transactionType: TransactionTypes.credit,
+                  transactionPaymentMethod: paymentType,
                   allTransactionsByBuyer: allTransactionsByBuyer,
                   onTap: () {
                     Get.to(() => TransactionReceiptScreen(

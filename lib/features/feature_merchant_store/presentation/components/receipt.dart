@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/features/feature_cart/domain/model/payment_types.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card.dart';
 
 import '../../domain/model/transaction_model.dart';
@@ -23,6 +24,13 @@ class Receipt extends StatelessWidget {
 
     return TransactionTypes.values
         .firstWhere((type) => type.toString() == transaction.transactionType!);
+  }
+
+  PaymentTypes getPaymentType({required int index}) {
+    final transaction = allTransactionsByBuyer[index];
+
+    return PaymentTypes.values.firstWhere(
+        (type) => type.toString() == transaction.transactionPaymentMethod!);
   }
 
   String getCreatedDate() {
@@ -82,15 +90,14 @@ class Receipt extends StatelessWidget {
                         color: XploreColors.deepBlue)),
                 Expanded(
                   child: Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: List.generate(
                         20,
-                            (index) => Container(
-                          width: 8,
-                          height: 2,
-                          color: XploreColors.deepBlue,
-                        )),
+                        (index) => Container(
+                              width: 8,
+                              height: 2,
+                              color: XploreColors.deepBlue,
+                            )),
                   ),
                 ),
                 Container(
@@ -125,21 +132,19 @@ class Receipt extends StatelessWidget {
             vSize20SizedBox,
 
             Padding(
-              padding:
-              const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    final transaction =
-                    allTransactionsByBuyer[index];
+                    final transaction = allTransactionsByBuyer[index];
 
                     return TransactionCard(
                       transaction: transaction,
                       product: transaction.product!,
                       altColors: false,
-                      transactionType:
-                      getTransactionType(index: index),
+                      transactionType: getTransactionType(index: index),
+                      transactionPaymentMethod: getPaymentType(index: index),
                     );
                   },
                   itemCount: allTransactionsByBuyer.length),
@@ -157,70 +162,68 @@ class Receipt extends StatelessWidget {
             vSize20SizedBox,
 
             Padding(
-              padding:
-              const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Container(
-                height: 80,
-                child: Stack(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Total",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  color: Colors.black),
-                            ),
-                            Text(
-                              "Ksh. $totalPrice",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  color: Colors.black),
-                            ),
-                          ],
-                        ),
-                        vSize20SizedBox,
-                        Text(
-                          "Created : ${getCreatedDate()}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              color: XploreColors.deepBlue.withOpacity(0.8)),
-                        ),
-                      ],
-                    ),
-                    Align(
-                      alignment: AlignmentDirectional.bottomCenter,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: List.generate(
-                            10,
-                                (index) => Container(
-                              width: 20,
-                              height: 10,
-                              margin: index != 9
-                                  ? const EdgeInsets.only(right: 8)
-                                  : EdgeInsets.zero,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(100),
-                                  topRight: Radius.circular(100),
-                                ),
-                                color: XploreColors.deepBlue,
+                  height: 80,
+                  child: Stack(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Total",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    color: Colors.black),
                               ),
-                            )),
+                              Text(
+                                "Ksh. $totalPrice",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    color: Colors.black),
+                              ),
+                            ],
+                          ),
+                          vSize20SizedBox,
+                          Text(
+                            "Created : ${getCreatedDate()}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                color: XploreColors.deepBlue.withOpacity(0.8)),
+                          ),
+                        ],
                       ),
-                    )
-                  ],
-                )
-              ),
+                      Align(
+                        alignment: AlignmentDirectional.bottomCenter,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: List.generate(
+                              10,
+                              (index) => Container(
+                                    width: 20,
+                                    height: 10,
+                                    margin: index != 9
+                                        ? const EdgeInsets.only(right: 8)
+                                        : EdgeInsets.zero,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(100),
+                                        topRight: Radius.circular(100),
+                                      ),
+                                      color: XploreColors.deepBlue,
+                                    ),
+                                  )),
+                        ),
+                      )
+                    ],
+                  )),
             ),
           ],
         ),

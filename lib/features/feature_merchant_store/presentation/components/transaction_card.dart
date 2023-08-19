@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
+import 'package:shamiri/features/feature_cart/domain/model/payment_types.dart';
+import 'package:shamiri/features/feature_cart/presentation/model/payment_method.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/transaction_model.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_tag.dart';
@@ -14,13 +16,15 @@ class TransactionCard extends StatelessWidget {
   final ProductModel product;
   final bool altColors;
   final TransactionTypes transactionType;
+  final PaymentTypes transactionPaymentMethod;
 
   const TransactionCard(
       {super.key,
       required this.transaction,
       required this.product,
       this.altColors = false,
-      required this.transactionType});
+      required this.transactionType,
+      required this.transactionPaymentMethod});
 
   @override
   Widget build(BuildContext context) {
@@ -122,11 +126,11 @@ class TransactionCard extends StatelessWidget {
                         hSize20SizedBox,
                         TransactionTag(
                             title: transactionType == TransactionTypes.fulfilled
-                                ? 'Fulfilled'
+                                ? 'Completed'
                                 : transactionType == TransactionTypes.pending
                                     ? 'Pending'
                                     : 'Credit',
-                            altColors: true,
+                            altColors: false,
                             tagColor: transactionType ==
                                     TransactionTypes.fulfilled
                                 ? XploreColors.green

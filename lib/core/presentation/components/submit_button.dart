@@ -8,6 +8,7 @@ class SubmitButton extends StatelessWidget {
   final String text;
   final bool isLoading;
   final bool isValid;
+  final bool hasMargin;
   final Color backgroundColor;
   final Color textColor;
   final VoidCallback? onTap;
@@ -18,6 +19,7 @@ class SubmitButton extends StatelessWidget {
       required this.text,
       this.isLoading = false,
       required this.isValid,
+      this.hasMargin = true,
       this.backgroundColor = XploreColors.deepBlue,
       this.textColor = XploreColors.white,
       required this.onTap});
@@ -34,10 +36,12 @@ class SubmitButton extends StatelessWidget {
             )
           : Container(
               width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 8),
+              margin: hasMargin ? const EdgeInsets.symmetric(horizontal: 8) : EdgeInsets.zero,
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
               decoration: BoxDecoration(
-                  color: isValid ? backgroundColor : backgroundColor.withOpacity(0.3),
+                  color: isValid
+                      ? backgroundColor
+                      : backgroundColor.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(4)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -36,95 +36,56 @@ class _MerchantTransactionsState extends State<MerchantTransactions> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => DefaultTabController(
-        length: 3,
-        child: Scaffold(
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        backgroundColor: XploreColors.white,
+        appBar: AppBar(
+          systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarIconBrightness: Brightness.dark,
+              statusBarColor: XploreColors.white,
+              systemNavigationBarColor: XploreColors.white,
+              systemNavigationBarIconBrightness: Brightness.dark),
+          title: Text(
+            "Transactions",
+            style: TextStyle(color: XploreColors.black),
+          ),
+          centerTitle: true,
           backgroundColor: XploreColors.white,
-          appBar: AppBar(
-            systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarIconBrightness: Brightness.dark,
-                statusBarColor: XploreColors.white,
-                systemNavigationBarColor: XploreColors.white,
-                systemNavigationBarIconBrightness: Brightness.dark),
-            title: Text(
-              "Transactions",
-              style: TextStyle(color: XploreColors.black),
-            ),
-            centerTitle: true,
-            backgroundColor: XploreColors.white,
-            elevation: 0,
-            leading: IconButton(
-                onPressed: () => Get.back(),
-                icon:
-                    Icon(Icons.arrow_back_rounded, color: XploreColors.black)),
-          ),
-          floatingActionButton: _merchantController
-                      .activeTransactionType.value ==
-                  TransactionTypes.pending
-              ? CustomFAB(
-                  actionIcon: Icons.done_all_rounded,
-                  actionLabel: "Complete all",
-                  onPressed: () {
-                    showAlertDialog(
-                        title: "Complete Transactions",
-                        iconData: Icons.receipt_rounded,
-                        content:
-                            Text("Would you like to complete all transactions?"),
-                        onCancel: () => Get.back(),
-                        onConfirm: () async {
-                          //  fulfill all orders
-                          final allTransactions =
-                              _authController.user.value!.transactions!;
-
-                          allTransactions.forEach((transaction) {
-                            if (transaction.transactionType ==
-                                TransactionTypes.pending.toString()) {
-                              transaction.transactionType =
-                                  TransactionTypes.fulfilled.toString();
-                            }
-                          });
-
-                          await _authController.updateUserDataInFirestore(
-                              oldUser: _authController.user.value!,
-                              newUser: UserModel(transactions: allTransactions),
-                              uid: _authController.user.value!.userId!);
-
-                          Get.back();
-                        });
-                  })
-                  : null,
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          body: Column(
-            children: [
-              Obx(
-                () => Expanded(
-                  child: CustomScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    slivers: [
-                      SliverToBoxAdapter(
-                        child: vSize10SizedBox,
-                      ),
-                      //  fullfilled, pending toggle,
-                      TransactionToggle(),
-                      SliverToBoxAdapter(
-                        child: vSize30SizedBox,
-                      ),
-                      // main body
-                      _merchantController.activeTransactionType.value ==
-                              TransactionTypes.fulfilled
-                          ? FulfilledTransactions()
-                          : _merchantController.activeTransactionType.value ==
-                                  TransactionTypes.credit
-                              ? CreditTransactions()
-                              : PendingTransactions()
-                    ],
-                  ),
+          elevation: 0,
+          leading: IconButton(
+              onPressed: () => Get.back(),
+              icon:
+              Icon(Icons.arrow_back_rounded, color: XploreColors.black)),
+        ),
+        body: Column(
+          children: [
+            Obx(
+                  () => Expanded(
+                child: CustomScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: vSize10SizedBox,
+                    ),
+                    //  fullfilled, pending toggle,
+                    TransactionToggle(),
+                    SliverToBoxAdapter(
+                      child: vSize30SizedBox,
+                    ),
+                    // main body
+                    _merchantController.activeTransactionType.value ==
+                        TransactionTypes.fulfilled
+                        ? FulfilledTransactions()
+                        : _merchantController.activeTransactionType.value ==
+                        TransactionTypes.credit
+                        ? CreditTransactions()
+                        : PendingTransactions()
+                  ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );

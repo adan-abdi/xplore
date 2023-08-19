@@ -117,17 +117,18 @@ class _TransactionReceiptScreenState extends State<TransactionReceiptScreen> {
                             ? Icons.done_rounded
                             : Icons.attach_money_rounded,
                         text: getTransactionType(index: 0) == TransactionTypes.pending
-                            ? "Fulfill"
+                            ? "Complete"
                             : "Pay",
                         backgroundColor: XploreColors.white,
+                        hasMargin: false,
                         textColor: XploreColors.deepBlue,
                         isValid: true,
                         onTap: () {
                           showAlertDialog(
-                              title: "Fulfill Transaction",
+                              title: "Complete Transaction",
                               iconData: Icons.receipt_rounded,
                               content: Text(
-                                "Would you like to fulfill this transaction?",
+                                "Would you like to complete this transaction?",
                                 textAlign: TextAlign.center,
                               ),
                               onCancel: () => Get.back(),

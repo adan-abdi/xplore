@@ -18,6 +18,7 @@ import '../../../feature_merchant_store/domain/model/product_model.dart';
 import '../../../feature_merchant_store/domain/model/transaction_model.dart';
 import '../../../feature_merchant_store/domain/model/transaction_types.dart';
 import '../../../feature_merchant_store/presentation/controller/merchant_controller.dart';
+import '../../domain/model/payment_types.dart';
 import '../controller/cart_controller.dart';
 
 class MpesaPaymentSection extends StatefulWidget {
@@ -143,7 +144,8 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
                           transactionDate: DateTime.now().toString(),
                           isFulfilled: false,
                           transactionType:
-                          TransactionTypes.pending.toString()));
+                          TransactionTypes.pending.toString(),
+                          transactionPaymentMethod: PaymentTypes.mpesa.toString()));
 
                       await _authController
                           .updateUserDataInFirestore(
@@ -169,7 +171,8 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
                               transactionDate: DateTime.now().toString(),
                               isFulfilled: false,
                               transactionType:
-                              TransactionTypes.pending.toString()));
+                              TransactionTypes.pending.toString(),
+                              transactionPaymentMethod: PaymentTypes.mpesa.toString()));
 
                           await _authController.updateUserDataInFirestore(
                               oldUser: buyerData,
