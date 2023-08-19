@@ -161,39 +161,49 @@ class _ProductViewPageState extends State<ProductViewPage> {
                     iconData: Icons.shopping_cart_rounded),
               )),
           //  edit icon
-          IconButton(
-              onPressed: () {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  openBottomSheet(
-                      content: AddProductBottomSheet(
-                        product: widget.product,
-                      ),
-                      onComplete: () {});
-                });
-              },
-              icon: Icon(Icons.edit_rounded, color: XploreColors.deepBlue)),
+          Visibility(
+            visible: _merchantController.merchantProducts
+                .map((product) => product.productId!)
+                .contains(widget.product.productId!),
+            child: IconButton(
+                onPressed: () {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    openBottomSheet(
+                        content: AddProductBottomSheet(
+                          product: widget.product,
+                        ),
+                        onComplete: () {});
+                  });
+                },
+                icon: Icon(Icons.edit_rounded, color: XploreColors.deepBlue)),
+          ),
 
           //  delete icon
-          IconButton(
-              onPressed: () async {
-                showAlertDialog(
-                    title: "Delete Product",
-                    iconData: Icons.delete_forever_rounded,
-                    content: Text(
-                      "Would you like to delete this product?",
-                      textAlign: TextAlign.center,
-                    ),
-                    onCancel: () => Get.back(),
-                    onConfirm: () async {
-                      //  delete product
-                      await _merchantController.deleteProduct(
-                          productId: widget.product.productId!);
-                      Get.back();
-                      Get.back();
-                    });
-              },
-              icon: Icon(Icons.delete_forever_rounded,
-                  color: XploreColors.deepBlue)),
+          Visibility(
+            visible: _merchantController.merchantProducts
+                .map((product) => product.productId!)
+                .contains(widget.product.productId!),
+            child: IconButton(
+                onPressed: () async {
+                  showAlertDialog(
+                      title: "Delete Product",
+                      iconData: Icons.delete_forever_rounded,
+                      content: Text(
+                        "Would you like to delete this product?",
+                        textAlign: TextAlign.center,
+                      ),
+                      onCancel: () => Get.back(),
+                      onConfirm: () async {
+                        //  delete product
+                        await _merchantController.deleteProduct(
+                            productId: widget.product.productId!);
+                        Get.back();
+                        Get.back();
+                      });
+                },
+                icon: Icon(Icons.delete_forever_rounded,
+                    color: XploreColors.deepBlue)),
+          ),
         ],
         elevation: 0,
       ),
