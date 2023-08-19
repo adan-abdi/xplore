@@ -346,6 +346,8 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                       userEmail: _emailController.text,
                                       storeLocation: _locationController.text),
                                   uid: widget.currentUser!.userId!,
+                                  deleteImage: deleteProfilePic,
+                                  userProfilePic: _coreController.userProfilePic.value,
                                   response: (state, error) {
                                     switch (state) {
                                       case ResponseState.success:

@@ -28,7 +28,10 @@ class ProfilePic extends StatelessWidget {
                   placeholder: (context, url) => Icon(
                         Icons.person_rounded,
                         color: XploreColors.white,
-                      )))
+                      ),
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.cover))
           : Center(
               child: Icon(
                 Icons.person_rounded,

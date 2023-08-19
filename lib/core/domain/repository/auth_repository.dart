@@ -45,8 +45,16 @@ abstract class AuthRepository {
       {required UserModel oldUser,
       required UserModel newUser,
       required String uid,
+      bool deleteImage = false,
+      File? userProfilePic,
       Function(ResponseState response, String? error)? response});
 
   Future<String> storeFileToFirebaseStorage(
       {required String ref, required File file});
+
+  Future<void> deleteFileFromFirebaseStorage(
+      {required String ref,
+      Function(ResponseState response, String? error)? response});
+
+  Future<bool> checkFileExistsInFirebaseStorage({required String ref});
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:shamiri/core/domain/repository/auth_repository.dart';
 import 'package:shamiri/di/locator.dart';
 
@@ -11,8 +13,15 @@ class UpdateUserDataInFirestore {
     required UserModel oldUser,
     required UserModel newUser,
     required String uid,
+    bool deleteImage = false,
+    File? userProfilePic,
     Function(ResponseState response, String? error)? response,
   }) async =>
       await repository.updateUserDataInFirestore(
-          oldUser: oldUser, newUser: newUser, uid: uid, response: response);
+          oldUser: oldUser,
+          newUser: newUser,
+          uid: uid,
+          deleteImage: deleteImage,
+          userProfilePic: userProfilePic,
+          response: response);
 }

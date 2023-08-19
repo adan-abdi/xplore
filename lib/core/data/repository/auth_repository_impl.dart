@@ -168,14 +168,41 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> updateUserDataInFirestore({
-    required UserModel oldUser,
-    required UserModel newUser,
-    required String uid,
-    Function(ResponseState response, String? error)? response
-  }) async {
+  Future<void> updateUserDataInFirestore(
+      {required UserModel oldUser,
+      required UserModel newUser,
+      required String uid,
+      bool deleteImage = false,
+      File? userProfilePic,
+      Function(ResponseState response, String? error)? response}) async {
     response!(ResponseState.loading, null);
     try {
+      final filePath = oldUser.userProfilePicUrl!
+          .replaceAll(
+              RegExp(
+                  r'https://firebasestorage.googleapis.com/v0/b/dial-in-21c50.appspot.com/o/default_images%2F'),
+              '')
+          .split('?')[0];
+      //  only delete user profile image
+      if (deleteImage && userProfilePic == null) {
+        await deleteFileFromFirebaseStorage(
+            ref: 'profilePics/$filePath', response: (state, error) {});
+
+        newUser.userProfilePicUrl = '';
+      } else if (userProfilePic != null) {
+        //  delete the current image
+        await deleteFileFromFirebaseStorage(
+            ref: 'profilePics/$filePath', response: (state, error) {});
+        //  upload the new one
+        await storeFileToFirebaseStorage(
+                ref: 'profilePics/${auth.currentUser!.uid}',
+                file: userProfilePic)
+            .then((downloadUrl) {
+          //  update the new user profile pic
+          newUser.userProfilePicUrl = downloadUrl;
+        });
+      }
+
       await firestore.collection(Constants.USER_COLLECTION).doc(uid).update({
         "userName": newUser.userName ?? oldUser.userName,
         "userProfilePicUrl":
@@ -232,5 +259,30 @@ class AuthRepositoryImpl implements AuthRepository {
 
     final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
     return downloadUrl;
+  }
+
+  @override
+  Future<void> deleteFileFromFirebaseStorage(
+      {required String ref,
+      Function(ResponseState response, String? error)? response}) async {
+    response!(ResponseState.loading, null);
+    try {
+      await FirebaseStorage.instance.ref().child(ref).delete().then((value) {
+        print("Deleted Successfully");
+        response(ResponseState.success, null);
+      });
+    } on FirebaseException catch (error) {
+      response(ResponseState.failure, error.message);
+    }
+  }
+
+  @override
+  Future<bool> checkFileExistsInFirebaseStorage({required String ref}) async {
+    try {
+      // final storageFile = storage.bucket.file();
+      throw UnimplementedError();
+    } on FirebaseException catch (error) {
+      throw Exception(error);
+    }
   }
 }
