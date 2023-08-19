@@ -112,6 +112,32 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                   ),
+
+                  vSize20SizedBox,
+
+                  //  store settings
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.settings_rounded,
+                                color: XploreColors.deepBlue),
+                            hSize10SizedBox,
+                            Text(
+                              "Settings",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: XploreColors.deepBlue),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
