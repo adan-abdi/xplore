@@ -168,10 +168,13 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> updateUserDataInFirestore(
-      {required UserModel oldUser,
-      required UserModel newUser,
-      required String uid}) async {
+  Future<void> updateUserDataInFirestore({
+    required UserModel oldUser,
+    required UserModel newUser,
+    required String uid,
+    Function(ResponseState response, String? error)? response
+  }) async {
+    response!(ResponseState.loading, null);
     try {
       await firestore.collection(Constants.USER_COLLECTION).doc(uid).update({
         "userName": newUser.userName ?? oldUser.userName,
@@ -181,7 +184,8 @@ class AuthRepositoryImpl implements AuthRepository {
         "userPhoneNumber": newUser.userPhoneNumber ?? oldUser.userPhoneNumber,
         "storeLocation": newUser.storeLocation ?? oldUser.storeLocation,
         "storeName": newUser.storeName ?? oldUser.storeName,
-        "storeDescription": newUser.storeDescription ?? oldUser.storeDescription,
+        "storeDescription":
+            newUser.storeDescription ?? oldUser.storeDescription,
         "itemsInCart":
             newUser.itemsInCart?.map((item) => item.toJson()).toList() ??
                 oldUser.itemsInCart?.map((item) => item.toJson()).toList(),
@@ -211,8 +215,11 @@ class AuthRepositoryImpl implements AuthRepository {
                           transaction.transactionPaymentMethod,
                     })
                 .toList()
-      }).then((value) => print("SUCCESS!!!"));
+      }).then((value) => response(ResponseState.success, null));
+
+      response(ResponseState.success, null);
     } on FirebaseException catch (error) {
+      response(ResponseState.failure, error.message);
       throw Exception(error.message);
     }
   }

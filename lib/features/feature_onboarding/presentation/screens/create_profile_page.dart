@@ -1,8 +1,11 @@
+import 'dart:ffi';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pinput/pinput.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/presentation/components/open_bottom_sheet.dart';
@@ -39,6 +42,8 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
   late final AuthController _authController;
   late final UserPrefsController _userPrefsController;
 
+  bool deleteProfilePic = false;
+
   @override
   void initState() {
     super.initState();
@@ -49,9 +54,21 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
     _coreController = Get.find<CoreController>();
     _authController = Get.find<AuthController>();
     _userPrefsController = Get.find<UserPrefsController>();
+
+    _setupControllerValues();
   }
 
-  void setupControllerValues() {}
+  void _setupControllerValues() {
+    if (widget.currentUser != null) {
+      _userNameController.setText(widget.currentUser!.userName!);
+      _emailController.setText(widget.currentUser!.userEmail!);
+      _locationController.setText(widget.currentUser!.storeLocation!);
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _coreController.setProfilePic(file: null);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,14 +143,31 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                         height: double.infinity,
                                       ),
                                     )
-                                  : Align(
-                                      alignment: AlignmentDirectional.center,
-                                      child: Icon(
-                                        Icons.person_rounded,
-                                        color: XploreColors.white,
-                                        size: 48,
-                                      ),
-                                    ),
+                                  : widget.currentUser != null && widget.currentUser!.userProfilePicUrl!
+                                          .isNotEmpty && !deleteProfilePic
+                                      ? ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(200),
+                                          child: CachedNetworkImage(
+                                            imageUrl: widget.currentUser!
+                                                .userProfilePicUrl!,
+                                            placeholder: (context, url) => Icon(
+                                              Icons.person_rounded,
+                                              color: XploreColors.white,
+                                            ),
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                          ))
+                                      : Align(
+                                          alignment:
+                                              AlignmentDirectional.center,
+                                          child: Icon(
+                                            Icons.person_rounded,
+                                            color: XploreColors.white,
+                                            size: 48,
+                                          ),
+                                        ),
 
                               //  edit icon
                               Align(
@@ -167,6 +201,12 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                             onRemoveTap: () {
                                               _coreController.setProfilePic(
                                                   file: null);
+
+                                              if (widget.currentUser != null) {
+                                                setState(() {
+                                                  deleteProfilePic = true;
+                                                });
+                                              }
 
                                               Get.back();
                                             },
@@ -233,30 +273,98 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                       child: Obx(
                         () => SubmitButton(
                             iconData: Icons.done_rounded,
-                            text: "Submit",
+                            text: widget.currentUser == null
+                                ? "Submit"
+                                : "Update",
                             isLoading:
                                 _authController.isCreateProfileLoading.value,
-                            isValid: _authController.isEmailValid.value &&
-                                _authController.isFullNameValid.value,
+                            isValid: widget.currentUser == null
+                                ? _authController.isEmailValid.value &&
+                                    _authController.isFullNameValid.value
+                                : true,
                             onTap: () async {
-                              await _authController.saveUserDataToFirestore(
-                                  userModel: UserModel(
-                                      userId: "",
+                              if (widget.currentUser == null) {
+                                await _authController.saveUserDataToFirestore(
+                                    userModel: UserModel(
+                                        userId: "",
+                                        userName: _userNameController.text,
+                                        userProfilePicUrl: "",
+                                        userEmail: _emailController.text,
+                                        userPhoneNumber: "",
+                                        createdAt: "",
+                                        storeLocation: _locationController.text,
+                                        itemsInCart: [],
+                                        transactions: []),
+                                    userProfilePic:
+                                        _coreController.userProfilePic.value,
+                                    response: (state, error) {
+                                      switch (state) {
+                                        case ResponseState.success:
+                                          _authController
+                                              .setCreateProfileLoading(
+                                                  isLoading: false);
+                                          break;
+                                        case ResponseState.loading:
+                                          _authController
+                                              .setCreateProfileLoading(
+                                                  isLoading: true);
+                                          break;
+                                        case ResponseState.failure:
+                                          _authController
+                                              .setCreateProfileLoading(
+                                                  isLoading: false);
+
+                                          WidgetsBinding.instance
+                                              .addPostFrameCallback((_) {
+                                            showSnackbar(
+                                                title: "Error Creating Account",
+                                                message:
+                                                    "Something went wrong. please try again",
+                                                iconData: Icons.login_rounded,
+                                                iconColor:
+                                                    XploreColors.xploreOrange);
+                                          });
+                                          break;
+                                      }
+                                    },
+                                    onSuccess: () async {
+                                      //  navigate to Main Screen
+                                      Get.to(() => MainScreen());
+                                      //  add logged in status to true
+                                      await _userPrefsController
+                                          .updateUserPrefs(
+                                              userPrefs: UserPrefs(
+                                                  isLoggedIn: true,
+                                                  isProfileCreated: true));
+                                    });
+                              } else {
+                                //  update user Data
+                                await _authController.updateUserDataInFirestore(
+                                  oldUser: widget.currentUser!,
+                                  newUser: UserModel(
                                       userName: _userNameController.text,
-                                      userProfilePicUrl: "",
                                       userEmail: _emailController.text,
-                                      userPhoneNumber: "",
-                                      createdAt: "",
-                                      storeLocation: _locationController.text,
-                                      itemsInCart: [],
-                                      transactions: []),
-                                  userProfilePic:
-                                      _coreController.userProfilePic.value,
+                                      storeLocation: _locationController.text),
+                                  uid: widget.currentUser!.userId!,
                                   response: (state, error) {
                                     switch (state) {
                                       case ResponseState.success:
                                         _authController.setCreateProfileLoading(
                                             isLoading: false);
+
+                                        WidgetsBinding.instance
+                                            .addPostFrameCallback((_) {
+                                          showSnackbar(
+                                              title: "Profile updated!",
+                                              message:
+                                                  "Profile updated successfully",
+                                              iconData: Icons.login_rounded,
+                                              iconColor:
+                                                  XploreColors.xploreOrange);
+                                        });
+
+                                        Get.back();
+
                                         break;
                                       case ResponseState.loading:
                                         _authController.setCreateProfileLoading(
@@ -269,9 +377,8 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                         WidgetsBinding.instance
                                             .addPostFrameCallback((_) {
                                           showSnackbar(
-                                              title: "Error Creating Account",
-                                              message:
-                                                  "Something went wrong. please try again",
+                                              title: "Error Updating Account",
+                                              message: error!,
                                               iconData: Icons.login_rounded,
                                               iconColor:
                                                   XploreColors.xploreOrange);
@@ -279,15 +386,8 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                         break;
                                     }
                                   },
-                                  onSuccess: () async {
-                                    //  navigate to Main Screen
-                                    Get.to(() => MainScreen());
-                                    //  add logged in status to true
-                                    await _userPrefsController.updateUserPrefs(
-                                        userPrefs: UserPrefs(
-                                            isLoggedIn: true,
-                                            isProfileCreated: true));
-                                  });
+                                );
+                              }
                             }),
                       ))
                 ],

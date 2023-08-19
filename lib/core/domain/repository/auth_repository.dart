@@ -42,7 +42,10 @@ abstract class AuthRepository {
 
   /// Update User Data In Firestore
   Future<void> updateUserDataInFirestore(
-      {required UserModel oldUser, required UserModel newUser, required String uid});
+      {required UserModel oldUser,
+      required UserModel newUser,
+      required String uid,
+      Function(ResponseState response, String? error)? response});
 
   Future<String> storeFileToFirebaseStorage(
       {required String ref, required File file});
