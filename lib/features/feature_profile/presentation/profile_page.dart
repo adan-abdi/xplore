@@ -4,12 +4,10 @@ import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
+import 'package:shamiri/features/feature_profile/presentation/components/store_details_card.dart';
 import 'package:shamiri/features/feature_profile/presentation/components/store_overview_card.dart';
 import 'package:shamiri/features/feature_profile/presentation/components/user_profile_card.dart';
-import 'package:shamiri/presentation/core/pages/user_profile_page.dart';
 import 'package:get/get.dart';
-
-import '../../feature_merchant_store/presentation/components/store_overview_card.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -52,58 +50,72 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: XploreColors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        backgroundColor: XploreColors.white,
+        body: Stack(
           children: [
-            //  user profile card
-            Obx(() => UserProfileCard(
-                  user: _authController.user.value!,
-                )),
-
-            vSize20SizedBox,
-
-            //  store overview
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            Container(
+              width: double.infinity,
+              height: 250,
+              color: XploreColors.deepBlue,
+            ),
+            SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Icon(Icons.storefront_rounded,
-                          color: XploreColors.deepBlue),
-                      hSize10SizedBox,
-                      Text(
-                        "Store Overview",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: XploreColors.deepBlue),
-                      ),
-                    ],
-                  ),
-
+                  //  user profile card
+                  Obx(() => UserProfileCard(
+                        user: _authController.user.value!,
+                      )),
+                  //  store details card
+                  Obx(() =>
+                      Align(
+                        alignment: AlignmentDirectional.center,
+                          child: StoreDetailsCard(user: _authController.user.value!))),
                   vSize20SizedBox,
 
-                  Container(
-                    height: 80,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => storeOverviewCards[index],
-                      itemCount: storeOverviewCards.length,
-                      separatorBuilder: (context, index) => hSize20SizedBox,
-                    ),
-                  )
+                  //  store overview
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.storefront_rounded,
+                                color: XploreColors.deepBlue),
+                            hSize10SizedBox,
+                            Text(
+                              "Store Overview",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: XploreColors.deepBlue),
+                            ),
+                          ],
+                        ),
 
-                  //  store overview card list
+                        vSize20SizedBox,
+
+                        Container(
+                          height: 80,
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) =>
+                                storeOverviewCards[index],
+                            itemCount: storeOverviewCards.length,
+                            separatorBuilder: (context, index) =>
+                                hSize20SizedBox,
+                          ),
+                        )
+
+                        //  store overview card list
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
           ],
-        ),
-      ),
-    );
+        ));
   }
 }

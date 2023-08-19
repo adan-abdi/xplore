@@ -133,7 +133,7 @@ class _MainScreenState extends State<MainScreen> {
                           ? _authController.user.value!.userName!.trimUserName
                           : _homeController.activeBottomBarIndex.value == 1
                               ? "My Store"
-                              : "Profile",
+                              : "Merchant Profile",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: _homeController.activeBottomBarIndex.value == 2

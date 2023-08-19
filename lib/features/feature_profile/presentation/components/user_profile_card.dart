@@ -17,7 +17,6 @@ class UserProfileCard extends StatelessWidget {
       width: double.infinity,
       height: 150,
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      color: XploreColors.deepBlue,
       child: Row(
         children: [
           //  profile picture
@@ -39,16 +38,16 @@ class UserProfileCard extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Hello", style: TextStyle(color: XploreColors.whiteSmoke),),
                       Text(user.userName!,
                           style: TextStyle(
                               fontSize: 24, fontWeight: FontWeight.bold, color: XploreColors.white)),
+                      Text(user.storeName!, style: TextStyle(color: XploreColors.whiteSmoke),),
                     ],
                   ),
 
                   vSize20SizedBox,
 
-                  //  phone number
+                  //  edit profile button
                   Row(
                     children: [
                       //  phone number
