@@ -6,8 +6,13 @@ import '../../../application/core/themes/colors.dart';
 class BadgeIcon extends StatelessWidget {
   final int badgeCount;
   final IconData iconData;
+  final Color? iconColor;
 
-  const BadgeIcon({super.key, required this.badgeCount, required this.iconData});
+  const BadgeIcon(
+      {super.key,
+      required this.badgeCount,
+      required this.iconData,
+      this.iconColor});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +32,7 @@ class BadgeIcon extends StatelessWidget {
       badgeAnimation: badges.BadgeAnimation.scale(),
       child: Icon(
         iconData,
-        color: XploreColors.deepBlue,
+        color: iconColor ?? XploreColors.deepBlue,
       ),
     );
   }

@@ -151,7 +151,12 @@ class _MainScreenState extends State<MainScreen> {
                             () => BadgeIcon(
                                 badgeCount: _authController
                                     .user.value!.itemsInCart!.length,
-                                iconData: Icons.shopping_cart_rounded),
+                                iconData: Icons.shopping_cart_rounded,
+                                iconColor: _homeController
+                                            .activeBottomBarIndex.value ==
+                                        2
+                                    ? XploreColors.white
+                                    : null),
                           )),
 
                       //  profile image
@@ -163,13 +168,14 @@ class _MainScreenState extends State<MainScreen> {
                             padding: const EdgeInsets.only(right: 16.0),
                             child: UnconstrainedBox(
                                 child: GestureDetector(
-                                  onTap: () => _homeController.setActiveBottomBarIndex(2),
-                                  child: ProfilePic(
-                              imageUrl: _authController
+                              onTap: () =>
+                                  _homeController.setActiveBottomBarIndex(2),
+                              child: ProfilePic(
+                                imageUrl: _authController
                                     .user.value!.userProfilePicUrl!,
-                              imageSize: 35,
-                            ),
-                                )),
+                                imageSize: 35,
+                              ),
+                            )),
                           ),
                         ),
                       ),

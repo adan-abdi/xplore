@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
+import 'package:shamiri/features/feature_onboarding/presentation/screens/create_profile_page.dart';
 
 import '../../../../application/core/themes/colors.dart';
 import '../../../../domain/value_objects/app_spaces.dart';
@@ -48,16 +51,19 @@ class StoreDetailsCard extends StatelessWidget {
                 ),
 
                 //  edit icon
-                Container(
-                  width: 35,
-                  height: 35,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: XploreColors.deepBlue),
-                  child: Center(
-                    child: Icon(
-                      Icons.edit_rounded,
-                      color: XploreColors.white,
+                GestureDetector(
+                  onTap: () => Get.to(() => CreateProfilePage(currentUser: user,)),
+                  child: Container(
+                    width: 35,
+                    height: 35,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: XploreColors.deepBlue),
+                    child: Center(
+                      child: Icon(
+                        Icons.edit_rounded,
+                        color: XploreColors.white,
+                      ),
                     ),
                   ),
                 )

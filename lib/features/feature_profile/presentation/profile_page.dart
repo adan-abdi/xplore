@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/presentation/components/show_toast.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
+import 'package:shamiri/core/presentation/controller/core_controller.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
 import 'package:shamiri/features/feature_profile/presentation/components/setting_card.dart';
@@ -14,6 +15,7 @@ import 'package:get/get.dart';
 import 'package:shamiri/features/feature_profile/presentation/utils/profile_constants.dart';
 
 import '../../feature_onboarding/presentation/screens/landing_page.dart';
+import '../../../core/domain/model/version_model.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -24,6 +26,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   late final AuthController _authController;
+  late final CoreController _coreController;
   late final MerchantController _merchantController;
   late final List<Widget> storeOverviewCards;
   late final FToast _toast;
@@ -33,6 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
 
     _authController = Get.find<AuthController>();
+    _coreController = Get.find<CoreController>();
     _merchantController = Get.find<MerchantController>();
     _toast = FToast();
     _toast.init(context);
@@ -94,7 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: XploreColors.deepBlue),
                             hSize10SizedBox,
                             Text(
-                              "Store Overview",
+                              "Overview",
                               style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -116,61 +120,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                 hSize20SizedBox,
                           ),
                         )
-
-                        //  store overview card list
-                      ],
-                    ),
-                  ),
-
-                  vSize30SizedBox,
-
-                  //  store account settings
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(Icons.account_circle_rounded,
-                                color: XploreColors.deepBlue),
-                            hSize10SizedBox,
-                            Text(
-                              "Account Settings",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: XploreColors.deepBlue),
-                            ),
-                          ],
-                        ),
-
-                        vSize10SizedBox,
-
-                        //  store settings
-                        ListView.builder(
-                            itemBuilder: (context, index) => SettingCard(
-                                setting:
-                                    ProfileConstants.accountSettings[index],
-                                onTap: () async {
-                                  switch (ProfileConstants
-                                      .accountSettings[index].title) {
-                                    case "Business Information":
-                                      showToast(
-                                          toast: _toast,
-                                          iconData: Icons.timelapse_rounded,
-                                          msg: "Coming soon");
-                                      break;
-                                    case "Join our beta":
-                                      showToast(
-                                          toast: _toast,
-                                          iconData: Icons.timelapse_rounded,
-                                          msg: "Coming soon");
-                                      break;
-                                  }
-                                }),
-                            itemCount: ProfileConstants.accountSettings.length,
-                            shrinkWrap: true)
                       ],
                     ),
                   ),
@@ -189,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: XploreColors.deepBlue),
                             hSize10SizedBox,
                             Text(
-                              "Other",
+                              "Settings",
                               style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -225,10 +174,33 @@ class _ProfilePageState extends State<ProfilePage> {
                                   }
                                 }),
                             itemCount: ProfileConstants.otherSettings.length,
+                            physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true)
                       ],
                     ),
                   ),
+
+                  vSize30SizedBox,
+
+                  FutureBuilder(
+                    future: _coreController.getPackageDetails(),
+                    builder: (context, snapshot) {
+                      if (snapshot.data == null) {
+                        return const Center(
+                          child: Text(
+                            "Couldn't retrieve app version",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        );
+                      }
+
+                      final version = snapshot.data! as VersionModel;
+
+                      return Center(child: Text('Version ${version.version}'));
+                    },
+                  ),
+
+                  vSize30SizedBox,
                 ],
               ),
             ],

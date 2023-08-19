@@ -23,7 +23,9 @@ import '../../../../core/presentation/controller/user_prefs_controller.dart';
 import '../components/login_title.dart';
 
 class CreateProfilePage extends StatefulWidget {
-  const CreateProfilePage({super.key});
+  final UserModel? currentUser;
+
+  const CreateProfilePage({super.key, this.currentUser});
 
   @override
   State<CreateProfilePage> createState() => _CreateProfilePageState();
@@ -49,6 +51,8 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
     _userPrefsController = Get.find<UserPrefsController>();
   }
 
+  void setupControllerValues() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +65,11 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
             systemNavigationBarColor: XploreColors.white,
             systemNavigationBarIconBrightness: Brightness.dark),
         elevation: 0,
+        leading: widget.currentUser == null
+            ? null
+            : IconButton(
+                onPressed: () => Get.back(),
+                icon: Icon(Icons.arrow_back, color: Colors.black)),
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -82,9 +91,15 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                 children: [
                   ...titles(
                     context: context,
-                    extraHeading: "Let's create your new profile!",
-                    subtitle: 'Create Profile',
-                    title: 'Welcome! \n',
+                    extraHeading: widget.currentUser == null
+                        ? "Let's create your new profile!"
+                        : 'Update profile details.',
+                    subtitle: widget.currentUser == null
+                        ? 'Create Profile'
+                        : 'Update Profile',
+                    title: widget.currentUser == null
+                        ? 'Welcome! \n'
+                        : 'Hello, \n',
                   ),
                   vSize30SizedBox,
                   Align(

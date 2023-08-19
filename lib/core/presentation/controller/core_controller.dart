@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shamiri/core/domain/use_cases/core/core_use_cases.dart';
 import 'package:shamiri/di/locator.dart';
 
+import '../../domain/model/version_model.dart';
+
 class CoreController extends GetxController {
   final useCases = locator.get<CoreUseCases>();
 
@@ -12,8 +14,12 @@ class CoreController extends GetxController {
 
   void setProfilePic({required File? file}) => userProfilePic.value = file;
 
+  Future<VersionModel> getPackageDetails() async =>
+      await useCases.getPackageDetails();
+
   Future pickImage(
-      {required ImageSource source, required Function(File file) imageFile}) async {
+      {required ImageSource source,
+      required Function(File file) imageFile}) async {
     return useCases.pickImage.call(
         source: source,
         imageFile: (file) {
