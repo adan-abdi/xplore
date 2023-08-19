@@ -116,11 +116,6 @@ class _StoreOverviewCardState extends State<StoreOverviewCard> {
                       ),
                     ],
                   ),
-                  Icon(
-                    Icons.trending_up_rounded,
-                    color: XploreColors.xploreOrange,
-                    size: 48,
-                  )
                 ],
               )
 

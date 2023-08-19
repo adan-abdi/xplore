@@ -34,7 +34,8 @@ class TransactionCard extends StatelessWidget {
         width: double.infinity,
         height: 80,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16), color: altColors ? XploreColors.deepBlue : XploreColors.white),
+            borderRadius: BorderRadius.circular(16),
+            color: altColors ? XploreColors.deepBlue : XploreColors.white),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -43,16 +44,25 @@ class TransactionCard extends StatelessWidget {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                  color: altColors ? XploreColors.white : XploreColors.deepBlue.withOpacity(0.2),
+                  color: altColors
+                      ? XploreColors.white
+                      : XploreColors.deepBlue.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(100)),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(24),
-                child: Icon(
-                  Icons.receipt_long_rounded,
-                  color: XploreColors.deepBlue,
-                  size: 24,
-                ),
-              ),
+              child: transactionPaymentMethod == PaymentTypes.mpesa
+                  ? Image.asset(
+                      'assets/general/mpesa_new.png',
+                      fit: BoxFit.contain,
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(24),
+                      child: Icon(
+                        transactionPaymentMethod == PaymentTypes.cash
+                            ? Icons.attach_money_rounded
+                            : Icons.loyalty_rounded,
+                        color: XploreColors.deepBlue,
+                        size: 24,
+                      ),
+                    ),
             ),
 
             hSize10SizedBox,
@@ -76,7 +86,9 @@ class TransactionCard extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: altColors ? XploreColors.white : Colors.black),
+                                color: altColors
+                                    ? XploreColors.white
+                                    : Colors.black),
                             maxLines: 2,
                           ),
                         ),
@@ -86,7 +98,9 @@ class TransactionCard extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: altColors ? XploreColors.white : Colors.black),
+                              color: altColors
+                                  ? XploreColors.white
+                                  : Colors.black),
                         ),
                       ],
                     ),
@@ -99,7 +113,8 @@ class TransactionCard extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.normal,
-                              color: altColors ? XploreColors.white : Colors.black,
+                              color:
+                                  altColors ? XploreColors.white : Colors.black,
                               overflow: TextOverflow.ellipsis),
                         ),
                         Text(
@@ -107,7 +122,9 @@ class TransactionCard extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.normal,
-                              color: altColors ? XploreColors.white : Colors.black),
+                              color: altColors
+                                  ? XploreColors.white
+                                  : Colors.black),
                         ),
                       ],
                     ),
@@ -120,7 +137,8 @@ class TransactionCard extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.normal,
-                              color: altColors ? XploreColors.white : Colors.black,
+                              color:
+                                  altColors ? XploreColors.white : Colors.black,
                               overflow: TextOverflow.ellipsis),
                         ),
                         hSize20SizedBox,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
@@ -105,16 +106,25 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                          color: XploreColors.deepBlue.withOpacity(0.2),
+                          color: XploreColors.deepBlue.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(100)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(24),
-                        child: Icon(
-                          Icons.receipt_long_rounded,
-                          color: XploreColors.deepBlue,
-                          size: 24,
-                        ),
-                      ),
+                      child:
+                          widget.transactionPaymentMethod == PaymentTypes.mpesa
+                              ? Image.asset(
+                                  'assets/general/mpesa_new.png',
+                                  fit: BoxFit.contain,
+                                )
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.circular(24),
+                                  child: Icon(
+                                    widget.transactionPaymentMethod ==
+                                            PaymentTypes.cash
+                                        ? Icons.attach_money_rounded
+                                        : Icons.loyalty_rounded,
+                                    color: XploreColors.deepBlue,
+                                    size: 24,
+                                  ),
+                                ),
                     ),
 
                     hSize10SizedBox,

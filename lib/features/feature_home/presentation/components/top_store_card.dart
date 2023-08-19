@@ -109,12 +109,6 @@ class _TopStoreCardState extends State<TopStoreCard> {
                           fontWeight: FontWeight.bold,
                           color: XploreColors.xploreOrange)),
                 ])),
-                //  trend icon
-                Icon(
-                  Icons.trending_up_rounded,
-                  color: XploreColors.xploreOrange,
-                  size: 48,
-                )
               ],
             )
           ],
