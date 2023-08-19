@@ -17,6 +17,7 @@ TransactionModel _$TransactionModelFromJson(Map<String, dynamic> json) =>
       transactionDate: json['transactionDate'] as String?,
       isFulfilled: json['isFulfilled'] as bool?,
       transactionType: json['transactionType'] as String?,
+      transactionPaymentMethod: json['transactionPaymentMethod'] as String?,
     );
 
 Map<String, dynamic> _$TransactionModelToJson(TransactionModel instance) =>
@@ -28,4 +29,5 @@ Map<String, dynamic> _$TransactionModelToJson(TransactionModel instance) =>
       'transactionDate': instance.transactionDate,
       'isFulfilled': instance.isFulfilled,
       'transactionType': instance.transactionType,
+      'transactionPaymentMethod': instance.transactionPaymentMethod,
     };

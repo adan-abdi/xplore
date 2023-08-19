@@ -180,6 +180,8 @@ class AuthRepositoryImpl implements AuthRepository {
         "userEmail": newUser.userEmail ?? oldUser.userEmail,
         "userPhoneNumber": newUser.userPhoneNumber ?? oldUser.userPhoneNumber,
         "storeLocation": newUser.storeLocation ?? oldUser.storeLocation,
+        "storeName": newUser.storeName ?? oldUser.storeName,
+        "storeDescription": newUser.storeDescription ?? oldUser.storeDescription,
         "itemsInCart":
             newUser.itemsInCart?.map((item) => item.toJson()).toList() ??
                 oldUser.itemsInCart?.map((item) => item.toJson()).toList(),
@@ -191,7 +193,9 @@ class AuthRepositoryImpl implements AuthRepository {
                       "amountPaid": transaction.amountPaid,
                       "transactionDate": transaction.transactionDate,
                       "isFulfilled": transaction.isFulfilled,
-                      "transactionType": transaction.transactionType
+                      "transactionType": transaction.transactionType,
+                      "transactionPaymentMethod":
+                          transaction.transactionPaymentMethod,
                     })
                 .toList() ??
             oldUser.transactions
@@ -202,7 +206,9 @@ class AuthRepositoryImpl implements AuthRepository {
                       "amountPaid": transaction.amountPaid,
                       "transactionDate": transaction.transactionDate,
                       "isFulfilled": transaction.isFulfilled,
-                      "transactionType": transaction.transactionType
+                      "transactionType": transaction.transactionType,
+                      "transactionPaymentMethod":
+                          transaction.transactionPaymentMethod,
                     })
                 .toList()
       }).then((value) => print("SUCCESS!!!"));

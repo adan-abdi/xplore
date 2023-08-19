@@ -11,7 +11,6 @@ part 'user_model.g.dart';
 @JsonSerializable()
 @HiveType(typeId: 1)
 class UserModel {
-
   @JsonKey(name: 'userId')
   @HiveField(0, defaultValue: '')
   String? userId;
@@ -40,6 +39,14 @@ class UserModel {
   @HiveField(6, defaultValue: '')
   String? storeLocation;
 
+  @JsonKey(name: 'storeName')
+  @HiveField(9, defaultValue: '')
+  String? storeName;
+
+  @JsonKey(name: 'storeDescription')
+  @HiveField(10, defaultValue: '')
+  String? storeDescription;
+
   @JsonKey(name: 'itemsInCart')
   @HiveField(7, defaultValue: [])
   List<CartModel>? itemsInCart;
@@ -56,6 +63,8 @@ class UserModel {
       this.userPhoneNumber,
       this.createdAt,
       this.storeLocation,
+      this.storeName,
+      this.storeDescription,
       this.itemsInCart,
       this.transactions});
 

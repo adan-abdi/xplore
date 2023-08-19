@@ -27,6 +27,9 @@ class TransactionModel {
   @JsonKey(name: 'transactionType')
   String? transactionType;
 
+  @JsonKey(name: 'transactionPaymentMethod')
+  String? transactionPaymentMethod;
+
   TransactionModel(
       {this.buyerId,
       this.product,
@@ -34,7 +37,8 @@ class TransactionModel {
       this.amountPaid,
       this.transactionDate,
       this.isFulfilled,
-      this.transactionType});
+      this.transactionType,
+      this.transactionPaymentMethod});
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) =>
       _$TransactionModelFromJson(json);
