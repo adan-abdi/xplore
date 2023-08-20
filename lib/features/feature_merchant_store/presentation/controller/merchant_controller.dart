@@ -16,7 +16,8 @@ class MerchantController extends GetxController {
 
   final merchantProducts = <ProductModel>[].obs;
   final productPic = Rxn<File>();
-  final productPics = <File>[].obs;
+
+  final productPicsFromStorage = <File>[].obs;
   final uploadButtonLoading = false.obs;
 
   final activeTransactionType = TransactionTypes.pending.obs;
@@ -29,16 +30,20 @@ class MerchantController extends GetxController {
   void addProductPictures({required List<File>? files}) {
     if (files != null) {
       for (File file in files) {
-        if (!productPics.contains(file)) {
-          productPics.add(file);
+        if (!productPicsFromStorage.contains(file)) {
+          productPicsFromStorage.add(file);
         }
       }
     }
   }
 
+  void clearPickedProductPics() {
+    productPicsFromStorage.clear();
+  }
+
   void deleteProductPic({required File? file}) {
     if (file != null) {
-      productPics.removeWhere((fl) => fl == file);
+      productPicsFromStorage.removeWhere((fl) => fl == file);
     }
   }
 
@@ -71,7 +76,7 @@ class MerchantController extends GetxController {
       {required ProductModel product,
       required List<File>? productPics,
       required Function(ResponseState response) response,
-        required Function onUploadComplete,
+      required Function onUploadComplete,
       required Function onSuccess}) async {
     await useCases.addProductToFirestore.call(
         product: product,
@@ -84,9 +89,15 @@ class MerchantController extends GetxController {
   Future<void> updateProduct(
           {required ProductModel oldProduct,
           required ProductModel newProduct,
+          List<File>? productPics,
+            Function? onUploadComplete,
           required Function(ResponseState response) response}) async =>
       await useCases.updateProduct.call(
-          oldProduct: oldProduct, newProduct: newProduct, response: response);
+          oldProduct: oldProduct,
+          newProduct: newProduct,
+          productPics: productPics,
+          onUploadComplete: onUploadComplete,
+          response: response);
 
   Future<void> deleteProduct({required String productId}) async =>
       await useCases.deleteProduct.call(productId: productId);

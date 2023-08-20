@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:shamiri/di/locator.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/repository/merchant_repository.dart';
 
@@ -10,7 +12,13 @@ class UpdateProduct {
   Future<void> call(
           {required ProductModel oldProduct,
           required ProductModel newProduct,
+          required List<File>? productPics,
+          Function? onUploadComplete,
           required Function(ResponseState response) response}) async =>
       await repository.updateProduct(
-          oldProduct: oldProduct, newProduct: newProduct, response: response);
+          oldProduct: oldProduct,
+          newProduct: newProduct,
+          productPics: productPics,
+          onUploadComplete: onUploadComplete,
+          response: response);
 }

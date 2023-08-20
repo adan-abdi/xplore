@@ -1,15 +1,17 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../application/core/themes/colors.dart';
 
 class ProductImage extends StatelessWidget {
-  final String filePath;
+  final String? filePath;
+  final String? url;
   final VoidCallback onDelete;
 
   const ProductImage(
-      {super.key, required this.filePath, required this.onDelete});
+      {super.key, this.filePath, this.url, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +25,19 @@ class ProductImage extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.file(
-                File(filePath),
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: double.infinity,
-              ),
+              child: filePath == null
+                  ? CachedNetworkImage(
+                      imageUrl: url!,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
+                    )
+                  : Image.file(
+                      File(filePath!),
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
+                    ),
             ),
             //  delete icon
             Align(

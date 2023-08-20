@@ -17,6 +17,8 @@ abstract class MerchantRepository {
   Future<void> updateProduct(
       {required ProductModel oldProduct,
       required ProductModel newProduct,
+      List<File>? productPics,
+      Function? onUploadComplete,
       required Function(ResponseState response) response});
 
   Future<void> deleteProduct({required String productId});

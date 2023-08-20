@@ -39,23 +39,25 @@ class MerchantRepositoryImpl implements MerchantRepository {
           .doc(productId)
           .set(product.toJson())
           .then((value) async {
-
         response(ResponseState.success);
         onSuccess();
 
         if (productPics != null && productPics.isNotEmpty) {
           for (File pic in productPics) {
             await storeFileToFirebaseStorage(
-            ref:
-            'productPics/${auth.currentUser!.uid}/${productId}/${productPics.indexOf(pic)}',
-            file: pic)
+                    ref:
+                        'productPics/${auth.currentUser!.uid}/${productId}/${DateTime.now()}',
+                    file: pic)
                 .then((downloadUrl) {
               //  update the document with images
-              firestore.collection(Constants.USER_COLLECTION)
+              firestore
+                  .collection(Constants.USER_COLLECTION)
                   .doc(auth.currentUser!.uid)
                   .collection(Constants.PRODUCTS_COLLECTION)
                   .doc(productId)
-                  .update({'productImageUrls': FieldValue.arrayUnion([downloadUrl])});
+                  .update({
+                'productImageUrls': FieldValue.arrayUnion([downloadUrl])
+              });
             });
           }
 
@@ -77,11 +79,27 @@ class MerchantRepositoryImpl implements MerchantRepository {
     return downloadUrl;
   }
 
+  Future<void> deleteFileFromFirebaseStorage(
+      {required String ref,
+      Function(ResponseState response, String? error)? response}) async {
+    response!(ResponseState.loading, null);
+    try {
+      await FirebaseStorage.instance.ref().child(ref).delete().then((value) {
+        print("Deleted Successfully");
+        response(ResponseState.success, null);
+      });
+    } on FirebaseException catch (error) {
+      response(ResponseState.failure, error.message);
+    }
+  }
+
   /// Update Product
   @override
   Future<void> updateProduct(
       {required ProductModel oldProduct,
       required ProductModel newProduct,
+      List<File>? productPics,
+        Function? onUploadComplete,
       required Function(ResponseState response) response}) async {
     response(ResponseState.loading);
 
@@ -92,7 +110,6 @@ class MerchantRepositoryImpl implements MerchantRepository {
           .collection(Constants.PRODUCTS_COLLECTION)
           .doc(oldProduct.productId!)
           .update({
-        "sellerName": newProduct.sellerName ?? oldProduct.sellerName,
         "productName": newProduct.productName ?? oldProduct.productName,
         "productUnit": newProduct.productUnit ?? oldProduct.productUnit,
         "productStockCount":
@@ -103,8 +120,31 @@ class MerchantRepositoryImpl implements MerchantRepository {
             newProduct.productSellingPrice ?? oldProduct.productSellingPrice,
         "productCategoryId":
             newProduct.productCategoryId ?? oldProduct.productCategoryId,
-      }).then((value) {
+      }).then((value) async {
         response(ResponseState.success);
+
+        //  update images in firestore
+        if (productPics != null) {
+          for (File pic in productPics) {
+            await storeFileToFirebaseStorage(
+                    ref:
+                        'productPics/${auth.currentUser!.uid}/${oldProduct.productId!}/${DateTime.now()}',
+                    file: pic)
+                .then((downloadUrl) async {
+              //  update the document with images
+              await firestore
+                  .collection(Constants.USER_COLLECTION)
+                  .doc(auth.currentUser!.uid)
+                  .collection(Constants.PRODUCTS_COLLECTION)
+                  .doc(oldProduct.productId)
+                  .update({
+                'productImageUrls': FieldValue.arrayUnion([downloadUrl])
+              });
+            });
+          }
+
+          onUploadComplete!();
+        }
       });
     } on FirebaseException catch (error) {
       response(ResponseState.failure);

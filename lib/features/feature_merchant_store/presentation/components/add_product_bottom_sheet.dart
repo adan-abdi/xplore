@@ -139,28 +139,68 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
 
                         Obx(
                           () => Container(
-                            height: _merchantController.productPics.isEmpty
+                            height: _merchantController
+                                        .productPicsFromStorage.isEmpty &&
+                                    (widget.product == null ||
+                                        widget
+                                            .product!.productImageUrls!.isEmpty)
                                 ? 20
                                 : 150,
                             width: double.infinity,
-                            child: _merchantController.productPics.isEmpty
+                            child: _merchantController
+                                        .productPicsFromStorage.isEmpty &&
+                                    (widget.product == null ||
+                                        widget
+                                            .product!.productImageUrls!.isEmpty)
                                 ? Text("No images yet")
-                                : ListView.builder(
-                                    itemBuilder: (context, index) =>
-                                        ProductImage(
-                                      filePath: _merchantController
-                                          .productPics[index].path,
-                                      onDelete: () {
-                                        _merchantController.deleteProductPic(
-                                            file: _merchantController
-                                                .productPics[index]);
-                                      },
-                                    ),
-                                    itemCount:
-                                        _merchantController.productPics.length,
-                                    shrinkWrap: true,
-                                    physics: const BouncingScrollPhysics(),
+                                : SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      children: [
+                                        //  firestore images
+                                        widget.product != null
+                                            ? ListView.builder(
+                                                itemBuilder: (context, index) =>
+                                                    ProductImage(
+                                                  url: widget.product!
+                                                      .productImageUrls![index],
+                                                  onDelete: () {
+                                                    //  delete product image from firestore
+                                                  },
+                                                ),
+                                                itemCount: widget.product!
+                                                    .productImageUrls!.length,
+                                                shrinkWrap: true,
+                                                physics:
+                                                    const BouncingScrollPhysics(),
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                              )
+                                            : SizedBox.shrink(),
+
+                                        //  local images
+                                        ListView.builder(
+                                          itemBuilder: (context, index) =>
+                                              ProductImage(
+                                            filePath: _merchantController
+                                                .productPicsFromStorage[index]
+                                                .path,
+                                            onDelete: () {
+                                              _merchantController.deleteProductPic(
+                                                  file: _merchantController
+                                                          .productPicsFromStorage[
+                                                      index]);
+                                            },
+                                          ),
+                                          itemCount: _merchantController
+                                              .productPicsFromStorage.length,
+                                          shrinkWrap: true,
+                                          physics:
+                                              const BouncingScrollPhysics(),
+                                          scrollDirection: Axis.horizontal,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                           ),
                         )
@@ -504,7 +544,8 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                           //  add new product
                           await _merchantController.addProductToFirestore(
                               product: productModel,
-                              productPics: _merchantController.productPics,
+                              productPics:
+                                  _merchantController.productPicsFromStorage,
                               response: (state) {
                                 switch (state) {
                                   case ResponseState.success:
@@ -532,6 +573,8 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                 }
                               },
                               onUploadComplete: () {
+                                //  reset the merchant controller product pics
+                                _merchantController.clearPickedProductPics();
                                 WidgetsBinding.instance
                                     .addPostFrameCallback((_) {
                                   showSnackbar(
@@ -558,12 +601,49 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                           //  update current product
                           await _merchantController.updateProduct(
                               oldProduct: widget.product!,
-                              newProduct: productModel,
+                              newProduct: ProductModel(
+                                  productName: _productNameController.text,
+                                  productUnit: _productUnitController.text,
+                                  productBuyingPrice: int.parse(
+                                      _productBuyingPriceController.text
+                                          .replaceAll(",", "")),
+                                  productSellingPrice: int.parse(
+                                      _productSellingPriceController.text
+                                          .replaceAll(",", "")),
+                                  productCategoryId: selectedCategory,
+                                  productStockCount: int.parse(
+                                      _productStockCountController.text),
+                                  productDescription:
+                                      _productDescriptionController.text),
+                              productPics:
+                                  _merchantController.productPicsFromStorage,
+                              onUploadComplete: () {
+                                //  reset the merchant controller product pics
+                                _merchantController.clearPickedProductPics();
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((_) {
+                                  showSnackbar(
+                                      title: "Images uploaded!",
+                                      message:
+                                      "Product images uploaded successfully!",
+                                      iconData: Icons.library_books_rounded,
+                                      iconColor: XploreColors.xploreOrange);
+                                });
+                              },
                               response: (state) {
                                 switch (state) {
                                   case ResponseState.success:
                                     _merchantController.setUploadButtonLoading(
                                         isLoading: false);
+
+                                    WidgetsBinding.instance
+                                        .addPostFrameCallback((_) {
+                                      showSnackbar(
+                                          title: "Product updated!",
+                                          message: "Product updated successfully!",
+                                          iconData: Icons.library_books_rounded,
+                                          iconColor: XploreColors.xploreOrange);
+                                    });
 
                                     Get.back();
                                     break;
