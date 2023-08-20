@@ -2,6 +2,17 @@ import 'package:intl/intl.dart';
 import 'package:shamiri/domain/value_objects/app_constants.dart';
 
 extension StringExtensions on String {
+  /// Firebase
+  String get getImagePath {
+    final filePath = replaceAll(
+            RegExp(
+                r'https://firebasestorage.googleapis.com/v0/b/dial-in-21c50.appspot.com/o/default_images%2F'),
+            '')
+        .split('?')[0];
+
+    return filePath;
+  }
+
   ///  Check whether given phone number is valid
   bool get checkIsPhoneNumberValid {
     final startWith7 = startsWith('7');

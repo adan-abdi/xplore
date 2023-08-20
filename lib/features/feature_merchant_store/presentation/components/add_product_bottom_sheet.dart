@@ -166,6 +166,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                                       .productImageUrls![index],
                                                   onDelete: () {
                                                     //  delete product image from firestore
+
                                                   },
                                                 ),
                                                 itemCount: widget.product!
