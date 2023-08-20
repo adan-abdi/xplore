@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -14,7 +13,6 @@ import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/presentation/controller/core_controller.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/features/feature_main/main_screen.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/components/image_picker_bottom_sheet.dart';
@@ -38,6 +36,8 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
   late final TextEditingController _userNameController;
   late final TextEditingController _emailController;
   late final TextEditingController _locationController;
+  late final TextEditingController _storeNameController;
+  late final TextEditingController _storeDescriptionController;
   late final CoreController _coreController;
   late final AuthController _authController;
   late final UserPrefsController _userPrefsController;
@@ -51,6 +51,8 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
     _userNameController = TextEditingController();
     _emailController = TextEditingController();
     _locationController = TextEditingController();
+    _storeNameController = TextEditingController();
+    _storeDescriptionController = TextEditingController();
     _coreController = Get.find<CoreController>();
     _authController = Get.find<AuthController>();
     _userPrefsController = Get.find<UserPrefsController>();
@@ -63,6 +65,8 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
       _userNameController.setText(widget.currentUser!.userName!);
       _emailController.setText(widget.currentUser!.userEmail!);
       _locationController.setText(widget.currentUser!.storeLocation!);
+      _storeNameController.setText(widget.currentUser!.storeName!);
+      _storeDescriptionController.setText(widget.currentUser!.storeDescription!);
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _coreController.setProfilePic(file: null);
@@ -262,10 +266,25 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                       }),
                   vSize8SizedBox,
                   CustomTextField(
+                      hint: "Store name",
+                      iconData: Icons.store_mall_directory_rounded,
+                      textStyle: TextStyle(fontSize: 18),
+                      controller: _storeNameController,
+                      onChanged: (value) {}),
+                  vSize30SizedBox,
+                  CustomTextField(
                       hint: "Store location (optional)",
                       iconData: Icons.location_on_rounded,
                       textStyle: TextStyle(fontSize: 18),
                       controller: _locationController,
+                      onChanged: (value) {}),
+                  vSize30SizedBox,
+                  CustomTextField(
+                      hint: "Store description (optional)",
+                      iconData: Icons.description_rounded,
+                      textStyle: TextStyle(fontSize: 18),
+                      maxLines: null,
+                      controller: _storeDescriptionController,
                       onChanged: (value) {}),
                   vSize30SizedBox,
                   Align(
@@ -293,6 +312,8 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                         userPhoneNumber: "",
                                         createdAt: "",
                                         storeLocation: _locationController.text,
+                                        storeName: _storeNameController.text,
+                                        storeDescription: _storeDescriptionController.text,
                                         itemsInCart: [],
                                         transactions: []),
                                     userProfilePic:
@@ -344,7 +365,9 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                   newUser: UserModel(
                                       userName: _userNameController.text,
                                       userEmail: _emailController.text,
-                                      storeLocation: _locationController.text),
+                                      storeLocation: _locationController.text,
+                                  storeName: _storeNameController.text,
+                                  storeDescription: _storeDescriptionController.text),
                                   uid: widget.currentUser!.userId!,
                                   deleteImage: deleteProfilePic,
                                   userProfilePic: _coreController.userProfilePic.value,
