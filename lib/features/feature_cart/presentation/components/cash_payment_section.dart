@@ -97,6 +97,7 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
             child: TextButton(
                 onPressed: () async {
                   final items = _authController.user.value!.itemsInCart!;
+                  final timeStamp = DateTime.now();
 
                   for (CartModel cartItem in items) {
                     {
@@ -122,8 +123,8 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
 
                       allTransactions.add(TransactionModel(
                           buyerId: buyerId == null || buyerId!.isEmpty
-                              ? 'customer - ${DateTime.now().day}/${DateTime.now().hour}/${DateTime.now().minute}'
-                              : '${buyerId!} - ${DateTime.now().day}/${DateTime.now().hour}/${DateTime.now().minute}',
+                              ? 'customer - $timeStamp'
+                              : '${buyerId!} - $timeStamp',
                           product: _merchantController.merchantProducts
                               .firstWhere((product) =>
                                   product.productId! ==
@@ -141,7 +142,8 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                           .updateUserDataInFirestore(
                               oldUser: sellerData,
                               newUser: UserModel(transactions: allTransactions),
-                              uid: sellerId)
+                              uid: sellerId,
+                          response: (state, error){})
                           .then((value) async {
                         //  update buyer data
                         if (buyerData != null && buyerId != null) {
@@ -150,7 +152,7 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                           buyerTransactions.add(TransactionModel(
                               buyerId: buyerId == null || buyerId!.isEmpty
                                   ? _authController.user.value!.userId!
-                                  : '${buyerId!} - ${DateTime.now().day}/${DateTime.now().hour}/${DateTime.now().minute}/${DateTime.now().second}',
+                                  : '${buyerId!} - $timeStamp',
                               product: _merchantController.merchantProducts
                                   .firstWhere((product) =>
                                       product.productId! ==
@@ -168,7 +170,8 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                               oldUser: buyerData,
                               newUser:
                                   UserModel(transactions: buyerTransactions),
-                              uid: buyerId!);
+                              uid: buyerId!,
+                              response: (state, error){});
                         }
 
                         //  update product stock count
@@ -183,7 +186,8 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                         await _authController.updateUserDataInFirestore(
                             oldUser: _authController.user.value!,
                             newUser: UserModel(itemsInCart: []),
-                            uid: _authController.user.value!.userId!);
+                            uid: _authController.user.value!.userId!,
+                            response: (state, error){});
                       });
                       //  go to home page
                       Get.offAll(MainScreen());

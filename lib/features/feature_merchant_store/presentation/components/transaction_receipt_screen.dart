@@ -6,13 +6,11 @@ import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/receipt.dart';
-import 'package:shamiri/presentation/core/widgets/molecular/dashboard_tab_action_button.dart';
 
 import '../../../../core/domain/model/user_model.dart';
 import '../../../../core/presentation/components/show_alert_dialog.dart';
 import '../../../../core/presentation/components/submit_button.dart';
 import '../../../../core/presentation/controller/auth_controller.dart';
-import '../../../feature_cart/presentation/screens/checkout_screen.dart';
 import '../../../feature_home/presentation/controller/home_controller.dart';
 import '../../domain/model/transaction_model.dart';
 import '../../domain/model/transaction_types.dart';
@@ -149,7 +147,8 @@ class _TransactionReceiptScreenState extends State<TransactionReceiptScreen> {
                                     oldUser: _authController.user.value!,
                                     newUser:
                                     UserModel(transactions: allTransactions),
-                                    uid: _authController.user.value!.userId!);
+                                    uid: _authController.user.value!.userId!,
+                                    response: (state, error){});
 
                                 Get.back();
                                 Get.back();

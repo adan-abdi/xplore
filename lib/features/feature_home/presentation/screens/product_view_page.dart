@@ -76,7 +76,8 @@ class _ProductViewPageState extends State<ProductViewPage> {
             oldUser: _authController.user.value!,
             newUser: UserModel(
                 itemsInCart: _authController.user.value!.itemsInCart!),
-            uid: _authController.user.value!.userId!);
+            uid: _authController.user.value!.userId!,
+            response: (state, error){});
       } else {
         showToast(
             toast: _toast,
@@ -120,7 +121,8 @@ class _ProductViewPageState extends State<ProductViewPage> {
             oldUser: _authController.user.value!,
             newUser: UserModel(
                 itemsInCart: _authController.user.value!.itemsInCart!),
-            uid: _authController.user.value!.userId!);
+            uid: _authController.user.value!.userId!,
+            response: (state, error){});
       } else {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           showToast(
@@ -689,7 +691,8 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                                                   _authController
                                                                       .user
                                                                       .value!
-                                                                      .userId!);
+                                                                      .userId!,
+                                                          response: (state, error){});
                                                     } else {
                                                       //  Add item to list
                                                       itemsInCart = itemsInCart
@@ -713,7 +716,8 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                                                   _authController
                                                                       .user
                                                                       .value!
-                                                                      .userId!);
+                                                                      .userId!,
+                                                          response: (state, error){});
                                                     }
                                                   },
                                                   child: UnconstrainedBox(

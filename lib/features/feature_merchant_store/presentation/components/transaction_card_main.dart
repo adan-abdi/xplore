@@ -249,7 +249,8 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                                     oldUser: _authController.user.value!,
                                     newUser: UserModel(
                                         transactions: allTransactions),
-                                    uid: _authController.user.value!.userId!);
+                                    uid: _authController.user.value!.userId!,
+                                    response: (state, error){});
 
                                 Get.back();
                               });

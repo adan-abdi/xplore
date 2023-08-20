@@ -62,7 +62,8 @@ class _CartItemCardState extends State<CartItemCard> {
           oldUser: _authController.user.value!,
           newUser:
               UserModel(itemsInCart: _authController.user.value!.itemsInCart!),
-          uid: _authController.user.value!.userId!);
+          uid: _authController.user.value!.userId!,
+      response: (state, error){});
     } else {
       showAlertDialog(
           title: "Remove from cart",
@@ -81,7 +82,8 @@ class _CartItemCardState extends State<CartItemCard> {
             await _authController.updateUserDataInFirestore(
                 oldUser: _authController.user.value!,
                 newUser: UserModel(itemsInCart: itemsInCart),
-                uid: _authController.user.value!.userId!);
+                uid: _authController.user.value!.userId!,
+                response: (state, error){});
 
             Get.back();
           });
@@ -109,7 +111,8 @@ class _CartItemCardState extends State<CartItemCard> {
           oldUser: _authController.user.value!,
           newUser:
               UserModel(itemsInCart: _authController.user.value!.itemsInCart!),
-          uid: _authController.user.value!.userId!);
+          uid: _authController.user.value!.userId!,
+          response: (state, error){});
     } else {
       showToast(
           toast: _toast,
@@ -240,7 +243,8 @@ class _CartItemCardState extends State<CartItemCard> {
                           await _authController.updateUserDataInFirestore(
                               oldUser: _authController.user.value!,
                               newUser: UserModel(itemsInCart: itemsInCart),
-                              uid: _authController.user.value!.userId!);
+                              uid: _authController.user.value!.userId!,
+                              response: (state, error){});
                         },
                         icon: Icon(
                           Icons.delete_rounded,

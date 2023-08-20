@@ -121,7 +121,7 @@ class AuthController extends GetxController {
       required String uid,
       bool deleteImage = false,
       File? userProfilePic,
-      Function(ResponseState response, String? error)? response}) async {
+      required Function(ResponseState response, String? error)? response}) async {
     await authUseCases.updateUserDataInFirestore.call(
         oldUser: oldUser,
         newUser: newUser,

@@ -59,7 +59,8 @@ class _ProductActionsBottomSheetState extends State<ProductActionsBottomSheet> {
             oldUser: _authController.user.value!,
             newUser: UserModel(
                 itemsInCart: _authController.user.value!.itemsInCart!),
-            uid: _authController.user.value!.userId!);
+            uid: _authController.user.value!.userId!,
+            response: (state, error){});
       }
     } else {
       setState(() {
@@ -92,7 +93,8 @@ class _ProductActionsBottomSheetState extends State<ProductActionsBottomSheet> {
             oldUser: _authController.user.value!,
             newUser: UserModel(
                 itemsInCart: _authController.user.value!.itemsInCart!),
-            uid: _authController.user.value!.userId!);
+            uid: _authController.user.value!.userId!,
+            response: (state, error){});
       }
     } else {
       setState(() {
