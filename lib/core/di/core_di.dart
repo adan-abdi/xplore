@@ -8,6 +8,7 @@ import 'package:shamiri/core/domain/use_cases/check_user_exists.dart';
 import 'package:shamiri/core/domain/use_cases/core/core_use_cases.dart';
 import 'package:shamiri/core/domain/use_cases/core/get_package_details.dart';
 import 'package:shamiri/core/domain/use_cases/core/pick_image.dart';
+import 'package:shamiri/core/domain/use_cases/core/pick_multi_images.dart';
 import 'package:shamiri/core/domain/use_cases/sign_in_with_phone.dart';
 import 'package:shamiri/core/domain/use_cases/verify_otp.dart';
 
@@ -17,5 +18,7 @@ void coreDI({required GetIt locator}) {
 
   /// Auth Use Cases
   locator.registerLazySingleton<CoreUseCases>(() => CoreUseCases(
-      pickImage: PickImage(), getPackageDetails: GetPackageDetails()));
+      pickImage: PickImage(),
+      pickMultiImages: PickMultiImages(),
+      getPackageDetails: GetPackageDetails()));
 }

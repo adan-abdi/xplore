@@ -29,4 +29,8 @@ class CoreController extends GetxController {
           }
         });
   }
+
+  Future<void> pickMultiImages(
+          {required Function(List<File>? files) imageFiles}) async =>
+      await useCases.pickMultiImages.call(imageFiles: imageFiles);
 }
