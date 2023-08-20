@@ -7,7 +7,6 @@ import 'package:shamiri/core/domain/repository/core_repository.dart';
 import '../../domain/model/version_model.dart';
 
 class CoreRepositoryImpl extends CoreRepository {
-
   @override
   Future<VersionModel> getPackageDetails() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -25,7 +24,9 @@ class CoreRepositoryImpl extends CoreRepository {
   }
 
   @override
-  Future<void> pickImage({required ImageSource source, required Function(File? file) imageFile}) async {
+  Future<void> pickImage(
+      {required ImageSource source,
+      required Function(File? file) imageFile}) async {
     try {
       final myImage = await ImagePicker().pickImage(source: source);
 
@@ -36,7 +37,19 @@ class CoreRepositoryImpl extends CoreRepository {
 
       File? img = File(myImage.path);
       imageFile(img);
-      
+    } on Exception catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  @override
+  Future<void> pickMultiImage(
+      {required Function(List<File>? files) imageFiles}) async {
+    try {
+      final myImages = await ImagePicker().pickMultiImage();
+
+      List<File> imgs = myImages.map((img) => File(img.path)).toList();
+      imageFiles(imgs);
     } on Exception catch (error) {
       throw Exception(error);
     }
