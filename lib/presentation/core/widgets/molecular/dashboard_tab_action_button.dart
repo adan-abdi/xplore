@@ -8,12 +8,14 @@ class CustomFAB extends StatelessWidget {
   final IconData actionIcon;
   final String actionLabel;
   final Color color;
+  final String? tag;
   final void Function()? onPressed;
 
   const CustomFAB({
     Key? key,
     required this.actionIcon,
     required this.actionLabel,
+    this.tag,
     this.color = XploreColors.deepBlue,
     required this.onPressed,
   }) : super(key: key);
@@ -24,6 +26,7 @@ class CustomFAB extends StatelessWidget {
       height: 40,
       child: FloatingActionButton.extended(
         backgroundColor: XploreColors.deepBlue,
+        heroTag: tag,
         onPressed: onPressed,
         extendedPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         label: Row(

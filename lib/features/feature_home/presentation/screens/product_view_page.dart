@@ -220,10 +220,10 @@ class _ProductViewPageState extends State<ProductViewPage> {
                     width: MediaQuery.of(context).size.width,
                     height: 350,
                     color: XploreColors.deepBlue,
-                    child: widget.product.productImageUrl != null &&
-                            widget.product.productImageUrl!.isNotEmpty
+                    child: widget.product.productImageUrls != null &&
+                            widget.product.productImageUrls!.isNotEmpty
                         ? Image.network(
-                            widget.product.productImageUrl!,
+                            widget.product.productImageUrls![0],
                             fit: BoxFit.cover,
                           )
                         : Icon(

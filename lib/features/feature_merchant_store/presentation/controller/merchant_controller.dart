@@ -16,6 +16,7 @@ class MerchantController extends GetxController {
 
   final merchantProducts = <ProductModel>[].obs;
   final productPic = Rxn<File>();
+  final productPics = <File>[].obs;
   final uploadButtonLoading = false.obs;
 
   final activeTransactionType = TransactionTypes.pending.obs;
@@ -24,6 +25,22 @@ class MerchantController extends GetxController {
   final activeCategory = Constants.productCategories[0].obs;
 
   void setProductPic({required File? file}) => productPic.value = file;
+
+  void addProductPictures({required List<File>? files}) {
+    if (files != null) {
+      for (File file in files) {
+        if (!productPics.contains(file)) {
+          productPics.add(file);
+        }
+      }
+    }
+  }
+
+  void deleteProductPic({required File? file}) {
+    if (file != null) {
+      productPics.removeWhere((fl) => fl == file);
+    }
+  }
 
   void setProducts({required List<ProductModel> products}) =>
       this.merchantProducts.value = products;
@@ -40,7 +57,8 @@ class MerchantController extends GetxController {
   double get calculateTotalStock {
     if (merchantProducts.isNotEmpty) {
       final totalItemSellingPrices = merchantProducts
-          .map((product) => product.productSellingPrice! * product.productStockCount!)
+          .map((product) =>
+              product.productSellingPrice! * product.productStockCount!)
           .reduce((value, element) => value + element);
 
       return totalItemSellingPrices.roundToDouble();
@@ -51,13 +69,15 @@ class MerchantController extends GetxController {
 
   Future<void> addProductToFirestore(
       {required ProductModel product,
-      required File? productPic,
+      required List<File>? productPics,
       required Function(ResponseState response) response,
+        required Function onUploadComplete,
       required Function onSuccess}) async {
     await useCases.addProductToFirestore.call(
         product: product,
-        productPic: productPic,
+        productPics: productPics,
         response: response,
+        onUploadComplete: onUploadComplete,
         onSuccess: onSuccess);
   }
 

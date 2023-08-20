@@ -9,13 +9,14 @@ import '../../../../core/domain/model/response_state.dart';
 abstract class MerchantRepository {
   Future<void> addProductToFirestore(
       {required ProductModel product,
-      required File? productPic,
+      required List<File>? productPics,
       required Function(ResponseState response) response,
+      required Function onUploadComplete,
       required Function onSuccess});
 
   Future<void> updateProduct(
       {required ProductModel oldProduct,
-        required ProductModel newProduct,
+      required ProductModel newProduct,
       required Function(ResponseState response) response});
 
   Future<void> deleteProduct({required String productId});

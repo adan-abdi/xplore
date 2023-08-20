@@ -32,8 +32,8 @@ class ProductModel {
   @JsonKey(name: 'productCategoryId')
   String? productCategoryId;
 
-  @JsonKey(name: 'productImageUrl')
-  String? productImageUrl;
+  @JsonKey(name: 'productImageUrls')
+  List<String>? productImageUrls;
 
   @JsonKey(name: 'productDescription')
   String? productDescription;
@@ -51,7 +51,7 @@ class ProductModel {
       this.productBuyingPrice,
       this.productSellingPrice,
       this.productCategoryId,
-      this.productImageUrl,
+      this.productImageUrls,
         this.productDescription,
       this.productCreatedAt});
 

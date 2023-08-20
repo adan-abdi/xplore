@@ -79,10 +79,10 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                   borderRadius: BorderRadius.circular(5)),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
-                child: widget.product.productImageUrl != null &&
-                        widget.product.productImageUrl!.isNotEmpty
+                child: widget.product.productImageUrls != null &&
+                        widget.product.productImageUrls!.isNotEmpty
                     ? Image.network(
-                        widget.product.productImageUrl!,
+                        widget.product.productImageUrls![0],
                         width: double.infinity,
                         height: double.infinity,
                         fit: BoxFit.cover,

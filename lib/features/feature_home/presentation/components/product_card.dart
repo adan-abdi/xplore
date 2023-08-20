@@ -32,8 +32,8 @@ class ProductCard extends StatelessWidget {
                       Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
-                            color: product.productImageUrl != null &&
-                                    product.productImageUrl!.isNotEmpty
+                            color: product.productImageUrls != null &&
+                                    product.productImageUrls!.isNotEmpty
                                 ? XploreColors.white
                                 : XploreColors.deepBlue,
                           ),
@@ -42,10 +42,10 @@ class ProductCard extends StatelessWidget {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
-                                child: product.productImageUrl != null &&
-                                        product.productImageUrl!.isNotEmpty
+                                child: product.productImageUrls != null &&
+                                        product.productImageUrls!.isNotEmpty
                                     ? Image.network(
-                                        product.productImageUrl!,
+                                        product.productImageUrls![0],
                                         fit: BoxFit.cover,
                                       )
                                     : Icon(

@@ -138,10 +138,10 @@ class _CartItemCardState extends State<CartItemCard> {
                   color: XploreColors.deepBlue),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(24),
-                child: widget.product.productImageUrl != null &&
-                        widget.product.productImageUrl!.isNotEmpty
+                child: widget.product.productImageUrls != null &&
+                        widget.product.productImageUrls!.isNotEmpty
                     ? Image.network(
-                        widget.product.productImageUrl!,
+                        widget.product.productImageUrls![0],
                         fit: BoxFit.cover,
                       )
                     : Icon(

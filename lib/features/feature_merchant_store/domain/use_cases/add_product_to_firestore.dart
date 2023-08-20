@@ -11,12 +11,14 @@ class AddProductToFirestore {
 
   Future<void> call(
           {required ProductModel product,
-          required File? productPic,
+          required List<File>? productPics,
           required Function(ResponseState response) response,
+            required Function onUploadComplete,
           required Function onSuccess}) async =>
       await repository.addProductToFirestore(
           product: product,
-          productPic: productPic,
+          productPics: productPics,
           response: response,
+          onUploadComplete: onUploadComplete,
           onSuccess: onSuccess);
 }
