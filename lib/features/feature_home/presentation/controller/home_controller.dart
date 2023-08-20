@@ -22,6 +22,9 @@ class HomeController extends GetxController {
   /// Active Carousel Index
   final activeCarouselIndex = 0.obs;
 
+  /// Active Product Image index
+  final activeProductImageIndex = 0.obs;
+
   /// Active Category
   final activeCategory = Constants.productCategories[0].obs;
 
@@ -37,6 +40,8 @@ class HomeController extends GetxController {
   void setActiveBottomBarIndex(int index) => activeBottomBarIndex.value = index;
 
   void setActiveCarouselIndex(int index) => activeCarouselIndex.value = index;
+
+  void setActiveProductImageIndex(int index) => activeProductImageIndex.value = index;
 
   void setActiveCategory(ProductCategory category) =>
       activeCategory.value = category;
