@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hive/hive.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/repository/merchant_repository.dart';
 
 import '../../../../core/domain/model/response_state.dart';
@@ -24,6 +25,7 @@ class MerchantRepositoryImpl implements MerchantRepository {
       required List<File>? productPics,
       required Function(ResponseState response) response,
       required Function onUploadComplete,
+      Function(double bytesTransferred)? onTransfer,
       required Function onSuccess}) async {
     response(ResponseState.loading);
 
@@ -47,7 +49,8 @@ class MerchantRepositoryImpl implements MerchantRepository {
             await storeFileToFirebaseStorage(
                     ref:
                         'productPics/${auth.currentUser!.uid}/${productId}/${DateTime.now()}',
-                    file: pic)
+                    file: pic,
+                    onTransfer: onTransfer!)
                 .then((downloadUrl) {
               //  update the document with images
               firestore
@@ -71,9 +74,21 @@ class MerchantRepositoryImpl implements MerchantRepository {
   }
 
   Future<String> storeFileToFirebaseStorage(
-      {required String ref, required File file}) async {
+      {required String ref,
+      required File file,
+      required Function(double bytesTransferred) onTransfer}) async {
     final UploadTask uploadTask = storage.ref().child(ref).putFile(file);
     final TaskSnapshot taskSnapshot = await uploadTask;
+
+    uploadTask.snapshotEvents.listen((event) {
+      //  pass the bytes transferred
+      onTransfer(
+          (event.bytesTransferred.toDouble() / event.totalBytes.toDouble()) *
+              100);
+
+      print(
+          "Bytes Transferred : ${(event.bytesTransferred.toDouble() / event.totalBytes.toDouble()) * 100}");
+    });
 
     final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
     return downloadUrl;
@@ -99,7 +114,8 @@ class MerchantRepositoryImpl implements MerchantRepository {
       {required ProductModel oldProduct,
       required ProductModel newProduct,
       List<File>? productPics,
-        Function? onUploadComplete,
+      Function? onUploadComplete,
+      Function(double bytesTransferred)? onTransfer,
       required Function(ResponseState response) response}) async {
     response(ResponseState.loading);
 
@@ -129,7 +145,8 @@ class MerchantRepositoryImpl implements MerchantRepository {
             await storeFileToFirebaseStorage(
                     ref:
                         'productPics/${auth.currentUser!.uid}/${oldProduct.productId!}/${DateTime.now()}',
-                    file: pic)
+                    file: pic,
+                    onTransfer: onTransfer!)
                 .then((downloadUrl) async {
               //  update the document with images
               await firestore
@@ -160,6 +177,42 @@ class MerchantRepositoryImpl implements MerchantRepository {
         .collection(Constants.PRODUCTS_COLLECTION)
         .doc(productId)
         .delete();
+  }
+
+  /// Delete product pic
+  @override
+  Future<void> deleteProductPic(
+      {required ProductModel product,
+      required String imageUrl,
+      required Function(ResponseState response) response}) async {
+    response(ResponseState.loading);
+    try {
+      //  get all image urls
+      var allProductPics = product.productImageUrls!;
+      //  delete from the array
+      allProductPics.removeWhere((url) => url == imageUrl);
+
+      await firestore
+          .collection(Constants.USER_COLLECTION)
+          .doc(auth.currentUser!.uid)
+          .collection(Constants.PRODUCTS_COLLECTION)
+          .doc(product.productId!)
+          .update({'productImageUrls': allProductPics}).then(
+              (value) => response(ResponseState.success));
+
+      final imagePath = imageUrl.getImagePath;
+
+      await deleteFileFromFirebaseStorage(
+              ref:
+                  'productPics/${auth.currentUser!.uid}/${product.productId!}/$imagePath',
+              response: (state, error) {})
+          .then((value) async {});
+
+      //  update the new array data in firestore
+    } on FirebaseException catch (error) {
+      response(ResponseState.failure);
+      throw Exception(error);
+    }
   }
 
   /// Get Merchant Products

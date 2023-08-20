@@ -171,10 +171,17 @@ class _ProductViewPageState extends State<ProductViewPage> {
                 onPressed: () {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     openBottomSheet(
-                        content: AddProductBottomSheet(
-                          product: widget.product,
+                        content: Obx(
+                          () => AddProductBottomSheet(
+                            product: _homeController.products.firstWhere(
+                                (product) =>
+                                    product.productId! ==
+                                    widget.product.productId!),
+                          ),
                         ),
-                        onComplete: () {});
+                        onComplete: () {
+                          Get.back();
+                        });
                   });
                 },
                 icon: Icon(Icons.edit_rounded, color: XploreColors.deepBlue)),

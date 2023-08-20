@@ -9,6 +9,7 @@ import 'package:pinput/pinput.dart';
 import 'package:shamiri/core/domain/model/user_prefs.dart';
 import 'package:shamiri/core/domain/repository/auth_repository.dart';
 import 'package:shamiri/core/utils/constants.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 
 import '../../../di/locator.dart';
 import '../../domain/model/response_state.dart';
@@ -177,22 +178,16 @@ class AuthRepositoryImpl implements AuthRepository {
       Function(ResponseState response, String? error)? response}) async {
     response!(ResponseState.loading, null);
     try {
-      final filePath = oldUser.userProfilePicUrl!
-          .replaceAll(
-              RegExp(
-                  r'https://firebasestorage.googleapis.com/v0/b/dial-in-21c50.appspot.com/o/default_images%2F'),
-              '')
-          .split('?')[0];
       //  only delete user profile image
       if (deleteImage && userProfilePic == null) {
         await deleteFileFromFirebaseStorage(
-            ref: 'profilePics/$filePath', response: (state, error) {});
+            ref: 'profilePics/${oldUser.userProfilePicUrl!.getImagePath}', response: (state, error) {});
 
         newUser.userProfilePicUrl = '';
       } else if (userProfilePic != null) {
         //  delete the current image
         await deleteFileFromFirebaseStorage(
-            ref: 'profilePics/$filePath', response: (state, error) {});
+            ref: 'profilePics/${oldUser.userProfilePicUrl!.getImagePath}', response: (state, error) {});
         //  upload the new one
         await storeFileToFirebaseStorage(
                 ref: 'profilePics/${auth.currentUser!.uid}',

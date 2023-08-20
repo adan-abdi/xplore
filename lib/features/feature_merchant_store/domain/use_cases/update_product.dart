@@ -14,11 +14,13 @@ class UpdateProduct {
           required ProductModel newProduct,
           required List<File>? productPics,
           Function? onUploadComplete,
+          Function(double bytesTransferred)? onTransfer,
           required Function(ResponseState response) response}) async =>
       await repository.updateProduct(
           oldProduct: oldProduct,
           newProduct: newProduct,
           productPics: productPics,
           onUploadComplete: onUploadComplete,
+          onTransfer: onTransfer,
           response: response);
 }

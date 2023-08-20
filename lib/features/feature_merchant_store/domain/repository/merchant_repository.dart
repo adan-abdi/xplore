@@ -12,6 +12,7 @@ abstract class MerchantRepository {
       required List<File>? productPics,
       required Function(ResponseState response) response,
       required Function onUploadComplete,
+      Function(double bytesTransferred)? onTransfer,
       required Function onSuccess});
 
   Future<void> updateProduct(
@@ -19,9 +20,15 @@ abstract class MerchantRepository {
       required ProductModel newProduct,
       List<File>? productPics,
       Function? onUploadComplete,
+      Function(double bytesTransferred)? onTransfer,
       required Function(ResponseState response) response});
 
   Future<void> deleteProduct({required String productId});
+
+  Future<void> deleteProductPic(
+      {required ProductModel product,
+      required String imageUrl,
+      required Function(ResponseState response) response});
 
   Stream<QuerySnapshot> getMerchantProducts();
 }

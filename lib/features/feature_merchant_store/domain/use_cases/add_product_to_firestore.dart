@@ -14,11 +14,13 @@ class AddProductToFirestore {
           required List<File>? productPics,
           required Function(ResponseState response) response,
             required Function onUploadComplete,
+            Function(double bytesTransferred)? onTransfer,
           required Function onSuccess}) async =>
       await repository.addProductToFirestore(
           product: product,
           productPics: productPics,
           response: response,
           onUploadComplete: onUploadComplete,
+          onTransfer: onTransfer,
           onSuccess: onSuccess);
 }

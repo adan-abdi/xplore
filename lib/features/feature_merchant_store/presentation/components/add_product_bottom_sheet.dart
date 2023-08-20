@@ -147,228 +147,132 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                 ? 20
                                 : 150,
                             width: double.infinity,
-                            child: _merchantController
-                                        .productPicsFromStorage.isEmpty &&
-                                    (widget.product == null ||
-                                        widget
-                                            .product!.productImageUrls!.isEmpty)
-                                ? Text("No images yet")
-                                : SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: [
-                                        //  firestore images
-                                        widget.product != null
-                                            ? ListView.builder(
+                            child:
+                                _merchantController
+                                            .productPicsFromStorage.isEmpty &&
+                                        (widget.product == null ||
+                                            widget.product!.productImageUrls!
+                                                .isEmpty)
+                                    ? Text("No images yet")
+                                    : SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Obx(
+                                          () => Row(
+                                            children: [
+                                              //  firestore images
+                                              widget.product != null &&
+                                                      widget
+                                                          .product!
+                                                          .productImageUrls!
+                                                          .isNotEmpty
+                                                  ? ListView.builder(
+                                                      itemBuilder:
+                                                          (context, index) =>
+                                                              Obx(
+                                                        () => ProductImage(
+                                                          url: widget.product!
+                                                                  .productImageUrls![
+                                                              index],
+                                                          isDeleteInProgress:
+                                                              _merchantController
+                                                                  .deleteImageLoading
+                                                                  .value,
+                                                          onDelete: () async {
+                                                            //  delete product image from firestore
+                                                            await _merchantController
+                                                                .deleteProductPicFromStorage(
+                                                                    product: widget
+                                                                        .product!,
+                                                                    imageUrl: widget
+                                                                            .product!
+                                                                            .productImageUrls![
+                                                                        index],
+                                                                    response:
+                                                                        (state) {
+                                                                      switch (
+                                                                          state) {
+                                                                        case ResponseState
+                                                                              .success:
+                                                                          _merchantController.setDeleteImageLoading(
+                                                                              isLoading: false);
+                                                                          break;
+                                                                        case ResponseState
+                                                                              .loading:
+                                                                          _merchantController.setDeleteImageLoading(
+                                                                              isLoading: true);
+                                                                          break;
+                                                                        case ResponseState
+                                                                              .failure:
+                                                                          _merchantController.setDeleteImageLoading(
+                                                                              isLoading: false);
+                                                                          WidgetsBinding
+                                                                              .instance
+                                                                              .addPostFrameCallback((_) {
+                                                                            showSnackbar(
+                                                                                title: "Error deleting product image.",
+                                                                                message: "Something went wrong. please try again",
+                                                                                iconData: Icons.login_rounded,
+                                                                                iconColor: XploreColors.xploreOrange);
+                                                                          });
+                                                                          break;
+                                                                      }
+                                                                    });
+
+                                                            showSnackbar(
+                                                                title: "Deleted Image successfully.",
+                                                                message: "Image deleted successfully!",
+                                                                iconData: Icons.login_rounded,
+                                                                iconColor: XploreColors.xploreOrange);
+                                                          },
+                                                        ),
+                                                      ),
+                                                      itemCount: widget
+                                                          .product!
+                                                          .productImageUrls!
+                                                          .length,
+                                                      shrinkWrap: true,
+                                                      physics:
+                                                          const BouncingScrollPhysics(),
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                    )
+                                                  : SizedBox.shrink(),
+
+                                              //  local images
+                                              ListView.builder(
                                                 itemBuilder: (context, index) =>
                                                     ProductImage(
-                                                  url: widget.product!
-                                                      .productImageUrls![index],
+                                                  filePath: _merchantController
+                                                      .productPicsFromStorage[
+                                                          index]
+                                                      .path,
                                                   onDelete: () {
-                                                    //  delete product image from firestore
-
+                                                    _merchantController
+                                                        .deleteProductPic(
+                                                            file: _merchantController
+                                                                    .productPicsFromStorage[
+                                                                index]);
                                                   },
                                                 ),
-                                                itemCount: widget.product!
-                                                    .productImageUrls!.length,
+                                                itemCount: _merchantController
+                                                    .productPicsFromStorage
+                                                    .length,
                                                 shrinkWrap: true,
                                                 physics:
                                                     const BouncingScrollPhysics(),
                                                 scrollDirection:
                                                     Axis.horizontal,
-                                              )
-                                            : SizedBox.shrink(),
-
-                                        //  local images
-                                        ListView.builder(
-                                          itemBuilder: (context, index) =>
-                                              ProductImage(
-                                            filePath: _merchantController
-                                                .productPicsFromStorage[index]
-                                                .path,
-                                            onDelete: () {
-                                              _merchantController.deleteProductPic(
-                                                  file: _merchantController
-                                                          .productPicsFromStorage[
-                                                      index]);
-                                            },
+                                              ),
+                                            ],
                                           ),
-                                          itemCount: _merchantController
-                                              .productPicsFromStorage.length,
-                                          shrinkWrap: true,
-                                          physics:
-                                              const BouncingScrollPhysics(),
-                                          scrollDirection: Axis.horizontal,
                                         ),
-                                      ],
-                                    ),
-                                  ),
+                                      ),
                           ),
                         )
                       ],
                     ),
 
                     vSize30SizedBox,
-
-                    //  product single image
-                    // GestureDetector(
-                    //   onTap: () async {
-                    //     await _coreController.pickImage(
-                    //         source: ImageSource.gallery,
-                    //         imageFile: (file) {
-                    //           _merchantController.setProductPic(file: file);
-                    //         });
-                    //   },
-                    //   child: widget.product != null &&
-                    //           widget.product!.productImageUrl!.isNotEmpty
-                    //       ? Container(
-                    //           width: 180,
-                    //           height: 180,
-                    //           decoration: BoxDecoration(
-                    //               borderRadius: BorderRadius.circular(16),
-                    //               color: XploreColors.deepBlue),
-                    //           child: ClipRRect(
-                    //             borderRadius: BorderRadius.circular(16),
-                    //             child: CachedNetworkImage(
-                    //               imageUrl: widget.product!.productImageUrl!,
-                    //               placeholder: (context, url) => Container(
-                    //                 width: 180,
-                    //                 height: 180,
-                    //                 decoration: BoxDecoration(
-                    //                     borderRadius: BorderRadius.circular(16),
-                    //                     color: XploreColors.deepBlue),
-                    //                 child: Center(
-                    //                     child: Icon(
-                    //                   Icons.image_rounded,
-                    //                   size: 48,
-                    //                   color: XploreColors.white,
-                    //                 )),
-                    //               ),
-                    //               fit: BoxFit.cover,
-                    //             ),
-                    //           ),
-                    //         )
-                    //       : Obx(
-                    //           () => Container(
-                    //               width: 180,
-                    //               height: 180,
-                    //               decoration: BoxDecoration(
-                    //                   borderRadius: BorderRadius.circular(16),
-                    //                   color: XploreColors.white),
-                    //               child: Stack(
-                    //                 children: [
-                    //                   _merchantController.productPic.value !=
-                    //                           null
-                    //                       ? Padding(
-                    //                           padding:
-                    //                               const EdgeInsets.all(8.0),
-                    //                           child: ClipRRect(
-                    //                             borderRadius:
-                    //                                 BorderRadius.circular(16),
-                    //                             child: Image.file(
-                    //                               File(_merchantController
-                    //                                   .productPic.value!.path),
-                    //                               fit: BoxFit.cover,
-                    //                               width: double.infinity,
-                    //                               height: double.infinity,
-                    //                             ),
-                    //                           ),
-                    //                         )
-                    //                       : Container(
-                    //                           width: 180,
-                    //                           height: 180,
-                    //                           decoration: BoxDecoration(
-                    //                               borderRadius:
-                    //                                   BorderRadius.circular(16),
-                    //                               color: XploreColors.deepBlue),
-                    //                           child: Center(
-                    //                               child: Icon(
-                    //                             Icons.image_rounded,
-                    //                             size: 48,
-                    //                             color: XploreColors.white,
-                    //                           )),
-                    //                         ),
-                    //                   Align(
-                    //                     alignment:
-                    //                         AlignmentDirectional.bottomEnd,
-                    //                     child: UnconstrainedBox(
-                    //                       child: GestureDetector(
-                    //                         onTap: () {
-                    //                           //  open edit bottom sheet
-                    //                           openBottomSheet(
-                    //                               content:
-                    //                                   ImagePickerBottomSheet(
-                    //                                 onCameraTap: () async {
-                    //                                   await _coreController
-                    //                                       .pickImage(
-                    //                                           source:
-                    //                                               ImageSource
-                    //                                                   .camera,
-                    //                                           imageFile:
-                    //                                               (file) {
-                    //                                             _merchantController
-                    //                                                 .setProductPic(
-                    //                                                     file:
-                    //                                                         file);
-                    //                                           });
-                    //                                   Get.back();
-                    //                                 },
-                    //                                 onGalleryTap: () async {
-                    //                                   await _coreController
-                    //                                       .pickImage(
-                    //                                           source:
-                    //                                               ImageSource
-                    //                                                   .gallery,
-                    //                                           imageFile:
-                    //                                               (file) {
-                    //                                             _merchantController
-                    //                                                 .setProductPic(
-                    //                                                     file:
-                    //                                                         file);
-                    //                                           });
-                    //                                   Get.back();
-                    //                                 },
-                    //                                 onRemoveTap: () {
-                    //                                   _merchantController
-                    //                                       .setProductPic(
-                    //                                           file: null);
-                    //
-                    //                                   Get.back();
-                    //                                 },
-                    //                               ),
-                    //                               height: 100,
-                    //                               onComplete: () {});
-                    //                         },
-                    //                         child: Container(
-                    //                           width: 45,
-                    //                           height: 45,
-                    //                           decoration: BoxDecoration(
-                    //                               borderRadius:
-                    //                                   BorderRadius.circular(
-                    //                                       100),
-                    //                               border: Border.all(
-                    //                                   color: XploreColors.white,
-                    //                                   width: 5,
-                    //                                   strokeAlign: BorderSide
-                    //                                       .strokeAlignOutside),
-                    //                               color: XploreColors.deepBlue),
-                    //                           child: Center(
-                    //                             child: Icon(
-                    //                               Icons.image_search_rounded,
-                    //                               color: XploreColors.white,
-                    //                               size: 24,
-                    //                             ),
-                    //                           ),
-                    //                         ),
-                    //                       ),
-                    //                     ),
-                    //                   )
-                    //                 ],
-                    //               )),
-                    //         ),
-                    // ),
-                    //
-                    // vSize30SizedBox,
 
                     //  product name
                     CustomTextField(
@@ -586,6 +490,10 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                       iconColor: XploreColors.xploreOrange);
                                 });
                               },
+                              onTransfer: (bytesTransferredPercentage) {
+                                print(
+                                    "Bytes Transferred : $bytesTransferredPercentage");
+                              },
                               onSuccess: () {
                                 WidgetsBinding.instance
                                     .addPostFrameCallback((_) {
@@ -626,10 +534,14 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                   showSnackbar(
                                       title: "Images uploaded!",
                                       message:
-                                      "Product images uploaded successfully!",
+                                          "Product images uploaded successfully!",
                                       iconData: Icons.library_books_rounded,
                                       iconColor: XploreColors.xploreOrange);
                                 });
+                              },
+                              onTransfer: (bytesTransferredPercentage) {
+                                print(
+                                    "Bytes Transferred : $bytesTransferredPercentage");
                               },
                               response: (state) {
                                 switch (state) {
@@ -641,11 +553,13 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                         .addPostFrameCallback((_) {
                                       showSnackbar(
                                           title: "Product updated!",
-                                          message: "Product updated successfully!",
+                                          message:
+                                              "Product updated successfully!",
                                           iconData: Icons.library_books_rounded,
                                           iconColor: XploreColors.xploreOrange);
                                     });
 
+                                    Get.back();
                                     Get.back();
                                     break;
                                   case ResponseState.loading:

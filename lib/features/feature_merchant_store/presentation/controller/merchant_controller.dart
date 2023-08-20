@@ -19,6 +19,7 @@ class MerchantController extends GetxController {
 
   final productPicsFromStorage = <File>[].obs;
   final uploadButtonLoading = false.obs;
+  final deleteImageLoading = false.obs;
 
   final activeTransactionType = TransactionTypes.pending.obs;
 
@@ -53,6 +54,9 @@ class MerchantController extends GetxController {
   void setUploadButtonLoading({required bool isLoading}) =>
       uploadButtonLoading.value = isLoading;
 
+  void setDeleteImageLoading({required bool isLoading}) =>
+      deleteImageLoading.value = isLoading;
+
   void setActiveTransactionType({required TransactionTypes transactionType}) =>
       activeTransactionType.value = transactionType;
 
@@ -77,12 +81,14 @@ class MerchantController extends GetxController {
       required List<File>? productPics,
       required Function(ResponseState response) response,
       required Function onUploadComplete,
+      Function(double bytesTransferred)? onTransfer,
       required Function onSuccess}) async {
     await useCases.addProductToFirestore.call(
         product: product,
         productPics: productPics,
         response: response,
         onUploadComplete: onUploadComplete,
+        onTransfer: onTransfer,
         onSuccess: onSuccess);
   }
 
@@ -90,17 +96,26 @@ class MerchantController extends GetxController {
           {required ProductModel oldProduct,
           required ProductModel newProduct,
           List<File>? productPics,
-            Function? onUploadComplete,
+          Function? onUploadComplete,
+          Function(double bytesTransferred)? onTransfer,
           required Function(ResponseState response) response}) async =>
       await useCases.updateProduct.call(
           oldProduct: oldProduct,
           newProduct: newProduct,
           productPics: productPics,
           onUploadComplete: onUploadComplete,
+          onTransfer: onTransfer,
           response: response);
 
   Future<void> deleteProduct({required String productId}) async =>
       await useCases.deleteProduct.call(productId: productId);
+
+  Future<void> deleteProductPicFromStorage(
+          {required ProductModel product,
+          required String imageUrl,
+          required Function(ResponseState response) response}) async =>
+      await useCases.deleteProductPic
+          .call(product: product, imageUrl: imageUrl, response: response);
 
   Stream<QuerySnapshot> getMerchantProducts() => useCases.getMerchantProducts();
 }
