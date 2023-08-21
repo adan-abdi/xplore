@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/variation_model.dart';
 
 ///  flutter packages pub run build_runner build
 part 'product_model.g.dart';
@@ -41,6 +42,9 @@ class ProductModel {
   @JsonKey(name: 'productCreatedAt')
   String? productCreatedAt;
 
+  @JsonKey(name: 'productVariations')
+  List<VariationModel>? productVariations;
+
   ProductModel(
       {this.sellerId,
       this.sellerName,
@@ -52,8 +56,9 @@ class ProductModel {
       this.productSellingPrice,
       this.productCategoryId,
       this.productImageUrls,
-        this.productDescription,
-      this.productCreatedAt});
+      this.productDescription,
+      this.productCreatedAt,
+      this.productVariations});
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
       _$ProductModelFromJson(json);

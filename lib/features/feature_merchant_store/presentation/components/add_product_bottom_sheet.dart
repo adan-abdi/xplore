@@ -19,11 +19,13 @@ import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/product_image.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/components/variations_bottom_sheet.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
 import 'package:shamiri/presentation/core/widgets/molecular/dashboard_tab_action_button.dart';
 
 import '../../../../core/domain/model/response_state.dart';
 import '../../../../core/presentation/components/open_bottom_sheet.dart';
+import '../../../../core/presentation/components/show_alert_dialog.dart';
 import '../../../feature_onboarding/presentation/components/image_picker_bottom_sheet.dart';
 
 class AddProductBottomSheet extends StatefulWidget {
@@ -118,25 +120,6 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        //  multi-image button
-                        CustomFAB(
-                            actionIcon: Icons.image_rounded,
-                            actionLabel: "Pick Images",
-                            tag: "Pick Images FAB",
-                            onPressed: () async {
-                              showToast(
-                                  toast: _toast,
-                                  iconData: Icons.image_rounded,
-                                  msg: "Hold to pick multiple images");
-
-                              await _coreController.pickMultiImages(
-                                  imageFiles: (imageFiles) =>
-                                      _merchantController.addProductPictures(
-                                          files: imageFiles));
-                            }),
-
-                        vSize30SizedBox,
-
                         Obx(
                           () => Container(
                             height: _merchantController
@@ -268,7 +251,38 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                         ),
                                       ),
                           ),
-                        )
+                        ),
+
+                        vSize30SizedBox,
+
+                        //  multi-image button
+                        Row(
+                          children: [
+                            CustomFAB(
+                                actionIcon: Icons.image_rounded,
+                                actionLabel: "Pick Images",
+                                tag: "Pick Images FAB",
+                                onPressed: () async {
+                                  showToast(
+                                      toast: _toast,
+                                      iconData: Icons.image_rounded,
+                                      msg: "Hold to pick multiple images");
+
+                                  await _coreController.pickMultiImages(
+                                      imageFiles: (imageFiles) =>
+                                          _merchantController.addProductPictures(
+                                              files: imageFiles));
+                                }),
+                            hSize10SizedBox,
+                            CustomFAB(
+                                actionIcon: Icons.color_lens_rounded,
+                                actionLabel: "Add Variation",
+                                tag: "Variation",
+                                onPressed: () async {
+                                  openBottomSheet(content: VariationsBottomSheet(), onComplete: (){});
+                                }),
+                          ],
+                        ),
                       ],
                     ),
 
