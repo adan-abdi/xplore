@@ -38,6 +38,8 @@ class MerchantController extends GetxController {
     }
   }
 
+  void clearProductVariations() => productVariations.clear();
+
   void setProductPic({required File? file}) => productPic.value = file;
 
   void addProductPictures({required List<File>? files}) {

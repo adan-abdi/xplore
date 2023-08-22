@@ -39,8 +39,23 @@ class MerchantRepositoryImpl implements MerchantRepository {
           .doc(auth.currentUser!.uid)
           .collection(Constants.PRODUCTS_COLLECTION)
           .doc(productId)
-          .set(product.toJson())
-          .then((value) async {
+          .set({
+        "sellerId": product.sellerId,
+        "sellerName": product.sellerName,
+        "productId": product.productId,
+        "productName": product.productName,
+        "productUnit": product.productUnit,
+        "productStockCount": product.productStockCount,
+        "productBuyingPrice": product.productBuyingPrice,
+        "productSellingPrice": product.productSellingPrice,
+        "productCategoryId": product.productCategoryId,
+        "productImageUrls": product.productImageUrls,
+        "productDescription": product.productDescription,
+        "productCreatedAt": product.productCreatedAt,
+        "productVariations": product.productVariations
+            ?.map((variation) => variation.toJson())
+            .toList(),
+      }).then((value) async {
         response(ResponseState.success);
         onSuccess();
 
@@ -136,6 +151,12 @@ class MerchantRepositoryImpl implements MerchantRepository {
             newProduct.productSellingPrice ?? oldProduct.productSellingPrice,
         "productCategoryId":
             newProduct.productCategoryId ?? oldProduct.productCategoryId,
+        "productVariations": newProduct.productVariations
+                ?.map((variation) => variation.toJson())
+                .toList() ??
+            oldProduct.productVariations
+                ?.map((variation) => variation.toJson())
+                .toList()
       }).then((value) async {
         response(ResponseState.success);
 

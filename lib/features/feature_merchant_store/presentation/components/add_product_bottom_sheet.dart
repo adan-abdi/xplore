@@ -48,6 +48,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
   late final CoreController _coreController;
   late final AuthController _authController;
   late final FToast _toast;
+  late final GlobalKey<FormState> _globalKey;
 
   late String? selectedCategory = null;
 
@@ -66,6 +67,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
     _merchantController = Get.find<MerchantController>();
     _toast = FToast();
     _toast.init(context);
+    _globalKey = GlobalKey<FormState>();
 
     if (widget.product != null) {
       setControllerTexts();
@@ -202,10 +204,15 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                                                     });
 
                                                             showSnackbar(
-                                                                title: "Deleted Image successfully.",
-                                                                message: "Image deleted successfully!",
-                                                                iconData: Icons.login_rounded,
-                                                                iconColor: XploreColors.xploreOrange);
+                                                                title:
+                                                                    "Deleted Image successfully.",
+                                                                message:
+                                                                    "Image deleted successfully!",
+                                                                iconData: Icons
+                                                                    .login_rounded,
+                                                                iconColor:
+                                                                    XploreColors
+                                                                        .xploreOrange);
                                                           },
                                                         ),
                                                       ),
@@ -270,8 +277,9 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
 
                                   await _coreController.pickMultiImages(
                                       imageFiles: (imageFiles) =>
-                                          _merchantController.addProductPictures(
-                                              files: imageFiles));
+                                          _merchantController
+                                              .addProductPictures(
+                                                  files: imageFiles));
                                 }),
                             hSize10SizedBox,
                             CustomFAB(
@@ -279,7 +287,9 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                 actionLabel: "Add Variation",
                                 tag: "Variation",
                                 onPressed: () async {
-                                  openBottomSheet(content: VariationsBottomSheet(), onComplete: (){});
+                                  openBottomSheet(
+                                      content: VariationsBottomSheet(),
+                                      onComplete: () {});
                                 }),
                           ],
                         ),
@@ -288,73 +298,101 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
 
                     vSize30SizedBox,
 
-                    //  product name
-                    CustomTextField(
-                        hint: "Product name",
-                        iconData: Icons.description,
-                        textStyle: TextStyle(fontSize: 16),
-                        controller: _productNameController,
-                        onChanged: (value) {}),
+                    Form(
+                        key: _globalKey,
+                        child: Column(
+                          children: [
+                            //  product name
+                            CustomTextField(
+                              hint: "Product name",
+                              iconData: Icons.description,
+                              textStyle: TextStyle(fontSize: 16),
+                              controller: _productNameController,
+                              onChanged: (value) {},
+                              onValidate: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Product name cannot be empty';
+                                } else {
+                                  return null;
+                                }
+                              },
+                            ),
 
-                    vSize8SizedBox,
-                    //  product unit
-                    CustomTextField(
-                        hint: "Product buying Price (Ksh)",
-                        iconData: Icons.monetization_on_rounded,
-                        textStyle: TextStyle(fontSize: 16),
-                        inputType: TextInputType.number,
-                        controller: _productBuyingPriceController,
-                        onChanged: (value) {
-                          _productBuyingPriceController.setText(
-                              _productBuyingPriceController.text
-                                  .replaceAll(",", "")
-                                  .addCommas);
-                        }),
+                            vSize8SizedBox,
+                            //  product unit
+                            CustomTextField(
+                                hint: "Product buying Price (Ksh)",
+                                iconData: Icons.monetization_on_rounded,
+                                textStyle: TextStyle(fontSize: 16),
+                                inputType: TextInputType.number,
+                                controller: _productBuyingPriceController,
+                                onChanged: (value) {
+                                  _productBuyingPriceController.setText(
+                                      _productBuyingPriceController.text
+                                          .replaceAll(",", "")
+                                          .addCommas);
+                                },
+                                onValidate: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Product buying price cannot be empty';
+                                  } else {
+                                    return null;
+                                  }
+                                }),
 
-                    vSize8SizedBox,
-                    //  product unit
-                    CustomTextField(
-                        hint: "Product selling Price (Ksh)",
-                        iconData: Icons.monetization_on_rounded,
-                        textStyle: TextStyle(fontSize: 16),
-                        inputType: TextInputType.number,
-                        controller: _productSellingPriceController,
-                        onChanged: (value) {
-                          _productSellingPriceController.setText(
-                              _productSellingPriceController.text
-                                  .replaceAll(",", "")
-                                  .addCommas);
-                        }),
+                            vSize8SizedBox,
+                            //  product unit
+                            CustomTextField(
+                                hint: "Product selling Price (Ksh)",
+                                iconData: Icons.monetization_on_rounded,
+                                textStyle: TextStyle(fontSize: 16),
+                                inputType: TextInputType.number,
+                                controller: _productSellingPriceController,
+                                onChanged: (value) {
+                                  _productSellingPriceController.setText(
+                                      _productSellingPriceController.text
+                                          .replaceAll(",", "")
+                                          .addCommas);
+                                },
+                                onValidate: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Product selling price cannot be empty';
+                                  } else {
+                                    return null;
+                                  }
+                                }),
 
-                    vSize8SizedBox,
-                    //  product unit
-                    CustomTextField(
-                        hint: "Product unit e.g per litre, per kg etc",
-                        iconData: Icons.scale_rounded,
-                        textStyle: TextStyle(fontSize: 16),
-                        controller: _productUnitController,
-                        onChanged: (value) {}),
+                            vSize8SizedBox,
+                            //  product unit
+                            CustomTextField(
+                                hint: "Product unit e.g per litre, per kg etc",
+                                iconData: Icons.scale_rounded,
+                                textStyle: TextStyle(fontSize: 16),
+                                controller: _productUnitController,
+                                onChanged: (value) {}),
 
-                    vSize8SizedBox,
-                    //  product stock count
-                    CustomTextField(
-                        hint: "Product stock count",
-                        iconData: Icons.account_tree_rounded,
-                        textStyle: TextStyle(fontSize: 16),
-                        inputType: TextInputType.number,
-                        controller: _productStockCountController,
-                        onChanged: (value) {}),
+                            vSize8SizedBox,
+                            //  product stock count
+                            CustomTextField(
+                                hint: "Product stock count",
+                                iconData: Icons.account_tree_rounded,
+                                textStyle: TextStyle(fontSize: 16),
+                                inputType: TextInputType.number,
+                                controller: _productStockCountController,
+                                onChanged: (value) {}),
 
-                    vSize8SizedBox,
+                            vSize8SizedBox,
 
-                    CustomTextField(
-                        hint: "Product description",
-                        iconData: Icons.description_rounded,
-                        textStyle: TextStyle(fontSize: 16),
-                        inputType: TextInputType.text,
-                        maxLines: null,
-                        controller: _productDescriptionController,
-                        onChanged: (value) {}),
+                            CustomTextField(
+                                hint: "Product description",
+                                iconData: Icons.description_rounded,
+                                textStyle: TextStyle(fontSize: 16),
+                                inputType: TextInputType.text,
+                                maxLines: null,
+                                controller: _productDescriptionController,
+                                onChanged: (value) {}),
+                          ],
+                        )),
 
                     vSize8SizedBox,
 
@@ -439,163 +477,178 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                           ? "Add Product"
                           : "Update Product",
                       onTap: () async {
-                        var productModel = ProductModel(
-                            sellerName: _authController.user.value!.userName,
-                            sellerId: _authController.user.value!.userId,
-                            productId: '',
-                            productName: _productNameController.text,
-                            productImageUrls: [],
-                            productUnit: _productUnitController.text,
-                            productBuyingPrice: int.parse(
-                                _productBuyingPriceController.text
-                                    .replaceAll(",", "")),
-                            productSellingPrice: int.parse(
-                                _productSellingPriceController.text
-                                    .replaceAll(",", "")),
-                            productCategoryId: selectedCategory,
-                            productCreatedAt: DateTime.now().toString(),
-                            productStockCount:
-                                int.parse(_productStockCountController.text),
-                            productDescription:
-                                _productDescriptionController.text);
+                        if (_globalKey.currentState!.validate()) {
+                          var productModel = ProductModel(
+                              sellerName: _authController.user.value!.userName,
+                              sellerId: _authController.user.value!.userId,
+                              productId: '',
+                              productName: _productNameController.text,
+                              productImageUrls: [],
+                              productUnit: _productUnitController.text,
+                              productBuyingPrice: int.parse(
+                                  _productBuyingPriceController.text
+                                      .replaceAll(",", "")),
+                              productSellingPrice: int.parse(
+                                  _productSellingPriceController.text
+                                      .replaceAll(",", "")),
+                              productCategoryId: selectedCategory,
+                              productCreatedAt: DateTime.now().toString(),
+                              productStockCount:
+                                  int.parse(_productStockCountController.text),
+                              productDescription:
+                                  _productDescriptionController.text,
+                              productVariations:
+                                  _merchantController.productVariations);
 
-                        if (widget.product == null) {
-                          //  add new product
-                          await _merchantController.addProductToFirestore(
-                              product: productModel,
-                              productPics:
-                                  _merchantController.productPicsFromStorage,
-                              response: (state) {
-                                switch (state) {
-                                  case ResponseState.success:
-                                    _merchantController.setUploadButtonLoading(
-                                        isLoading: false);
-                                    break;
-                                  case ResponseState.loading:
-                                    _merchantController.setUploadButtonLoading(
-                                        isLoading: true);
-                                    break;
-                                  case ResponseState.failure:
-                                    _merchantController.setUploadButtonLoading(
-                                        isLoading: false);
+                          if (widget.product == null) {
+                            //  add new product
+                            await _merchantController.addProductToFirestore(
+                                product: productModel,
+                                productPics:
+                                    _merchantController.productPicsFromStorage,
+                                response: (state) {
+                                  switch (state) {
+                                    case ResponseState.success:
+                                      _merchantController
+                                          .setUploadButtonLoading(
+                                              isLoading: false);
+                                      break;
+                                    case ResponseState.loading:
+                                      _merchantController
+                                          .setUploadButtonLoading(
+                                              isLoading: true);
+                                      break;
+                                    case ResponseState.failure:
+                                      _merchantController
+                                          .setUploadButtonLoading(
+                                              isLoading: false);
 
-                                    WidgetsBinding.instance
-                                        .addPostFrameCallback((_) {
-                                      showSnackbar(
-                                          title: "Error uploading product",
-                                          message:
-                                              "Something went wrong. please try again",
-                                          iconData: Icons.login_rounded,
-                                          iconColor: XploreColors.xploreOrange);
-                                    });
-                                    break;
-                                }
-                              },
-                              onUploadComplete: () {
-                                //  reset the merchant controller product pics
-                                _merchantController.clearPickedProductPics();
-                                WidgetsBinding.instance
-                                    .addPostFrameCallback((_) {
-                                  showSnackbar(
-                                      title: "Images uploaded!",
-                                      message:
-                                          "Product images uploaded successfully!",
-                                      iconData: Icons.library_books_rounded,
-                                      iconColor: XploreColors.xploreOrange);
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        showSnackbar(
+                                            title: "Error uploading product",
+                                            message:
+                                                "Something went wrong. please try again",
+                                            iconData: Icons.login_rounded,
+                                            iconColor:
+                                                XploreColors.xploreOrange);
+                                      });
+                                      break;
+                                  }
+                                },
+                                onUploadComplete: () {
+                                  //  reset the merchant controller product pics
+                                  _merchantController.clearPickedProductPics();
+                                  WidgetsBinding.instance
+                                      .addPostFrameCallback((_) {
+                                    showSnackbar(
+                                        title: "Images uploaded!",
+                                        message:
+                                            "Product images uploaded successfully!",
+                                        iconData: Icons.library_books_rounded,
+                                        iconColor: XploreColors.xploreOrange);
+                                  });
+                                },
+                                onTransfer: (bytesTransferredPercentage) {
+                                  print(
+                                      "Bytes Transferred : $bytesTransferredPercentage");
+                                },
+                                onSuccess: () {
+                                  WidgetsBinding.instance
+                                      .addPostFrameCallback((_) {
+                                    showSnackbar(
+                                        title: "Product uploaded!",
+                                        message:
+                                            "Product uploaded successfully!",
+                                        iconData: Icons.library_books_rounded,
+                                        iconColor: XploreColors.xploreOrange);
+                                  });
+
+                                  Get.back();
                                 });
-                              },
-                              onTransfer: (bytesTransferredPercentage) {
-                                print(
-                                    "Bytes Transferred : $bytesTransferredPercentage");
-                              },
-                              onSuccess: () {
-                                WidgetsBinding.instance
-                                    .addPostFrameCallback((_) {
-                                  showSnackbar(
-                                      title: "Product uploaded!",
-                                      message: "Product uploaded successfully!",
-                                      iconData: Icons.library_books_rounded,
-                                      iconColor: XploreColors.xploreOrange);
+                          } else {
+                            //  update current product
+                            await _merchantController.updateProduct(
+                                oldProduct: widget.product!,
+                                newProduct: ProductModel(
+                                    productName: _productNameController.text,
+                                    productUnit: _productUnitController.text,
+                                    productBuyingPrice: int.parse(
+                                        _productBuyingPriceController.text
+                                            .replaceAll(",", "")),
+                                    productSellingPrice: int.parse(
+                                        _productSellingPriceController.text
+                                            .replaceAll(",", "")),
+                                    productCategoryId: selectedCategory,
+                                    productStockCount: int.parse(
+                                        _productStockCountController.text),
+                                    productDescription:
+                                        _productDescriptionController.text),
+                                productPics:
+                                    _merchantController.productPicsFromStorage,
+                                onUploadComplete: () {
+                                  //  reset the merchant controller product pics
+                                  _merchantController.clearPickedProductPics();
+                                  WidgetsBinding.instance
+                                      .addPostFrameCallback((_) {
+                                    showSnackbar(
+                                        title: "Images uploaded!",
+                                        message:
+                                            "Product images uploaded successfully!",
+                                        iconData: Icons.library_books_rounded,
+                                        iconColor: XploreColors.xploreOrange);
+                                  });
+                                },
+                                onTransfer: (bytesTransferredPercentage) {
+                                  print(
+                                      "Bytes Transferred : $bytesTransferredPercentage");
+                                },
+                                response: (state) {
+                                  switch (state) {
+                                    case ResponseState.success:
+                                      _merchantController
+                                          .setUploadButtonLoading(
+                                              isLoading: false);
+
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        showSnackbar(
+                                            title: "Product updated!",
+                                            message:
+                                                "Product updated successfully!",
+                                            iconData:
+                                                Icons.library_books_rounded,
+                                            iconColor:
+                                                XploreColors.xploreOrange);
+                                      });
+
+                                      Get.back();
+                                      Get.back();
+                                      break;
+                                    case ResponseState.loading:
+                                      _merchantController
+                                          .setUploadButtonLoading(
+                                              isLoading: true);
+                                      break;
+                                    case ResponseState.failure:
+                                      _merchantController
+                                          .setUploadButtonLoading(
+                                              isLoading: false);
+
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        showSnackbar(
+                                            title: "Error uploading product",
+                                            message:
+                                                "Something went wrong. please try again",
+                                            iconData: Icons.login_rounded,
+                                            iconColor:
+                                                XploreColors.xploreOrange);
+                                      });
+                                      break;
+                                  }
                                 });
-
-                                Get.back();
-                              });
-                        } else {
-                          //  update current product
-                          await _merchantController.updateProduct(
-                              oldProduct: widget.product!,
-                              newProduct: ProductModel(
-                                  productName: _productNameController.text,
-                                  productUnit: _productUnitController.text,
-                                  productBuyingPrice: int.parse(
-                                      _productBuyingPriceController.text
-                                          .replaceAll(",", "")),
-                                  productSellingPrice: int.parse(
-                                      _productSellingPriceController.text
-                                          .replaceAll(",", "")),
-                                  productCategoryId: selectedCategory,
-                                  productStockCount: int.parse(
-                                      _productStockCountController.text),
-                                  productDescription:
-                                      _productDescriptionController.text),
-                              productPics:
-                                  _merchantController.productPicsFromStorage,
-                              onUploadComplete: () {
-                                //  reset the merchant controller product pics
-                                _merchantController.clearPickedProductPics();
-                                WidgetsBinding.instance
-                                    .addPostFrameCallback((_) {
-                                  showSnackbar(
-                                      title: "Images uploaded!",
-                                      message:
-                                          "Product images uploaded successfully!",
-                                      iconData: Icons.library_books_rounded,
-                                      iconColor: XploreColors.xploreOrange);
-                                });
-                              },
-                              onTransfer: (bytesTransferredPercentage) {
-                                print(
-                                    "Bytes Transferred : $bytesTransferredPercentage");
-                              },
-                              response: (state) {
-                                switch (state) {
-                                  case ResponseState.success:
-                                    _merchantController.setUploadButtonLoading(
-                                        isLoading: false);
-
-                                    WidgetsBinding.instance
-                                        .addPostFrameCallback((_) {
-                                      showSnackbar(
-                                          title: "Product updated!",
-                                          message:
-                                              "Product updated successfully!",
-                                          iconData: Icons.library_books_rounded,
-                                          iconColor: XploreColors.xploreOrange);
-                                    });
-
-                                    Get.back();
-                                    Get.back();
-                                    break;
-                                  case ResponseState.loading:
-                                    _merchantController.setUploadButtonLoading(
-                                        isLoading: true);
-                                    break;
-                                  case ResponseState.failure:
-                                    _merchantController.setUploadButtonLoading(
-                                        isLoading: false);
-
-                                    WidgetsBinding.instance
-                                        .addPostFrameCallback((_) {
-                                      showSnackbar(
-                                          title: "Error uploading product",
-                                          message:
-                                              "Something went wrong. please try again",
-                                          iconData: Icons.login_rounded,
-                                          iconColor: XploreColors.xploreOrange);
-                                    });
-                                    break;
-                                }
-                              });
+                          }
                         }
                       }),
                 ),

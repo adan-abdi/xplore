@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/variation_group_item.dart';
@@ -36,7 +38,7 @@ class _VariationsBottomSheetState extends State<VariationsBottomSheet> {
             iconData: Icons.done_rounded,
             text: "Save",
             isValid: true,
-            onTap: () {})
+            onTap: () => Get.back())
       ],
     );
   }

@@ -19,6 +19,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final Function(String text) onChanged;
   final VoidCallback? onTap;
+  final String? Function(String?)? onValidate;
 
   const CustomTextField(
       {super.key,
@@ -36,13 +37,14 @@ class CustomTextField extends StatelessWidget {
       this.inputType = TextInputType.text,
       this.controller,
       required this.onChanged,
-      this.onTap});
+      this.onTap,
+      this.onValidate});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextField(
+        TextFormField(
           autofocus: false,
           controller: controller,
           enabled: isEnabled,
@@ -70,12 +72,13 @@ class CustomTextField extends StatelessWidget {
                       BorderSide(width: 2, color: XploreColors.xploreOrange)),
               enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
-                      width: 2, color: XploreColors.deepBlue.withOpacity(0.1))),
+                      width: 2,
+                      color: XploreColors.deepBlue.withOpacity(0.1))),
               border: UnderlineInputBorder(
                   borderSide: BorderSide(
                       width: 2,
                       color: XploreColors.deepBlue.withOpacity(0.1)))),
-          cursorOpacityAnimates: true,
+          validator: onValidate,
           onChanged: onChanged,
         ),
 
@@ -83,7 +86,8 @@ class CustomTextField extends StatelessWidget {
 
         //  error message
         Visibility(
-            visible: showErrorMessage != null && showErrorMessage! == true,
+            visible: showErrorMessage != null &&
+                showErrorMessage! == true,
             child: Row(
               children: [
                 Icon(
