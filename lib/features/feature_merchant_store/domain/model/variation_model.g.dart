@@ -9,7 +9,7 @@ part of 'variation_model.dart';
 VariationModel _$VariationModelFromJson(Map<String, dynamic> json) =>
     VariationModel(
       variationName: json['variationName'] as String?,
-      variationPrice: json['variationPrice'] as String?,
+      variationPrice: json['variationPrice'] as int?,
       variationGroup: json['variationGroup'] as String?,
     );
 

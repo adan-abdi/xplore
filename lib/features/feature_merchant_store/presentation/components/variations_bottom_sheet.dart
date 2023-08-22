@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shamiri/core/presentation/components/submit_button.dart';
+import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/components/variation_group_item.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/utils/merchant_constants.dart';
 
 class VariationsBottomSheet extends StatefulWidget {
   const VariationsBottomSheet({super.key});
@@ -20,6 +24,19 @@ class _VariationsBottomSheetState extends State<VariationsBottomSheet> {
         ),
 
         //  variations
+        ListView.builder(
+            itemBuilder: (context, index) => VariationGroupItem(
+                group: MerchantConstants.variationGroups[index]),
+            itemCount: MerchantConstants.variationGroups.length,
+            shrinkWrap: true),
+
+        vSize20SizedBox,
+
+        SubmitButton(
+            iconData: Icons.done_rounded,
+            text: "Save",
+            isValid: true,
+            onTap: () {})
       ],
     );
   }

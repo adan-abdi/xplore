@@ -6,13 +6,13 @@ part 'variation_model.g.dart';
 @JsonSerializable()
 class VariationModel {
   @JsonKey(name: 'variationName')
-  final String? variationName;
+  String? variationName;
 
   @JsonKey(name: 'variationPrice')
-  final String? variationPrice;
+  int? variationPrice;
 
   @JsonKey(name: 'variationGroup')
-  final String? variationGroup;
+  String? variationGroup;
 
   VariationModel(
       {this.variationName, this.variationPrice, this.variationGroup});

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/di/locator.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/transaction_types.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/variation_model.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/use_cases/merchant_use_cases.dart';
 
 import '../../../../core/domain/model/response_state.dart';
@@ -25,6 +26,17 @@ class MerchantController extends GetxController {
 
   /// Active Category
   final activeCategory = Constants.productCategories[0].obs;
+
+  /// Variations
+  final productVariations = <VariationModel>[].obs;
+
+  void addProductVariation({required VariationModel variation}) {
+    if (productVariations.contains(variation)) {
+      productVariations.removeWhere((v) => v == variation);
+    } else {
+      productVariations.add(variation);
+    }
+  }
 
   void setProductPic({required File? file}) => productPic.value = file;
 
