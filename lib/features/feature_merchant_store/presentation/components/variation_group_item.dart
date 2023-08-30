@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shamiri/core/presentation/components/custom_textfield.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_home/presentation/components/pill_btn.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/variation_model.dart';
@@ -28,9 +29,6 @@ class _VariationGroupItemState extends State<VariationGroupItem> {
   }
 
   List<VariationModel> getGroupVariations() {
-    print(MerchantConstants.variations
-        .where((variation) => variation.variationGroup! == widget.group)
-        .toList());
     return MerchantConstants.variations
         .where((variation) => variation.variationGroup! == widget.group)
         .toList();
@@ -48,23 +46,72 @@ class _VariationGroupItemState extends State<VariationGroupItem> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
 
           //  list for the variations
-          Container(
-            height: 50,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
+          ListView.builder(
               itemBuilder: (context, index) => Obx(
-                () => PillBtnAlt(
-                    text: getGroupVariations()[index].variationName!,
-                    isActive: _merchantController.productVariations
-                        .contains(getGroupVariations()[index]),
-                    onTap: () => _merchantController.addProductVariation(
-                        variation: getGroupVariations()[index])),
-              ),
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: PillBtnAlt(
+                                text:
+                                    getGroupVariations()[index].variationName!,
+                                isActive: _merchantController.productVariations
+                                    .contains(getGroupVariations()[index]),
+                                onTap: () =>
+                                    _merchantController.addProductVariation(
+                                        variation:
+                                            getGroupVariations()[index])),
+                          ),
+                        ),
+
+                        hSize20SizedBox,
+
+                        //  input for the variation price
+                        Expanded(
+                          flex: 2,
+                          child: Align(
+                            alignment: AlignmentDirectional.center,
+                            child: CustomTextField(
+                                hint: "Variation price (Ksh)",
+                                iconData: Icons.attach_money_rounded,
+                                textStyle: TextStyle(fontSize: 16),
+                                inputType: TextInputType.number,
+                                value: getGroupVariations()[index]
+                                            .variationPrice ==
+                                        null
+                                    ? null
+                                    : getGroupVariations()[index]
+                                        .variationPrice
+                                        .toString(),
+                                onChanged: (value) {
+                                  MerchantConstants
+                                      .variations[MerchantConstants.variations
+                                          .indexOf(getGroupVariations()[index])]
+                                      .variationPrice = int.parse(value);
+
+                                  if (_merchantController.productVariations
+                                      .contains(getGroupVariations()[index])) {
+                                    _merchantController
+                                        .productVariations[_merchantController
+                                            .productVariations
+                                            .indexOf(
+                                                getGroupVariations()[index])]
+                                        .variationPrice = int.parse(value);
+                                  }
+
+                                  print(
+                                      "NEW VARIATION : ${getGroupVariations()[index].variationPrice}");
+                                }),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
               itemCount: getGroupVariations().length,
               shrinkWrap: true,
-              separatorBuilder: (context, index) => hSize10SizedBox,
-            ),
-          )
+              physics: const NeverScrollableScrollPhysics())
         ],
       ),
     );

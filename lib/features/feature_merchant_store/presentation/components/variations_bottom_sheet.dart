@@ -16,30 +16,37 @@ class VariationsBottomSheet extends StatefulWidget {
 class _VariationsBottomSheetState extends State<VariationsBottomSheet> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        //  title
-        Text(
-          "Product Variations",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.75,
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            //  title
+            Text(
+              "Product Variations",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+
+            //  variations
+            ListView.builder(
+                itemBuilder: (context, index) => VariationGroupItem(
+                    group: MerchantConstants.variationGroups[index]),
+                itemCount: MerchantConstants.variationGroups.length,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true),
+
+            vSize20SizedBox,
+
+            SubmitButton(
+                iconData: Icons.done_rounded,
+                text: "Save",
+                isValid: true,
+                onTap: () => Get.back())
+          ],
         ),
-
-        //  variations
-        ListView.builder(
-            itemBuilder: (context, index) => VariationGroupItem(
-                group: MerchantConstants.variationGroups[index]),
-            itemCount: MerchantConstants.variationGroups.length,
-            shrinkWrap: true),
-
-        vSize20SizedBox,
-
-        SubmitButton(
-            iconData: Icons.done_rounded,
-            text: "Save",
-            isValid: true,
-            onTap: () => Get.back())
-      ],
+      ),
     );
   }
 }

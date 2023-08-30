@@ -13,6 +13,7 @@ import 'package:shamiri/core/presentation/components/show_toast.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/features/feature_home/presentation/components/product_view/product_variations_view.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -407,7 +408,12 @@ class _ProductViewPageState extends State<ProductViewPage> {
                               text: ' units remaining.', style: TextStyle()),
                         ])),
 
-                        vSize40SizedBox,
+                        vSize30SizedBox,
+
+                        //  product variations
+                        ProductVariationsView(product: liveProduct),
+
+                        vSize30SizedBox,
 
                         //  product description
                         Column(
@@ -458,40 +464,42 @@ class _ProductViewPageState extends State<ProductViewPage> {
                     .contains(liveProduct.productId!),
                 child: Align(
                   alignment: AlignmentDirectional.bottomCenter,
-                  child: UnconstrainedBox(
-                    child: liveProduct.productStockCount! < 1
-                        ? Container(
-                            margin: const EdgeInsets.all(16),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 8),
-                            decoration: BoxDecoration(
-                                color: XploreColors.deepBlue,
-                                borderRadius: BorderRadius.circular(100)),
-                            child: Center(
-                              child: Text(
-                                "Product out of stock",
-                                style: TextStyle(color: XploreColors.white),
-                              ),
+                  child: liveProduct.productStockCount! < 1
+                      ? Container(
+                          margin: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
+                          decoration: BoxDecoration(
+                              color: XploreColors.deepBlue,
+                              borderRadius: BorderRadius.circular(100)),
+                          child: Center(
+                            child: Text(
+                              "Product out of stock",
+                              style: TextStyle(color: XploreColors.white),
                             ),
-                          )
-                        : Obx(
-                            () {
-                              final isInCart = _authController
-                                  .user.value!.itemsInCart!
-                                  .map((item) => item.cartProductId)
-                                  .toList()
-                                  .contains(liveProduct.productId!);
+                          ),
+                        )
+                      : Obx(
+                          () {
+                            final isInCart = _authController
+                                .user.value!.itemsInCart!
+                                .map((item) => item.cartProductId)
+                                .toList()
+                                .contains(liveProduct.productId!);
 
-                              final totalPrice =
-                                  itemCount * liveProduct.productSellingPrice!;
+                            final totalPrice =
+                                itemCount * liveProduct.productSellingPrice!;
 
-                              return Container(
-                                width: isInCart ? 325 : 320,
-                                height: 100,
-                                margin: const EdgeInsets.all(16),
-                                decoration: BoxDecoration(
-                                    color: XploreColors.white,
-                                    borderRadius: BorderRadius.circular(8)),
+                            return Container(
+                              width: MediaQuery.of(context).size.width - 16,
+                              height: 100,
+                              margin: const EdgeInsets.symmetric(horizontal: 16),
+                              decoration: BoxDecoration(
+                                  color: XploreColors.white,
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: Container(
+                                width: double.infinity,
+                                height: double.infinity,
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
@@ -770,10 +778,10 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                     ),
                                   ],
                                 ),
-                              );
-                            },
-                          ),
-                  ),
+                              ),
+                            );
+                          },
+                        ),
                 ),
               )
             ],

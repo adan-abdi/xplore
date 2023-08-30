@@ -4,6 +4,7 @@ import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/presentation/model/product_category.dart';
 import 'package:shamiri/di/locator.dart';
 import 'package:shamiri/features/feature_home/domain/use_cases/home_use_cases.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/variation_model.dart';
 
 import '../../../../core/utils/constants.dart';
 import '../../../feature_merchant_store/domain/model/product_model.dart';
@@ -15,6 +16,7 @@ class HomeController extends GetxController {
   final stores = <UserModel>[].obs;
   final filteredProducts = <ProductModel>[].obs;
   final storeProducts = <ProductModel>[].obs;
+  final pickedVariations = <VariationModel>[].obs;
 
   /// Active Bottom Bar Index
   final activeBottomBarIndex = 1.obs;
@@ -30,6 +32,16 @@ class HomeController extends GetxController {
 
   /// Check Whether drawer is open
   final isDrawerOpen = false.obs;
+
+  void addProductVariation({required VariationModel variation}) {
+    if (pickedVariations.contains(variation)) {
+      pickedVariations.removeWhere((v) => v == variation);
+    } else {
+      pickedVariations.add(variation);
+    }
+  }
+
+  void clearProductVariations() => pickedVariations.clear();
 
   void setProducts({required List<ProductModel> products}) =>
       this.products.value = products;
