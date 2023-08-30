@@ -30,10 +30,16 @@ class MerchantController extends GetxController {
   /// Variations
   final productVariations = <VariationModel>[].obs;
 
-  void addProductVariation({required VariationModel variation}) {
+  void toggleProductVariation({required VariationModel variation}) {
     if (productVariations.contains(variation)) {
       productVariations.removeWhere((v) => v == variation);
     } else {
+      productVariations.add(variation);
+    }
+  }
+
+  void addProductVariation({required VariationModel variation}) {
+    if (!productVariations.contains(variation)) {
       productVariations.add(variation);
     }
   }

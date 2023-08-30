@@ -300,26 +300,33 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                     vSize30SizedBox,
 
                     //  product variations
-                    Container(
-                      height: 50,
-                      child: Obx(
-                        () => ListView.separated(
-                          itemBuilder: (context, index) => Row(
-                            children: [
-                              PillBtnAlt(
-                                  text: _merchantController
-                                      .productVariations[index].variationName!,
-                                  onTap: () {}),
-                              hSize5SizedBox,
-
-                              Text("Ksh ${_merchantController
-                                  .productVariations[index].variationPrice!.toString().addCommas}")
-                            ],
+                    Obx(
+                      () => Visibility(
+                        visible:
+                            _merchantController.productVariations.isNotEmpty,
+                        child: Container(
+                          height: 50,
+                          child: Obx(
+                            () => ListView.separated(
+                              itemBuilder: (context, index) => Row(
+                                children: [
+                                  PillBtnAlt(
+                                      text: _merchantController
+                                          .productVariations[index]
+                                          .variationName!,
+                                      onTap: () {}),
+                                  hSize5SizedBox,
+                                  Text(
+                                      "Ksh ${_merchantController.productVariations[index].variationPrice!.toString().addCommas}")
+                                ],
+                              ),
+                              separatorBuilder: (context, index) =>
+                                  hSize10SizedBox,
+                              itemCount:
+                                  _merchantController.productVariations.length,
+                              scrollDirection: Axis.horizontal,
+                            ),
                           ),
-                          separatorBuilder: (context, index) => hSize10SizedBox,
-                          itemCount:
-                              _merchantController.productVariations.length,
-                          scrollDirection: Axis.horizontal,
                         ),
                       ),
                     ),

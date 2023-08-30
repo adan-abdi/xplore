@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pinput/pinput.dart';
 import 'package:shamiri/core/presentation/components/custom_textfield.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_home/presentation/components/pill_btn.dart';
@@ -20,12 +21,26 @@ class VariationGroupItem extends StatefulWidget {
 
 class _VariationGroupItemState extends State<VariationGroupItem> {
   late final MerchantController _merchantController;
+  late final List<TextEditingController> controllers;
 
   @override
   void initState() {
     super.initState();
 
     _merchantController = Get.find<MerchantController>();
+
+    controllers = List.generate(
+        getGroupVariations().length, (index) => TextEditingController());
+
+    initializeControllers();
+  }
+
+  void initializeControllers() {
+    for (TextEditingController controller in controllers) {
+      controller.setText(getGroupVariations()[controllers.indexOf(controller)]
+          .variationPrice!
+          .toString());
+    }
   }
 
   List<VariationModel> getGroupVariations() {
@@ -60,7 +75,7 @@ class _VariationGroupItemState extends State<VariationGroupItem> {
                                 isActive: _merchantController.productVariations
                                     .contains(getGroupVariations()[index]),
                                 onTap: () =>
-                                    _merchantController.addProductVariation(
+                                    _merchantController.toggleProductVariation(
                                         variation:
                                             getGroupVariations()[index])),
                           ),
@@ -78,14 +93,19 @@ class _VariationGroupItemState extends State<VariationGroupItem> {
                                 iconData: Icons.attach_money_rounded,
                                 textStyle: TextStyle(fontSize: 16),
                                 inputType: TextInputType.number,
+                                controller: controllers[index],
                                 value: getGroupVariations()[index]
-                                        .variationPrice
-                                        .toString(),
+                                    .variationPrice
+                                    .toString(),
                                 onChanged: (value) {
+                                  _merchantController.addProductVariation(
+                                      variation:
+                                      getGroupVariations()[index]);
+
                                   MerchantConstants
                                       .variations[MerchantConstants.variations
                                           .indexOf(getGroupVariations()[index])]
-                                      .variationPrice = int.parse(value);
+                                      .variationPrice = int.parse(value.isEmpty ? '0' : value);
 
                                   if (_merchantController.productVariations
                                       .contains(getGroupVariations()[index])) {
@@ -94,7 +114,7 @@ class _VariationGroupItemState extends State<VariationGroupItem> {
                                             .productVariations
                                             .indexOf(
                                                 getGroupVariations()[index])]
-                                        .variationPrice = int.parse(value);
+                                        .variationPrice = int.parse(value.isEmpty ? '0' : value);
                                   }
                                 }),
                           ),
