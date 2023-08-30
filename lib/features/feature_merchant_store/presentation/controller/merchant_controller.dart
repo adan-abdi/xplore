@@ -44,6 +44,10 @@ class MerchantController extends GetxController {
     }
   }
 
+  void updateProductVariation({required int index, required VariationModel variation}) {
+    productVariations[index] = variation;
+  }
+
   void clearProductVariations() => productVariations.clear();
 
   void setProductPic({required File? file}) => productPic.value = file;

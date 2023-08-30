@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:shamiri/core/presentation/components/show_alert_dialog.dart';
 import 'package:shamiri/core/presentation/components/submit_button.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/variation_model.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/components/custom_variation_item.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/variation_group_item.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/utils/merchant_constants.dart';
 import 'package:shamiri/presentation/core/widgets/molecular/dashboard_tab_action_button.dart';
+import 'package:get/get.dart';
+
+import '../../../feature_home/presentation/components/pill_btn_alt.dart';
 
 class VariationsBottomSheet extends StatefulWidget {
   const VariationsBottomSheet({super.key});
@@ -15,13 +23,15 @@ class VariationsBottomSheet extends StatefulWidget {
 }
 
 class _VariationsBottomSheetState extends State<VariationsBottomSheet> {
-  late final List<Widget> customVariations;
+  late final MerchantController _merchantController;
+  String customVariationName = '';
+  String customVariationPrice = '';
 
   @override
   void initState() {
     super.initState();
 
-    customVariations = [];
+    _merchantController = Get.find<MerchantController>();
   }
 
   @override
@@ -50,27 +60,125 @@ class _VariationsBottomSheetState extends State<VariationsBottomSheet> {
                       actionIcon: Icons.add_rounded,
                       actionLabel: 'Add custom variation',
                       onPressed: () {
-                        setState(() {
-                          //  add dynamic widget
-                          customVariations.add(Text("Hello"));
+                        // setState(() {
+                        //   //  add dynamic widget
+                        //   customVariations.add(CustomVariationItem());
+                        // });
+
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          showAlertDialog(
+                              title: "Add Variation",
+                              iconData: Icons.add_rounded,
+                              content: CustomVariationItem(
+                                onNameChanged: (value) {
+                                  setState(() {
+                                    customVariationName = value;
+                                  });
+                                },
+                                onPriceChanged: (value) {
+                                  setState(() {
+                                    customVariationPrice = value;
+                                  });
+                                },
+                              ),
+                              onCancel: () => Get.back(),
+                              onConfirm: () {
+                                _merchantController.addProductVariation(
+                                    variation: VariationModel(
+                                        variationName: customVariationName,
+                                        variationPrice:
+                                            int.parse(customVariationPrice),
+                                        variationGroup: MerchantConstants
+                                            .variationGroups[3]));
+
+                                Get.back();
+                              });
                         });
                       }),
                 )),
 
             vSize20SizedBox,
 
-            ListView.builder(
-              itemBuilder: (context, index) => customVariations[index],
-              itemCount: customVariations.length,
-              shrinkWrap: true,
+            Container(
+              height: 50,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: ListView.separated(
+                itemBuilder: (context, index) => Row(
+                  children: [
+                    PillBtnAlt(
+                        text: _merchantController.productVariations
+                            .where((variation) =>
+                                variation.variationGroup ==
+                                MerchantConstants.variationGroups[3])
+                            .toList()[index]
+                            .variationName!,
+                        isActive: true,
+                        onTap: () {
+                          //  open alert dialog to update the variation
+                          showAlertDialog(
+                              title: "Update Variation",
+                              iconData: Icons.add_rounded,
+                              content: CustomVariationItem(
+                                variationModel: _merchantController
+                                    .productVariations
+                                    .where((variation) =>
+                                        variation.variationGroup ==
+                                        MerchantConstants.variationGroups[3])
+                                    .toList()[index],
+                                onNameChanged: (value) {
+                                  setState(() {
+                                    customVariationName = value;
+                                  });
+                                },
+                                onPriceChanged: (value) {
+                                  setState(() {
+                                    customVariationPrice = value;
+                                  });
+                                },
+                              ),
+                              onCancel: () => Get.back(),
+                              onConfirm: () {
+                                _merchantController.updateProductVariation(
+                                    index: _merchantController.productVariations
+                                        .indexOf(_merchantController
+                                            .productVariations
+                                            .where((variation) =>
+                                                variation.variationGroup ==
+                                                MerchantConstants
+                                                    .variationGroups[3])
+                                            .toList()[index]),
+                                    variation: VariationModel(
+                                        variationName: customVariationName,
+                                        variationPrice:
+                                            int.parse(customVariationPrice),
+                                        variationGroup: MerchantConstants
+                                            .variationGroups[3]));
+
+                                Get.back();
+                              });
+                        }),
+                    hSize5SizedBox,
+                    Text(
+                        "Ksh ${_merchantController.productVariations.where((variation) => variation.variationGroup == MerchantConstants.variationGroups[3]).toList()[index].variationPrice!.toString().addCommas}")
+                  ],
+                ),
+                separatorBuilder: (context, index) => hSize10SizedBox,
+                itemCount: _merchantController.productVariations
+                    .where((variation) =>
+                        variation.variationGroup ==
+                        MerchantConstants.variationGroups[3])
+                    .length,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+              ),
             ),
 
             vSize20SizedBox,
 
             //  variations
             ListView.builder(
-                itemBuilder: (context, index) => VariationGroupItem(
-                    group: MerchantConstants.variationGroups[index]),
+                itemBuilder: (context, index) => index != 3 ? VariationGroupItem(
+                    group: MerchantConstants.variationGroups[index]) : SizedBox.shrink(),
                 itemCount: MerchantConstants.variationGroups.length,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true),

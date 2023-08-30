@@ -533,7 +533,8 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                               productDescription:
                                   _productDescriptionController.text,
                               productVariations:
-                                  _merchantController.productVariations);
+                                  _merchantController.productVariations,
+                              activeProductVariations: []);
 
                           if (widget.product == null) {
                             //  add new product
