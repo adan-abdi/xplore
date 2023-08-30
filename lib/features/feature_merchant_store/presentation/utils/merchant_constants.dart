@@ -1,7 +1,7 @@
 import 'package:shamiri/features/feature_merchant_store/domain/model/variation_model.dart';
 
 class MerchantConstants {
-  static const variationGroups = ["Size", "Color", "Quantity"];
+  static const variationGroups = ["Size", "Color", "Quantity", "Custom"];
 
   static List<VariationModel> variations = [
     //  sizes

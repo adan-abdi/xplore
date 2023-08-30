@@ -5,6 +5,7 @@ import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/variation_group_item.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/utils/merchant_constants.dart';
+import 'package:shamiri/presentation/core/widgets/molecular/dashboard_tab_action_button.dart';
 
 class VariationsBottomSheet extends StatefulWidget {
   const VariationsBottomSheet({super.key});
@@ -14,6 +15,15 @@ class VariationsBottomSheet extends StatefulWidget {
 }
 
 class _VariationsBottomSheetState extends State<VariationsBottomSheet> {
+  late final List<Widget> customVariations;
+
+  @override
+  void initState() {
+    super.initState();
+
+    customVariations = [];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,6 +38,34 @@ class _VariationsBottomSheetState extends State<VariationsBottomSheet> {
               "Product Variations",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
+
+            vSize20SizedBox,
+
+            //  custom variation
+            Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: CustomFAB(
+                      actionIcon: Icons.add_rounded,
+                      actionLabel: 'Add custom variation',
+                      onPressed: () {
+                        setState(() {
+                          //  add dynamic widget
+                          customVariations.add(Text("Hello"));
+                        });
+                      }),
+                )),
+
+            vSize20SizedBox,
+
+            ListView.builder(
+              itemBuilder: (context, index) => customVariations[index],
+              itemCount: customVariations.length,
+              shrinkWrap: true,
+            ),
+
+            vSize20SizedBox,
 
             //  variations
             ListView.builder(
