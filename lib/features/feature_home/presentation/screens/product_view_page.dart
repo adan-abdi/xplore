@@ -78,7 +78,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
             newUser: UserModel(
                 itemsInCart: _authController.user.value!.itemsInCart!),
             uid: _authController.user.value!.userId!,
-            response: (state, error){});
+            response: (state, error) {});
       } else {
         showToast(
             toast: _toast,
@@ -123,7 +123,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
             newUser: UserModel(
                 itemsInCart: _authController.user.value!.itemsInCart!),
             uid: _authController.user.value!.userId!,
-            response: (state, error){});
+            response: (state, error) {});
       } else {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           showToast(
@@ -487,13 +487,17 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                 .toList()
                                 .contains(liveProduct.productId!);
 
-                            final totalPrice =
-                                itemCount * liveProduct.productSellingPrice!;
+                            final totalPrice = (itemCount *
+                                    liveProduct.productSellingPrice!) +
+                                _homeController.getTotalFromProductVariations(
+                                    variations:
+                                        liveProduct.activeProductVariations!);
 
                             return Container(
                               width: MediaQuery.of(context).size.width - 16,
                               height: 100,
-                              margin: const EdgeInsets.symmetric(horizontal: 16),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 16),
                               decoration: BoxDecoration(
                                   color: XploreColors.white,
                                   borderRadius: BorderRadius.circular(8)),
@@ -700,7 +704,8 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                                                       .user
                                                                       .value!
                                                                       .userId!,
-                                                          response: (state, error){});
+                                                              response: (state,
+                                                                  error) {});
                                                     } else {
                                                       //  Add item to list
                                                       itemsInCart = itemsInCart
@@ -725,7 +730,8 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                                                       .user
                                                                       .value!
                                                                       .userId!,
-                                                          response: (state, error){});
+                                                              response: (state,
+                                                                  error) {});
                                                     }
                                                   },
                                                   child: UnconstrainedBox(
@@ -740,7 +746,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                                                   .circular(
                                                                       100)),
                                                       padding: const EdgeInsets
-                                                              .symmetric(
+                                                          .symmetric(
                                                           horizontal: 12,
                                                           vertical: 8),
                                                       child: Row(

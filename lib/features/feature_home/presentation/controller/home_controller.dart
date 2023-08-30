@@ -41,8 +41,8 @@ class HomeController extends GetxController {
     }
   }
 
-  int getTotalFromProductVariations() {
-    return pickedVariations
+  int getTotalFromProductVariations({required List<VariationModel> variations}) {
+    return variations
         .map((variation) => variation.variationPrice!)
         .reduce((value, element) => value + element);
   }
