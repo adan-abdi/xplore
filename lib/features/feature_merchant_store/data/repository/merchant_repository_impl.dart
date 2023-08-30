@@ -55,6 +55,9 @@ class MerchantRepositoryImpl implements MerchantRepository {
         "productVariations": product.productVariations
             ?.map((variation) => variation.toJson())
             .toList(),
+        "activeProductVariations": product.activeProductVariations
+            ?.map((variation) => variation.toJson())
+            .toList(),
       }).then((value) async {
         response(ResponseState.success);
         onSuccess();
@@ -155,6 +158,12 @@ class MerchantRepositoryImpl implements MerchantRepository {
                 ?.map((variation) => variation.toJson())
                 .toList() ??
             oldProduct.productVariations
+                ?.map((variation) => variation.toJson())
+                .toList(),
+        "activeProductVariations": newProduct.activeProductVariations
+            ?.map((variation) => variation.toJson())
+            .toList() ??
+            oldProduct.activeProductVariations
                 ?.map((variation) => variation.toJson())
                 .toList()
       }).then((value) async {

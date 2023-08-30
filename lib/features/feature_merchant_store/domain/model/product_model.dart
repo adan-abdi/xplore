@@ -45,6 +45,9 @@ class ProductModel {
   @JsonKey(name: 'productVariations')
   List<VariationModel>? productVariations;
 
+  @JsonKey(name: 'activeProductVariations')
+  List<VariationModel>? activeProductVariations;
+
   ProductModel(
       {this.sellerId,
       this.sellerName,
@@ -58,7 +61,8 @@ class ProductModel {
       this.productImageUrls,
       this.productDescription,
       this.productCreatedAt,
-      this.productVariations});
+      this.productVariations,
+      this.activeProductVariations});
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
       _$ProductModelFromJson(json);

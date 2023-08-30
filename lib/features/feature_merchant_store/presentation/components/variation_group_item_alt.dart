@@ -3,6 +3,7 @@ import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_home/presentation/components/pill_btn.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/variation_model.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/utils/merchant_constants.dart';
@@ -12,10 +13,14 @@ import 'package:get/get.dart';
 
 class VariationGroupItemAlt extends StatefulWidget {
   final String group;
+  final ProductModel product;
   final List<VariationModel> variationsInGroup;
 
   const VariationGroupItemAlt(
-      {super.key, required this.group, required this.variationsInGroup});
+      {super.key,
+      required this.group,
+      required this.product,
+      required this.variationsInGroup});
 
   @override
   State<VariationGroupItemAlt> createState() => _VariationGroupItemAltState();
@@ -23,12 +28,14 @@ class VariationGroupItemAlt extends StatefulWidget {
 
 class _VariationGroupItemAltState extends State<VariationGroupItemAlt> {
   late final HomeController _homeController;
+  late final MerchantController _merchantController;
 
   @override
   void initState() {
     super.initState();
 
     _homeController = Get.find<HomeController>();
+    _merchantController = Get.find<MerchantController>();
   }
 
   @override
@@ -50,14 +57,43 @@ class _VariationGroupItemAltState extends State<VariationGroupItemAlt> {
               height: 50,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => Obx(
-                  () => PillBtnAlt(
-                      text: widget.variationsInGroup[index].variationName!,
-                      isActive: _homeController.pickedVariations
-                          .contains(widget.variationsInGroup[index]),
-                      onTap: () => _homeController.addProductVariation(
-                          variation: widget.variationsInGroup[index])),
-                ),
+                itemBuilder: (context, index) => PillBtnAlt(
+                    text: widget.variationsInGroup[index].variationName!,
+                    isActive: widget.product.activeProductVariations!
+                        .map((variation) => variation.variationName)
+                        .contains(
+                            widget.variationsInGroup[index].variationName),
+                    onTap: () async {
+                      _homeController.addProductVariation(
+                          variation: widget.variationsInGroup[index]);
+
+                      //  all variations in product
+                      final allVariations =
+                          widget.product.activeProductVariations!;
+
+                      if (allVariations
+                          .map((variation) => variation.variationName)
+                          .contains(
+                              widget.variationsInGroup[index].variationName)) {
+                        allVariations.removeWhere((v) =>
+                            v.variationName ==
+                            widget.variationsInGroup[index].variationName);
+
+                        await _merchantController.updateProduct(
+                            oldProduct: widget.product,
+                            newProduct: ProductModel(
+                                activeProductVariations: allVariations),
+                            response: (state) {});
+                      } else {
+                        allVariations.add(widget.variationsInGroup[index]);
+
+                        await _merchantController.updateProduct(
+                            oldProduct: widget.product,
+                            newProduct: ProductModel(
+                                activeProductVariations: allVariations),
+                            response: (state) {});
+                      }
+                    }),
                 itemCount: widget.variationsInGroup.length,
                 shrinkWrap: true,
                 separatorBuilder: (context, index) => hSize10SizedBox,

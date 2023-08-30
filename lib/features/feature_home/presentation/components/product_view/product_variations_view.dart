@@ -48,6 +48,7 @@ class ProductVariationsView extends StatelessWidget {
             child: ListView.separated(
               itemBuilder: (context, index) => VariationGroupItemAlt(
                 group: getGroupsFromVariations()[index],
+                product: product,
                 variationsInGroup: product.productVariations!
                     .where((variation) =>
                         variation.variationGroup! ==

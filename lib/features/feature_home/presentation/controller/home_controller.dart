@@ -41,6 +41,12 @@ class HomeController extends GetxController {
     }
   }
 
+  int getTotalFromProductVariations() {
+    return pickedVariations
+        .map((variation) => variation.variationPrice!)
+        .reduce((value, element) => value + element);
+  }
+
   void clearProductVariations() => pickedVariations.clear();
 
   void setProducts({required List<ProductModel> products}) =>
@@ -53,14 +59,16 @@ class HomeController extends GetxController {
 
   void setActiveCarouselIndex(int index) => activeCarouselIndex.value = index;
 
-  void setActiveProductImageIndex(int index) => activeProductImageIndex.value = index;
+  void setActiveProductImageIndex(int index) =>
+      activeProductImageIndex.value = index;
 
   void setActiveCategory(ProductCategory category) =>
       activeCategory.value = category;
 
   void setIsDrawerOpen(bool isOpen) => isDrawerOpen.value = isOpen;
 
-  void searchForProducts({required String query, required List<ProductModel> products}) {
+  void searchForProducts(
+      {required String query, required List<ProductModel> products}) {
     filteredProducts.value = query.isEmpty
         ? []
         : products
