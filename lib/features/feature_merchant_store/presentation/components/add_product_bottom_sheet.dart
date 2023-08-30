@@ -17,6 +17,7 @@ import 'package:shamiri/core/utils/constants.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:get/get.dart';
+import 'package:shamiri/features/feature_home/presentation/components/pill_btn_alt.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/product_image.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/variations_bottom_sheet.dart';
@@ -297,6 +298,33 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                     ),
 
                     vSize30SizedBox,
+
+                    //  product variations
+                    Container(
+                      height: 50,
+                      child: Obx(
+                        () => ListView.separated(
+                          itemBuilder: (context, index) => Row(
+                            children: [
+                              PillBtnAlt(
+                                  text: _merchantController
+                                      .productVariations[index].variationName!,
+                                  onTap: () {}),
+                              hSize5SizedBox,
+
+                              Text("Ksh ${_merchantController
+                                  .productVariations[index].variationPrice!.toString().addCommas}")
+                            ],
+                          ),
+                          separatorBuilder: (context, index) => hSize10SizedBox,
+                          itemCount:
+                              _merchantController.productVariations.length,
+                          scrollDirection: Axis.horizontal,
+                        ),
+                      ),
+                    ),
+
+                    vSize20SizedBox,
 
                     Form(
                         key: _globalKey,

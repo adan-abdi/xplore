@@ -79,10 +79,6 @@ class _VariationGroupItemState extends State<VariationGroupItem> {
                                 textStyle: TextStyle(fontSize: 16),
                                 inputType: TextInputType.number,
                                 value: getGroupVariations()[index]
-                                            .variationPrice ==
-                                        null
-                                    ? null
-                                    : getGroupVariations()[index]
                                         .variationPrice
                                         .toString(),
                                 onChanged: (value) {
@@ -100,9 +96,6 @@ class _VariationGroupItemState extends State<VariationGroupItem> {
                                                 getGroupVariations()[index])]
                                         .variationPrice = int.parse(value);
                                   }
-
-                                  print(
-                                      "NEW VARIATION : ${getGroupVariations()[index].variationPrice}");
                                 }),
                           ),
                         )
