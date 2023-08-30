@@ -487,7 +487,15 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                 .toList()
                                 .contains(liveProduct.productId!);
 
-                            final totalPrice = (itemCount *
+                            final totalPrice = ((itemCount +
+                                        (liveProduct.activeProductVariations!
+                                                    .length <=
+                                                itemCount
+                                            ? 0
+                                            : liveProduct
+                                                    .activeProductVariations!
+                                                    .length -
+                                                itemCount)) *
                                     liveProduct.productSellingPrice!) +
                                 _homeController.getTotalFromProductVariations(
                                     variations:

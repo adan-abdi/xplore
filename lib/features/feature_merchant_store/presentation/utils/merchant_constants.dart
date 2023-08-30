@@ -7,55 +7,55 @@ class MerchantConstants {
     //  sizes
     VariationModel(
         variationName: "Large",
-        variationPrice: 150,
+        variationPrice: 0,
         variationGroup: variationGroups[0]),
     VariationModel(
         variationName: "Medium",
-        variationPrice: 100,
+        variationPrice: 0,
         variationGroup: variationGroups[0]),
     VariationModel(
         variationName: "Small",
-        variationPrice: 50,
+        variationPrice: 0,
         variationGroup: variationGroups[0]),
 
     //  color
     VariationModel(
         variationName: "Red",
-        variationPrice: 150,
+        variationPrice: 0,
         variationGroup: variationGroups[1]),
     VariationModel(
         variationName: "Green",
-        variationPrice: 100,
+        variationPrice: 0,
         variationGroup: variationGroups[1]),
     VariationModel(
         variationName: "Blue",
-        variationPrice: 50,
+        variationPrice: 0,
         variationGroup: variationGroups[1]),
     VariationModel(
         variationName: "Yellow",
-        variationPrice: 150,
+        variationPrice: 0,
         variationGroup: variationGroups[1]),
     VariationModel(
         variationName: "Orange",
-        variationPrice: 100,
+        variationPrice: 0,
         variationGroup: variationGroups[1]),
     VariationModel(
         variationName: "Pink",
-        variationPrice: 50,
+        variationPrice: 0,
         variationGroup: variationGroups[1]),
 
     //  quantity
     VariationModel(
         variationName: "1 Kg",
-        variationPrice: 150,
+        variationPrice: 0,
         variationGroup: variationGroups[2]),
     VariationModel(
         variationName: "1/2 Kg",
-        variationPrice: 100,
+        variationPrice: 0,
         variationGroup: variationGroups[2]),
     VariationModel(
         variationName: "1/4 Kg",
-        variationPrice: 50,
+        variationPrice: 0,
         variationGroup: variationGroups[2]),
   ];
 }

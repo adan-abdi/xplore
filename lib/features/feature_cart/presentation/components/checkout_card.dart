@@ -16,7 +16,8 @@ class CheckoutCard extends StatefulWidget {
   final List<CartModel> itemsInCart;
   final List<ProductModel> products;
 
-  const CheckoutCard({super.key, required this.itemsInCart, required this.products});
+  const CheckoutCard(
+      {super.key, required this.itemsInCart, required this.products});
 
   @override
   State<CheckoutCard> createState() => _CheckoutCardState();
@@ -42,11 +43,20 @@ class _CheckoutCardState extends State<CheckoutCard> {
     var total = 0;
 
     widget.itemsInCart.forEach((item) {
-      total += item.cartProductCount! *
-          widget.products
-              .firstWhere(
-                  (product) => product.productId! == item.cartProductId!)
-              .productSellingPrice!;
+      final variations = widget.products
+          .firstWhere((product) => product.productId! == item.cartProductId!)
+          .activeProductVariations!;
+
+      final sellingPrice = widget.products
+          .firstWhere((product) => product.productId! == item.cartProductId!)
+          .productSellingPrice!;
+
+      total += ((item.cartProductCount! +
+                  (variations.length <= item.cartProductCount!
+                      ? 0
+                      : variations.length - item.cartProductCount!)) *
+              sellingPrice) +
+          _homeController.getTotalFromProductVariations(variations: variations);
     });
 
     return total;
