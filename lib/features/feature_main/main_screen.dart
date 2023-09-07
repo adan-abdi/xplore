@@ -62,13 +62,13 @@ class _MainScreenState extends State<MainScreen> {
     });
 
     _bottomBarTabs = [
-      GButton(
-        key: Key("home_screen_icon"),
-        icon: Icons.add_shopping_cart_rounded,
-        haptic: false,
-        text: "Home",
-        onPressed: () {},
-      ),
+      // GButton(
+      //   key: Key("home_screen_icon"),
+      //   icon: Icons.add_shopping_cart_rounded,
+      //   haptic: false,
+      //   text: "Home",
+      //   onPressed: () {},
+      // ),
       GButton(
         key: Key("store_icon"),
         icon: Icons.store_rounded,
@@ -86,7 +86,7 @@ class _MainScreenState extends State<MainScreen> {
     ];
 
     _pages = [
-      HomePage(),
+      // HomePage(),
       MerchantStorePage(),
       ProfilePage(),
     ];
@@ -115,28 +115,26 @@ class _MainScreenState extends State<MainScreen> {
                   appBar: AppBar(
                     systemOverlayStyle: SystemUiOverlayStyle(
                         statusBarIconBrightness:
-                            _homeController.activeBottomBarIndex.value == 2
+                            _homeController.activeBottomBarIndex.value == 1
                                 ? Brightness.light
                                 : Brightness.dark,
                         statusBarColor:
-                            _homeController.activeBottomBarIndex.value == 2
+                            _homeController.activeBottomBarIndex.value == 1
                                 ? XploreColors.deepBlue
                                 : XploreColors.white,
                         systemNavigationBarColor: XploreColors.white,
                         systemNavigationBarIconBrightness: Brightness.dark),
                     backgroundColor:
-                        _homeController.activeBottomBarIndex.value == 2
+                        _homeController.activeBottomBarIndex.value == 1
                             ? XploreColors.deepBlue
                             : XploreColors.white,
                     title: Text(
                       _homeController.activeBottomBarIndex.value == 0
-                          ? _authController.user.value!.userName!.trimUserName
-                          : _homeController.activeBottomBarIndex.value == 1
-                              ? "My Store"
-                              : "Merchant Profile",
+                          ? "My Store"
+                          : "Merchant Profile",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: _homeController.activeBottomBarIndex.value == 2
+                          color: _homeController.activeBottomBarIndex.value == 1
                               ? XploreColors.white
                               : XploreColors.black),
                     ),
@@ -154,7 +152,7 @@ class _MainScreenState extends State<MainScreen> {
                                 iconData: Icons.shopping_cart_rounded,
                                 iconColor: _homeController
                                             .activeBottomBarIndex.value ==
-                                        2
+                                        1
                                     ? XploreColors.white
                                     : null),
                           )),
@@ -163,13 +161,13 @@ class _MainScreenState extends State<MainScreen> {
                       Obx(
                         () => Visibility(
                           visible:
-                              _homeController.activeBottomBarIndex.value == 0,
+                              false,
                           child: Padding(
                             padding: const EdgeInsets.only(right: 16.0),
                             child: UnconstrainedBox(
                                 child: GestureDetector(
                               onTap: () =>
-                                  _homeController.setActiveBottomBarIndex(2),
+                                  _homeController.setActiveBottomBarIndex(1),
                               child: ProfilePic(
                                 imageUrl: _authController
                                     .user.value!.userProfilePicUrl!,
@@ -183,7 +181,7 @@ class _MainScreenState extends State<MainScreen> {
                       //  MY STORE PAGE
                       Obx(() => Visibility(
                           visible:
-                              _homeController.activeBottomBarIndex.value == 1,
+                              _homeController.activeBottomBarIndex.value == 0,
                           child: IconButton(
                               onPressed: () {
                                 showToast(
@@ -197,8 +195,8 @@ class _MainScreenState extends State<MainScreen> {
                               )))),
                     ],
                     elevation:
-                        _homeController.activeBottomBarIndex.value != 2 ? 4 : 0,
-                    bottom: _homeController.activeBottomBarIndex.value != 2
+                        _homeController.activeBottomBarIndex.value != 1 ? 4 : 0,
+                    bottom: _homeController.activeBottomBarIndex.value != 1
                         ? PreferredSize(
                             child: Container(
                               width: double.infinity,

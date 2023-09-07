@@ -57,7 +57,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
             UnconstrainedBox(
               child: GestureDetector(
                 onTap: () {
-                  _homeController.setActiveBottomBarIndex(2);
+                  _homeController.setActiveBottomBarIndex(1);
                   ZoomDrawer.of(context)!.close();
                 },
                 child: ProfilePic(
@@ -105,7 +105,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       title: "Profile",
                       iconData: Icons.assignment_ind_rounded,
                       onTap: () {
-                        _homeController.setActiveBottomBarIndex(2);
+                        _homeController.setActiveBottomBarIndex(1);
                         ZoomDrawer.of(context)!.close();
                       }),
                   // my store settings
@@ -113,7 +113,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       title: "My Store",
                       iconData: Icons.store_rounded,
                       onTap: () {
-                        _homeController.setActiveBottomBarIndex(1);
+                        _homeController.setActiveBottomBarIndex(0);
                         ZoomDrawer.of(context)!.close();
                       }),
                   // transactions settings

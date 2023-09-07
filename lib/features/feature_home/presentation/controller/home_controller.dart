@@ -19,7 +19,7 @@ class HomeController extends GetxController {
   final pickedVariations = <VariationModel>[].obs;
 
   /// Active Bottom Bar Index
-  final activeBottomBarIndex = 1.obs;
+  final activeBottomBarIndex = 0.obs;
 
   /// Active Carousel Index
   final activeCarouselIndex = 0.obs;

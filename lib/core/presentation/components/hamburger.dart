@@ -29,7 +29,7 @@ class _HamburgerMenuBtnState extends State<HamburgerMenuBtn> {
       onTap: widget.onTap,
       child: Obx(
         () => Container(
-          color: _homeController.activeBottomBarIndex.value == 2
+          color: _homeController.activeBottomBarIndex.value == 1
               ? XploreColors.deepBlue
               : XploreColors.white,
           child: Column(
@@ -58,7 +58,7 @@ class _HamburgerMenuBtnState extends State<HamburgerMenuBtn> {
           height: 5,
           margin: const EdgeInsets.only(left: 16),
           decoration: BoxDecoration(
-              color: _homeController.activeBottomBarIndex.value == 2
+              color: _homeController.activeBottomBarIndex.value == 1
                   ? XploreColors.white
                   : XploreColors.deepBlue,
               borderRadius: BorderRadius.circular(30)),
