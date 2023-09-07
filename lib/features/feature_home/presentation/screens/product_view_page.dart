@@ -393,7 +393,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                           ),
                         ),
 
-                        vSize20SizedBox,
+                        vSize30SizedBox,
 
                         //  product units left
                         Text.rich(TextSpan(children: [
@@ -407,16 +407,6 @@ class _ProductViewPageState extends State<ProductViewPage> {
                           TextSpan(
                               text: ' units remaining.', style: TextStyle()),
                         ])),
-
-                        //  product variations
-                        Visibility(
-                            visible: liveProduct.productVariations!.isNotEmpty,
-                            child: Column(
-                              children: [
-                                vSize30SizedBox,
-                                ProductVariationsView(product: liveProduct),
-                              ],
-                            )),
 
                         vSize30SizedBox,
 
@@ -452,6 +442,16 @@ class _ProductViewPageState extends State<ProductViewPage> {
                             ),
                           ],
                         ),
+
+                        //  product variations
+                        Visibility(
+                            visible: liveProduct.productVariations!.isNotEmpty,
+                            child: Column(
+                              children: [
+                                vSize30SizedBox,
+                                ProductVariationsView(product: liveProduct),
+                              ],
+                            )),
 
                         SizedBox(
                           height: 100,
