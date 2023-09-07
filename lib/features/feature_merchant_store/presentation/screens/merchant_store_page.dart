@@ -154,17 +154,33 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                         physics: const BouncingScrollPhysics(),
                         itemCount: Constants.productCategories.length,
                         itemBuilder: (context, index) => Obx(
-                          () => PillBtn(
-                            text:
-                                Constants.productCategories[index].categoryName,
-                            iconData:
-                                Constants.productCategories[index].categoryIcon,
-                            isActive:
-                                _merchantController.activeCategory.value ==
-                                    Constants.productCategories[index],
-                            onTap: () => _merchantController.setActiveCategory(
-                                Constants.productCategories[index]),
-                          ),
+                          () {
+                            final filteredProducts = _merchantController
+                                .merchantProducts
+                                .where((product) =>
+                                    product.productCategoryId ==
+                                    Constants
+                                        .productCategories[index].categoryName)
+                                .toList();
+
+                            return filteredProducts.isNotEmpty ||
+                                    Constants.productCategories[index]
+                                            .categoryName ==
+                                        'All'
+                                ? PillBtn(
+                                    text: Constants
+                                        .productCategories[index].categoryName,
+                                    iconData: Constants
+                                        .productCategories[index].categoryIcon,
+                                    isActive: _merchantController
+                                            .activeCategory.value ==
+                                        Constants.productCategories[index],
+                                    onTap: () =>
+                                        _merchantController.setActiveCategory(
+                                            Constants.productCategories[index]),
+                                  )
+                                : SizedBox.shrink();
+                          },
                         ),
                         separatorBuilder: (context, index) => const SizedBox(
                           width: 8,
