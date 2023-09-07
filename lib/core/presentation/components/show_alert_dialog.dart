@@ -20,7 +20,7 @@ Future<bool> showAlertDialog(
               backgroundColor: XploreColors.white,
               scrollable: true,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16)),
+                  borderRadius: BorderRadius.circular(8)),
               content: Container(
                 child: Column(
                   children: [
@@ -35,12 +35,12 @@ Future<bool> showAlertDialog(
                             onPressed: onCancel,
                             style: TextButton.styleFrom(
                                 foregroundColor: XploreColors.xploreOrange),
-                            child: Text("cancel")),
+                            child: Text("Cancel")),
                         TextButton(
                             onPressed: onConfirm,
                             style: TextButton.styleFrom(
                                 foregroundColor: XploreColors.xploreOrange),
-                            child: Text("confirm")),
+                            child: Text("Confirm")),
                       ],
                     )
                   ],

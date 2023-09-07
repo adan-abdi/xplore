@@ -68,7 +68,8 @@ class _CartItemCardState extends State<CartItemCard> {
       showAlertDialog(
           title: "Remove from cart",
           iconData: Icons.shopping_cart_rounded,
-          content: Text("Would you like to remove this item from cart?"),
+          content: Text("Would you like to remove this item from cart?",
+              textAlign: TextAlign.center),
           onCancel: () => Get.back(),
           onConfirm: () async {
             //  get initial cart items
