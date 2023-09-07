@@ -40,7 +40,7 @@ class UserProfileCard extends StatelessWidget {
                     children: [
                       Text(user.userName!,
                           style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold, color: XploreColors.white)),
+                              fontSize: 18, fontWeight: FontWeight.bold, color: XploreColors.white)),
                       Text(user.storeName!, style: TextStyle(color: XploreColors.whiteSmoke),),
                     ],
                   ),
