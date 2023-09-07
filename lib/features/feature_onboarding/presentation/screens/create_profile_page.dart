@@ -228,12 +228,12 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                           border: Border.all(
                                               color: XploreColors.white,
                                               width: 5),
-                                          color: XploreColors.deepBlue),
+                                          color: XploreColors.xploreOrange),
                                       child: Center(
                                         child: Icon(
                                           Icons.edit_rounded,
                                           color: XploreColors.white,
-                                          size: 24,
+                                          size: 16,
                                         ),
                                       ),
                                     ),

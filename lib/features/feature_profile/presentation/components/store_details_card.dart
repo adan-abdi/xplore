@@ -16,6 +16,7 @@ class StoreDetailsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       elevation: 4,
+      borderRadius: BorderRadius.circular(5),
       child: Container(
         width: 300,
         height: 180,
@@ -58,11 +59,12 @@ class StoreDetailsCard extends StatelessWidget {
                     height: 35,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: XploreColors.deepBlue),
+                        color: XploreColors.xploreOrange),
                     child: Center(
                       child: Icon(
                         Icons.edit_rounded,
                         color: XploreColors.white,
+                        size: 16,
                       ),
                     ),
                   ),
