@@ -79,11 +79,47 @@ class _ProfilePageState extends State<ProfilePage> {
                   Obx(() => UserProfileCard(
                         user: _authController.user.value!,
                       )),
+                  vSize20SizedBox,
+
                   //  store details card
                   Obx(() => Align(
                       alignment: AlignmentDirectional.center,
                       child:
                           StoreDetailsCard(user: _authController.user.value!))),
+
+                  vSize20SizedBox,
+
+                  //  store description
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.storefront_rounded,
+                                color: XploreColors.deepBlue),
+                            hSize10SizedBox,
+                            Text(
+                              "Description",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: XploreColors.deepBlue),
+                            ),
+                          ],
+                        ),
+
+                        vSize20SizedBox,
+
+                        Text(_authController.user.value!.storeDescription!,
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 16)
+                        )
+                      ],
+                    ),
+                  ),
+
                   vSize20SizedBox,
 
                   //  store overview

@@ -19,7 +19,7 @@ class StoreDetailsCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(5),
       child: Container(
         width: 300,
-        height: 180,
+        height: 130,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
@@ -106,21 +106,6 @@ class StoreDetailsCard extends StatelessWidget {
                 ),
               ],
             ),
-
-            vSize10SizedBox,
-
-            //  description
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Store Description"),
-                Text(user.storeDescription!,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 16),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,),
-              ],
-            )
           ],
         ),
       ),
