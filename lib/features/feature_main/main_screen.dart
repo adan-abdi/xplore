@@ -160,8 +160,7 @@ class _MainScreenState extends State<MainScreen> {
                       //  profile image
                       Obx(
                         () => Visibility(
-                          visible:
-                              false,
+                          visible: false,
                           child: Padding(
                             padding: const EdgeInsets.only(right: 16.0),
                             child: UnconstrainedBox(
@@ -207,8 +206,19 @@ class _MainScreenState extends State<MainScreen> {
                               child: Hero(
                                 tag: 'search',
                                 child: GestureDetector(
-                                  onTap: () => Get.to(() => SearchPage(
-                                      products: _homeController.products)),
+                                  onTap: () {
+                                    if (_merchantController
+                                        .merchantProducts.isEmpty) {
+                                      showToast(
+                                          toast: _toast,
+                                          iconData: Icons.store,
+                                          msg:
+                                              'Please add products to be able to search.');
+                                    } else {
+                                      Get.to(() => SearchPage(
+                                          products: _homeController.products));
+                                    }
+                                  },
                                   child: CustomTextFieldAlt(
                                       hint: "Search For Products",
                                       iconData: Icons.search_rounded,
