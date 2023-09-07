@@ -152,7 +152,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        final liveProduct = _homeController.products
+        final liveProduct = _merchantController.merchantProducts
             .firstWhere((prod) => prod.productId! == widget.product.productId!);
 
         return Scaffold(
@@ -408,10 +408,15 @@ class _ProductViewPageState extends State<ProductViewPage> {
                               text: ' units remaining.', style: TextStyle()),
                         ])),
 
-                        vSize30SizedBox,
-
                         //  product variations
-                        ProductVariationsView(product: liveProduct),
+                        Visibility(
+                            visible: liveProduct.productVariations!.isNotEmpty,
+                            child: Column(
+                              children: [
+                                vSize30SizedBox,
+                                ProductVariationsView(product: liveProduct),
+                              ],
+                            )),
 
                         vSize30SizedBox,
 
