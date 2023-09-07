@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:get/get.dart';
-import 'package:shamiri/core/domain/model/user_model.dart';
-import 'package:shamiri/core/presentation/components/show_alert_dialog.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/transaction_types.dart';
@@ -11,7 +9,6 @@ import 'package:shamiri/features/feature_merchant_store/presentation/components/
 import 'package:shamiri/features/feature_merchant_store/presentation/components/pending_transactions.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_toggle.dart';
 
-import '../../../../presentation/core/widgets/molecular/dashboard_tab_action_button.dart';
 import '../components/fulfilled_transactions.dart';
 import '../controller/merchant_controller.dart';
 

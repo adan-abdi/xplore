@@ -21,7 +21,8 @@ import '../../../feature_merchant_store/presentation/controller/merchant_control
 import '../controller/cart_controller.dart';
 
 class CashPaymentSection extends StatefulWidget {
-  const CashPaymentSection({super.key});
+  final int totalToPay;
+  const CashPaymentSection({super.key, required this.totalToPay});
 
   @override
   State<CashPaymentSection> createState() => _CashPaymentSectionState();
@@ -130,8 +131,7 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                                   product.productId! ==
                                   cartItem.cartProductId!),
                           itemsBought: cartItem.cartProductCount!,
-                          amountPaid: product.productSellingPrice! *
-                              cartItem.cartProductCount!,
+                          amountPaid: widget.totalToPay,
                           transactionDate: DateTime.now().toString(),
                           isFulfilled: false,
                           transactionType:
@@ -158,8 +158,7 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                                       product.productId! ==
                                       cartItem.cartProductId!),
                               itemsBought: cartItem.cartProductCount!,
-                              amountPaid: product.productSellingPrice! *
-                                  cartItem.cartProductCount!,
+                              amountPaid: widget.totalToPay,
                               transactionDate: DateTime.now().toString(),
                               isFulfilled: false,
                               transactionType:
@@ -197,7 +196,7 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                   showSnackbar(
                       title: "Order confirmed!",
                       message: "Payment made successfully!",
-                      iconData: Icons.attach_money_rounded,
+                      iconData: Icons.payments_rounded,
                       iconColor: XploreColors.xploreOrange);
                 },
                 style: TextButton.styleFrom(

@@ -25,7 +25,7 @@ class Constants {
     ProductCategory(
         categoryName: 'Computing', categoryIcon: Icons.computer_rounded),
     ProductCategory(
-        categoryName: 'Other', categoryIcon: Icons.phone_android_rounded),
+        categoryName: 'Other', categoryIcon: Icons.question_mark_rounded),
   ];
 
   static List<ProductCategory> productCategoriesFiltered = <ProductCategory>[
@@ -41,6 +41,6 @@ class Constants {
     ProductCategory(
         categoryName: 'Computing', categoryIcon: Icons.computer_rounded),
     ProductCategory(
-        categoryName: 'Other', categoryIcon: Icons.phone_android_rounded),
+        categoryName: 'Other', categoryIcon: Icons.question_mark_rounded),
   ];
 }

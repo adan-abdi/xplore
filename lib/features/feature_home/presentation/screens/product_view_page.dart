@@ -250,7 +250,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                     height: 350,
                                     color: XploreColors.deepBlue,
                                     child: Icon(
-                                      Icons.shopping_cart_checkout_rounded,
+                                      Icons.category_rounded,
                                       color: XploreColors.white,
                                       size: 72,
                                     )),
@@ -279,7 +279,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                               height: 350,
                               color: XploreColors.deepBlue,
                               child: Icon(
-                                Icons.shopping_cart_checkout_rounded,
+                                Icons.category_rounded,
                                 color: XploreColors.white,
                                 size: 72,
                               ))),

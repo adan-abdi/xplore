@@ -10,6 +10,7 @@ import 'package:shamiri/core/domain/model/user_prefs.dart';
 import 'package:shamiri/core/domain/repository/auth_repository.dart';
 import 'package:shamiri/core/utils/constants.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
+import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 
 import '../../../di/locator.dart';
 import '../../domain/model/response_state.dart';
@@ -181,13 +182,15 @@ class AuthRepositoryImpl implements AuthRepository {
       //  only delete user profile image
       if (deleteImage && userProfilePic == null) {
         await deleteFileFromFirebaseStorage(
-            ref: 'profilePics/${oldUser.userProfilePicUrl!.getImagePath}', response: (state, error) {});
+            ref: 'profilePics/${oldUser.userProfilePicUrl!.getImagePath}',
+            response: (state, error) {});
 
         newUser.userProfilePicUrl = '';
       } else if (userProfilePic != null) {
         //  delete the current image
         await deleteFileFromFirebaseStorage(
-            ref: 'profilePics/${oldUser.userProfilePicUrl!.getImagePath}', response: (state, error) {});
+            ref: 'profilePics/${oldUser.userProfilePicUrl!.getImagePath}',
+            response: (state, error) {});
         //  upload the new one
         await storeFileToFirebaseStorage(
                 ref: 'profilePics/${auth.currentUser!.uid}',
@@ -214,7 +217,27 @@ class AuthRepositoryImpl implements AuthRepository {
         "transactions": newUser.transactions
                 ?.map((transaction) => {
                       "buyerId": transaction.buyerId,
-                      "product": transaction.product!.toJson(),
+                      "product": {
+                        "sellerId": transaction.product!.sellerId,
+                        "sellerName": transaction.product!.sellerName,
+                        "productId": transaction.product!.productId,
+                        "productName": transaction.product!.productName,
+                        "productUnit": transaction.product!.productUnit,
+                        "productStockCount":
+                            transaction.product!.productStockCount,
+                        "productBuyingPrice":
+                            transaction.product!.productBuyingPrice,
+                        "productSellingPrice":
+                            transaction.product!.productSellingPrice,
+                        "productCategoryId":
+                            transaction.product!.productCategoryId,
+                        "productImageUrls":
+                            transaction.product!.productImageUrls,
+                        "productDescription":
+                            transaction.product!.productDescription,
+                        "productCreatedAt":
+                            transaction.product!.productCreatedAt
+                      },
                       "itemsBought": transaction.itemsBought,
                       "amountPaid": transaction.amountPaid,
                       "transactionDate": transaction.transactionDate,
@@ -227,7 +250,27 @@ class AuthRepositoryImpl implements AuthRepository {
             oldUser.transactions
                 ?.map((transaction) => {
                       "buyerId": transaction.buyerId,
-                      "product": transaction.product!.toJson(),
+                      "product": {
+                        "sellerId": transaction.product!.sellerId,
+                        "sellerName": transaction.product!.sellerName,
+                        "productId": transaction.product!.productId,
+                        "productName": transaction.product!.productName,
+                        "productUnit": transaction.product!.productUnit,
+                        "productStockCount":
+                        transaction.product!.productStockCount,
+                        "productBuyingPrice":
+                        transaction.product!.productBuyingPrice,
+                        "productSellingPrice":
+                        transaction.product!.productSellingPrice,
+                        "productCategoryId":
+                        transaction.product!.productCategoryId,
+                        "productImageUrls":
+                        transaction.product!.productImageUrls,
+                        "productDescription":
+                        transaction.product!.productDescription,
+                        "productCreatedAt":
+                        transaction.product!.productCreatedAt
+                      },
                       "itemsBought": transaction.itemsBought,
                       "amountPaid": transaction.amountPaid,
                       "transactionDate": transaction.transactionDate,

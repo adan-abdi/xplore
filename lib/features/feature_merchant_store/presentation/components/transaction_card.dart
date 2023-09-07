@@ -57,7 +57,7 @@ class TransactionCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(24),
                       child: Icon(
                         transactionPaymentMethod == PaymentTypes.cash
-                            ? Icons.attach_money_rounded
+                            ? Icons.payments_rounded
                             : Icons.loyalty_rounded,
                         color: XploreColors.deepBlue,
                         size: 24,

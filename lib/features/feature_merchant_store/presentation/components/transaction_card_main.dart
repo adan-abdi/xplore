@@ -119,7 +119,7 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                                   child: Icon(
                                     widget.transactionPaymentMethod ==
                                             PaymentTypes.cash
-                                        ? Icons.attach_money_rounded
+                                        ? Icons.payments_rounded
                                         : Icons.loyalty_rounded,
                                     color: XploreColors.deepBlue,
                                     size: 24,

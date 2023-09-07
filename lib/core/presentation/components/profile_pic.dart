@@ -34,7 +34,7 @@ class ProfilePic extends StatelessWidget {
                   fit: BoxFit.cover))
           : Center(
               child: Icon(
-                Icons.person_rounded,
+                Icons.assignment_ind_rounded,
                 color: XploreColors.white,
               ),
             ),

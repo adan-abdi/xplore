@@ -30,7 +30,7 @@ class _PaymentSectionState extends State<PaymentSection> {
     paymentMethods = [
       PaymentMethod(
           title: "Cash",
-          iconData: Icons.monetization_on_rounded,
+          iconData: Icons.payments_rounded,
           paymentType: PaymentTypes.cash),
       PaymentMethod(
           title: "M-Pesa",

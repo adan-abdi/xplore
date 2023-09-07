@@ -88,7 +88,7 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                         fit: BoxFit.cover,
                       )
                     : Icon(
-                        Icons.add_shopping_cart_rounded,
+                        Icons.category_rounded,
                         color: XploreColors.white,
                       ),
               ),

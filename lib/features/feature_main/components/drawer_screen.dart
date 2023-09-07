@@ -103,7 +103,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   // profile settings
                   DrawerOptionItem(
                       title: "Profile",
-                      iconData: Icons.person_rounded,
+                      iconData: Icons.assignment_ind_rounded,
                       onTap: () {
                         _homeController.setActiveBottomBarIndex(2);
                         ZoomDrawer.of(context)!.close();

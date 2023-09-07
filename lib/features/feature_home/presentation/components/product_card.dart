@@ -49,7 +49,7 @@ class ProductCard extends StatelessWidget {
                                         fit: BoxFit.cover,
                                       )
                                     : Icon(
-                                        Icons.shopping_cart_checkout_rounded,
+                                        Icons.category_rounded,
                                         color: XploreColors.white,
                                         size: 32,
                                       ),

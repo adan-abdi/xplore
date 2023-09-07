@@ -140,8 +140,7 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
                           product.productId! ==
                               cartItem.cartProductId!),
                           itemsBought: cartItem.cartProductCount!,
-                          amountPaid: product.productSellingPrice! *
-                              cartItem.cartProductCount!,
+                          amountPaid: widget.total,
                           transactionDate: DateTime.now().toString(),
                           isFulfilled: false,
                           transactionType:
@@ -168,8 +167,7 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
                               product.productId! ==
                                   cartItem.cartProductId!),
                               itemsBought: cartItem.cartProductCount!,
-                              amountPaid: product.productSellingPrice! *
-                                  cartItem.cartProductCount!,
+                              amountPaid: widget.total,
                               transactionDate: DateTime.now().toString(),
                               isFulfilled: false,
                               transactionType:

@@ -97,7 +97,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               isLast: false,
                               isPast: true,
                               iconData: Icons.person_pin_rounded,
-                              content: CashPaymentSection());
+                              content: CashPaymentSection(totalToPay: widget.totalToPay,));
                         case PaymentTypes.mpesa:
                           //  M-Pesa payment
                           return CheckoutTile(

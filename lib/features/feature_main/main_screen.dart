@@ -64,7 +64,7 @@ class _MainScreenState extends State<MainScreen> {
     _bottomBarTabs = [
       GButton(
         key: Key("home_screen_icon"),
-        icon: Icons.home,
+        icon: Icons.add_shopping_cart_rounded,
         haptic: false,
         text: "Home",
         onPressed: () {},
@@ -78,7 +78,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       GButton(
         key: Key("profile_screen_icon"),
-        icon: Icons.account_circle_rounded,
+        icon: Icons.assignment_ind_rounded,
         haptic: false,
         text: "Profile",
         onPressed: () {},

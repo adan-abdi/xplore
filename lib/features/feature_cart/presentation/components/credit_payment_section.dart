@@ -179,8 +179,7 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                                   product.productId! ==
                                   cartItem.cartProductId!),
                           itemsBought: cartItem.cartProductCount!,
-                          amountPaid: product.productSellingPrice! *
-                              cartItem.cartProductCount!,
+                          amountPaid: widget.total,
                           transactionDate: DateTime.now().toString(),
                           isFulfilled: false,
                           transactionType: TransactionTypes.credit.toString(),
@@ -207,8 +206,7 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                                       product.productId! ==
                                       cartItem.cartProductId!),
                               itemsBought: cartItem.cartProductCount!,
-                              amountPaid: product.productSellingPrice! *
-                                  cartItem.cartProductCount!,
+                              amountPaid: widget.total,
                               transactionDate: DateTime.now().toString(),
                               isFulfilled: false,
                               transactionType:
