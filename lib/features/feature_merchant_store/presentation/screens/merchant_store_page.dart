@@ -119,14 +119,22 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
             ),
 
             SliverToBoxAdapter(
-              child: vSize20SizedBox,
+              child: Obx(
+                () => Visibility(
+                    visible: _merchantController.merchantProducts.isNotEmpty,
+                    child: vSize20SizedBox),
+              ),
             ),
 
             //  my products header
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverToBoxAdapter(
-                  child: Text("My Products", style: TextStyle(fontSize: 18))),
+                  child: Obx(
+                () => Visibility(
+                    visible: _merchantController.merchantProducts.isNotEmpty,
+                    child: Text("My Products", style: TextStyle(fontSize: 18))),
+              )),
             ),
 
             SliverToBoxAdapter(
@@ -208,7 +216,9 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           MyLottie(
-                              lottie: 'assets/general/xplore_loader.json', height: 150,),
+                            lottie: 'assets/general/xplore_loader.json',
+                            height: 150,
+                          ),
                           vSize10SizedBox,
                           Text("No Products yet")
                         ],
