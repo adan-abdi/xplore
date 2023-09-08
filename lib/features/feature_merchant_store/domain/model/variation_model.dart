@@ -14,8 +14,14 @@ class VariationModel {
   @JsonKey(name: 'variationGroup')
   String? variationGroup;
 
+  @JsonKey(name: 'variationAffectsPrice')
+  bool? variationAffectsPrice;
+
   VariationModel(
-      {this.variationName, this.variationPrice, this.variationGroup});
+      {this.variationName,
+      this.variationPrice,
+      this.variationGroup,
+      this.variationAffectsPrice});
 
   factory VariationModel.fromJson(Map<String, dynamic> json) =>
       _$VariationModelFromJson(json);
