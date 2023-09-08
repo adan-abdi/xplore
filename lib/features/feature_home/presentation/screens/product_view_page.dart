@@ -346,46 +346,23 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20),
                                   ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Seller : ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 16),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.all(8),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(100),
-                                            color: XploreColors.deepBlue),
-                                        child: Row(
-                                          children: [
-                                            Icon(
-                                              Icons.store_rounded,
-                                              color: XploreColors.xploreOrange,
-                                              size: 16,
-                                            ),
-                                            hSize10SizedBox,
-                                            Obx(
-                                              () => Text(
-                                                _authController.user.value!
-                                                            .userId! ==
-                                                        liveProduct.sellerId!
-                                                    ? 'My Store'
-                                                    : liveProduct.sellerName!
-                                                        .getStoreName,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 16,
-                                                    color: XploreColors.white),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                  Container(
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        color: XploreColors.deepBlue),
+                                    child: Text.rich(TextSpan(children: [
+                                      TextSpan(
+                                          text: liveProduct.productStockCount!
+                                              .toString()
+                                              .addCommas,
+                                          style: TextStyle(
+                                              color: XploreColors.white,
+                                              fontWeight: FontWeight.bold)),
+                                      TextSpan(
+                                          text: ' units remaining.', style: TextStyle(color: XploreColors.white)),
+                                    ])),
                                   ),
                                 ],
                               ),
