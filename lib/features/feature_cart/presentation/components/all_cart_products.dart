@@ -4,6 +4,7 @@ import 'package:shamiri/core/presentation/components/my_lottie.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/cart_item_card.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
 
 import '../../../../application/core/themes/colors.dart';
 import 'package:get/get.dart';
@@ -17,14 +18,14 @@ class AllCartProducts extends StatefulWidget {
 
 class _AllCartProductsState extends State<AllCartProducts> {
   late final AuthController _authController;
-  late final HomeController _homeController;
+  late final MerchantController _merchantController;
 
   @override
   void initState() {
     super.initState();
 
     _authController = Get.find();
-    _homeController = Get.find();
+    _merchantController = Get.find();
   }
 
   @override
@@ -39,7 +40,7 @@ class _AllCartProductsState extends State<AllCartProducts> {
           //  All Cart Products
           Obx(
             () {
-              final allProducts = _homeController.products;
+              final allProducts = _merchantController.merchantProducts;
 
               return allProducts.isNotEmpty && _authController
                   .user
@@ -51,7 +52,7 @@ class _AllCartProductsState extends State<AllCartProducts> {
                           delegate: SliverChildBuilderDelegate(
                               (context, index) => Obx(
                                     () => CartItemCard(
-                                      product: _homeController.products
+                                      product: _merchantController.merchantProducts
                                           .firstWhere((product) =>
                                               product.productId ==
                                               _authController

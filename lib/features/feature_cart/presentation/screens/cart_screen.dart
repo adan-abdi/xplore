@@ -7,6 +7,7 @@ import 'package:shamiri/core/presentation/components/my_lottie.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/all_cart_products.dart';
 import 'package:shamiri/features/feature_cart/presentation/components/checkout_card.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
 
 import '../../../../core/presentation/controller/auth_controller.dart';
 import '../../../feature_home/presentation/controller/home_controller.dart';
@@ -21,6 +22,7 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   late final AuthController _authController;
   late final HomeController _homeController;
+  late final MerchantController _merchantController;
 
   @override
   void initState() {
@@ -28,6 +30,7 @@ class _CartScreenState extends State<CartScreen> {
 
     _authController = Get.find();
     _homeController = Get.find();
+    _merchantController = Get.find();
   }
 
   @override
@@ -72,7 +75,7 @@ class _CartScreenState extends State<CartScreen> {
                           () => CheckoutCard(
                             itemsInCart:
                                 _authController.user.value!.itemsInCart!,
-                            products: _homeController.products,
+                            products: _merchantController.merchantProducts,
                           ),
                         )),
                   ],

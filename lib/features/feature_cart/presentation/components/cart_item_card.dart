@@ -130,7 +130,7 @@ class _CartItemCardState extends State<CartItemCard> {
       padding: const EdgeInsets.all(8),
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24), color: XploreColors.white),
+          borderRadius: BorderRadius.circular(5), color: XploreColors.white),
       child: Row(
         children: [
           //  image
@@ -138,10 +138,10 @@ class _CartItemCardState extends State<CartItemCard> {
               width: 90,
               height: 90,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: BorderRadius.circular(5),
                   color: XploreColors.deepBlue),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(5),
                 child: widget.product.productImageUrls != null &&
                         widget.product.productImageUrls!.isNotEmpty
                     ? Image.network(
