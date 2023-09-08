@@ -61,70 +61,104 @@ class _VariationGroupItemState extends State<VariationGroupItem> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
 
           //  list for the variations
-          ListView.builder(
-              itemBuilder: (context, index) => Obx(
-                    () => Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Container(
+          widget.group == MerchantConstants.variationGroups[1]
+              ? Container(
+            height: 50,
+                child: ListView.separated(
+                    itemBuilder: (context, index) => Obx(
+                          () => Container(
                             alignment: AlignmentDirectional.centerStart,
                             child: PillBtnAlt(
-                                text:
-                                    getGroupVariations()[index].variationName!,
+                                text: getGroupVariations()[index].variationName!,
                                 isActive: _merchantController.productVariations
                                     .contains(getGroupVariations()[index]),
                                 onTap: () =>
                                     _merchantController.toggleProductVariation(
-                                        variation:
-                                            getGroupVariations()[index])),
+                                        variation: getGroupVariations()[index])),
                           ),
                         ),
+                    separatorBuilder: (context, index) => hSize10SizedBox,
+                    itemCount: getGroupVariations().length,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    physics: const NeverScrollableScrollPhysics()),
+              )
+              : ListView.builder(
+                  itemBuilder: (context, index) => Obx(
+                        () => Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                alignment: AlignmentDirectional.centerStart,
+                                child: PillBtnAlt(
+                                    text: getGroupVariations()[index]
+                                        .variationName!,
+                                    isActive: _merchantController
+                                        .productVariations
+                                        .contains(getGroupVariations()[index]),
+                                    onTap: () => _merchantController
+                                        .toggleProductVariation(
+                                            variation:
+                                                getGroupVariations()[index])),
+                              ),
+                            ),
 
-                        hSize20SizedBox,
+                            hSize20SizedBox,
 
-                        //  input for the variation price
-                        Expanded(
-                          flex: 2,
-                          child: Align(
-                            alignment: AlignmentDirectional.center,
-                            child: CustomTextField(
-                                hint: "Variation price (Ksh)",
-                                iconData: Icons.attach_money_rounded,
-                                textStyle: TextStyle(fontSize: 16),
-                                inputType: TextInputType.number,
-                                controller: controllers[index],
-                                value: getGroupVariations()[index]
-                                    .variationPrice
-                                    .toString(),
-                                onChanged: (value) {
-                                  _merchantController.addProductVariation(
-                                      variation:
-                                      getGroupVariations()[index]);
+                            //  input for the variation price
+                            Expanded(
+                              flex: 2,
+                              child: Align(
+                                alignment: AlignmentDirectional.center,
+                                child: CustomTextField(
+                                    hint: "Variation price (Ksh)",
+                                    iconData: Icons.attach_money_rounded,
+                                    textStyle: TextStyle(fontSize: 16),
+                                    inputType: TextInputType.number,
+                                    controller: controllers[index],
+                                    value: getGroupVariations()[index]
+                                        .variationPrice
+                                        .toString(),
+                                    onChanged: (value) {
+                                      _merchantController.addProductVariation(
+                                          variation:
+                                              getGroupVariations()[index]);
 
-                                  MerchantConstants
-                                      .variations[MerchantConstants.variations
-                                          .indexOf(getGroupVariations()[index])]
-                                      .variationPrice = int.parse(value.isEmpty ? '0' : value);
+                                      MerchantConstants
+                                          .variations[MerchantConstants
+                                              .variations
+                                              .indexOf(
+                                                  getGroupVariations()[index])]
+                                          .variationPrice = int.parse(value
+                                              .isEmpty
+                                          ? '0'
+                                          : value);
 
-                                  if (_merchantController.productVariations
-                                      .contains(getGroupVariations()[index])) {
-                                    _merchantController
-                                        .productVariations[_merchantController
-                                            .productVariations
-                                            .indexOf(
-                                                getGroupVariations()[index])]
-                                        .variationPrice = int.parse(value.isEmpty ? '0' : value);
-                                  }
-                                }),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-              itemCount: getGroupVariations().length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics())
+                                      if (_merchantController.productVariations
+                                          .contains(
+                                              getGroupVariations()[index])) {
+                                        _merchantController
+                                            .productVariations[
+                                                _merchantController
+                                                    .productVariations
+                                                    .indexOf(
+                                                        getGroupVariations()[
+                                                            index])]
+                                            .variationPrice = int.parse(value
+                                                .isEmpty
+                                            ? '0'
+                                            : value);
+                                      }
+                                    }),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                  itemCount: getGroupVariations().length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics())
         ],
       ),
     );
