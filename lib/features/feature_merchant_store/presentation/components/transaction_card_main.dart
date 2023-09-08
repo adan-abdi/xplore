@@ -20,7 +20,7 @@ class TransactionCardMain extends StatefulWidget {
   final TransactionTypes transactionType;
   final PaymentTypes transactionPaymentMethod;
   final List<TransactionModel> allTransactionsByBuyer;
-  final VoidCallback onTap;
+  final Function(String customerName) onTap;
 
   const TransactionCardMain(
       {super.key,
@@ -52,7 +52,9 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
         : _homeController.stores.firstWhereOrNull(
             (store) => store.userId! == widget.buyerId.split(" ").toList()[0]);
 
-    return userName == null ? 'Unknown' : userName.userName!;
+    final customerNumber = widget.buyerId.split(" ").toList()[1];
+
+    return userName == null ? 'Customer $customerNumber' : userName.userName!;
   }
 
   int getTotalPrice() {
@@ -83,7 +85,7 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: widget.onTap,
+      onTap: () => widget.onTap(getUserName()),
       child: Container(
         width: double.infinity,
         height: widget.transactionType == TransactionTypes.pending ||
@@ -250,7 +252,7 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                                     newUser: UserModel(
                                         transactions: allTransactions),
                                     uid: _authController.user.value!.userId!,
-                                    response: (state, error){});
+                                    response: (state, error) {});
 
                                 Get.back();
                               });

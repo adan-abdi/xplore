@@ -56,21 +56,23 @@ class _PendingTransactionsState extends State<PendingTransactions> {
                             TransactionTypes.pending.toString())
                     .toList();
 
-                final getPaymentMethod = allTransactionsByBuyer.map((
-                    transaction) => transaction.transactionPaymentMethod!)
+                final getPaymentMethod = allTransactionsByBuyer
+                    .map((transaction) => transaction.transactionPaymentMethod!)
                     .toList();
 
-                final paymentType = PaymentTypes.values.firstWhere((type) =>
-                type.toString() == getPaymentMethod[0]);
+                final paymentType = PaymentTypes.values.firstWhere(
+                    (type) => type.toString() == getPaymentMethod[0]);
 
                 return TransactionCardMain(
                   buyerId: pendingTransactionsByBuyerId[mainIndex],
                   transactionType: TransactionTypes.pending,
                   transactionPaymentMethod: paymentType,
                   allTransactionsByBuyer: allTransactionsByBuyer,
-                  onTap: () {
+                  onTap: (customer) {
                     Get.to(() => TransactionReceiptScreen(
-                        allTransactionsByBuyer: allTransactionsByBuyer));
+                          allTransactionsByBuyer: allTransactionsByBuyer,
+                          customerName: customer,
+                        ));
                   },
                 );
               }, childCount: pendingTransactionsByBuyerId.length)),

@@ -17,9 +17,10 @@ import '../../domain/model/transaction_types.dart';
 
 class TransactionReceiptScreen extends StatefulWidget {
   final List<TransactionModel> allTransactionsByBuyer;
+  final String customerName;
 
   const TransactionReceiptScreen(
-      {super.key, required this.allTransactionsByBuyer});
+      {super.key, required this.allTransactionsByBuyer, required this.customerName});
 
   @override
   State<TransactionReceiptScreen> createState() =>
@@ -98,7 +99,7 @@ class _TransactionReceiptScreenState extends State<TransactionReceiptScreen> {
               children: [
                 //  receipt
                 Receipt(
-                  userName: getUserName(),
+                  userName: widget.customerName,
                   totalPrice: getTotalPrice().toString().addCommas,
                   allTransactionsByBuyer: widget.allTransactionsByBuyer,
                 ),

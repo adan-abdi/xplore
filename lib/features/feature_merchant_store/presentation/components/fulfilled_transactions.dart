@@ -66,10 +66,11 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
                 transactionType: TransactionTypes.fulfilled,
                 transactionPaymentMethod: paymentType,
                 allTransactionsByBuyer: allTransactionsByBuyer,
-                onTap: () {
+                onTap: (customer) {
                   Get.to(() =>
                       TransactionReceiptScreen(
-                          allTransactionsByBuyer: allTransactionsByBuyer));
+                          allTransactionsByBuyer: allTransactionsByBuyer,
+                      customerName: customer,));
                 },
               );
             }, childCount: fulfilledTransactionsByBuyerId.length)),

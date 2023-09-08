@@ -66,9 +66,10 @@ class _CreditTransactionsState extends State<CreditTransactions> {
                   transactionType: TransactionTypes.credit,
                   transactionPaymentMethod: paymentType,
                   allTransactionsByBuyer: allTransactionsByBuyer,
-                  onTap: () {
+                  onTap: (customer) {
                     Get.to(() => TransactionReceiptScreen(
-                        allTransactionsByBuyer: allTransactionsByBuyer));
+                        allTransactionsByBuyer: allTransactionsByBuyer,
+                    customerName: customer));
                   },
                 );
               }, childCount: creditTransactionsByBuyerId.length)),

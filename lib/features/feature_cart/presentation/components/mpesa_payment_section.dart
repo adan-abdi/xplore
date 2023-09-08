@@ -135,7 +135,7 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
 
                     allTransactions.add(TransactionModel(
                         buyerId: buyerId == null || buyerId!.isEmpty
-                            ? 'customer - $timeStamp'
+                            ? 'customer ${allTransactions.length + 1} - $timeStamp'
                             : '${buyerId!} - $timeStamp',
                         product: _merchantController.merchantProducts
                             .firstWhere((product) =>
