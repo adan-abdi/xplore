@@ -6,7 +6,7 @@ import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/variation_model.dart';
-import 'package:shamiri/features/feature_merchant_store/presentation/components/custom_variation_item.dart';
+import 'package:shamiri/features/feature_merchant_store/presentation/components/custom_variation_dialog.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/variation_group_item.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/controller/merchant_controller.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/utils/merchant_constants.dart';
@@ -25,6 +25,7 @@ class _VariationsBottomSheetState extends State<VariationsBottomSheet> {
   late final MerchantController _merchantController;
   String customVariationName = '';
   String customVariationPrice = '';
+  bool variationAffectsPrice = false;
 
   @override
   void initState() {
@@ -63,7 +64,7 @@ class _VariationsBottomSheetState extends State<VariationsBottomSheet> {
                           showAlertDialog(
                               title: "Add Variation",
                               iconData: Icons.add_rounded,
-                              content: CustomVariationItem(
+                              content: CustomVariationDialog(
                                 onNameChanged: (value) {
                                   setState(() {
                                     customVariationName = value;
@@ -72,6 +73,12 @@ class _VariationsBottomSheetState extends State<VariationsBottomSheet> {
                                 onPriceChanged: (value) {
                                   setState(() {
                                     customVariationPrice = value;
+                                  });
+                                },
+                                onAffectsPriceChange: (affectsPrice) {
+                                  print("Affects Price ? $affectsPrice");
+                                  setState(() {
+                                    variationAffectsPrice = affectsPrice;
                                   });
                                 },
                               ),
@@ -83,7 +90,9 @@ class _VariationsBottomSheetState extends State<VariationsBottomSheet> {
                                         variationPrice:
                                             int.parse(customVariationPrice),
                                         variationGroup: MerchantConstants
-                                            .variationGroups[2]));
+                                            .variationGroups[2],
+                                        variationAffectsPrice:
+                                            variationAffectsPrice));
 
                                 Get.back();
                               });
@@ -93,6 +102,7 @@ class _VariationsBottomSheetState extends State<VariationsBottomSheet> {
 
             vSize20SizedBox,
 
+            //  Custom Variations
             Visibility(
               visible: _merchantController.productVariations
                   .where((variation) =>
@@ -120,7 +130,7 @@ class _VariationsBottomSheetState extends State<VariationsBottomSheet> {
                             showAlertDialog(
                                 title: "Update Variation",
                                 iconData: Icons.add_rounded,
-                                content: CustomVariationItem(
+                                content: CustomVariationDialog(
                                   variationModel: _merchantController
                                       .productVariations
                                       .where((variation) =>
@@ -135,6 +145,11 @@ class _VariationsBottomSheetState extends State<VariationsBottomSheet> {
                                   onPriceChanged: (value) {
                                     setState(() {
                                       customVariationPrice = value;
+                                    });
+                                  },
+                                  onAffectsPriceChange: (affectsPrice) {
+                                    setState(() {
+                                      variationAffectsPrice = affectsPrice;
                                     });
                                   },
                                 ),
@@ -155,7 +170,9 @@ class _VariationsBottomSheetState extends State<VariationsBottomSheet> {
                                           variationPrice:
                                               int.parse(customVariationPrice),
                                           variationGroup: MerchantConstants
-                                              .variationGroups[2]));
+                                              .variationGroups[2],
+                                          variationAffectsPrice:
+                                              variationAffectsPrice));
 
                                   Get.back();
                                 });
