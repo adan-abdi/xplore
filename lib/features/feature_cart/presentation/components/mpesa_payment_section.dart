@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shamiri/core/presentation/components/custom_textfield.dart';
+import 'package:shamiri/core/presentation/components/submit_button.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/domain/value_objects/app_spaces.dart';
 
@@ -102,120 +103,113 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
               }),
 
           //  proceed button
-          Align(
-            alignment: AlignmentDirectional.bottomEnd,
-            child: TextButton(
-                onPressed: () async {
-                  final items = _authController.user.value!.itemsInCart!;
-                  final timeStamp = DateTime.now();
+          SubmitButton(
+              iconData: Icons.done_rounded,
+              text: 'Pay',
+              isValid: true,
+              onTap: () async {
+                final items = _authController.user.value!.itemsInCart!;
+                final timeStamp = DateTime.now();
 
-                  for (CartModel cartItem in items) {
-                    {
-                      //  get seller id & product id
-                      final sellerId = _merchantController.merchantProducts
-                          .firstWhere((product) =>
-                      product.productId! == cartItem.cartProductId!)
-                          .sellerId!;
+                for (CartModel cartItem in items) {
+                  {
+                    //  get seller id & product id
+                    final sellerId = _merchantController.merchantProducts
+                        .firstWhere((product) =>
+                            product.productId! == cartItem.cartProductId!)
+                        .sellerId!;
 
-                      final product = _merchantController.merchantProducts.firstWhere(
-                              (product) =>
-                          product.productId! == cartItem.cartProductId!);
+                    final product = _merchantController.merchantProducts
+                        .firstWhere((product) =>
+                            product.productId! == cartItem.cartProductId!);
 
-                      final sellerData = await _authController
-                          .getSpecificUserFromFirestore(uid: sellerId);
+                    final sellerData = await _authController
+                        .getSpecificUserFromFirestore(uid: sellerId);
 
-                      final buyerData = buyerId == null || buyerId!.isEmpty
-                          ? null
-                          : await _authController.getSpecificUserFromFirestore(
-                          uid: buyerId!);
+                    final buyerData = buyerId == null || buyerId!.isEmpty
+                        ? null
+                        : await _authController.getSpecificUserFromFirestore(
+                            uid: buyerId!);
 
-                      final allTransactions = sellerData.transactions!;
+                    final allTransactions = sellerData.transactions!;
 
-                      allTransactions.add(TransactionModel(
-                          buyerId: buyerId == null || buyerId!.isEmpty
-                              ? 'customer - $timeStamp'
-                              : '${buyerId!} - $timeStamp',
-                          product: _merchantController.merchantProducts
-                              .firstWhere((product) =>
-                          product.productId! ==
-                              cartItem.cartProductId!),
-                          itemsBought: cartItem.cartProductCount!,
-                          amountPaid: widget.total,
-                          transactionDate: DateTime.now().toString(),
-                          isFulfilled: false,
-                          transactionType:
-                          TransactionTypes.pending.toString(),
-                          transactionPaymentMethod: PaymentTypes.mpesa.toString()));
+                    allTransactions.add(TransactionModel(
+                        buyerId: buyerId == null || buyerId!.isEmpty
+                            ? 'customer - $timeStamp'
+                            : '${buyerId!} - $timeStamp',
+                        product: _merchantController.merchantProducts
+                            .firstWhere((product) =>
+                                product.productId! == cartItem.cartProductId!),
+                        itemsBought: cartItem.cartProductCount!,
+                        amountPaid: widget.total,
+                        transactionDate: DateTime.now().toString(),
+                        isFulfilled: false,
+                        transactionType: TransactionTypes.pending.toString(),
+                        transactionPaymentMethod:
+                            PaymentTypes.mpesa.toString()));
 
-                      await _authController
-                          .updateUserDataInFirestore(
-                          oldUser: sellerData,
-                          newUser: UserModel(transactions: allTransactions),
-                          uid: sellerId,
-                          response: (state, error){})
-                          .then((value) async {
-                        //  update buyer data
-                        if (buyerData != null && buyerId != null) {
-                          final buyerTransactions = buyerData.transactions!;
+                    await _authController
+                        .updateUserDataInFirestore(
+                            oldUser: sellerData,
+                            newUser: UserModel(transactions: allTransactions),
+                            uid: sellerId,
+                            response: (state, error) {})
+                        .then((value) async {
+                      //  update buyer data
+                      if (buyerData != null && buyerId != null) {
+                        final buyerTransactions = buyerData.transactions!;
 
-                          buyerTransactions.add(TransactionModel(
-                              buyerId: buyerId == null || buyerId!.isEmpty
-                                  ? _authController.user.value!.userId!
-                                  : '${buyerId!} - $timeStamp',
-                              product: _merchantController.merchantProducts
-                                  .firstWhere((product) =>
-                              product.productId! ==
-                                  cartItem.cartProductId!),
-                              itemsBought: cartItem.cartProductCount!,
-                              amountPaid: widget.total,
-                              transactionDate: DateTime.now().toString(),
-                              isFulfilled: false,
-                              transactionType:
-                              TransactionTypes.pending.toString(),
-                              transactionPaymentMethod: PaymentTypes.mpesa.toString()));
+                        buyerTransactions.add(TransactionModel(
+                            buyerId: buyerId == null || buyerId!.isEmpty
+                                ? _authController.user.value!.userId!
+                                : '${buyerId!} - $timeStamp',
+                            product: _merchantController.merchantProducts
+                                .firstWhere((product) =>
+                                    product.productId! ==
+                                    cartItem.cartProductId!),
+                            itemsBought: cartItem.cartProductCount!,
+                            amountPaid: widget.total,
+                            transactionDate: DateTime.now().toString(),
+                            isFulfilled: false,
+                            transactionType:
+                                TransactionTypes.pending.toString(),
+                            transactionPaymentMethod:
+                                PaymentTypes.mpesa.toString()));
 
-                          await _authController.updateUserDataInFirestore(
-                              oldUser: buyerData,
-                              newUser:
-                              UserModel(transactions: buyerTransactions),
-                              uid: buyerId!,
-                              response: (state, error){});
-                        }
-
-                        //  update product stock count
-                        await _merchantController.updateProduct(
-                            oldProduct: product,
-                            newProduct: ProductModel(
-                                productStockCount: product.productStockCount! -
-                                    cartItem.cartProductCount!),
-                            response: (state) {});
-
-                        //  clear all cart items
                         await _authController.updateUserDataInFirestore(
-                            oldUser: _authController.user.value!,
-                            newUser: UserModel(itemsInCart: []),
-                            uid: _authController.user.value!.userId!,
-                            response: (state, error){});
-                      });
+                            oldUser: buyerData,
+                            newUser: UserModel(transactions: buyerTransactions),
+                            uid: buyerId!,
+                            response: (state, error) {});
+                      }
 
-                      //  go to home page
-                      Get.offAll(MainScreen());
-                    }
+                      //  update product stock count
+                      await _merchantController.updateProduct(
+                          oldProduct: product,
+                          newProduct: ProductModel(
+                              productStockCount: product.productStockCount! -
+                                  cartItem.cartProductCount!),
+                          response: (state) {});
+
+                      //  clear all cart items
+                      await _authController.updateUserDataInFirestore(
+                          oldUser: _authController.user.value!,
+                          newUser: UserModel(itemsInCart: []),
+                          uid: _authController.user.value!.userId!,
+                          response: (state, error) {});
+                    });
+
+                    //  go to home page
+                    Get.offAll(MainScreen());
                   }
+                }
 
-                  showSnackbar(
-                      title: "Order confirmed!",
-                      message: "Payment made successfully!",
-                      iconData: Icons.attach_money_rounded,
-                      iconColor: XploreColors.xploreOrange);
-                },
-                style: TextButton.styleFrom(
-                    foregroundColor: XploreColors.xploreOrange),
-                child: Text(
-                  "Pay",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                )),
-          ),
+                showSnackbar(
+                    title: "Order confirmed!",
+                    message: "Payment made successfully!",
+                    iconData: Icons.attach_money_rounded,
+                    iconColor: XploreColors.xploreOrange);
+              }),
         ],
       ),
     );
