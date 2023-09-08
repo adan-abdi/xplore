@@ -42,7 +42,6 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
   late final TextEditingController _productNameController;
   late final TextEditingController _productUnitController;
   late final TextEditingController _productStockCountController;
-  late final TextEditingController _productBuyingPriceController;
   late final TextEditingController _productSellingPriceController;
   late final TextEditingController _productDescriptionController;
   late final MerchantController _merchantController;
@@ -60,7 +59,6 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
     _productNameController = TextEditingController();
     _productUnitController = TextEditingController();
     _productStockCountController = TextEditingController();
-    _productBuyingPriceController = TextEditingController();
     _productSellingPriceController = TextEditingController();
     _productDescriptionController = TextEditingController();
     _coreController = Get.find<CoreController>();
@@ -77,8 +75,6 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
 
   void setControllerTexts() {
     _productNameController.setText(widget.product!.productName!);
-    _productBuyingPriceController
-        .setText(widget.product!.productBuyingPrice!.toString());
     _productSellingPriceController
         .setText(widget.product!.productSellingPrice!.toString());
     _productUnitController.setText(widget.product!.productUnit!);
@@ -356,28 +352,6 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                             vSize8SizedBox,
                             //  product unit
                             CustomTextField(
-                                hint: "Product buying Price (Ksh)",
-                                iconData: Icons.monetization_on_rounded,
-                                textStyle: TextStyle(fontSize: 16),
-                                inputType: TextInputType.number,
-                                controller: _productBuyingPriceController,
-                                onChanged: (value) {
-                                  _productBuyingPriceController.setText(
-                                      _productBuyingPriceController.text
-                                          .replaceAll(",", "")
-                                          .addCommas);
-                                },
-                                onValidate: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Product buying price cannot be empty';
-                                  } else {
-                                    return null;
-                                  }
-                                }),
-
-                            vSize8SizedBox,
-                            //  product unit
-                            CustomTextField(
                                 hint: "Product selling Price (Ksh)",
                                 iconData: Icons.monetization_on_rounded,
                                 textStyle: TextStyle(fontSize: 16),
@@ -520,9 +494,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                               productName: _productNameController.text,
                               productImageUrls: [],
                               productUnit: _productUnitController.text,
-                              productBuyingPrice: int.parse(
-                                  _productBuyingPriceController.text
-                                      .replaceAll(",", "")),
+                              productBuyingPrice: 0,
                               productSellingPrice: int.parse(
                                   _productSellingPriceController.text
                                       .replaceAll(",", "")),
@@ -609,9 +581,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                 newProduct: ProductModel(
                                     productName: _productNameController.text,
                                     productUnit: _productUnitController.text,
-                                    productBuyingPrice: int.parse(
-                                        _productBuyingPriceController.text
-                                            .replaceAll(",", "")),
+                                    productBuyingPrice: 0,
                                     productSellingPrice: int.parse(
                                         _productSellingPriceController.text
                                             .replaceAll(",", "")),

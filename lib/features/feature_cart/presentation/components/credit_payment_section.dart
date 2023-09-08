@@ -151,13 +151,13 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                   for (CartModel cartItem in items) {
                     {
                       //  get seller id & product id
-                      final sellerId = _homeController.products
+                      final sellerId = _merchantController.merchantProducts
                           .firstWhere((product) =>
                               product.productId! == cartItem.cartProductId!)
                           .sellerId!;
 
-                      final product = _homeController.products.firstWhere(
-                          (product) =>
+                      final product = _merchantController.merchantProducts
+                          .firstWhere((product) =>
                               product.productId! == cartItem.cartProductId!);
 
                       final sellerData = await _authController
@@ -191,7 +191,7 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                               oldUser: sellerData,
                               newUser: UserModel(transactions: allTransactions),
                               uid: sellerId,
-                          response: (state, error){})
+                              response: (state, error) {})
                           .then((value) async {
                         //  update buyer data
                         if (buyerData != null && buyerId != null) {
@@ -219,7 +219,7 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                               newUser:
                                   UserModel(transactions: buyerTransactions),
                               uid: buyerId!,
-                              response: (state, error){});
+                              response: (state, error) {});
                         }
 
                         //  update product stock count
@@ -235,7 +235,7 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                             oldUser: _authController.user.value!,
                             newUser: UserModel(itemsInCart: []),
                             uid: _authController.user.value!.userId!,
-                            response: (state, error){});
+                            response: (state, error) {});
                       });
 
                       //  go to home page

@@ -112,12 +112,12 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
                   for (CartModel cartItem in items) {
                     {
                       //  get seller id & product id
-                      final sellerId = _homeController.products
+                      final sellerId = _merchantController.merchantProducts
                           .firstWhere((product) =>
                       product.productId! == cartItem.cartProductId!)
                           .sellerId!;
 
-                      final product = _homeController.products.firstWhere(
+                      final product = _merchantController.merchantProducts.firstWhere(
                               (product) =>
                           product.productId! == cartItem.cartProductId!);
 
