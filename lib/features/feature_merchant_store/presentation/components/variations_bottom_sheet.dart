@@ -101,9 +101,11 @@ class _VariationsBottomSheetState extends State<VariationsBottomSheet> {
                   .isNotEmpty,
               child: Container(
                 height: 35,
+                width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: ListView.separated(
                   itemBuilder: (context, index) => Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       PillBtnAlt(
                           text: _merchantController.productVariations
