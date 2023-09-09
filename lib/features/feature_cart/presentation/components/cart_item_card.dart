@@ -15,11 +15,15 @@ import '../../../../domain/value_objects/app_spaces.dart';
 import '../../../feature_home/presentation/controller/home_controller.dart';
 
 class CartItemCard extends StatefulWidget {
+  final int index;
   final ProductModel product;
   final int cartQuantity;
 
   const CartItemCard(
-      {super.key, required this.product, required this.cartQuantity});
+      {super.key,
+      required this.index,
+      required this.product,
+      required this.cartQuantity});
 
   @override
   State<CartItemCard> createState() => _CartItemCardState();
@@ -42,20 +46,15 @@ class _CartItemCardState extends State<CartItemCard> {
   }
 
   void decrementCount() {
-    var cartItem = _authController.user.value!.itemsInCart!
-        .firstWhere((item) => item.cartProductId == widget.product.productId!);
+    var cartItem = _authController.user.value!.itemsInCart![widget.index];
 
     var currentCartCount = cartItem.cartProductCount!;
 
     if (currentCartCount > 1) {
       currentCartCount -= 1;
 
-      _authController
-          .user
-          .value!
-          .itemsInCart![_authController.user.value!.itemsInCart!.indexWhere(
-              (item) => item.cartProductId! == widget.product.productId!)]
-          .cartProductCount = currentCartCount;
+      _authController.user.value!.itemsInCart![widget.index].cartProductCount =
+          currentCartCount;
 
       //  update items in cart
       _authController.updateUserDataInFirestore(
@@ -63,7 +62,7 @@ class _CartItemCardState extends State<CartItemCard> {
           newUser:
               UserModel(itemsInCart: _authController.user.value!.itemsInCart!),
           uid: _authController.user.value!.userId!,
-      response: (state, error){});
+          response: (state, error) {});
     } else {
       showAlertDialog(
           title: "Remove from cart",
@@ -74,17 +73,17 @@ class _CartItemCardState extends State<CartItemCard> {
           onConfirm: () async {
             //  get initial cart items
             final List<CartModel> itemsInCart =
-            _authController.user.value!.itemsInCart!;
+                _authController.user.value!.itemsInCart!;
             //  remove item from list
-            itemsInCart.removeWhere((item) =>
-            item.cartProductId! == widget.product.productId!);
+            itemsInCart.removeWhere(
+                (item) => itemsInCart.indexOf(item) == widget.index);
 
             //  update items in cart
             await _authController.updateUserDataInFirestore(
                 oldUser: _authController.user.value!,
                 newUser: UserModel(itemsInCart: itemsInCart),
                 uid: _authController.user.value!.userId!,
-                response: (state, error){});
+                response: (state, error) {});
 
             Get.back();
           });
@@ -92,20 +91,15 @@ class _CartItemCardState extends State<CartItemCard> {
   }
 
   void incrementCount() {
-    var cartItem = _authController.user.value!.itemsInCart!
-        .firstWhere((item) => item.cartProductId == widget.product.productId!);
+    var cartItem = _authController.user.value!.itemsInCart![widget.index];
 
     var currentCartCount = cartItem.cartProductCount!;
 
     if (currentCartCount < widget.product.productStockCount!) {
       currentCartCount += 1;
 
-      _authController
-          .user
-          .value!
-          .itemsInCart![_authController.user.value!.itemsInCart!.indexWhere(
-              (item) => item.cartProductId! == widget.product.productId!)]
-          .cartProductCount = currentCartCount;
+      _authController.user.value!.itemsInCart![widget.index].cartProductCount =
+          currentCartCount;
 
       //  update items in cart
       _authController.updateUserDataInFirestore(
@@ -113,7 +107,7 @@ class _CartItemCardState extends State<CartItemCard> {
           newUser:
               UserModel(itemsInCart: _authController.user.value!.itemsInCart!),
           uid: _authController.user.value!.userId!,
-          response: (state, error){});
+          response: (state, error) {});
     } else {
       showToast(
           toast: _toast,
@@ -169,8 +163,8 @@ class _CartItemCardState extends State<CartItemCard> {
                     Expanded(
                       child: Text(
                         widget.product.productName!,
-                        style:
-                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -228,7 +222,7 @@ class _CartItemCardState extends State<CartItemCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                        'Ksh. ${widget.product.productSellingPrice!.toString().addCommas}'),
+                        'Ksh. ${(widget.product.productSellingPrice! * widget.cartQuantity).toString().addCommas}'),
 
                     //  delete icon
                     IconButton(
@@ -238,14 +232,14 @@ class _CartItemCardState extends State<CartItemCard> {
                               _authController.user.value!.itemsInCart!;
                           //  remove item from list
                           itemsInCart.removeWhere((item) =>
-                              item.cartProductId! == widget.product.productId!);
+                              itemsInCart.indexOf(item) == widget.index);
 
                           //  update items in cart
                           await _authController.updateUserDataInFirestore(
                               oldUser: _authController.user.value!,
                               newUser: UserModel(itemsInCart: itemsInCart),
                               uid: _authController.user.value!.userId!,
-                              response: (state, error){});
+                              response: (state, error) {});
                         },
                         icon: Icon(
                           Icons.delete_rounded,

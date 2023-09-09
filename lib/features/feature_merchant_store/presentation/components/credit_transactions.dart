@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card_main.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_receipt_screen.dart';
 
@@ -36,6 +37,14 @@ class _CreditTransactionsState extends State<CreditTransactions> {
           .user.value!.transactions!
           .where((transaction) =>
               transaction.transactionType == TransactionTypes.credit.toString())
+          .map((transaction) => transaction.buyerId!.formatBuyerId)
+          .toSet()
+          .toList();
+
+      final creditTransactionsByBuyerIdFull = _authController
+          .user.value!.transactions!
+          .where((transaction) =>
+      transaction.transactionType == TransactionTypes.credit.toString())
           .map((transaction) => transaction.buyerId!)
           .toSet()
           .toList();
@@ -48,7 +57,7 @@ class _CreditTransactionsState extends State<CreditTransactions> {
                 final allTransactionsByBuyer = _authController
                     .user.value!.transactions!
                     .where((transaction) =>
-                        transaction.buyerId! ==
+                        transaction.buyerId!.formatBuyerId ==
                             creditTransactionsByBuyerId[mainIndex] &&
                         transaction.transactionType ==
                             TransactionTypes.credit.toString())
@@ -63,6 +72,7 @@ class _CreditTransactionsState extends State<CreditTransactions> {
 
                 return TransactionCardMain(
                   buyerId: creditTransactionsByBuyerId[mainIndex],
+                  buyerIdFull: creditTransactionsByBuyerIdFull[mainIndex],
                   transactionType: TransactionTypes.credit,
                   transactionPaymentMethod: paymentType,
                   allTransactionsByBuyer: allTransactionsByBuyer,

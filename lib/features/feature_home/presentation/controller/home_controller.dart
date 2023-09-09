@@ -34,12 +34,14 @@ class HomeController extends GetxController {
   final isDrawerOpen = false.obs;
 
   void addProductVariation({required VariationModel variation}) {
-    if (pickedVariations.contains(variation)) {
-      pickedVariations.removeWhere((v) => v == variation);
-    } else {
-      pickedVariations.add(variation);
-    }
+    pickedVariations.add(variation);
   }
+
+  void removeProductVariation({required VariationModel variation}) {
+    pickedVariations.removeWhere((v) => v == variation);
+  }
+
+  void clearPickedVariations() => pickedVariations.clear();
 
   int getTotalFromProductVariations({required List<VariationModel> variations}) {
     return variations.isEmpty ? 0 : variations

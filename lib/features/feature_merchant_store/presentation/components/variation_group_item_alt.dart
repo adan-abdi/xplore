@@ -57,43 +57,47 @@ class _VariationGroupItemAltState extends State<VariationGroupItemAlt> {
               height: 50,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => PillBtnAlt(
-                    text: widget.variationsInGroup[index].variationName!,
-                    isActive: widget.product.activeProductVariations!
-                        .map((variation) => variation.variationName)
-                        .contains(
-                            widget.variationsInGroup[index].variationName),
-                    onTap: () async {
-                      _homeController.addProductVariation(
-                          variation: widget.variationsInGroup[index]);
-
-                      //  all variations in product
-                      final allVariations =
-                          widget.product.activeProductVariations!;
-
-                      if (allVariations
+                itemBuilder: (context, index) => Obx(
+                    () => PillBtnAlt(
+                      text: widget.variationsInGroup[index].variationName!,
+                      isActive: _homeController.pickedVariations
                           .map((variation) => variation.variationName)
                           .contains(
-                              widget.variationsInGroup[index].variationName)) {
-                        allVariations.removeWhere((v) =>
-                            v.variationName ==
-                            widget.variationsInGroup[index].variationName);
+                              widget.variationsInGroup[index].variationName),
+                      onTap: () async {
 
-                        await _merchantController.updateProduct(
-                            oldProduct: widget.product,
-                            newProduct: ProductModel(
-                                activeProductVariations: allVariations),
-                            response: (state) {});
-                      } else {
-                        allVariations.add(widget.variationsInGroup[index]);
+                        //  all variations in product
+                        final allVariations =
+                            _homeController.pickedVariations;
 
-                        await _merchantController.updateProduct(
-                            oldProduct: widget.product,
-                            newProduct: ProductModel(
-                                activeProductVariations: allVariations),
-                            response: (state) {});
-                      }
-                    }),
+                        if (allVariations
+                            .map((variation) => variation.variationName)
+                            .contains(
+                                widget.variationsInGroup[index].variationName)) {
+                          allVariations.removeWhere((v) =>
+                              v.variationName ==
+                              widget.variationsInGroup[index].variationName);
+                          _homeController.removeProductVariation(
+                              variation: widget.variationsInGroup[index]);
+
+                          await _merchantController.updateProduct(
+                              oldProduct: widget.product,
+                              newProduct: ProductModel(
+                                  activeProductVariations: allVariations),
+                              response: (state) {});
+                        } else {
+                          allVariations.add(widget.variationsInGroup[index]);
+                          _homeController.addProductVariation(
+                              variation: widget.variationsInGroup[index]);
+
+                          await _merchantController.updateProduct(
+                              oldProduct: widget.product,
+                              newProduct: ProductModel(
+                                  activeProductVariations: allVariations),
+                              response: (state) {});
+                        }
+                      }),
+                ),
                 itemCount: widget.variationsInGroup.length,
                 shrinkWrap: true,
                 separatorBuilder: (context, index) => hSize10SizedBox,

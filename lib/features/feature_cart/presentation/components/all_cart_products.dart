@@ -52,6 +52,7 @@ class _AllCartProductsState extends State<AllCartProducts> {
                           delegate: SliverChildBuilderDelegate(
                               (context, index) => Obx(
                                     () => CartItemCard(
+                                      index: index,
                                       product: _merchantController.merchantProducts
                                           .firstWhere((product) =>
                                               product.productId ==

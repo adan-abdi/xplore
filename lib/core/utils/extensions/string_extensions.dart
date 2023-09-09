@@ -92,4 +92,12 @@ extension StringExtensions on String {
 
     return format.format(date);
   }
+
+  /// Format Buyer ID
+  String get formatBuyerId {
+    final formattedBuyerId = this.split(" ").toList();
+    formattedBuyerId.removeAt(1);
+
+    return formattedBuyerId.join(" ");
+  }
 }

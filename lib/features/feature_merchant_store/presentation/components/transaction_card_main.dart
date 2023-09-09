@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shamiri/core/domain/model/user_model.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
@@ -8,6 +9,7 @@ import 'package:shamiri/features/feature_merchant_store/presentation/components/
 
 import '../../../../application/core/themes/colors.dart';
 import '../../../../core/presentation/components/show_alert_dialog.dart';
+import '../../../../core/presentation/components/show_toast.dart';
 import '../../../../domain/value_objects/app_spaces.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +19,7 @@ import '../../domain/model/transaction_model.dart';
 
 class TransactionCardMain extends StatefulWidget {
   final String buyerId;
+  final String buyerIdFull;
   final TransactionTypes transactionType;
   final PaymentTypes transactionPaymentMethod;
   final List<TransactionModel> allTransactionsByBuyer;
@@ -25,6 +28,7 @@ class TransactionCardMain extends StatefulWidget {
   const TransactionCardMain(
       {super.key,
       required this.buyerId,
+      required this.buyerIdFull,
       required this.transactionType,
       required this.transactionPaymentMethod,
       required this.allTransactionsByBuyer,
@@ -37,6 +41,7 @@ class TransactionCardMain extends StatefulWidget {
 class _TransactionCardMainState extends State<TransactionCardMain> {
   late final AuthController _authController;
   late final HomeController _homeController;
+  late final FToast _toast;
 
   @override
   void initState() {
@@ -44,6 +49,8 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
 
     _authController = Get.find<AuthController>();
     _homeController = Get.find<HomeController>();
+    _toast = FToast();
+    _toast.init(context);
   }
 
   String getUserName() {
@@ -52,14 +59,15 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
         : _homeController.stores.firstWhereOrNull(
             (store) => store.userId! == widget.buyerId.split(" ").toList()[0]);
 
-    final customerNumber = widget.buyerId.split(" ").toList()[1];
+    final customerNumber = widget.buyerIdFull.split(" ").toList()[1];
 
     return userName == null ? 'Customer $customerNumber' : userName.userName!;
   }
 
   int getTotalPrice() {
     final allTransactionsPrice = _authController.user.value!.transactions!
-        .where((transaction) => transaction.buyerId! == widget.buyerId)
+        .where((transaction) =>
+            transaction.buyerId!.formatBuyerId == widget.buyerId)
         .map((transaction) => transaction.amountPaid!)
         .reduce((value, element) => value + element);
 
@@ -68,7 +76,8 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
 
   int getTotalItemsBought() {
     final allTransactionsItemsBought = _authController.user.value!.transactions!
-        .where((transaction) => transaction.buyerId! == widget.buyerId)
+        .where((transaction) =>
+            transaction.buyerId!.formatBuyerId == widget.buyerId)
         .map((transaction) => transaction.itemsBought!)
         .reduce((value, element) => value + element);
 
@@ -77,7 +86,8 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
 
   String getDateOfPurchase() {
     final transactionDate = _authController.user.value!.transactions!
-        .firstWhere((transaction) => transaction.buyerId! == widget.buyerId);
+        .firstWhere((transaction) =>
+            transaction.buyerId!.formatBuyerId == widget.buyerId);
 
     return transactionDate.transactionDate.toString().formatDate;
   }
@@ -241,18 +251,27 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                                     _authController.user.value!.transactions!;
 
                                 allTransactions.forEach((transaction) {
-                                  if (transaction.buyerId! == widget.buyerId) {
+                                  if (transaction.buyerId!.formatBuyerId ==
+                                      widget.buyerIdFull.formatBuyerId) {
                                     transaction.transactionType =
                                         TransactionTypes.fulfilled.toString();
                                   }
                                 });
 
-                                await _authController.updateUserDataInFirestore(
-                                    oldUser: _authController.user.value!,
-                                    newUser: UserModel(
-                                        transactions: allTransactions),
-                                    uid: _authController.user.value!.userId!,
-                                    response: (state, error) {});
+                                await _authController
+                                    .updateUserDataInFirestore(
+                                        oldUser: _authController.user.value!,
+                                        newUser: UserModel(
+                                            transactions: allTransactions),
+                                        uid:
+                                            _authController.user.value!.userId!,
+                                        response: (state, error) {});
+
+                                showToast(
+                                    toast: _toast,
+                                    iconData: Icons.done_rounded,
+                                    msg:
+                                    'Transaction completed successfully!');
 
                                 Get.back();
                               });

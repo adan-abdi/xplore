@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shamiri/core/presentation/controller/auth_controller.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/features/feature_home/presentation/controller/home_controller.dart';
 import 'package:shamiri/features/feature_merchant_store/domain/model/transaction_types.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card_main.dart';
@@ -36,6 +37,15 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
           .where((transaction) =>
       transaction.transactionType ==
           TransactionTypes.fulfilled.toString())
+          .map((transaction) => transaction.buyerId!.formatBuyerId)
+          .toSet()
+          .toList();
+
+      final fulfilledTransactionsByBuyerIdFull = _authController
+          .user.value!.transactions!
+          .where((transaction) =>
+      transaction.transactionType ==
+          TransactionTypes.fulfilled.toString())
           .map((transaction) => transaction.buyerId!)
           .toSet()
           .toList();
@@ -48,7 +58,7 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
               final allTransactionsByBuyer = _authController
                   .user.value!.transactions!
                   .where((transaction) =>
-              transaction.buyerId! ==
+              transaction.buyerId!.formatBuyerId ==
                   fulfilledTransactionsByBuyerId[mainIndex] &&
                   transaction.transactionType ==
                       TransactionTypes.fulfilled.toString())
@@ -63,6 +73,7 @@ class _FulfilledTransactionsState extends State<FulfilledTransactions> {
 
               return TransactionCardMain(
                 buyerId: fulfilledTransactionsByBuyerId[mainIndex],
+                buyerIdFull: fulfilledTransactionsByBuyerIdFull[mainIndex],
                 transactionType: TransactionTypes.fulfilled,
                 transactionPaymentMethod: paymentType,
                 allTransactionsByBuyer: allTransactionsByBuyer,

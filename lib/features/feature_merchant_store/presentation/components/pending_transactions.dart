@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:shamiri/core/utils/extensions/string_extensions.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_card_main.dart';
 import 'package:shamiri/features/feature_merchant_store/presentation/components/transaction_receipt_screen.dart';
 
@@ -38,6 +39,15 @@ class _PendingTransactionsState extends State<PendingTransactions> {
           .where((transaction) =>
               transaction.transactionType ==
               TransactionTypes.pending.toString())
+          .map((transaction) => transaction.buyerId!.formatBuyerId)
+          .toSet()
+          .toList();
+
+      final pendingTransactionsByBuyerIdFull = _authController
+          .user.value!.transactions!
+          .where((transaction) =>
+      transaction.transactionType ==
+          TransactionTypes.pending.toString())
           .map((transaction) => transaction.buyerId!)
           .toSet()
           .toList();
@@ -50,7 +60,7 @@ class _PendingTransactionsState extends State<PendingTransactions> {
                 final allTransactionsByBuyer = _authController
                     .user.value!.transactions!
                     .where((transaction) =>
-                        transaction.buyerId! ==
+                        transaction.buyerId!.formatBuyerId ==
                             pendingTransactionsByBuyerId[mainIndex] &&
                         transaction.transactionType ==
                             TransactionTypes.pending.toString())
@@ -65,6 +75,7 @@ class _PendingTransactionsState extends State<PendingTransactions> {
 
                 return TransactionCardMain(
                   buyerId: pendingTransactionsByBuyerId[mainIndex],
+                  buyerIdFull: pendingTransactionsByBuyerIdFull[mainIndex],
                   transactionType: TransactionTypes.pending,
                   transactionPaymentMethod: paymentType,
                   allTransactionsByBuyer: allTransactionsByBuyer,

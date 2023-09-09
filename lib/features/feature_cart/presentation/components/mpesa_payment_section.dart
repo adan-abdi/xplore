@@ -141,7 +141,12 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
                             .firstWhere((product) =>
                                 product.productId! == cartItem.cartProductId!),
                         itemsBought: cartItem.cartProductCount!,
-                        amountPaid: widget.total,
+                        amountPaid: cartItem.cartProductCount! *
+                            _merchantController.merchantProducts
+                                .firstWhere((product) =>
+                                    product.productId! ==
+                                    cartItem.cartProductId!)
+                                .productSellingPrice!,
                         transactionDate: DateTime.now().toString(),
                         isFulfilled: false,
                         transactionType: TransactionTypes.pending.toString(),

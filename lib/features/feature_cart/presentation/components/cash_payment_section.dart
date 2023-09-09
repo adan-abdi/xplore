@@ -103,20 +103,15 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                 final items = _authController.user.value!.itemsInCart!;
                 final timeStamp = DateTime.now();
 
+                final sellerData =
+                    await _authController.getSpecificUserFromFirestore(
+                        uid: _authController.user.value!.userId!);
+
                 for (CartModel cartItem in items) {
                   {
-                    //  get seller id & product id
-                    final sellerId = _merchantController.merchantProducts
-                        .firstWhere((product) =>
-                            product.productId! == cartItem.cartProductId!)
-                        .sellerId!;
-
                     final product = _merchantController.merchantProducts
                         .firstWhere((product) =>
                             product.productId! == cartItem.cartProductId!);
-
-                    final sellerData = await _authController
-                        .getSpecificUserFromFirestore(uid: sellerId);
 
                     final buyerData = buyerId == null || buyerId!.isEmpty
                         ? null
@@ -133,7 +128,12 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                             .firstWhere((product) =>
                                 product.productId! == cartItem.cartProductId!),
                         itemsBought: cartItem.cartProductCount!,
-                        amountPaid: widget.totalToPay,
+                        amountPaid: cartItem.cartProductCount! *
+                            _merchantController.merchantProducts
+                                .firstWhere((product) =>
+                                    product.productId! ==
+                                    cartItem.cartProductId!)
+                                .productSellingPrice!,
                         transactionDate: DateTime.now().toString(),
                         isFulfilled: false,
                         transactionType: TransactionTypes.pending.toString(),
@@ -144,7 +144,7 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                         .updateUserDataInFirestore(
                             oldUser: sellerData,
                             newUser: UserModel(transactions: allTransactions),
-                            uid: sellerId,
+                            uid: _authController.user.value!.userId!,
                             response: (state, error) {})
                         .then((value) async {
                       //  update buyer data
