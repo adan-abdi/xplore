@@ -42,10 +42,8 @@ class _AllCartProductsState extends State<AllCartProducts> {
             () {
               final allProducts = _merchantController.merchantProducts;
 
-              return allProducts.isNotEmpty && _authController
-                  .user
-                  .value!
-                  .itemsInCart!.isNotEmpty
+              return allProducts.isNotEmpty &&
+                      _authController.user.value!.itemsInCart!.isNotEmpty
                   ? SliverPadding(
                       padding: const EdgeInsets.all(16.0),
                       sliver: SliverList(
@@ -53,7 +51,13 @@ class _AllCartProductsState extends State<AllCartProducts> {
                               (context, index) => Obx(
                                     () => CartItemCard(
                                       index: index,
-                                      product: _merchantController.merchantProducts
+                                      cartPrice: _authController
+                                          .user
+                                          .value!
+                                          .itemsInCart![index]
+                                          .cartProductTotal!,
+                                      product: _merchantController
+                                          .merchantProducts
                                           .firstWhere((product) =>
                                               product.productId ==
                                               _authController
@@ -72,10 +76,10 @@ class _AllCartProductsState extends State<AllCartProducts> {
                                   .user.value!.itemsInCart!.length)),
                     )
                   : SliverToBoxAdapter(
-                    child: Center(
+                      child: Center(
                         child: Text("No items in cart"),
                       ),
-                  );
+                    );
             },
           ),
 

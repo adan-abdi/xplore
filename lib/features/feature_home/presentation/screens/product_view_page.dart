@@ -160,8 +160,6 @@ class _ProductViewPageState extends State<ProductViewPage> {
                 variations: _homeController.pickedVariations)
             : liveProduct.productSellingPrice!;
 
-        print("---------PICKED VARIATIONS : ${_homeController.pickedVariations}");
-
         // final isInCart = _authController
         //     .user.value!.itemsInCart!
         //     .map((item) => item.cartProductId)

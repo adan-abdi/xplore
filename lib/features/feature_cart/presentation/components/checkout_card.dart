@@ -43,20 +43,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
     var total = 0;
 
     widget.itemsInCart.forEach((item) {
-      final variations = widget.products
-          .firstWhere((product) => product.productId! == item.cartProductId!)
-          .activeProductVariations!;
-
-      final sellingPrice = widget.products
-          .firstWhere((product) => product.productId! == item.cartProductId!)
-          .productSellingPrice!;
-
-      total += ((item.cartProductCount! +
-                  (variations.length <= item.cartProductCount!
-                      ? 0
-                      : variations.length - item.cartProductCount!)) *
-              sellingPrice) +
-          _homeController.getTotalFromProductVariations(variations: variations);
+      total += item.cartProductTotal! * item.cartProductCount!;
     });
 
     return total;
@@ -97,20 +84,20 @@ class _CheckoutCardState extends State<CheckoutCard> {
                       fontSize: 18,
                       color: XploreColors.whiteSmoke,
                       fontWeight: FontWeight.bold)),
-              Obx(() => Text.rich(TextSpan(children: [
-                    TextSpan(
-                        text: "Ksh. ",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: XploreColors.whiteSmoke,
-                            fontWeight: FontWeight.bold)),
-                    TextSpan(
-                        text: "${getTotalAmount().toString().addCommas}",
-                        style: TextStyle(
-                            fontSize: 21,
-                            color: XploreColors.white,
-                            fontWeight: FontWeight.bold)),
-                  ]))),
+              Text.rich(TextSpan(children: [
+                TextSpan(
+                    text: "Ksh. ",
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: XploreColors.whiteSmoke,
+                        fontWeight: FontWeight.bold)),
+                TextSpan(
+                    text: "${getTotalAmount().toString().addCommas}",
+                    style: TextStyle(
+                        fontSize: 21,
+                        color: XploreColors.white,
+                        fontWeight: FontWeight.bold)),
+              ])),
             ],
           ),
 
@@ -122,20 +109,20 @@ class _CheckoutCardState extends State<CheckoutCard> {
                       fontSize: 18,
                       color: XploreColors.white,
                       fontWeight: FontWeight.bold)),
-              Obx(() => Text.rich(TextSpan(children: [
-                    TextSpan(
-                        text: "Ksh. ",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: XploreColors.whiteSmoke,
-                            fontWeight: FontWeight.bold)),
-                    TextSpan(
-                        text: "${getTotalAmount().toString().addCommas}",
-                        style: TextStyle(
-                            fontSize: 21,
-                            color: XploreColors.white,
-                            fontWeight: FontWeight.bold)),
-                  ]))),
+              Text.rich(TextSpan(children: [
+                TextSpan(
+                    text: "Ksh. ",
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: XploreColors.whiteSmoke,
+                        fontWeight: FontWeight.bold)),
+                TextSpan(
+                    text: "${getTotalAmount().toString().addCommas}",
+                    style: TextStyle(
+                        fontSize: 21,
+                        color: XploreColors.white,
+                        fontWeight: FontWeight.bold)),
+              ])),
             ],
           ),
 

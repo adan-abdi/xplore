@@ -18,12 +18,14 @@ class CartItemCard extends StatefulWidget {
   final int index;
   final ProductModel product;
   final int cartQuantity;
+  final int cartPrice;
 
   const CartItemCard(
       {super.key,
       required this.index,
       required this.product,
-      required this.cartQuantity});
+      required this.cartQuantity,
+      required this.cartPrice});
 
   @override
   State<CartItemCard> createState() => _CartItemCardState();
@@ -222,7 +224,7 @@ class _CartItemCardState extends State<CartItemCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                        'Ksh. ${(widget.product.productSellingPrice! * widget.cartQuantity).toString().addCommas}'),
+                        'Ksh. ${(widget.cartPrice * widget.cartQuantity).toString().addCommas}'),
 
                     //  delete icon
                     IconButton(

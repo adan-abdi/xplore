@@ -129,11 +129,7 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                                 product.productId! == cartItem.cartProductId!),
                         itemsBought: cartItem.cartProductCount!,
                         amountPaid: cartItem.cartProductCount! *
-                            _merchantController.merchantProducts
-                                .firstWhere((product) =>
-                                    product.productId! ==
-                                    cartItem.cartProductId!)
-                                .productSellingPrice!,
+                            cartItem.cartProductTotal!,
                         transactionDate: DateTime.now().toString(),
                         isFulfilled: false,
                         transactionType: TransactionTypes.pending.toString(),
