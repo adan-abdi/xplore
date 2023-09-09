@@ -195,6 +195,7 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                         amountPaid: cartItem.cartProductCount! *
                             cartItem.cartProductTotal!,
                         transactionDate: DateTime.now().toString(),
+                        transactionCompletedDate: '',
                         isFulfilled: false,
                         transactionType: TransactionTypes.credit.toString(),
                         transactionPaymentMethod:
@@ -223,6 +224,7 @@ class _CreditPaymentSectionState extends State<CreditPaymentSection> {
                             amountPaid: cartItem.cartProductCount! *
                                 cartItem.cartProductTotal!,
                             transactionDate: DateTime.now().toString(),
+                            transactionCompletedDate: '',
                             isFulfilled: false,
                             transactionType: TransactionTypes.credit.toString(),
                             transactionPaymentMethod:

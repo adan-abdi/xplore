@@ -36,7 +36,9 @@ class Receipt extends StatelessWidget {
   String getCreatedDate() {
     final transaction = allTransactionsByBuyer[0];
 
-    return transaction.transactionDate!.formatDate;
+    return transaction.transactionCompletedDate!.isNotEmpty
+        ? "Completed : ${transaction.transactionCompletedDate!.formatDate}"
+        : "Created : ${transaction.transactionDate!.formatDate}";
   }
 
   @override
@@ -192,7 +194,7 @@ class Receipt extends StatelessWidget {
                           ),
                           vSize20SizedBox,
                           Text(
-                            "Created : ${getCreatedDate()}",
+                            getCreatedDate(),
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16,

@@ -51,6 +51,7 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
   late final GlobalKey<FormState> _globalKey;
 
   late String? selectedCategory = null;
+  late String? sellingPrice = '';
 
   @override
   void initState() {
@@ -356,21 +357,20 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                             Obx(
                               () {
                                 final isSellingPriceEnabled =
-                                    _merchantController.productVariations
+                                    _merchantController
+                                            .productVariations.isEmpty ||
+                                        _merchantController.productVariations
                                             .map((variation) =>
                                                 variation.variationAffectsPrice)
                                             .toList()
-                                            .every((elem) => elem == false) ||
-                                        (widget.product != null &&
-                                            widget.product!
-                                                    .productSellingPrice !=
-                                                null);
+                                            .every((elem) => elem == false);
 
                                 if (!isSellingPriceEnabled) {
                                   _productSellingPriceController
                                       .setText('Priced by variants.');
                                 } else {
-                                  _productSellingPriceController.clear();
+                                  _productSellingPriceController
+                                      .setText(sellingPrice!);
                                 }
 
                                 return CustomTextField(
@@ -381,10 +381,15 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                     inputType: TextInputType.number,
                                     controller: _productSellingPriceController,
                                     onChanged: (value) {
-                                      _productSellingPriceController.setText(
-                                          _productSellingPriceController.text
-                                              .replaceAll(",", "")
-                                              .addCommas);
+                                      setState(() {
+                                        sellingPrice = value;
+                                      });
+                                      if (isSellingPriceEnabled) {
+                                        _productSellingPriceController.setText(
+                                            _productSellingPriceController.text
+                                                .replaceAll(",", "")
+                                                .addCommas);
+                                      }
                                     },
                                     onValidate: (value) {
                                       if (value!.isEmpty) {

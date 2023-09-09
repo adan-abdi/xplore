@@ -144,6 +144,7 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
                         amountPaid: cartItem.cartProductCount! *
                             cartItem.cartProductTotal!,
                         transactionDate: DateTime.now().toString(),
+                        transactionCompletedDate: '',
                         isFulfilled: false,
                         transactionType: TransactionTypes.pending.toString(),
                         transactionPaymentMethod:
@@ -172,6 +173,7 @@ class _MpesaPaymentSectionState extends State<MpesaPaymentSection> {
                             amountPaid: cartItem.cartProductCount! *
                                 cartItem.cartProductTotal!,
                             transactionDate: DateTime.now().toString(),
+                            transactionCompletedDate: '',
                             isFulfilled: false,
                             transactionType:
                                 TransactionTypes.pending.toString(),

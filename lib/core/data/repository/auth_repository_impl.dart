@@ -3,14 +3,11 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
-import 'package:pinput/pinput.dart';
 import 'package:shamiri/core/domain/model/user_prefs.dart';
 import 'package:shamiri/core/domain/repository/auth_repository.dart';
 import 'package:shamiri/core/utils/constants.dart';
 import 'package:shamiri/core/utils/extensions/string_extensions.dart';
-import 'package:shamiri/features/feature_merchant_store/domain/model/product_model.dart';
 
 import '../../../di/locator.dart';
 import '../../domain/model/response_state.dart';
@@ -241,6 +238,7 @@ class AuthRepositoryImpl implements AuthRepository {
                       "itemsBought": transaction.itemsBought,
                       "amountPaid": transaction.amountPaid,
                       "transactionDate": transaction.transactionDate,
+                      "transactionCompletedDate": transaction.transactionCompletedDate,
                       "isFulfilled": transaction.isFulfilled,
                       "transactionType": transaction.transactionType,
                       "transactionPaymentMethod":
@@ -274,6 +272,7 @@ class AuthRepositoryImpl implements AuthRepository {
                       "itemsBought": transaction.itemsBought,
                       "amountPaid": transaction.amountPaid,
                       "transactionDate": transaction.transactionDate,
+              "transactionCompletedDate": transaction.transactionCompletedDate,
                       "isFulfilled": transaction.isFulfilled,
                       "transactionType": transaction.transactionType,
                       "transactionPaymentMethod":

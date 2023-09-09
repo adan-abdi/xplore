@@ -154,6 +154,8 @@ class _TransactionReceiptScreenState extends State<TransactionReceiptScreen> {
                                           .allTransactionsByBuyer[0].buyerId!.formatBuyerId) {
                                     transaction.transactionType =
                                         TransactionTypes.fulfilled.toString();
+                                    transaction.transactionCompletedDate =
+                                        DateTime.now().toString();
                                   }
                                 });
 

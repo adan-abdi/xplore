@@ -85,11 +85,12 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
   }
 
   String getDateOfPurchase() {
-    final transactionDate = _authController.user.value!.transactions!
-        .firstWhere((transaction) =>
-            transaction.buyerId!.formatBuyerId == widget.buyerId);
+    final transaction = _authController.user.value!.transactions!.firstWhere(
+        (transaction) => transaction.buyerId!.formatBuyerId == widget.buyerId);
 
-    return transactionDate.transactionDate.toString().formatDate;
+    return transaction.transactionCompletedDate!.isNotEmpty
+        ? "Completed : ${transaction.transactionCompletedDate!.formatDate}"
+        : "Created : ${transaction.transactionDate!.formatDate}";
   }
 
   @override
@@ -197,7 +198,7 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                             Row(
                               children: [
                                 Text(
-                                  "${getDateOfPurchase()}",
+                                  getDateOfPurchase(),
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.normal,
@@ -255,23 +256,22 @@ class _TransactionCardMainState extends State<TransactionCardMain> {
                                       widget.buyerIdFull.formatBuyerId) {
                                     transaction.transactionType =
                                         TransactionTypes.fulfilled.toString();
+                                    transaction.transactionCompletedDate =
+                                        DateTime.now().toString();
                                   }
                                 });
 
-                                await _authController
-                                    .updateUserDataInFirestore(
-                                        oldUser: _authController.user.value!,
-                                        newUser: UserModel(
-                                            transactions: allTransactions),
-                                        uid:
-                                            _authController.user.value!.userId!,
-                                        response: (state, error) {});
+                                await _authController.updateUserDataInFirestore(
+                                    oldUser: _authController.user.value!,
+                                    newUser: UserModel(
+                                        transactions: allTransactions),
+                                    uid: _authController.user.value!.userId!,
+                                    response: (state, error) {});
 
                                 showToast(
                                     toast: _toast,
                                     iconData: Icons.done_rounded,
-                                    msg:
-                                    'Transaction completed successfully!');
+                                    msg: 'Transaction completed successfully!');
 
                                 Get.back();
                               });

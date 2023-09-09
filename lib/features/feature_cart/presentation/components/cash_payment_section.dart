@@ -131,6 +131,7 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                         amountPaid: cartItem.cartProductCount! *
                             cartItem.cartProductTotal!,
                         transactionDate: DateTime.now().toString(),
+                        transactionCompletedDate: '',
                         isFulfilled: false,
                         transactionType: TransactionTypes.pending.toString(),
                         transactionPaymentMethod:
@@ -158,6 +159,7 @@ class _CashPaymentSectionState extends State<CashPaymentSection> {
                             itemsBought: cartItem.cartProductCount!,
                             amountPaid: widget.totalToPay,
                             transactionDate: DateTime.now().toString(),
+                            transactionCompletedDate: '',
                             isFulfilled: false,
                             transactionType:
                                 TransactionTypes.pending.toString(),

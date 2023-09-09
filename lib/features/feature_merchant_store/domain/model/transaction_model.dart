@@ -21,6 +21,9 @@ class TransactionModel {
   @JsonKey(name: 'transactionDate')
   String? transactionDate;
 
+  @JsonKey(name: 'transactionCompletedDate')
+  String? transactionCompletedDate;
+
   @JsonKey(name: 'isFulfilled')
   bool? isFulfilled;
 
@@ -36,6 +39,7 @@ class TransactionModel {
       this.itemsBought,
       this.amountPaid,
       this.transactionDate,
+      this.transactionCompletedDate,
       this.isFulfilled,
       this.transactionType,
       this.transactionPaymentMethod});
