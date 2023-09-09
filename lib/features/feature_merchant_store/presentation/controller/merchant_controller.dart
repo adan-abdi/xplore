@@ -91,12 +91,18 @@ class MerchantController extends GetxController {
   double get calculateTotalStock {
     if (merchantProducts.isNotEmpty) {
       final totalItemSellingPrices = merchantProducts
-          .where((product) => product.productSellingPrice != null)
-          .map((product) =>
-              product.productSellingPrice! * product.productStockCount!)
+          .map((product) {
+            if (product.productSellingPrice == null) {
+              return 0;
+            } else {
+              return product.productSellingPrice! * product.productStockCount!;
+            }
+          })
           .reduce((value, element) => value + element);
 
-      return totalItemSellingPrices.roundToDouble();
+      print("TOTAL SELLING PRICE : ${totalItemSellingPrices}");
+
+      return 0.0;
     }
 
     return 0.0;
