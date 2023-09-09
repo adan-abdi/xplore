@@ -60,6 +60,7 @@ class CustomTextField extends StatelessWidget {
           decoration: InputDecoration(
               hintText: hint,
               hintStyle: textStyle,
+              enabled: isEnabled,
               icon: Icon(
                 iconData,
                 color: XploreColors.xploreOrange,

@@ -155,14 +155,10 @@ class _ProductViewPageState extends State<ProductViewPage> {
         final liveProduct = _merchantController.merchantProducts
             .firstWhere((prod) => prod.productId! == widget.product.productId!);
 
-        final totalPrice = ((itemCount +
-                    (liveProduct.activeProductVariations!.length <= itemCount
-                        ? 0
-                        : liveProduct.activeProductVariations!.length -
-                            itemCount)) *
-                liveProduct.productSellingPrice!) +
-            _homeController.getTotalFromProductVariations(
-                variations: liveProduct.activeProductVariations!);
+        final totalPrice = liveProduct.productSellingPrice == null
+            ? _homeController.getTotalFromProductVariations(
+                variations: liveProduct.activeProductVariations!)
+            : liveProduct.productSellingPrice!;
 
         // final isInCart = _authController
         //     .user.value!.itemsInCart!
@@ -203,8 +199,8 @@ class _ProductViewPageState extends State<ProductViewPage> {
                         openBottomSheet(
                             content: Obx(
                               () => AddProductBottomSheet(
-                                product: _merchantController.merchantProducts.firstWhere(
-                                    (product) =>
+                                product: _merchantController.merchantProducts
+                                    .firstWhere((product) =>
                                         product.productId! ==
                                         liveProduct.productId!),
                               ),
@@ -356,7 +352,9 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Ksh. ${liveProduct.productSellingPrice!.toString().addCommas}',
+                                    liveProduct.productSellingPrice == null
+                                        ? 'Priced by variants'
+                                        : 'Ksh. ${liveProduct.productSellingPrice!.toString().addCommas}',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20),

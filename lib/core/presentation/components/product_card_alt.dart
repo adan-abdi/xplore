@@ -121,8 +121,11 @@ class _ProductCardAltState extends State<ProductCardAlt> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Ksh. ${widget.product.productSellingPrice!.toString().addCommas}',
-                          style: TextStyle(
+                          widget.product.productSellingPrice == null
+                              ? 'Priced by variants'
+                              : 'Ksh. ${widget.product.productSellingPrice!.toString().addCommas}',
+                          style: widget.product.productSellingPrice == null ? TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 14) : TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                       ),

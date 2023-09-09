@@ -44,7 +44,8 @@ class MerchantController extends GetxController {
     }
   }
 
-  void updateProductVariation({required int index, required VariationModel variation}) {
+  void updateProductVariation(
+      {required int index, required VariationModel variation}) {
     productVariations[index] = variation;
   }
 
@@ -90,6 +91,7 @@ class MerchantController extends GetxController {
   double get calculateTotalStock {
     if (merchantProducts.isNotEmpty) {
       final totalItemSellingPrices = merchantProducts
+          .where((product) => product.productSellingPrice != null)
           .map((product) =>
               product.productSellingPrice! * product.productStockCount!)
           .reduce((value, element) => value + element);

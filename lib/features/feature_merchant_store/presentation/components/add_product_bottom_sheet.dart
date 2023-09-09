@@ -351,25 +351,47 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
 
                             vSize8SizedBox,
                             //  product unit
-                            CustomTextField(
-                                hint: "Product selling Price (Ksh)",
-                                iconData: Icons.monetization_on_rounded,
-                                textStyle: TextStyle(fontSize: 16),
-                                inputType: TextInputType.number,
-                                controller: _productSellingPriceController,
-                                onChanged: (value) {
-                                  _productSellingPriceController.setText(
-                                      _productSellingPriceController.text
-                                          .replaceAll(",", "")
-                                          .addCommas);
-                                },
-                                onValidate: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Product selling price cannot be empty';
-                                  } else {
-                                    return null;
-                                  }
-                                }),
+                            Obx(
+                              () {
+                                final isSellingPriceEnabled =
+                                    _merchantController.productVariations
+                                        .map((variation) =>
+                                            variation.variationAffectsPrice)
+                                        .toList()
+                                        .every((elem) => elem == false);
+
+                                print(
+                                    "ALL VARIATIONS PRICING : ${_merchantController.productVariations.map((variation) => variation.variationAffectsPrice).toList()}");
+
+                                if (!isSellingPriceEnabled) {
+                                  _productSellingPriceController
+                                      .setText('Priced by variants.');
+                                } else {
+                                  _productSellingPriceController.clear();
+                                }
+
+                                return CustomTextField(
+                                    hint: "Product selling Price (Ksh)",
+                                    iconData: Icons.monetization_on_rounded,
+                                    isEnabled: isSellingPriceEnabled,
+                                    textStyle: TextStyle(fontSize: 16),
+                                    inputType: TextInputType.number,
+                                    controller: _productSellingPriceController,
+                                    onChanged: (value) {
+                                      _productSellingPriceController.setText(
+                                          _productSellingPriceController.text
+                                              .replaceAll(",", "")
+                                              .addCommas);
+                                    },
+                                    onValidate: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Product selling price cannot be empty';
+                                      } else {
+                                        return null;
+                                      }
+                                    });
+                              },
+                            ),
 
                             vSize8SizedBox,
                             //  product unit
@@ -495,9 +517,13 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                               productImageUrls: [],
                               productUnit: _productUnitController.text,
                               productBuyingPrice: 0,
-                              productSellingPrice: int.parse(
-                                  _productSellingPriceController.text
-                                      .replaceAll(",", "")),
+                              productSellingPrice:
+                                  _productSellingPriceController.text ==
+                                          'Priced by variants.'
+                                      ? null
+                                      : int.parse(_productSellingPriceController
+                                          .text
+                                          .replaceAll(",", "")),
                               productCategoryId: selectedCategory,
                               productCreatedAt: DateTime.now().toString(),
                               productStockCount:
@@ -582,9 +608,14 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                     productName: _productNameController.text,
                                     productUnit: _productUnitController.text,
                                     productBuyingPrice: 0,
-                                    productSellingPrice: int.parse(
-                                        _productSellingPriceController.text
-                                            .replaceAll(",", "")),
+                                    productSellingPrice:
+                                        _productSellingPriceController.text ==
+                                                'Priced by variants.'
+                                            ? null
+                                            : int.parse(
+                                                _productSellingPriceController
+                                                    .text
+                                                    .replaceAll(",", "")),
                                     productCategoryId: selectedCategory,
                                     productStockCount: int.parse(
                                         _productStockCountController.text),
