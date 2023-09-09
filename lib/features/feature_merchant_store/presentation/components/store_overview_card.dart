@@ -33,7 +33,7 @@ class _StoreOverviewCardState extends State<StoreOverviewCard> {
       sliver: SliverToBoxAdapter(
         child: Container(
           width: double.infinity,
-          height: 200,
+          height: 180,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
