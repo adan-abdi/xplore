@@ -19,17 +19,20 @@ class CartModelAdapter extends TypeAdapter<CartModel> {
     return CartModel(
       cartProductId: fields[0] as String?,
       cartProductCount: fields[1] as int?,
+      cartProductTotal: fields[2] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, CartModel obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.cartProductId)
       ..writeByte(1)
-      ..write(obj.cartProductCount);
+      ..write(obj.cartProductCount)
+      ..writeByte(2)
+      ..write(obj.cartProductTotal);
   }
 
   @override
@@ -50,9 +53,11 @@ class CartModelAdapter extends TypeAdapter<CartModel> {
 CartModel _$CartModelFromJson(Map<String, dynamic> json) => CartModel(
       cartProductId: json['cartProductId'] as String?,
       cartProductCount: json['cartProductCount'] as int?,
+      cartProductTotal: json['cartProductTotal'] as int?,
     );
 
 Map<String, dynamic> _$CartModelToJson(CartModel instance) => <String, dynamic>{
       'cartProductId': instance.cartProductId,
       'cartProductCount': instance.cartProductCount,
+      'cartProductTotal': instance.cartProductTotal,
     };

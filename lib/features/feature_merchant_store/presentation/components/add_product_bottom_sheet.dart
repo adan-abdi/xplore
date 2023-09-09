@@ -75,8 +75,10 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
 
   void setControllerTexts() {
     _productNameController.setText(widget.product!.productName!);
-    _productSellingPriceController
-        .setText(widget.product!.productSellingPrice!.toString());
+    _productSellingPriceController.setText(
+        widget.product!.productSellingPrice == null
+            ? 'Priced by variants.'
+            : widget.product!.productSellingPrice!.toString());
     _productUnitController.setText(widget.product!.productUnit!);
     _productStockCountController
         .setText(widget.product!.productStockCount!.toString());
@@ -355,13 +357,14 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                               () {
                                 final isSellingPriceEnabled =
                                     _merchantController.productVariations
-                                        .map((variation) =>
-                                            variation.variationAffectsPrice)
-                                        .toList()
-                                        .every((elem) => elem == false);
-
-                                print(
-                                    "ALL VARIATIONS PRICING : ${_merchantController.productVariations.map((variation) => variation.variationAffectsPrice).toList()}");
+                                            .map((variation) =>
+                                                variation.variationAffectsPrice)
+                                            .toList()
+                                            .every((elem) => elem == false) ||
+                                        (widget.product != null &&
+                                            widget.product!
+                                                    .productSellingPrice !=
+                                                null);
 
                                 if (!isSellingPriceEnabled) {
                                   _productSellingPriceController

@@ -11,7 +11,8 @@ VariationModel _$VariationModelFromJson(Map<String, dynamic> json) =>
       variationName: json['variationName'] as String?,
       variationPrice: json['variationPrice'] as int?,
       variationGroup: json['variationGroup'] as String?,
-    )..variationAffectsPrice = json['variationAffectsPrice'] as bool?;
+      variationAffectsPrice: json['variationAffectsPrice'] as bool?,
+    );
 
 Map<String, dynamic> _$VariationModelToJson(VariationModel instance) =>
     <String, dynamic>{

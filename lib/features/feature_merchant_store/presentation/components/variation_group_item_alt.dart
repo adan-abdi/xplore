@@ -66,34 +66,26 @@ class _VariationGroupItemAltState extends State<VariationGroupItemAlt> {
                               widget.variationsInGroup[index].variationName),
                       onTap: () async {
 
-                        //  all variations in product
-                        final allVariations =
-                            _homeController.pickedVariations;
-
-                        if (allVariations
+                        if (_homeController.pickedVariations
                             .map((variation) => variation.variationName)
                             .contains(
                                 widget.variationsInGroup[index].variationName)) {
-                          allVariations.removeWhere((v) =>
-                              v.variationName ==
-                              widget.variationsInGroup[index].variationName);
                           _homeController.removeProductVariation(
                               variation: widget.variationsInGroup[index]);
 
                           await _merchantController.updateProduct(
                               oldProduct: widget.product,
                               newProduct: ProductModel(
-                                  activeProductVariations: allVariations),
+                                  activeProductVariations: _homeController.pickedVariations),
                               response: (state) {});
                         } else {
-                          allVariations.add(widget.variationsInGroup[index]);
                           _homeController.addProductVariation(
                               variation: widget.variationsInGroup[index]);
 
                           await _merchantController.updateProduct(
                               oldProduct: widget.product,
                               newProduct: ProductModel(
-                                  activeProductVariations: allVariations),
+                                  activeProductVariations: _homeController.pickedVariations),
                               response: (state) {});
                         }
                       }),

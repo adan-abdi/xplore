@@ -15,7 +15,14 @@ class CartModel {
   @HiveField(1)
   int? cartProductCount;
 
-  CartModel({required this.cartProductId, required this.cartProductCount});
+  @JsonKey(name: 'cartProductTotal')
+  @HiveField(2)
+  int? cartProductTotal;
+
+  CartModel(
+      {required this.cartProductId,
+      required this.cartProductCount,
+      required this.cartProductTotal});
 
   factory CartModel.fromJson(Map<String, dynamic> json) =>
       _$CartModelFromJson(json);

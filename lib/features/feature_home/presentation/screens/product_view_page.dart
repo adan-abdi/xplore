@@ -157,8 +157,10 @@ class _ProductViewPageState extends State<ProductViewPage> {
 
         final totalPrice = liveProduct.productSellingPrice == null
             ? _homeController.getTotalFromProductVariations(
-                variations: liveProduct.activeProductVariations!)
+                variations: _homeController.pickedVariations)
             : liveProduct.productSellingPrice!;
+
+        print("---------PICKED VARIATIONS : ${_homeController.pickedVariations}");
 
         // final isInCart = _authController
         //     .user.value!.itemsInCart!
@@ -531,7 +533,9 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                               ..add(CartModel(
                                                   cartProductId:
                                                       liveProduct.productId!,
-                                                  cartProductCount: itemCount));
+                                                  cartProductCount: itemCount,
+                                                  cartProductTotal:
+                                                      totalPrice));
                                             //  update items in cart
                                             await _authController
                                                 .updateUserDataInFirestore(
