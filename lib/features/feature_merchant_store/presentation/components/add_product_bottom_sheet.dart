@@ -315,8 +315,12 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                                           .variationName!,
                                       onTap: () {}),
                                   hSize5SizedBox,
-                                  Text(
-                                      "Ksh ${_merchantController.productVariations[index].variationPrice!.toString().addCommas}")
+                                  Visibility(
+                                    visible: _merchantController
+                                        .productVariations[index].variationAffectsPrice!,
+                                    child: Text(
+                                        "Ksh ${_merchantController.productVariations[index].variationPrice!.toString().addCommas}"),
+                                  )
                                 ],
                               ),
                               separatorBuilder: (context, index) =>

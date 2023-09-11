@@ -498,7 +498,7 @@ class _ProductViewPageState extends State<ProductViewPage> {
                                                       Radius.circular(100))),
                                           child: Text.rich(TextSpan(children: [
                                             TextSpan(
-                                                text: 'total : ',
+                                                text: 'Total : ',
                                                 style: TextStyle(
                                                     color: XploreColors
                                                         .whiteSmoke)),

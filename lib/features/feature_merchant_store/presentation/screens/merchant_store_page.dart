@@ -59,7 +59,11 @@ class _MerchantStorePageState extends State<MerchantStorePage> {
             onPressed: () {
               //  open bottomsheet to add products
               openBottomSheet(
-                  content: AddProductBottomSheet(), onComplete: () {});
+                  content: AddProductBottomSheet(),
+                  onComplete: () {
+                    //  clear chosen variations
+                    _merchantController.clearProductVariations();
+                  });
             }),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: CustomScrollView(
