@@ -41,12 +41,20 @@ class HomeController extends GetxController {
     pickedVariations.removeWhere((v) => v == variation);
   }
 
+  void replaceProductVariation(
+      {required int index, required VariationModel newVariation}) {
+    pickedVariations[index] = newVariation;
+  }
+
   void clearPickedVariations() => pickedVariations.clear();
 
-  int getTotalFromProductVariations({required List<VariationModel> variations}) {
-    return variations.isEmpty ? 0 : variations
-        .map((variation) => variation.variationPrice!)
-        .reduce((value, element) => value + element);
+  int getTotalFromProductVariations(
+      {required List<VariationModel> variations}) {
+    return variations.isEmpty
+        ? 0
+        : variations
+            .map((variation) => variation.variationPrice!)
+            .reduce((value, element) => value + element);
   }
 
   void clearProductVariations() => pickedVariations.clear();
