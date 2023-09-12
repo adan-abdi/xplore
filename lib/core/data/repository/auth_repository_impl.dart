@@ -59,6 +59,12 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> signOut() async => await FirebaseAuth.instance.signOut();
 
   @override
+  Future<void> deleteAccount() async {
+    final user = await FirebaseAuth.instance.currentUser;
+    await user!.delete();
+  }
+
+  @override
   Future<void> verifyOtp(
       {required String verificationId,
       required String userOtp,
@@ -238,7 +244,8 @@ class AuthRepositoryImpl implements AuthRepository {
                       "itemsBought": transaction.itemsBought,
                       "amountPaid": transaction.amountPaid,
                       "transactionDate": transaction.transactionDate,
-                      "transactionCompletedDate": transaction.transactionCompletedDate,
+                      "transactionCompletedDate":
+                          transaction.transactionCompletedDate,
                       "isFulfilled": transaction.isFulfilled,
                       "transactionType": transaction.transactionType,
                       "transactionPaymentMethod":
@@ -255,24 +262,25 @@ class AuthRepositoryImpl implements AuthRepository {
                         "productName": transaction.product!.productName,
                         "productUnit": transaction.product!.productUnit,
                         "productStockCount":
-                        transaction.product!.productStockCount,
+                            transaction.product!.productStockCount,
                         "productBuyingPrice":
-                        transaction.product!.productBuyingPrice,
+                            transaction.product!.productBuyingPrice,
                         "productSellingPrice":
-                        transaction.product!.productSellingPrice,
+                            transaction.product!.productSellingPrice,
                         "productCategoryId":
-                        transaction.product!.productCategoryId,
+                            transaction.product!.productCategoryId,
                         "productImageUrls":
-                        transaction.product!.productImageUrls,
+                            transaction.product!.productImageUrls,
                         "productDescription":
-                        transaction.product!.productDescription,
+                            transaction.product!.productDescription,
                         "productCreatedAt":
-                        transaction.product!.productCreatedAt
+                            transaction.product!.productCreatedAt
                       },
                       "itemsBought": transaction.itemsBought,
                       "amountPaid": transaction.amountPaid,
                       "transactionDate": transaction.transactionDate,
-              "transactionCompletedDate": transaction.transactionCompletedDate,
+                      "transactionCompletedDate":
+                          transaction.transactionCompletedDate,
                       "isFulfilled": transaction.isFulfilled,
                       "transactionType": transaction.transactionType,
                       "transactionPaymentMethod":

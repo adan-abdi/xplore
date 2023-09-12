@@ -1,10 +1,6 @@
-import 'dart:ffi';
-import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shamiri/application/core/themes/colors.dart';
 import 'package:shamiri/core/presentation/components/custom_textfield.dart';
@@ -26,8 +22,6 @@ import 'package:shamiri/presentation/core/widgets/molecular/dashboard_tab_action
 
 import '../../../../core/domain/model/response_state.dart';
 import '../../../../core/presentation/components/open_bottom_sheet.dart';
-import '../../../../core/presentation/components/show_alert_dialog.dart';
-import '../../../feature_onboarding/presentation/components/image_picker_bottom_sheet.dart';
 
 class AddProductBottomSheet extends StatefulWidget {
   final ProductModel? product;

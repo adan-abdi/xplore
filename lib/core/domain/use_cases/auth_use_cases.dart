@@ -1,3 +1,4 @@
+import 'package:shamiri/core/domain/use_cases/delete_account.dart';
 import 'package:shamiri/core/domain/use_cases/get_specific_user_from_firestore.dart';
 import 'package:shamiri/core/domain/use_cases/get_user_data_from_firestore.dart';
 import 'package:shamiri/core/domain/use_cases/save_user_data_to_firestore.dart';
@@ -11,6 +12,7 @@ import 'check_user_exists.dart';
 class AuthUseCases {
   final SignInWithPhone signInWithPhone;
   final SignOut signOut;
+  final DeleteAccount deleteAccount;
   final VerifyOtp verifyOtp;
   final CheckUserExists checkUserExists;
   final SaveUserDataToFirestore saveUserDataToFirestore;
@@ -21,6 +23,7 @@ class AuthUseCases {
   AuthUseCases(
       {required this.signInWithPhone,
       required this.signOut,
+      required this.deleteAccount,
       required this.verifyOtp,
       required this.checkUserExists,
       required this.saveUserDataToFirestore,

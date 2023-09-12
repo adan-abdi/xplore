@@ -17,6 +17,9 @@ abstract class AuthRepository {
   /// Sign Out
   Future<void> signOut();
 
+  /// Delete Account
+  Future<void> deleteAccount();
+
   /// Verify OTP
   Future<void> verifyOtp(
       {required String verificationId,

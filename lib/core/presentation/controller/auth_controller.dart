@@ -77,6 +77,9 @@ class AuthController extends GetxController {
   /// Sign Out
   Future<void> signOut() async => await authUseCases.signOut();
 
+  /// Delete Account
+  Future<void> deleteAccount() async => await authUseCases.deleteAccount();
+
   /// Verify Otp
   Future<void> verifyOtp(
       {required String verificationId,
@@ -121,7 +124,8 @@ class AuthController extends GetxController {
       required String uid,
       bool deleteImage = false,
       File? userProfilePic,
-      required Function(ResponseState response, String? error)? response}) async {
+      required Function(ResponseState response, String? error)?
+          response}) async {
     await authUseCases.updateUserDataInFirestore.call(
         oldUser: oldUser,
         newUser: newUser,

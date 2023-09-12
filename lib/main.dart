@@ -1,5 +1,7 @@
 // Flutter imports:
+
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -19,11 +21,9 @@ import 'package:shamiri/core/utils/constants.dart';
 // Project imports:
 import 'package:shamiri/di/controllers_di.dart';
 import 'package:shamiri/di/locator.dart';
-import 'package:shamiri/features/feature_home/presentation/screens/home_page.dart';
 import 'package:shamiri/features/feature_main/main_screen.dart';
 import 'package:shamiri/features/feature_onboarding/presentation/screens/landing_page.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-import 'package:shamiri/features/feature_onboarding/presentation/screens/verify_phone_page.dart';
 
 import 'features/feature_onboarding/presentation/screens/create_profile_page.dart';
 
@@ -36,20 +36,20 @@ void main() async {
   await Firebase.initializeApp();
   await FirebaseAppCheck.instance.activate();
 
-  final appDocumentDirectory =
-      await path_provider.getApplicationDocumentsDirectory();
+    final appDocumentDirectory =
+    await path_provider.getApplicationDocumentsDirectory();
 
-  await Hive.initFlutter(appDocumentDirectory.path);
+    await Hive.initFlutter(appDocumentDirectory.path);
 
-  Hive.registerAdapter(UserPrefsAdapter());
-  Hive.registerAdapter(UserModelAdapter());
-  Hive.registerAdapter(CartModelAdapter());
-  await Hive.openBox(Constants.USER_PREFS_BOX);
+    Hive.registerAdapter(UserPrefsAdapter());
+    Hive.registerAdapter(UserModelAdapter());
+    Hive.registerAdapter(CartModelAdapter());
+    await Hive.openBox(Constants.USER_PREFS_BOX);
 
-  invokeDependencies();
-  initializeControllers();
+    invokeDependencies();
+    initializeControllers();
 
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(MyApp());
 }
