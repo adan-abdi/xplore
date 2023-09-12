@@ -49,6 +49,72 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928513386554:android:3dc3521201a4685aa8ad03",
+        "android_client_info": {
+          "package_name": "com.example.polynomials"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928513386554-v4qhqpromtc53pobg6vem93neekmlph7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz2ZEHAnbMssALhe6kDAM02itp01-KfBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "928513386554-v4qhqpromtc53pobg6vem93neekmlph7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928513386554:android:c1a71409df62d938a8ad03",
+        "android_client_info": {
+          "package_name": "com.shamiri.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928513386554-pr13u9lup3nctgmkvn0ubtcgbbekou1b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shamiri.app",
+            "certificate_hash": "607966dfa88962e191d8f312c6c7b68b3bcb4a4b"
+          }
+        },
+        {
+          "client_id": "928513386554-v4qhqpromtc53pobg6vem93neekmlph7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz2ZEHAnbMssALhe6kDAM02itp01-KfBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "928513386554-v4qhqpromtc53pobg6vem93neekmlph7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

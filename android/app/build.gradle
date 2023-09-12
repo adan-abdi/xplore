@@ -42,7 +42,7 @@ android {
     }
 
     defaultConfig {
-        applicationId RELEASE_PACKAGE_NAME
+        applicationId "com.shamiri.app"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
